@@ -1,0 +1,116 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "title": "NUEVOS INGRESOS",
+      "slug": "nuevos-ingresos",
+      "subitems": [
+        {
+          "id": 101,
+          "title": "HOMBRE",
+          "slug": "nuevos-ingresos/hombre"
+        },
+        {
+          "id": 102,
+          "title": "DAMAS",
+          "slug": "nuevos-ingresos/damas"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "ROPA",
+      "slug": "ropa",
+      "subitems": [
+        {
+          "id": 201,
+          "title": "HOMBRE",
+          "slug": "ropa/hombre"
+        },
+        {
+          "id": 202,
+          "title": "DAMAS",
+          "slug": "ropa/damas"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "SNEAKERS",
+      "slug": "sneakers",
+      "subitems": [
+        {
+          "id": 301,
+          "title": "HOMBRE",
+          "slug": "sneakers/hombre"
+        },
+        {
+          "id": 302,
+          "title": "DAMAS",
+          "slug": "sneakers/damas"
+        },
+        {
+          "id": 303,
+          "title": "MARCAS",
+          "slug": "sneakers/marcas",
+
+            "subitems": [
+              {
+                "id": 310,
+                "title": "ADIDAS ORIGINALS",
+                "slug": "sneakers/marcas/adidas-originals",
+                "subitems": [
+                  {
+                    "id": 311,
+                    "title": "Subcategoría 1",
+                    "slug": "sneakers/marcas/adidas-originals/subcategoria1"
+                  },
+                  {
+                    "id": 312,
+                    "title": "Subcategoría 2",
+                    "slug": "sneakers/marcas/adidas-originals/subcategoria2"
+                  }
+                ]
+              },
+              {
+                "id": 313,
+                "title": "NIKE",
+                "slug": "sneakers/marcas/nike",
+                "subitems": [
+                  {
+                    "id": 314,
+                    "title": "Subcategoría 1",
+                    "slug": "sneakers/marcas/nike/subcategoria1"
+                  },
+                  {
+                    "id": 315,
+                    "title": "Subcategoría 2",
+                    "slug": "sneakers/marcas/nike/subcategoria2"
+                  }
+                ]
+              }
+             
+            ]
+          
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "ACCESORIOS",
+      "slug": "accesorios",
+      "subitems": [
+        {
+          "id": 401,
+          "title": "HOMBRE",
+          "slug": "accesorios/hombre"
+        },
+        {
+          "id": 402,
+          "title": "DAMAS",
+          "slug": "accesorios/damas"
+        }
+      ]
+    }
+  ]
+}

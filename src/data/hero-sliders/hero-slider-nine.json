@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "NUEVOS INGRESOS",
+    "subtitle": "",
+    "button": "VER AHORA",
+    "image": "/assets/img/SliderPrincipal/banner1.webp",
+    "url": "/productos"
+  },
+  {
+    "id": 2,
+    "title": "",
+    "subtitle": "",
+    "button": "",
+    "image": "/assets/img/SliderPrincipal/banner2.webp",
+    "url": "/productos"
+  },
+  {
+    "id": 3,
+    "title": "NBA Chicago Bulls",
+    "subtitle": "NUEVOS INGRESOS",
+    "button": "VER AHORA",
+    "image": "/assets/img/SliderPrincipal/banner3.webp",
+    "url": "/productos"
+  }
+]

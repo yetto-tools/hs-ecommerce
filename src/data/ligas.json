@@ -1,0 +1,500 @@
+{
+  "mlb": {
+    "name": "adidas",
+    "description": "Marcas",
+    "link": "collection",
+    "src": "/assets/img/adidas.png",
+    "teams": [
+      {
+        "name": "Arizona Diamondbacks",
+        "src": "/assets/img/liga/mlb/ARIDIA_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Atlanta Braves",
+        "src": "/assets/img/liga/mlb/ATLBRA_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Baltimore Orioles",
+        "src": "/assets/img/liga/mlb/BALORI_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Boston Red Sox",
+        "src": "/assets/img/liga/mlb/BOSRED_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Chicago Cubs",
+        "src": "/assets/img/liga/mlb/CHICUB_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Chicago White Sox",
+        "src": "/assets/img/liga/mlb/CHIWHI_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Cincinnati Reds",
+        "src": "/assets/img/liga/mlb/CINRED_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Cleveland Guardians",
+        "src": "/assets/img/liga/mlb/CLEGUA_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Colorado Rockies",
+        "src": "/assets/img/liga/mlb/COLROC_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Detroit Tigers",
+        "src": "/assets/img/liga/mlb/DETTIG_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Houston Astros",
+        "src": "/assets/img/liga/mlb/HOUAST_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Kansas City Royals",
+        "src": "/assets/img/liga/mlb/KANROY_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Los Angeles Angels",
+        "src": "/assets/img/liga/mlb/LAAANG_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Los Angeles Dodgers",
+        "src": "/assets/img/liga/mlb/LOSDOD_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Miami Marlins",
+        "src": "/assets/img/liga/mlb/MIAMAR_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Milwaukee Brewers",
+        "src": "/assets/img/liga/mlb/MILBRE_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Minnesota Twins",
+        "src": "/assets/img/liga/mlb/MINTWI_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "New York Mets",
+        "src": "/assets/img/liga/mlb/NEYMET_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "New York Yankees",
+        "src": "/assets/img/liga/mlb/NEYYAN_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Oakland Athletics",
+        "src": "/assets/img/liga/mlb/OAKATH_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Philadelphia Phillies",
+        "src": "/assets/img/liga/mlb/PHIPHI_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Pittsburgh Pirates",
+        "src": "/assets/img/liga/mlb/PITPIR_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "San Diego Padres",
+        "src": "/assets/img/liga/mlb/SADPAD_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "San Francisco Giants",
+        "src": "/assets/img/liga/mlb/SAFGIA_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Seattle Mariners",
+        "src": "/assets/img/liga/mlb/SEAMAR_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "St. Louis Cardinals",
+        "src": "/assets/img/liga/mlb/STLCAR_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Tampa Bay Rays",
+        "src": "/assets/img/liga/mlb/TAMRAY_70x70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Texas Rangers",
+        "src": "/assets/img/liga/mlb/TEXRAN_70x70.png",
+        "link": "/collection"
+      }
+    ]
+  },
+  "nba": {
+    "name": "Nike",
+    "description": "Marcas",
+    "link": "/collection",
+    "src": "/assets/img/nike.png",
+    "teams": [
+      {
+        "name": "Atlanta Hawks",
+        "src": "/assets/img/liga/nba/ATLHAW_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Boston Celtics",
+        "src": "/assets/img/liga/nba/BOSCEL_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Brooklyn Nets",
+        "src": "/assets/img/liga/nba/BRONET_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Charlotte Hornets",
+        "src": "/assets/img/liga/nba/CHAHOR_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Chicago Bulls",
+        "src": "/assets/img/liga/nba/CHIBUL_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Cleveland Cavaliers",
+        "src": "/assets/img/liga/nba/CLECAV_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Dallas Mavericks",
+        "src": "/assets/img/liga/nba/DALMAV_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Denver Nuggets",
+        "src": "/assets/img/liga/nba/DENNUG_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Detroit Pistons",
+        "src": "/assets/img/liga/nba/DETPIS_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Golden State Warrios",
+        "src": "/assets/img/liga/nba/GOLWAR_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Houston Rockets",
+        "src": "/assets/img/liga/nba/HOUROC_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Indiana Pacers",
+        "src": "/assets/img/liga/nba/INDPAC_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Los Angeles Clippers",
+        "src": "/assets/img/liga/nba/LOSCLI_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Los Angeles Lakers",
+        "src": "/assets/img/liga/nba/LOSLAK_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Memphis Grizzlies",
+        "src": "/assets/img/liga/nba/MEMGRI_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Miami Heat",
+        "src": "/assets/img/liga/nba/MIAHEA_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Milwaukee Bucks",
+        "src": "/assets/img/liga/nba/MILBUC_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Minnesota Timberwolves",
+        "src": "/assets/img/liga/nba/MINWOL_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "New Orleans Pelicans",
+        "src": "/assets/img/liga/nba/NEOPEL_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "New York Knicks",
+        "src": "/assets/img/liga/nba/NEYKNI_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Oklahoma City Thunder",
+        "src": "/assets/img/liga/nba/OKCTHU_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Orlando Magic",
+        "src": "/assets/img/liga/nba/ORLMAG_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Philadelphia 76ers",
+        "src": "/assets/img/liga/nba/PHI76E_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Phoenix Suns",
+        "src": "/assets/img/liga/nba/PHOSUN_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Portland Trail Blazers",
+        "src": "/assets/img/liga/nba/PORTRA_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Sacramento Kings",
+        "src": "/assets/img/liga/nba/SAASPU_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "San Antonio Spurs",
+        "src": "/assets/img/liga/nba/SACKIN_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Toronto Raptors",
+        "src": "/assets/img/liga/nba/TORRAP_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Utah Jazz",
+        "src": "/assets/img/liga/nba/UTAJAZ_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Washington Wizards",
+        "src": "/assets/img/liga/nba/WASWIZ_70X70.png",
+        "link": "/collection"
+      }
+    ]
+  },
+  "nfl": {
+    "name": "Puma",
+    "description": "Marcas",
+    "link": "/collection",
+    "src": "/assets/img/puma.png",
+    "teams": [
+      {
+        "name": "Arizona Cardinals",
+        "src": "/assets/img/liga/nfl/ARICAR_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Atlanta Falcons",
+        "src": "/assets/img/liga/nfl/ATLFAL_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Baltimore Ravens",
+        "src": "/assets/img/liga/nfl/BALRAV_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Buffalo Bills",
+        "src": "/assets/img/liga/nfl/BUFBIL_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Carolina Panthers",
+        "src": "/assets/img/liga/nfl/CARPAN_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Chicago Bears",
+        "src": "/assets/img/liga/nfl/CHIBEA_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Cincinnati Bengals",
+        "src": "/assets/img/liga/nfl/CINBEN_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Cleveland Browns",
+        "src": "/assets/img/liga/nfl/CLEBRO_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Dallas Cowboys",
+        "src": "/assets/img/liga/nfl/DALCOW_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Denver Broncos",
+        "src": "/assets/img/liga/nfl/DENBRO_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Detroit Lions",
+        "src": "/assets/img/liga/nfl/DETLIO_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Green Bay Packers",
+        "src": "/assets/img/liga/nfl/GREPAC_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Houston Texans",
+        "src": "/assets/img/liga/nfl/HOUTEX_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Indianapolis Colts",
+        "src": "/assets/img/liga/nfl/INDCOL_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Jacksonville Jaguars",
+        "src": "/assets/img/liga/nfl/JACJAG_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Kansas City Chiefs",
+        "src": "/assets/img/liga/nfl/KANCHI_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Las Vegas Raiders",
+        "src": "/assets/img/liga/nfl/MIADOL_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Los Angeles Chargers",
+        "src": "/assets/img/liga/nfl/MINVIK_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Los Angeles Rams",
+        "src": "/assets/img/liga/nfl/NEEPAT_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Miami Dolphins",
+        "src": "/assets/img/liga/nfl/NEOSAI_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Minnesota Vikings",
+        "src": "/assets/img/liga/nfl/NEYGIA_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "New England Patriots",
+        "src": "/assets/img/liga/nfl/NEYJET_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "New Orleans Saints",
+        "src": "/assets/img/liga/nfl/OAKRAI_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "New York Giants",
+        "src": "/assets/img/liga/nfl/PHIEAG_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "New York Jets",
+        "src": "/assets/img/liga/nfl/PITSTE_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Philadelphia Eagles",
+        "src": "/assets/img/liga/nfl/SADCHA_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Pittsburgh Steelers",
+        "src": "/assets/img/liga/nfl/SAF49E_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "San Francisco 49ers",
+        "src": "/assets/img/liga/nfl/SEASEA_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Seattle Seahawks",
+        "src": "/assets/img/liga/nfl/STLRAM_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Tampa Bay Buccaneers",
+        "src": "/assets/img/liga/nfl/TAMBUC_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Tennessee Titans",
+        "src": "/assets/img/liga/nfl/TENTIT_70X70.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Washington Commanders",
+        "src": "/assets/img/liga/nfl/WASCOM_70X70.png",
+        "link": "/collection"
+      }
+    ]
+  },
+
+  "motostport": {
+    "name": "Converse",
+    "description": "Marcas",
+    "link": "/home-fashion-two",
+    "src": "/assets/img/converse.svg",
+    "teams": [
+      {
+        "name": "Mc Laren",
+        "src": "/assets/img/liga/motorsport/70X70_McLaren.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Alphine",
+        "src": "/assets/img/liga/motorsport/70X70_Alpine.png",
+        "link": "/collection"
+      },
+      {
+        "name": "Ducati",
+        "src": "/assets/img/liga/motorsport/70X70_ducati.png",
+        "link": "/collection"
+      }
+    ]
+  }
+}

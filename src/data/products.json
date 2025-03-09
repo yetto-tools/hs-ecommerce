@@ -1,0 +1,549 @@
+[
+  {
+    "id": "1",
+    "sku": "asdf190",
+    "name": "Texas Rangers MLB World Series Champs 2023 9FORTY Snapback",
+    "price": 399.0,
+    "discount": 0,
+    "new": true,
+    "rating": 4,
+    "saleCount": 29,
+    "category": ["MBL"],
+    "silueta": ["9FORTY"],
+    "tag": ["MBL", "MLB World Series"],
+    "stock": 400,
+    "image": [
+      "/assets/img/product/accessories/mbl_world_series_champions/60504931_9FORTY_MLB23WSCHAMPS940TEXRANBLK_TEXRAN_BLK_20_3QR.webp",
+      "/assets/img/product/accessories/mbl_world_series_champions/60504931_9FORTY_MLB23WSCHAMPS940TEXRANBLK_TEXRAN_BLK_20_F.webp",
+      "/assets/img/product/accessories/mbl_world_series_champions/60504931_9FORTY_MLB23WSCHAMPS940TEXRANBLK_TEXRAN_BLK_20_LSIDE.webp",
+      "/assets/img/product/accessories/mbl_world_series_champions/60504931_9FORTY_MLB23WSCHAMPS940TEXRANBLK_TEXRAN_BLK_20_R.webp",
+      "/assets/img/product/accessories/mbl_world_series_champions/60504931_9FORTY_MLB23WSCHAMPS940TEXRANBLK_TEXRAN_BLK_20_RSIDE.webp"
+    ],
+    "variation": [
+      {
+        "color": "black",
+        "image": "/assets/img/product/accessories/mbl_world_series_champions/60504931_9FORTY_MLB23WSCHAMPS940TEXRANBLK_TEXRAN_BLK_20_3QR.webp",
+        "size": [
+          {
+            "name": "7",
+            "stock": 50
+          },
+          {
+            "name": " 7 1/8",
+            "stock": 50
+          },          
+          {
+            "name": " 7 1/4",
+            "stock": 50
+          },
+          {
+            "name": "7 1/2",
+            "stock": 50
+          },
+          {
+            "name": "7 3/8",
+            "stock": 50
+          },
+          {
+            "name": "7 5/8",
+            "stock": 50
+          },
+          {
+            "name": "7 3/4",
+            "stock": 50
+          },
+          {
+            "name": "7 7/8",
+            "stock": 50
+          }
+        ]
+      }
+      
+    ],    
+    "shortDescription": "Celebra el campeonato de Texas Rangers con esta gorra New Era 9FORTY con diseño especial de la MLB World Series Champs 2023, el logotipo de los Rangers en los paneles frontales, el Commissioner's Trophy del lado derecho y el flag de New Era bordado en el lado izquierdo. ¡No te pierdas este artículo de colección!",
+    "fullDescription": "Celebra el campeonato de Texas Rangers con esta gorra New Era 9FORTY con diseño especial de la MLB World Series Champs 2023, el logotipo de los Rangers en los paneles frontales, el Commissioner's Trophy del lado derecho y el flag de New Era bordado en el lado izquierdo. ¡No te pierdas este artículo de colección!"
+  },
+  {
+    "id": "2",
+    "sku": "asdf191",
+    "name": "Chelsea FC All Over Print 9FORTY Strapback Verde",
+    "price": 395.0,
+    "discount": 0,
+    "new": false,
+    "rating": 5,
+    "saleCount": 19,
+    "category": ["NFL"],
+    "silueta": ["9FORTY"],
+    "tag": ["FC", "9 Forty"],
+    "stock": 1250,
+
+    
+    "image": [
+      "/assets/img/product/accessories/footbol/60333689_9FORTY_PREMIER_LEAGUE_CHELSEA_GRN_3QR.webp",
+      "/assets/img/product/accessories/footbol/60333689_9FORTY_PREMIER_LEAGUE_CHELSEA_GRN_F.webp",
+      "/assets/img/product/accessories/footbol/60333689_9FORTY_AOP_CHELFC_BLACK_RSIDE.webp",
+      "/assets/img/product/accessories/footbol/60333689_9FORTY_AOP_CHELFC_BLACK_R.webp",
+      "/assets/img/product/accessories/footbol/60333689_9FORTY_AOP_CHELFC_BLACK_UV.webp",
+      "/assets/img/product/accessories/footbol/60333689_9FORTY_PREMIER_LEAGUE_CHELSEA_GRN_3QL.webp"
+    ],
+    "variation": [
+      {
+        "color": "gray",
+        
+        "image": "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_3QR.webp",
+        "size": [
+          {
+            "name": "S",
+            "stock": 250
+          },
+          {
+            "name": "M",
+            "stock": 250
+          },
+          {
+            "name": "L",
+            "stock": 250
+          },
+          {
+            "name": "X",
+            "stock": 250
+          },
+          {
+            "name": "XL",
+            "stock": 250
+          }
+        ]
+      }
+    ],
+    "shortDescription": "Esta gorra New Era 9FORTY de Chelsea FC de la colección All Over Print presenta el logotipo de Chelsea bordado en los paneles frontales. Demuestra tu pasión por el futbol internacional y cómprala ya.    ",
+    "fullDescription": "Esta gorra New Era 9FORTY de Chelsea FC de la colección All Over Print presenta el logotipo de Chelsea bordado en los paneles frontales. Demuestra tu pasión por el futbol internacional y cómprala ya."
+  },
+  {
+    "id": "3",
+    "sku": "asdf192",
+    "name": "Chicago Bulls NBA Authentics Draft 2023 Collection 59FIFTY Cerrada",
+    "price": 520,
+    "discount": 0,
+    "new": true,
+    "rating": 5,
+    "saleCount": 0,
+    "category": ["NBA"],
+    "silueta": ["59FIFTY"],
+    "tag": ["Chicago Bulls ", "NBA", "59 Fifty"],
+    "stock": 250,
+    "variation": [
+      {
+        "color": "gray",
+        "image": "/assets/img/product/accessories/nba_59fifty/60360575_59FIFTY_NBADRAFT23_CHIBUL_OTC_3QR.webp",
+        "size": [
+
+          {
+            "name": "xxl",
+            "stock": 250
+          }
+        ]
+      }
+      
+    ],    
+    "image": [
+      "/assets/img/product/accessories/nba_59fifty/60360575_59FIFTY_NBADRAFT23_CHIBUL_OTC_3QR.webp",
+      "/assets/img/product/accessories/nba_59fifty/60360575_59FIFTY_NBADRAFT23_CHIBUL_OTC_F.webp",
+      "/assets/img/product/accessories/nba_59fifty/60360575_59FIFTY_NBADRAFT23_CHIBUL_OTC_3QL.webp",
+      "/assets/img/product/accessories/nba_59fifty/60360575_59FIFTY_NBADRAFT23_CHIBUL_OTC_LSIDE.webp",
+      "/assets/img/product/accessories/nba_59fifty/60360575_59FIFTY_NBADRAFT23_CHIBUL_OTC_RSIDE.webp"
+    ],
+    "shortDescription": "Esta gorra New Era 59FIFTY de Chicago Bulls de la colección NBA Authentics Draft 2023 Collection presenta el logotipo de los Bulls bordado en los paneles frontales acompañado con el nombre del equipo en estilo contorno y flag de New Era bordado en el lado izquierdo. Se parte de la historia de las nuevas estrellas y cómprala ya.",
+    "fullDescription": "Esta gorra New Era 59FIFTY de Chicago Bulls de la colección NBA Authentics Draft 2023 Collection presenta el logotipo de los Bulls bordado en los paneles frontales acompañado con el nombre del equipo en estilo contorno y flag de New Era bordado en el lado izquierdo. Se parte de la historia de las nuevas estrellas y cómprala ya."
+  },
+  {
+    "id": "4",
+    "sku": "asdf193",
+    "name": "McLaren Racing Flawless McLaren Racing 9FORTY Snapback Anaranjada",
+    "price": 420,
+    "discount": 0,
+    "new": false,
+    "rating": 5,
+    "saleCount": 20,
+    "category": ["MotorSport"],
+    "silueta": ["9FORTY"],
+    "tag": ["McLaren", "9 Forty"],
+    "stock": 3000,
+    "variation": [
+      {
+        "color": "orange",
+        "image": "/assets/img/product/accessories/nba_59fifty/60360575_59FIFTY_NBADRAFT23_CHIBUL_OTC_3QL.webp",
+        "size": [
+          {
+            "name": "OSFA",
+            "stock": 3000
+          }
+        ]
+      }
+    ],
+    "image": [
+      "/assets/img/product/accessories/mclaren/60357157_9FORTY_FORMULA1_MCLAREN_ORNG_3QR.webp",
+      "/assets/img/product/accessories/mclaren/60357157_9FORTY_FORMULA1_MCLAREN_ORNG_F.webp",
+      "/assets/img/product/accessories/mclaren/60357157_9FORTY_FORMULA1_MCLAREN_ORNG_3QL.webp",
+      "/assets/img/product/accessories/mclaren/60357157_9FORTY_FORMULA1_MCLAREN_ORNG_R.webp"
+    ],
+    "shortDescription": "Apoya a tu escudería favorita con esta gorra New Era 9FORTY de McLaren Racing Flawless la cual presenta el logotipo de McLaren en los paneles frontales a la derecha. Cómprala ya.",
+    "fullDescription": "Apoya a tu escudería favorita con esta gorra New Era 9FORTY de McLaren Racing Flawless la cual presenta el logotipo de McLaren en los paneles frontales a la derecha. Cómprala ya."
+  },
+  {
+    "id": "5",
+    "sku": "asdf194",
+    "name": "Brooklyn Nets NBA Corduroy Visor 59FIFTY Cerrada",
+    "price": 12.35,
+    "discount": 0,
+    "new": true,
+    "rating": 5,
+    "saleCount": 20,
+    "category": ["accessories"],
+    "silueta": ["59FIFTY"],
+    "tag": ["accessories"],
+    "stock": 1000,
+    "image": [
+      "/assets/img/product/accessories/nfl/60493774_59FIFTY_LIFESTYLEENERGY_BRONET_OTC_3QR.webp",
+      "/assets/img/product/accessories/nfl/60493774_59FIFTY_LIFESTYLEENERGY_BRONET_OTC_F.webp",
+      "/assets/img/product/accessories/nfl/60493774_59FIFTY_LIFESTYLEENERGY_BRONET_OTC_3QL.webp",
+      "/assets/img/product/accessories/nfl/60493774_59FIFTY_LIFESTYLEENERGY_BRONET_OTC_LSIDE.webp",
+      "/assets/img/product/accessories/nfl/60493774_59FIFTY_LIFESTYLEENERGY_BRONET_OTC_RSIDE.webp",
+      "/assets/img/product/accessories/nfl/60493774_59FIFTY_LIFESTYLEENERGY_BRONET_OTC_R.webp"
+    ],
+    "variation": [
+      {
+        "color": "brown",
+        "image": "/assets/img/product/accessories/nfl/60493774_59FIFTY_LIFESTYLEENERGY_BRONET_OTC_3QL.webp",
+        "size": [
+          {
+            "name": "OSFA",
+            "stock": 3000
+          }
+        ]
+      }
+    ],
+    "shortDescription": "Esta gorra New Era 59FIFTY de Brooklyn Nets de la colección exclusiva online NBA Corduroy Visor presenta un diseño two tone con una distintiva visera de pana café, el logotipo de los Nets bordado en los paneles frontales, un parche conmemorativo del lado derecho y el flag de New Era bordado en el lado izquierdo. Dale un toque a tu outfit esta temporada y cómprala ya",
+    "fullDescription": "Esta gorra New Era 59FIFTY de Brooklyn Nets de la colección exclusiva online NBA Corduroy Visor presenta un diseño two tone con una distintiva visera de pana café, el logotipo de los Nets bordado en los paneles frontales, un parche conmemorativo del lado derecho y el flag de New Era bordado en el lado izquierdo. Dale un toque a tu outfit esta temporada y cómprala ya"
+  },
+  {
+    "id": "6",
+    "sku": "asdf195",
+    "name": "San Francisco 49Ers NFL Sideline Knit",
+    "price": 275.0,
+    "discount": 0,
+    "new": true,
+    "rating": 4,
+    "saleCount": 19,
+    "category": ["accessories"],
+    "tag": ["accessories"],
+    "silueta": ["KNIT"],
+    "stock": 300,
+    "image": [
+      "/assets/img/product/accessories/nfl/60407600_KNIT_MSPRTKNTNFLSL23_SAF49E_OTC_F.webp",
+      "/assets/img/product/accessories/nfl/60407600_KNIT_MSPRTKNTNFLSL23_SAF49E_OTC_R.webp"
+    ],
+    "variation": [
+      {
+        "color": "red",
+        "image": "/assets/img/product/accessories/nfl/60407600_KNIT_MSPRTKNTNFLSL23_SAF49E_OTC_F.webp",
+        "size": [
+          {
+            "name": "OSFA",
+            "stock": 300
+          }
+        ]
+      }
+    ],
+    "shortDescription": "",
+    "fullDescription": ""
+  },
+  {
+    "id": "7",
+    "sku": "asdf196",
+    "name": "Cleveland Browns NFL Draft 2023 39THIRTY Elástica",
+    "price": 400.0,
+    "discount": 0,
+    "new": true,
+    "rating": 5,
+    "saleCount": 15,
+    "category": ["NFL"],
+    "silueta" :[ "39THIRTY"], 
+    "tag": ["39THIRTY", "NFL"],
+    "stock": 5000,
+    "variation": [
+      {
+        "color": "brown",
+        
+        "image": "/assets/img/product/accessories/nba_59fifty/60360575_59FIFTY_NBADRAFT23_CHIBUL_OTC_3QL.webp",
+        "size": [
+          {
+            "name": "OSFA",
+            "stock": 300
+          }
+        ]
+      }
+    ],
+    "image": [
+      "/assets/img/product/accessories/nfl/60352012_39THIRTY_NFL23DRAFT3930_CLEBRO_OTC_3QR.webp",
+      "/assets/img/product/accessories/nfl/60352012_39THIRTY_NFL23DRAFT3930_CLEBRO_OTC_F.webp",
+      "/assets/img/product/accessories/nfl/60352012_39THIRTY_NFL23DRAFT3930_CLEBRO_OTC_RSIDE.webp",
+      "/assets/img/product/accessories/nfl/60352012_39THIRTY_NFL23DRAFT3930_CLEBRO_OTC_R.webp",
+      "/assets/img/product/accessories/nfl/60352012_39THIRTY_NFL23DRAFT3930_CLEBRO_OTC_UV.webp",
+      "/assets/img/product/accessories/nfl/60352012_39THIRTY_NFL23DRAFT3930_CLEBRO_OTC_LSIDE.webp",
+      "/assets/img/product/accessories/nfl/60352012_39THIRTY_NFL23DRAFT3930_CLEBRO_OTC_3QL.webp"
+    
+    ],
+    "shortDescription": "Prepárate para conocer a los nuevos talentos de la NFL con esta gorra New Era 39THIRTY de Cleveland Browns NFL Draft 2023 la cual presenta un script de los Browns bordado en los paneles frontales, el escudo de la NFL en el lado derecho y el logo del equipo en la parte trasera. Cómprala ya.",
+    "fullDescription": "Prepárate para conocer a los nuevos talentos de la NFL con esta gorra New Era 39THIRTY de Cleveland Browns NFL Draft 2023 la cual presenta un script de los Browns bordado en los paneles frontales, el escudo de la NFL en el lado derecho y el logo del equipo en la parte trasera. Cómprala ya."
+  },
+  {
+    "id": "8",
+    "sku": "asdf197",
+    "name": "Dallas Cowboys NFL Draft 2023 39THIRTY Elástica",
+    "price": 400.0,
+    "discount": 0,
+    "new": true,
+    "rating": 5,
+    "saleCount": 2,
+    "category": ["NFL"],
+    "silueta":["39THIRTY"],
+    "tag": ["39Thirty", "Cowboys", "NFL"],
+    "stock": 1000,
+    "variation": [
+      {
+        "color": "red",
+        "image": "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_3QR.webp",
+        "size": [
+          {
+            "name": "OSFA",
+            "stock": 300
+          }
+        ]
+      }
+    ],
+    "image": [
+      "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_3QR.webp",
+      "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_F.webp",
+      "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_RSIDE.webp",
+      "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_R.webp",
+      "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_UV.webp",
+      "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_LSIDE.webp",
+      "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_3QL.webp"
+    ],
+    "shortDescription": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
+    "fullDescription": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+  },
+  {
+    "id": "9",
+    "sku": "asdf198",
+    "name": "Arizona Cardinals NFL Classics 39THIRTY Elástica Negra",
+    "price": 450.00,
+    "discount": 0,
+    "new": true,
+    "rating": 5,
+    "saleCount": 8,
+    "category": ["accessories"],
+    "silueta": ["39THIRTY"],
+    "tag": ["accessories"],
+    "stock": 500,
+
+    "image": [
+      "/assets/img/product/accessories/mbl_cardinals/11061630_39THIRTY_TEAMCLASSIC_ARICAR_BLK_3QR.webp",
+      "/assets/img/product/accessories/mbl_cardinals/11061630_39THIRTY_TEAMCLASSIC_ARICAR_BLK_F.webp",
+      "/assets/img/product/accessories/mbl_cardinals/11061630_39THIRTY_TEAMCLASSIC_ARICAR_BLK_RSIDE.webp",
+      "/assets/img/product/accessories/mbl_cardinals/11061630_39THIRTY_TEAMCLASSIC_ARICAR_BLK_R.webp",
+      "/assets/img/product/accessories/mbl_cardinals/11061630_39THIRTY_TEAMCLASSIC_ARICAR_BLK_3QL.webp"
+    ],
+    "variation": [
+      {
+        "color": "black",
+        "image": "/assets/img/product/accessories/nfl/60407600_KNIT_MSPRTKNTNFLSL23_SAF49E_OTC_F.webp",
+        "size": [
+          {
+            "name": "OSFA",
+            "stock": 300
+          }
+        ]
+      }
+    ],      
+
+    
+    "shortDescription": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
+    "fullDescription": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+  },
+  {
+    "id": "10",
+    "sku": "asdf199",
+    "name": "Boston Red Sox MLB Autumn Wheat 9FIFTY Snapback",
+    "price": 425.0,
+    "discount": 0,
+    "new": true,
+    "rating": 5,
+    "saleCount": 19,
+    "category": ["MBL"],
+    "silueta": ["9FIFTY"],
+    "tag": ["9 Fifty", "Snapback"],
+    "stock": 3000,
+    "image": [
+      "/assets/img/product/accessories/mbl/60487738_9FIFTY_LifestyleEnergy_BOSRED_OTC_3QR.webp",
+      "/assets/img/product/accessories/mbl/60487738_9FIFTY_LifestyleEnergy_BOSRED_OTC_F.webp",
+      "/assets/img/product/accessories/mbl/60487738_9FIFTY_LifestyleEnergy_BOSRED_OTC_RSIDE.webp",
+      "/assets/img/product/accessories/mbl/60487738_9FIFTY_LifestyleEnergy_BOSRED_OTC_R.webp",
+      "/assets/img/product/accessories/mbl/60487738_9FIFTY_LifestyleEnergy_BOSRED_OTC_3QL.webp",
+      "/assets/img/product/accessories/mbl/60487738_9FIFTY_LifestyleEnergy_BOSRED_OTC_LSIE.webp"
+    ],
+    "variation": [
+      {
+        "color": "orange",
+        "image": "/assets/img/product/accessories/nfl/60407600_KNIT_MSPRTKNTNFLSL23_SAF49E_OTC_F.webp",
+        "size": [ 
+          { "name": "S/M", "stock": 1000 },
+          { "name": "M/L", "stock": 1000},
+          { "name": "L/XL", "stock": 1000 }
+        ]
+      }
+    ],    
+    "shortDescription": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
+    "fullDescription": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+  },
+  {
+    "id": "11",
+    "sku": "asdf200",
+    "name": "Memphis Grizzlies NBA Tip Off 2023 39THIRTY Elástica",
+    "price": 415,
+    "discount": 0,
+    "new": true,
+    "rating": 4,
+    "saleCount": 2,
+    "category": ["NBA"],
+    "silueta": ["39THIRTY"], 
+    "tag": ["NBA"],
+    "stock": 2300,
+    "image": [
+      "/assets/img/product/accessories/nba_59fifty/60421320_39THIRTY_M3930NBATO23_MEMGRI_DGROTC_3QR.webp",
+      "/assets/img/product/accessories/nba_59fifty/60421320_39THIRTY_M3930NBATO23_MEMGRI_DGROTC_F.webp",
+      "/assets/img/product/accessories/nba_59fifty/60421320_39THIRTY_M3930NBATO23_MEMGRI_DGROTC_RSIDE.webp",
+      "/assets/img/product/accessories/nba_59fifty/60421320_39THIRTY_M3930NBATO23_MEMGRI_DGROTC_R.webp",
+      "/assets/img/product/accessories/nba_59fifty/60421320_39THIRTY_M3930NBATO23_MEMGRI_DGROTC_3QL.webp",
+      "/assets/img/product/accessories/nba_59fifty/60421320_39THIRTY_M3930NBATO23_MEMGRI_DGROTC_UV.webp"
+    ],
+    "variation": [
+      {
+        "color": "blue"  ,
+        "image": "/assets/img/product/accessories/nfl/60407600_KNIT_MSPRTKNTNFLSL23_SAF49E_OTC_F.webp",
+        "size": [
+          {
+            "name": "OSFA",
+            "stock": 300
+          }
+        ]
+      }
+    ],
+    "shortDescription": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
+    "fullDescription": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+  },
+  {
+    "id": "12",
+    "sku": "asdf201",
+    "name": "New York Yankees MLB Corduroy Visor 59FIFTY Cerrada",
+    "price": 500.0,
+    "discount": 0,
+    "new": true,
+    "rating": 5,
+    "saleCount": 1,
+    "category": ["accessories"],
+    "silueta": ["59FIFTY"], 
+    "tag": ["accessories"],
+    "stock": 3000,
+    "image": [
+      "/assets/img/product/accessories/mbl/60493756_59FIFTY_LIFESTYLEENERGY_NEYYAN_OTC_3QR.webp",
+      "/assets/img/product/accessories/mbl/60493756_59FIFTY_LIFESTYLEENERGY_NEYYAN_OTC_F.webp",
+      "/assets/img/product/accessories/mbl/60493756_59FIFTY_LIFESTYLEENERGY_NEYYAN_OTC_RSIDE.webp",
+      "/assets/img/product/accessories/mbl/60493756_59FIFTY_LIFESTYLEENERGY_NEYYAN_OTC_R.webp",
+      "/assets/img/product/accessories/mbl/60493756_59FIFTY_LIFESTYLEENERGY_NEYYAN_OTC_3QL.webp",
+      "/assets/img/product/accessories/mbl/60493756_59FIFTY_LIFESTYLEENERGY_NEYYAN_OTC_LSIDE.webp"
+    ],
+    "variation": [
+      {
+        "color": "brown",
+        "image": "/assets/img/product/accessories/nfl/60352010_39THIRTY_NFL23DRAFT3930_DALCOW_OTC_3QR.webp",
+        "size": [
+          {
+            "name": "OSFA",
+            "stock": 300
+          }
+        ]
+      }
+    ],      
+
+    "shortDescription": "Esta gorra New Era 59FIFTY de New York Yankees de la colección exclusiva online MLB Corduroy Visor presenta un diseño two tone con una distintiva visera de pana café, el logotipo de los Yankees bordado en los paneles frontales, un parche conmemorativo del lado derecho y el flag de New Era bordado en el lado izquierdo. Dale un toque a tu outfit esta temporada y cómprala ya",
+    "fullDescription": "Esta gorra New Era 59FIFTY de New York Yankees de la colección exclusiva online MLB Corduroy Visor presenta un diseño two tone con una distintiva visera de pana café, el logotipo de los Yankees bordado en los paneles frontales, un parche conmemorativo del lado derecho y el flag de New Era bordado en el lado izquierdo. Dale un toque a tu outfit esta temporada y cómprala ya"
+  },
+  {
+    "id": "13",
+    "sku": "asdf219",
+    "name": "Alpine Renault Essential 9FORTY Snapback Negra",
+    "price": 450,
+    "discount": 0,
+    "new": false,
+    "rating": 4,
+    "saleCount": 10,
+    "category": ["MotorSport"],
+    "silueta":["9FORTY"], 
+    "tag": ["Motorsport", "Alphine"],
+    "stock": 1000,
+    "variation": [
+      {
+        "color": "black",
+        
+        "size": [
+        {
+          "name": "OSFA",
+          "stock": 300
+        }
+      ]
+    }],
+    "image": [
+      "/assets/img/product/accessories/mclaren/60357916_9FORTY_MCLAREN_BLK_3QR.webp",
+      "/assets/img/product/accessories/mclaren/60357916_9FORTY_MCLAREN_BLK_F.webp",
+      "/assets/img/product/accessories/mclaren/60357916_9FORTY_MCLAREN_BLK_R.webp",
+      "/assets/img/product/accessories/mclaren/60357916_9FORTY_MCLAREN_BLK_3QL.webp"
+    ],
+    "shortDescription": "Apoya a tu escuderia con esta gorra New Era 9FORTY de Alpine Renault Essential la cual presenta el logotipo de Alpine bordado en los paneles frontales y una insignia del equipo en la parte derecha. Cómprala ya.",
+    "fullDescription": "Apoya a tu escuderia con esta gorra New Era 9FORTY de Alpine Renault Essential la cual presenta el logotipo de Alpine bordado en los paneles frontales y una insignia del equipo en la parte derecha. Cómprala ya."
+  },
+  {
+    "id": "14",
+    "sku": "asdf219",
+    "name": "Arizona Diamondbacks MLB League Champions 2023 9FORTY Snapback",
+    "price": 720,
+    "discount": 0,
+    "new": false,
+    "rating": 4,
+    "saleCount": 10,
+    "category": [ "MBL"],
+    "silueta": ["9FORTY"], 
+    "tag": ["Arizona","9FORTY", "MBL"],
+    "stock": 1000,
+    "variation": [
+      {
+        "color": "black",
+        
+        "size": [
+        {
+          "name": "OSFA",
+          "stock": 30
+        }
+      ]
+    }],
+    "image": [
+      "/assets/img/product/accessories/mclaren/60357916_9FORTY_MCLAREN_BLK_3QR.webp",
+      "/assets/img/product/accessories/mclaren/60357916_9FORTY_MCLAREN_BLK_F.webp",
+      "/assets/img/product/accessories/mclaren/60357916_9FORTY_MCLAREN_BLK_R.webp",
+      "/assets/img/product/accessories/mclaren/60357916_9FORTY_MCLAREN_BLK_3QL.webp"
+    ],
+    "shortDescription": "Apoya a tu escuderia con esta gorra New Era 9FORTY de Alpine Renault Essential la cual presenta el logotipo de Alpine bordado en los paneles frontales y una insignia del equipo en la parte derecha. Cómprala ya.",
+    "fullDescription": "Apoya a tu escuderia con esta gorra New Era 9FORTY de Alpine Renault Essential la cual presenta el logotipo de Alpine bordado en los paneles frontales y una insignia del equipo en la parte derecha. Cómprala ya."
+  }
+
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/img/banner2section/PREVIEW-embajadores-de-la-nfl-con-new-era_jpg.webp",
+    "category": ["Sneakers", "Men", "Adidas"],
+    "title": "Adidas Rivalry Low",
+    "url": "/blog-details-standard",
+    "author": "Hype Street",
+    "authorUrl": "/blog-standard"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/banner2section/NEC23_TMNT.webp",
+    "category": ["Nike", "New Arrivals", "Sneakers"],
+    "title": "New Arrivals Nike, Ya Disponibles",
+    "url": "/blog-details-standard",
+    "author": "Hype Street",
+    "authorUrl": "/blog-standard"
+  },
+  {
+    "id": 3,
+    "image": "/assets/img/banner2section/PREVIEW_8ecfb8a5-4b51-4bd9-a0b8-faa66c2177e7.webp",
+    "category": ["Hoodies", "Fashion", "Look Street"],
+    "title": "New Arrivals Puma",
+    "url": "/blog-details-standard",
+    "author": "Hype Street",
+    "authorUrl": "/blog-standard"
+  }
+]

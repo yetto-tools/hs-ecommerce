@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/img/banner2section/NEC_MLB23_FathersDay_1000x900_3.webp",
+    "title": "Cap",
+    "subtitle": "New Era",
+    "price": "$65.00",
+    "link": "/productos"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/banner2section/NEC_MLB23_ASG_1000x900_5.webp",
+    "title": "Jordan",
+    "subtitle": "Nike Air",
+    "price": "$120.00",
+    "link": "/productos"
+  },
+  {
+    "id": 3,
+    "image": "/assets/img/banner2section/NEC_MLB23_HM_WorldSeriesChamps_NEC_1000x900_1.webp",
+    "title": "Jersey",
+    "subtitle": "NBA",
+    "price": "$50.00",
+    "link": "/productos"
+  }
+]
