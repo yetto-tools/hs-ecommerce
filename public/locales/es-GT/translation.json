@@ -88,18 +88,15 @@
     "call_phone": "Llámanos!! +(502) 0000-0000",
     "text_delivery": "Envío gratuito para pedidos Mayores a "
   },
-
   "shop_search": {
     "label": "Buscar",
     "place_holder": "Buscar..."
   },
-
   "shop_categories": {
     "categories": "Marcas",
     "filter_all": "Todas las Marcas",
     "not_found": "Marca no Encontrada"
   },
-
   "shop_select_filter_sort": {
     "default": "No Especificado",
     "high_to_low": "Precio - Alto a Bajo",
@@ -108,7 +105,6 @@
     "of": "de",
     "result": "resultados"
   },
-
   "footer": {
     "store_locations": "UBICACIONES DE TIENDAS",
     "suscribe": "Suscripción",
@@ -128,17 +124,13 @@
     "warranty": "CAMBIOS Y DEVOLUCIONES",
     "company_name": "Hype Street Guatemala"
   },
-
   "footer_copyright": {
     "legal_right": "Todos los Derechos Reservados"
   },
-
   "mobile_menu_select_choose": {
     "choose_lang": "Seleccionar Idioma"
   },
-
   "page_login": {},
-
   "page_cart": {
     "title": "Carrito de Compra",
     "label_home": "Inicio",
@@ -155,7 +147,6 @@
     "continue_shopping": "Continuar Comprando",
     "clear_shopping_cart": "Limpiar Carrito"
   },
-
   "page_checkout": {
     "titleTemplate": "Confirma Compra",
     "description": "Confirmación de Compra",
@@ -181,7 +172,6 @@
     "free_shipping": "Envío Gratis",
     "place_order": "Confirmar Compra"
   },
-
   "general_words": {
     "new": "Nuevo",
     "all_size": "Todas las Tallas",
@@ -217,7 +207,6 @@
     "not_fount_silhouettes": "No disponible",
     "not_items_to_cart": "No se han añadido artículos a la cesta"
   },
-
   "page_login_register": {
     "title": "Inicio de sesión",
     "label_home": "Inicio",
@@ -228,9 +217,9 @@
     "remember_me": "Recordar me",
     "forgot_password": "Olvide Mi Contraseña",
     "placeholder_input_password": "Contraseña",
-    "placeholder_input_email": "Correo"
+    "placeholder_input_email": "Correo",
+    "placeholder_input_phone": "Telefono"
   },
-
   "page_my_account": {
     "title": "Mi Cuenta",
     "label_home": "Inicio",
@@ -244,18 +233,26 @@
     "phone": "Teléfono",
     "mobile": "Celular",
     "submit": "continuar",
-
     "step_two": "Cambiar Mi Contraseña",
     "change_password": "Cambiar Contraseña",
     "password": "Contraseña",
     "password_confirm": "Confirmar Contraseña",
-
     "step_three": "Modificar Dirección",
     "address_entry": "Dirección",
+    "address_street": "Dirección",
+    "address_country": "País",
+    "address_state": "Departamento",
+    "address_city": "Municipio",
+    "address_phone": "Teléfono",
+    "address_name": "Nombre",
+    "address_comment": "Indicaciones",
     "edit": "Editar",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "username": "Usuario",
+    "address": {
+      "name": "Nombre"
+    }
   },
-
   "page_not_found": {
     "seo_title": "Pagina 404",
     "seo_description": "Contenido No Disponible o No Encontrado",
@@ -266,20 +263,17 @@
     "placeholder_search": "Buscar...",
     "back_to_home": "Regresar al inicio"
   },
-
   "tab_product": {
     "new_array": "Nuevas Producciones",
     "best_seller": "Lo más Vendido",
     "sale_items": "Colecciones",
     "view_more_products": "mostrar más productos"
   },
-
   "icon_group": {
     "login": "Inicio de Sesión",
     "register": "Registrarme",
     "my_account": "Mi Cuenta"
   },
-
   "seo": {
     "login_register": "Inicio de Sesión, Hype Street Guatemala",
     "my_account": "Cuenta de Usuario, Hype Street Guatemala",

@@ -11,17 +11,10 @@
 }
 
 .flone-preloader {
-  width: 150px;
-  height: 150px;
-  display: inline-block;
-  padding: 0;
-  text-align: left;
-  box-sizing: border-box;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  margin-left: -25px;
-  margin-top: -25px;
+  transform: translate(-50%, -50%);
 }
 
 .flone-preloader span {
@@ -63,3 +56,25 @@
 }
 
 /*--- end of flone preloader ---*/
+.loader-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #b8db15;
+  z-index: 999999;
+}
+
+.loader-element span {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  padding: 0;
+  text-align: left;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}

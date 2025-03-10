@@ -13,7 +13,8 @@ import { CurrencyFormatter } from "../../helpers/currencyFormatter";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { View } from "lucide-react";
 import { fetchArticleDetail } from "../../hooks/use-FetchArticles";
-
+import { ROOT_IMAGE } from "../../config";
+import { setLoading } from "../../store/slices/menu-slice";
 
 const ProductGridListSingle = ({
   product,
@@ -27,55 +28,57 @@ const ProductGridListSingle = ({
 
   const [modalShow, setModalShow] = useState(false);
   const [loadingImage, setLoadingImage] = useState(true);
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  const discountedPrice = getDiscountPrice(article.price, article.discount);
+  const finalProductPrice = +(article.price * currency.currencyRate).toFixed(2);
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
 
   const dispatch = useDispatch();
-  const {articleDetail} = useSelector(state => state.articleDetail);
-
+  const { article } = useSelector((state) => state.article);
+  const { loading } = useSelector((state) => state.loader);
   const handleProductDetail = async (e) => {
     e.stopPropagation();
     try {
-      await dispatch(fetchArticleDetail(product.sku));      
+      dispatch(setLoading(true));
+      await dispatch(fetchArticleDetail(article.sku));
     } catch (error) {
       console.error("Error al cargar detalle:", error);
     } finally {
-      console.log(articleDetail);
       setModalShow(true);
-  
+      dispatch(setLoading(false));
     }
   };
 
   return (
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
-      <div className={clsx("product-img", loadingImage && "loading")}>
-          <Link to={process.env.PUBLIC_URL + "/producto/" + product.sku} onClick={handleProductDetail}>
-          
-            <LazyLoadImage
-              className="default-img object-fit-cover"
-              onLoad={() => setLoadingImage(false)}
-              src={product.image[0]}
-              alt=""
-              width={320}
-              height={320}
-              aspect="4/3"
-              lazy="loaded"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src ="/default/no-image.jpg";
-              }}
-              
-            />
-
-            {product.image.length > 1 ? (
+        <div className={clsx("product-img", loadingImage && "loading")}>
+          <Link
+            to={process.env.PUBLIC_URL + "/producto/" + article.sku}
+            onClick={handleProductDetail}
+          >
+            <>
+              <LazyLoadImage
+                className="default-img object-fit-cover"
+                onLoad={() => setLoadingImage(false)}
+                src={ROOT_IMAGE + article.image[0]}
+                alt=""
+                width={320}
+                height={320}
+                aspect="4/3"
+                lazy="loaded"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/default/no-image.jpg";
+                }}
+              />
+            </>
+            {article.image.length > 1 ? (
               <LazyLoadImage
                 className="hover-img object-fit-cover"
                 onLoad={() => setLoadingImage(false)}
-                src={process.env.PUBLIC_URL + product.image[1]}
+                src={ROOT_IMAGE + article.image[1]}
                 alt=""
                 lazy="loaded"
                 width={320}
@@ -85,14 +88,12 @@ const ProductGridListSingle = ({
               ""
             )}
           </Link>
-          {product.discount || product.new ? (
+          {article.discount || article.new ? (
             <div className="product-img-badges">
-              {product.discount > 0.0 ? (
-                <span className="pink">-{product.discount}%</span>
-              ) : (
-                ""
+              {article.discount && article.discount > 0.0 && (
+                <span className="pink">-{article.discount}%</span>
               )}
-              {product.new ? (
+              {article.new ? (
                 <span className="purple">{t("general_words.new")}</span>
               ) : (
                 ""
@@ -103,30 +104,27 @@ const ProductGridListSingle = ({
           )}
 
           <div className="product-action">
-         
-          
             <div className="pro-same-action pro-cart w-100">
               <button onClick={handleProductDetail} title="Quick View">
-                <View size={20}/> Ver
+                <View size={20} /> Ver
               </button>
             </div>
           </div>
         </div>
         <div className="product-content text-center">
           <h3>
-            <Link to={process.env.PUBLIC_URL + "/producto/" + product.id}>
-              {product.name}
+            <Link to={process.env.PUBLIC_URL + "/producto/" + article.id}>
+              {article.name}
             </Link>
           </h3>
-          {product.rating && product.rating > 0 ? (
+          {article.rating && article.rating > 0 ? (
             <div className="product-rating">
-              <Rating ratingValue={product.rating} />
+              <Rating ratingValue={article.rating} />
             </div>
           ) : (
             ""
           )}
           <div className="product-price">
-            
             {discountedPrice !== null ? (
               <Fragment>
                 <span className="fs-medium">
@@ -150,30 +148,32 @@ const ProductGridListSingle = ({
             <div className="product-list-image-wrap">
               {typeof product === "object" && (
                 <div className="product-img">
-                  <Link to={process.env.PUBLIC_URL + "/producto/" + product.sku}>
+                  <Link
+                    to={process.env.PUBLIC_URL + "/producto/" + article.sku}
+                  >
                     <LazyLoadImage
                       className="default-img img-fluid"
-                      src={process.env.PUBLIC_URL + product.image[0]}
-                      alt={product.name}
+                      src={process.env.PUBLIC_URL + article.image[0]}
+                      alt={article.name}
                     />
-                    {product.image.length > 1 ? (
+                    {article.image.length > 1 ? (
                       <LazyLoadImage
                         className="hover-img img-fluid"
-                        src={process.env.PUBLIC_URL + product.image[1]}
+                        src={process.env.PUBLIC_URL + article.image[1]}
                         alt=""
                       />
                     ) : (
                       ""
                     )}
                   </Link>
-                  {product.discount || product.new ? (
+                  {article.discount || article.new ? (
                     <div className="product-img-badges">
-                      {product.discount ? (
-                        <span className="pink">-{product.discount}%</span>
+                      {article.discount ? (
+                        <span className="pink">-{article.discount}%</span>
                       ) : (
                         ""
                       )}
-                      {product.new ? (
+                      {article.new ? (
                         <span className="purple">{t("general_words.new")}</span>
                       ) : (
                         ""
@@ -188,11 +188,6 @@ const ProductGridListSingle = ({
           </div>
           <div className="col-xl-8 col-md-7 col-sm-6">
             <div className="shop-list-content">
-              {/* <h3>
-                <Link to={process.env.PUBLIC_URL + "/producto/" + product.id}>
-                  {product.name}
-                </Link>
-              </h3> */}
               <div className="product-list-price">
                 {discountedPrice !== null ? (
                   <Fragment>
@@ -209,39 +204,39 @@ const ProductGridListSingle = ({
                   </span>
                 )}
               </div>
-              {product.rating && product.rating > 0 ? (
+              {article.rating && article.rating > 0 ? (
                 <div className="rating-review">
                   <div className="product-list-rating">
-                    <Rating ratingValue={product.rating} />
+                    <Rating ratingValue={article.rating} />
                   </div>
                 </div>
               ) : (
                 ""
               )}
-              {product.shortDescription ? (
-                <p>{product.shortDescription}</p>
+              {article.shortDescription ? (
+                <p>{article.shortDescription}</p>
               ) : (
                 ""
               )}
 
               <div className="shop-list-actions d-flex align-items-center">
                 <div className="shop-list-btn btn-hover">
-                  {product.affiliateLink ? (
+                  {article.affiliateLink ? (
                     <a
-                      href={product.affiliateLink}
+                      href={article.affiliateLink}
                       rel="noopener noreferrer"
                       target="_blank"
                     >
                       {" "}
                       Buy now{" "}
                     </a>
-                  ) : product.variation && product.variation.length >= 1 ? (
+                  ) : article.variation && article.variation.length >= 1 ? (
                     <Link
-                      to={`${process.env.PUBLIC_URL}/producto/${product.id}`}
+                      to={`${process.env.PUBLIC_URL}/producto/${article.id}`}
                     >
                       ver detalle
                     </Link>
-                  ) : product.stock && product.stock > 0 ? (
+                  ) : article.stock && article.stock > 0 ? (
                     <button
                       onClick={() => dispatch(addToCart(product))}
                       className={
@@ -265,38 +260,8 @@ const ProductGridListSingle = ({
                   )}
                 </div>
 
-                <div className="shop-list-wishlist ml-10">
-                  {/* <button
-                    className={wishlistItem !== undefined ? "active" : ""}
-                    disabled={wishlistItem !== undefined}
-                    title={
-                      wishlistItem !== undefined
-                        ? "Added to wishlist"
-                        : "Add to wishlist"
-                    }
-                    onClick={() => dispatch(addToWishlist(product))}
-                  >
-                    {wishlistItem !== undefined ? (
-                      <i className="fa fa-heart" style={{ color: "#d21425" }} />
-                    ) : (
-                      <i className="fa fa-heart-o " />
-                    )}
-                  </button> */}
-                </div>
-                <div className="shop-list-compare ml-10">
-                  {/* <button
-                      className={compareItem !== undefined ? "active" : ""}
-                      disabled={compareItem !== undefined}
-                      title={
-                        compareItem !== undefined
-                          ? "Added to compare"
-                          : "Add to compare"
-                      }
-                      onClick={() => dispatch(addToCompare(product))}
-                    >
-                      <i className="pe-7s-shuffle" />
-                    </button> */}
-                </div>
+                <div className="shop-list-wishlist ml-10"></div>
+                <div className="shop-list-compare ml-10"></div>
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import ProductModal from "../../components/product/ProductModal2";
 import PropTypes from "prop-types";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { ROOT_IMAGE } from "../../config";
 
 SwiperCore.use([Navigation]);
 
@@ -23,11 +24,7 @@ const ProductCard = ({ product, currency, openModal }) => {
             <div className="pro-same-action pro-quickview">
               <button onClick={openModal} title="Quick View" className="btn">
                 <LazyLoadImage
-                  src={
-                    product.image.includes("/ftp_imagenes/")
-                      ? product.image
-                      : `/ftp_imagenes/articulos/${product.image}`
-                  }
+                  src={ROOT_IMAGE + product.image[0]}
                   alt={product.name}
                   className="img"
                   width={192}
@@ -63,7 +60,7 @@ const ProductCard = ({ product, currency, openModal }) => {
                 </span>
               </span>
 
-              {product.Descuento_Porcentaje > 0 && (
+              {product.discountedPrice > 0 && (
                 <p className="text-md font-semibold">
                   <del>
                     {Intl.NumberFormat(i18n.language, {

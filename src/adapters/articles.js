@@ -10,47 +10,139 @@ export const adapterArticle = (data = {}) => {
     discountedPrice: data.Precio_CD || 0,
     discount: data.Descuento_Porcentaje || 0,
     shortDescription: data.Descripcion_p || "",
-    image: [data.Imagen_1] || [],
+    image: [data.Imagen_1, data.Imagen_2].filter(Boolean) || [],
+    stock: data.Cantidad,
     images:
-    [
-      data.Imagen_1,
-      data.Imagen_2,
-      data.Imagen_3,
-      data.Imagen_4,
-      data.Imagen_5,
-
-    ] || [],
+      [
+        data.Imagen_1,
+        data.Imagen_2,
+        data.Imagen_3,
+        data.Imagen_4,
+        data.Imagen_5,
+      ].filter(Boolean) || [],
     colors: data.colores || [],
     brands: data.marcas || [],
     tags: data.etiquetas || [],
     sizes: data.tallas || [],
-    
   };
 };
 
+/**
+ * Adapts article data to the expected product detail data structure.
+ *
+ * @param {object} data - The article data returned from the API.
+ * @param {object} data.articulo - The article details.
+ * @param {array} data.variantes - The article variants.
+ * @param {array} data.relacionados - The related products.
+ * @param {array} data.talla - The available sizes.
+ * @param {array} data.color - The available colors.
+ *
+ * @returns {object} The adapted product detail data.
+ */
+export const adapterArticleDetail = (data) => {
+  /*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Adapts related article data to the expected product data structure.
+   *
+   * @param {array} relacionados - The related article data returned from the API.
+   *
+   * @returns {array} The adapted product data.
+   */
+  /******  e1b1a018-0c97-455b-913d-fe20ccc4bd89  *******/
+  function adapterArticle(relacionados) {
+    // Ensure this function is properly defined to handle related products
+    return relacionados.map((item) => ({
+      id: item.IdArticulo,
+      sku: item.Sku,
+      name: item.Nombre_Comercial,
+      description: item.Descripcion_p,
+      price: parseFloat(item.Precio_SD),
+      discount: parseFloat(item.Descuento_Porcentaje),
+      discountedPrice: parseFloat(item.Precio_CD),
+      image: [item.Imagen_1, item.Imagen_2].filter(Boolean),
+    }));
+  }
 
+  function adapterVariants(variants) {
+    // Ensure this function is properly defined to handle related products
+    return variants.map((item) => ({
+      id: item.IdArticulo,
+      sku: item.Sku,
+      name: item.Nombre_Comercial,
+      description: item.Descripcion_p,
+      price: parseFloat(item.Precio_SD),
+      discount: parseFloat(item.Descuento_Porcentaje),
+      discountedPrice: parseFloat(item.Precio_CD),
+      image: [item.Imagen_1, item.Imagen_2].filter(Boolean),
+      color: item.Color,
+      idcolor: item.idColor,
+      size: item.Talla,
+      idSize: item.idTalla,
+      images: [
+        item.Imagen_1,
+        item.Imagen_2,
+        item.Imagen_3,
+        item.Imagen_4,
+        item.Imagen_5,
+      ].filter(Boolean),
+      stock: item.Cantidad,
+    }));
+  }
 
-export const adapterArticleDetail = (articulo = {}) => {
+  function adapterSizes(sizes) {
+    // Ensure this function is properly defined to handle related products
+    return sizes.map((item) => ({
+      id: item.idTalla,
+      name: item.Nombre,
+      stock: item.Cantidad,
+    }));
+  }
+  function adapterColors(colors) {
+    // Ensure this function is properly defined to handle related products
+    return colors.map((item) => ({
+      id: item.idColor,
+      name: item.Nombre,
+      colorRGB: item.Codigo_RGB,
+      colorHex: item.Codigo_HEX,
+      stock: item.Cantidad || 0,
+    }));
+  }
+
   return {
-    id: articulo.id || articulo.sku || "",
-    sku: articulo.sku || "",
-    name: articulo.name || "",
-    price: parseFloat(articulo.price) || 0,
-    discount: 0, // Aquí puedes calcular si tienes lógica de descuentos
-    new: articulo.new || false, // Puedes cambiarlo si tienes info para detectarlo
-    rating: 0, // Cambiar si hay rating
-    saleCount: 0, // Cambiar si tienes número de ventas
-    //stock: articulo.variation.reduce((total, variante) => total + (variante.stock || 0), 0),
-    shortDescription: articulo.description || "",
-    fullDescription: articulo.description || "",
-    category: [], // Si tienes categoría para asignar
-    tag: [], // Si tienes etiquetas
-    image: articulo.images ? articulo.images.filter(Boolean) : [],
-    stock: articulo.stock,
-    sizes: articulo.sizes,
-    colors: articulo.colors,
-    variation:articulo.variation,
-    relatedProducts: articulo.related || []
+    id: data.articulo.Sku || "",
+    sku: data.articulo.Sku || "",
+    name: data.articulo.Nombre_Comercial || "",
+    price: parseFloat(data.articulo.Precio_SD) || 0,
+    discount: parseFloat(data.articulo.Descuento_Porcentaje) || 0,
+    discountedPrice: parseFloat(data.articulo.Precio_CD) || 0,
+    new: !!data.articulo.new, // Cast to boolean if `new` flag exists
+
+    // Assuming that stock needs to be calculated if 'stock' is not available in 'variantes'
+    stock: data.variantes.reduce(
+      (total, variante) => total + (variante.Cantidad || 0),
+      0
+    ),
+
+    shortDescription: data.articulo.Descripcion_p || "",
+    fullDescription: data.articulo.Descripcion_g || "", // Assuming 'Descripcion_g' exists
+    category: [], // Populate this if category data becomes available
+    tag: [], // Populate this if tag data becomes available
+    image: [data.articulo.Imagen_1, data.articulo.Imagen_2].filter(Boolean),
+    images: [
+      data.articulo.Imagen_1,
+      data.articulo.Imagen_2,
+      data.articulo.Imagen_3,
+      data.articulo.Imagen_4,
+      data.articulo.Imagen_5,
+    ].filter(Boolean),
+
+    sizes: adapterSizes(data.talla || []),
+    colors: adapterColors(data.color || []),
+    variation: adapterVariants(data.variantes || []),
+    relatedProducts: adapterArticle(data.relacionados || []),
   };
 };
 
+export const adapterNewArrivals = (data) => {
+  return data.map((article) => adapterArticle(article || []));
+};

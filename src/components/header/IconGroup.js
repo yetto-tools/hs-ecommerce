@@ -23,6 +23,10 @@ const IconGroup = ({ iconWhiteClass }) => {
   const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
 
+  const {
+    usuario: { usuario, direcciones, token },
+  } = useSelector((state) => state.usuario);
+
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
       <div className="same-style header-search d-none d-lg-block mx-2 ">
@@ -78,20 +82,23 @@ const IconGroup = ({ iconWhiteClass }) => {
               <path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path>
             </svg>
           </button>
-          <div className="account-dropdown">
+          <div className="account-dropdown" style={{ width: "280px" }}>
             <ul>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                  {t("icon_group.login")}
+                <Link to={process.env.PUBLIC_URL + "/login"}>
+                  <span className="text-ellipsis">
+                    {(usuario && usuario.id && `${usuario.email}`) ||
+                      t("icon_group.login")}
+                  </span>
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/login-register"}>
+                <Link to={process.env.PUBLIC_URL + "/registrarse"}>
                   {t("icon_group.register")}
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/my-account"}>
+                <Link to={process.env.PUBLIC_URL + "/mi-cuenta"}>
                   {t("icon_group.my_account")}
                 </Link>
               </li>
@@ -99,18 +106,7 @@ const IconGroup = ({ iconWhiteClass }) => {
           </div>
         </div>
       </div>
-      {/* <div className="same-style header-wishlist d-none d-lg-block mx-3">
-        <Link to={process.env.PUBLIC_URL + "/wishlist"}>
-              {
-                wishlistItems.length > 0
-                ? <i className="fa fa-heart" style={{color: "#d21425"}}/> 
-                : <i className="pe-7s-like" /> 
-              }
-          <span className="count-style">
-            {wishlistItems && wishlistItems.length ? wishlistItems.length : 0}
-          </span>
-        </Link>
-      </div> */}
+
       <div className="same-style cart-wrap d-none d-lg-block ms-2">
         <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <svg

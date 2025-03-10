@@ -28,7 +28,7 @@ const ShopGridStandard = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
 
   const { articles } = useSelector((state) => state.articles);
-  
+
   const menu = useSelector((state) => state.menu.menu);
   const location = useLocation();
   const pathname = location.pathname;
@@ -39,7 +39,6 @@ const ShopGridStandard = () => {
   console.log(n1, n2, n3);
   useEffect(() => {
     dispatch(fetchArticles(n1, n2, n3));
-    console.log( process.env.REACT_APP_IMAGE_ROOT);
   }, [dispatch, n1, n2, n3]);
 
   const pageLimit = 15;
@@ -65,35 +64,34 @@ const ShopGridStandard = () => {
   //   setCurrentData(sorted.slice(offset, offset + pageLimit));
   // }, [offset, articles.articles, sortType, sortValue, filterSortType, filterSortValue]);
 
-
-
-
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedTag, setSelectedTag] = useState(null);
 
-  const filteredProducts = (articles.articles || []).filter(product => {
-
+  const filteredProducts = (articles || []).filter((product) => {
     const matchBrand = selectedBrand
       ? product.brand?.toUpperCase() === selectedBrand.toUpperCase()
       : true;
-  
+
     const matchColor = selectedColor
-      ? product.colors?.some(color => color.name.toUpperCase() === selectedColor.toUpperCase())
+      ? product.colors?.some(
+          (color) => color.name.toUpperCase() === selectedColor.toUpperCase()
+        )
       : true;
-  
+
     const matchSize = selectedSize
-      ? product.sizes?.some(size => size.name === selectedSize)
+      ? product.sizes?.some((size) => size.name === selectedSize)
       : true;
-  
+
     const matchTag = selectedTag
-      ? product.tags?.some(tag => tag.tag.toUpperCase() === selectedTag.toUpperCase())
+      ? product.tags?.some(
+          (tag) => tag.tag.toUpperCase() === selectedTag.toUpperCase()
+        )
       : true;
-  
+
     return matchBrand && matchColor && matchSize && matchTag;
   });
-  
 
   return (
     <Fragment>
@@ -116,24 +114,28 @@ const ShopGridStandard = () => {
             <div className="row col-lg-11 mx-auto">
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
-                
+
                 {/* <ShopSidebar
                   products={articles}
                   getSortParams={getSortParams}
                   sideSpaceClass="mr-30"
                 /> */}
                 <ShopSidebarFilters
-                  brands= {articles.brands}
-                  colors = {articles.colors}
-                  sizes = {articles.brands}
-                  tags = {articles.tags}
+                  brands={articles.brands}
+                  colors={articles.colors}
+                  sizes={articles.brands}
+                  tags={articles.tags}
                   onFilterChange={(type, value) => {
-                    if (type === "brand") setSelectedBrand(value === "all" ? null : value);
-                    if (type === "color") setSelectedColor(value === "all" ? null : value);
-                    if (type === "size") setSelectedSize(value === "all" ? null : value);
-                    if (type === "tag") setSelectedTag(value === "all" ? null : value);
+                    if (type === "brand")
+                      setSelectedBrand(value === "all" ? null : value);
+                    if (type === "color")
+                      setSelectedColor(value === "all" ? null : value);
+                    if (type === "size")
+                      setSelectedSize(value === "all" ? null : value);
+                    if (type === "tag")
+                      setSelectedTag(value === "all" ? null : value);
                   }}
-                  sideSpaceClass =""
+                  sideSpaceClass=""
                 />
               </div>
               <div className="col-lg-9 order-1 order-lg-2">

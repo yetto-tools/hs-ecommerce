@@ -11,10 +11,6 @@ const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 
-const ShopGridCategoriesProductsFiltered = lazy(() =>
-  import("./pages/shop/ShopGridCategoriesProductsFiltered")
-);
-
 // product pages
 const Product = lazy(() => import("./pages/shop-product/Product"));
 
@@ -30,83 +26,74 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
-const App = () => {
-  
-  const loading = useSelector((state) => state.menu.loading);
+export const LoadingIndicator = (
+  <div className="flone-preloader-wrapper">
+    <div className="flone-preloader">
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+);
 
+const App = () => {
+  const { loading } = useSelector((state) => state.loader);
 
   // Indicador de carga
-  const LoadingIndicator = (
-    <div className="flone-preloader-wrapper">
-      <div className="flone-preloader">
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  );
 
   return (
     <Router>
       <ScrollToTop>
-      {loading && LoadingIndicator}
+        {loading && LoadingIndicator}
         <Suspense fallback={LoadingIndicator}>
-            <Routes>
-              <Route
-                path={process.env.PUBLIC_URL + "/"}
-                element={<HomeFashionTwo />}
-              />
+          <Routes>
+            <Route
+              path={process.env.PUBLIC_URL + "/"}
+              element={<HomeFashionTwo />}
+            />
 
-              {/* Shop pages */}
-              <Route
-                path={process.env.PUBLIC_URL + "/productos"}
-                element={<ShopGridStandard />}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/productos1"}
-                element={<Product />}
-              />
-              {/* Shop pages */}
-              <Route
-                path={process.env.PUBLIC_URL + "/:categoria/*"}
-                element={<ShopGridStandard />}
-              />
+            {/* Shop pages */}
+            {/* <Route
+              path={process.env.PUBLIC_URL + "/productos"}
+              element={<ShopGridStandard />}
+            /> */}
 
-              <Route
-                path={process.env.PUBLIC_URL + "/categoria"}
-                element={<ShopGridCategoriesProductsFiltered />}
-              />
+            {/* Shop pages */}
+            <Route
+              path={process.env.PUBLIC_URL + "/:categoria/*"}
+              element={<ShopGridStandard />}
+            />
 
-              {/* Other pages */}
-              <Route
-                path={process.env.PUBLIC_URL + "/about"}
-                element={<About />}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/contact"}
-                element={<Contact />}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/my-account"}
-                element={<MyAccount />}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/login-register"}
-                element={<LoginRegister />}
-              />
+            {/* Other pages */}
+            <Route
+              path={process.env.PUBLIC_URL + "/about"}
+              element={<About />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/contact"}
+              element={<Contact />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/mi-cuenta"}
+              element={<MyAccount />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/registrarse"}
+              element={<LoginRegister />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/login"}
+              element={<LoginRegister />}
+            />
 
-              <Route
-                path={process.env.PUBLIC_URL + "/cart"}
-                element={<Cart />}
-              />
+            <Route path={process.env.PUBLIC_URL + "/cart"} element={<Cart />} />
 
-              <Route
-                path={process.env.PUBLIC_URL + "/checkout"}
-                element={<Checkout />}
-              />
+            <Route
+              path={process.env.PUBLIC_URL + "/checkout"}
+              element={<Checkout />}
+            />
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </Suspense>
       </ScrollToTop>
     </Router>

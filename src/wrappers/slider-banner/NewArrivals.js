@@ -1,14 +1,19 @@
 import clsx from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import ProductModal from "../../components/product/ProductModal2";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { ROOT_IMAGE } from "../../config";
+import {
+  fetchArticleDetail,
+  fetchNewArticles,
+} from "../../hooks/use-FetchArticles";
 
 SwiperCore.use([Navigation]);
 
@@ -22,11 +27,7 @@ const ProductCard = ({ product, currency, openModal }) => {
             <div className="pro-same-action pro-quickview">
               <button onClick={openModal} title="Quick View" className="btn">
                 <LazyLoadImage
-                  src={
-                    product.image.includes("/ftp_imagenes/")
-                      ? product.image
-                      : `/ftp_imagenes/articulos/${product.image}`
-                  }
+                  src={ROOT_IMAGE + product.images[0]}
                   alt={product.name}
                   className="img"
                   width={192}
@@ -54,17 +55,17 @@ const ProductCard = ({ product, currency, openModal }) => {
 
               <span className="text-lg">
                 <span
-                  className="price border px-4 font-semibold rounded border-dark bg-black text-white"
+                  className="price border px-4 font-semibold rounded border-dark hove:bg-black"
                   style={{ paddingBlock: "0.3rem" }}
                 >
                   {Intl.NumberFormat(i18n.language, {
                     style: "currency",
                     currency: currency.currencyName,
-                  }).format(product.priceDiscount)}
+                  }).format(product.discountedPrice)}
                 </span>
               </span>
 
-              {product.Descuento_Porcentaje > 0 && (
+              {product.discount > 0 && (
                 <p className="text-md font-semibold mt-2 pb-4">
                   <del>
                     {Intl.NumberFormat(i18n.language, {
@@ -82,20 +83,29 @@ const ProductCard = ({ product, currency, openModal }) => {
   );
 };
 
-const NewArrivals = ({
-  products,
-  spaceLeftClass = "",
-  spaceRightClass = "",
-}) => {
-  
+const NewArrivals = ({ spaceLeftClass = "", spaceRightClass = "" }) => {
   const currency = useSelector((state) => state.currency);
   const [modalShow, setModalShow] = useState(null);
+  const dispatch = useDispatch();
+  const { newArrivals } = useSelector((state) => state.newArrivals);
+  const { loading } = useSelector((state) => state.articleDetail);
+
+  useEffect(() => {
+    dispatch(fetchNewArticles());
+  }, [dispatch]);
+
+  const handleClickProductModal = (product) => {
+    dispatch(fetchArticleDetail(product.sku));
+    if (loading === false) {
+      setModalShow(product);
+    }
+  };
 
   return (
     <>
       <div className="container-fluid row mx-auto px-5 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-medium text-left uppercase mx-4">
-          Nuevos Ingresos
+          {"Nuevos Ingresos"}
         </h1>
       </div>
 
@@ -125,12 +135,14 @@ const NewArrivals = ({
               1024: { slidesPerView: 4, spaceBetween: 10 },
             }}
           >
-            {products.map((product, index) => (
+            {newArrivals.map((product, index) => (
               <SwiperSlide key={product.id || `product-${index}`}>
                 <ProductCard
                   product={product}
                   currency={currency}
-                  openModal={() => setModalShow(product)}
+                  openModal={() => {
+                    handleClickProductModal(product);
+                  }}
                 />
               </SwiperSlide>
             ))}

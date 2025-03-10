@@ -18,12 +18,15 @@ import wishlistReducer from "./slices/wishlist-slice";
 import menuReduce from "./slices/menu-slice";
 import articlesReducer from "./slices/articles-slice";
 import articleDetailReducer from "./slices/articleDetail-slice";
+import loadingReducer from "./slices/loading-slice";
+import newArrivalsReducer from "./slices/newArrivals-slice";
+import usuarioReducer from "./slices/usuario-slice";
 
 const persistConfig = {
   key: "flone",
   version: 1.1,
   storage,
-  blacklist: ["currency", "compare", "wishlist", "menu"],
+  blacklist: ["currency", "compare", "wishlist"],
   // blacklist: ["currency", "cart", "compare", "wishlist", "menu", "articles"],
 };
 
@@ -35,6 +38,9 @@ const rootReducer = combineReducers({
   menu: menuReduce,
   articles: articlesReducer,
   articleDetail: articleDetailReducer,
+  loader: loadingReducer,
+  newArrivals: newArrivalsReducer,
+  usuario: usuarioReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
