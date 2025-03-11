@@ -16,34 +16,37 @@ const FooterHypestreet = ({
   return (
     <footer
       className={clsx(
-        "footer-area",
+        "",
         backgroundColorClass,
         spaceTopClass,
         spaceBottomClass,
         extraFooterClass
       )}
     >
-      <div className={`${containerClass ? containerClass : "container"}`}>
+      <div className={`${containerClass ? containerClass : "container "}`}>
         <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-center flex-wrap">
           {/* Columna de Ayuda */}
           <div className="col-md-4 col-sm-8 mx-auto my-5 text-md-start text-sm-center ">
-            <h5 className="font-bold text-lg uppercase mt-0 text-white">
+            <h5 className="font-bold text-lg uppercase mt-0 text-white text-hover-green-hs">
               {t("footer.help")}
             </h5>
             <ul className="list-unstyled mt-4">
               <li>
-                <Link className="text-white" to="/faq">
+                <Link className="text-white text-hover-green-hs" to="/faq">
                   {t("footer.faq")}
                 </Link>
               </li>
               <li>
-                <Link className="text-white" to="/warranty">
+                <Link className="text-white text-hover-green-hs" to="/warranty">
                   {t("footer.warranty")}
                 </Link>
               </li>
 
               <li>
-                <Link className="text-white" to="/terms-conditions">
+                <Link
+                  className="text-white text-hover-green-hs"
+                  to="/terms-conditions"
+                >
                   {t("footer.terms_conditions")}
                 </Link>
               </li>
@@ -71,51 +74,58 @@ const FooterHypestreet = ({
             <div className="d-flex justify-content-center">
               <Link
                 to="https://www.facebook.com/Hypestreetstoree"
-                className="m-2 bg-white rounded-circle"
+                className="m-2 bg-white rounded-circle text-hover-green-hs"
               >
-                <FaFacebookF className="text-black m-1" />
+                <FaFacebookF className="text-black m-1 text-hover-green-hs" />
               </Link>
               <Link
                 to="https://www.instagram.com/hypestreet.gt"
-                className="m-2 bg-white rounded-circle"
+                className="m-2 bg-white rounded-circle text-hover-green-hs"
               >
-                <FaInstagram className="text-black m-1" />
+                <FaInstagram className="text-black m-1 text-hover-green-hs" />
               </Link>
               <Link
                 to="https://www.tiktok.com/@hypestreetgt"
-                className="m-2 bg-white rounded-circle"
+                className="m-2 bg-white rounded-circle text-hover-green-hs"
               >
-                <FaTiktok className="text-black m-1" />
+                <FaTiktok className="text-black m-1 text-hover-green-hs" />
               </Link>
             </div>
-            <p className="mt-3 text-white">
-              <Link to="/about-us" className="text-xs font-semibold text-white">
+            <p className="mt-3 text-white text-hover-green-hs">
+              <Link
+                // to="/nosotros"
+                to="/"
+                className="text-xs font-semibold text-white text-hover-green-hs"
+              >
                 {t("about_us")}
               </Link>
             </p>
-            <p className="text-white text-xs font-semibold capitalize">
+            <p className="text-white text-xs font-semibold capitalize text-hover-green-hs">
               <small>&copy; 2025 Hype Street Guatemala</small>
             </p>
           </div>
 
           {/* Columna de contacto */}
           <div className="col-md-4 col-sm-8 mx-auto my-5 text-md-end text-sm-center">
-            <h5 className="font-bold text-lg mt-0 text-white">
+            <h5 className="font-bold text-lg mt-0 text-white text-hover-green-hs">
               {t("footer.contact_us")}
             </h5>
             <ul className="list-unstyled mt-4">
               <li>
-                <Link className="text-white" to="/store-locations">
+                <Link
+                  className="text-white text-hover-green-hs"
+                  to="/store-locations"
+                >
                   {t("footer.store_locations")}
                 </Link>
               </li>
               <li>
-                <Link className="text-white" to="/contact">
+                <Link className="text-white text-hover-green-hs" to="/contact">
                   {t("footer.contact_here")}
                 </Link>
               </li>
               <li>
-                <Link className="text-white" to="/whatsapp">
+                <Link className="text-white text-hover-green-hs" to="/whatsapp">
                   {t("whatsapp")}
                 </Link>
               </li>
@@ -133,9 +143,9 @@ const FooterHypestreet = ({
       </div>
 
       <div className="text-center mt-4">
-        <span className="text-black">
+        <span className="text-black text-hover-green-hs">
           ©{new Date().getFullYear()}{" "}
-          <Link to="/" className="text-black">
+          <Link to="/" className="text-black text-hover-green-hs">
             {t("footer.company_name")}
           </Link>
         </span>

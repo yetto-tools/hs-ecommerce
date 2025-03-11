@@ -1,3 +1,7 @@
+export const adapterSearchArticles = (data) => {
+  return data.articulo.map((article) => adapterArticle(article || []));
+};
+
 export const adapterArticles = (data) => {
   return data.articulos.map((article) => adapterArticle(article || []));
 };

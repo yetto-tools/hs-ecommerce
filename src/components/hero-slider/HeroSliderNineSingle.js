@@ -33,11 +33,11 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
                     ),
                   }}
                 ></h2>
-                <div className="slider-btn btn-hover rounded">
+                <div className="slider-btn btn-hover rounded mt-4">
                   <Link
                     className="animated text-black"
                     style={{ borderRadius: "0.5rem" }}
-                    to={process.env.PUBLIC_URL + data.url}  
+                    to={process.env.PUBLIC_URL + data.url}
                   >
                     {data.button}
                   </Link>

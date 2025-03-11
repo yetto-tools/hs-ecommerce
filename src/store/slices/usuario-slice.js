@@ -6,6 +6,7 @@ const usuarioSlice = createSlice({
     usuario: null,
     loading: false,
     error: null,
+    isLoggedIn: false,
   },
   reducers: {
     setLoading(state, action) {
@@ -17,8 +18,16 @@ const usuarioSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+    login(state, action) {
+      state.usuario = action.payload;
+      state.isLoggedIn = true;
+    },
+    logout(state) {
+      state.usuario = null;
+      state.isLoggedIn = false;
+    },
   },
 });
 
-export const { setUsuario, setError } = usuarioSlice.actions;
+export const { setUsuario, setError, login, logout } = usuarioSlice.actions;
 export default usuarioSlice.reducer;

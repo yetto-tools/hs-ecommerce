@@ -4,6 +4,7 @@ import {
   adapterArticleDetail,
   adapterNewArrivals,
   adapterArticle,
+  adapterSearchArticles,
 } from "../adapters/articles";
 import {
   setArticleDetail,
@@ -97,6 +98,47 @@ export const fetchNewArticles = () => async (dispatch) => {
       dispatch(setNewArrivals(articles));
     } else {
       throw new Error(data.message || "Error fetching products");
+    }
+  } catch (error) {
+    dispatch(setError(error.message));
+    cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const fetchSearchArticles = (value) => async (dispatch) => {
+  const url = `${API_URL}/api/${API_VERSION}/items/search/${value}`;
+
+  try {
+    dispatch(setLoading(true));
+    const response = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
+        position: "bottom-left",
+        onClick: () => {
+          hide();
+        },
+      });
+      return;
+    }
+
+    const { data, message } = await response.json();
+    if (response.ok) {
+      const articles = adapterSearchArticles(data);
+      dispatch(setArticles(articles));
+      const { hide } = cogoToast.success(`Resultados de la busqueda`, {
+        position: "bottom-left",
+        onClick: () => {
+          hide();
+        },
+      });
+    } else {
+      throw new Error(message || "Error fetching products");
     }
   } catch (error) {
     dispatch(setError(error.message));

@@ -7,15 +7,7 @@ import { fetchArticles } from "../../hooks/use-FetchArticles";
 
 import { useDispatch, useSelector } from "react-redux";
 
-
-
-
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
-
-
-
-  
-
   return (
     <div
       className={clsx(
@@ -70,9 +62,11 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                                 >
                                   <span className="fw-600 uppercase fs-6">
                                     {subsubitem.title}
-                                    {subitem.subitems && subitem.subitems.length > 0 && (
-                                          <ul className="submenu-subsub">
-                                            {subitem.subitems.map((subsubitem) => (
+                                    {subitem.subitems &&
+                                      subitem.subitems.length > 0 && (
+                                        <ul className="submenu-subsub">
+                                          {subitem.subitems.map(
+                                            (subsubitem) => (
                                               <li key={subsubitem.id}>
                                                 <Link
                                                   to={
@@ -85,10 +79,10 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                                                   </span>
                                                 </Link>
                                               </li>
-                                            ))}
-                                          </ul>
-                                        )}
-
+                                            )
+                                          )}
+                                        </ul>
+                                      )}
                                   </span>
                                 </Link>
                               </li>

@@ -51,12 +51,8 @@ const bannerData = {
 
 const BannerMultiColumnImage = ({ spaceLeftClass, spaceRightClass }) => {
   return (
-    <div
-      className={clsx("slider-area bg-black", spaceLeftClass, spaceRightClass)}
-    >
-      <div className="slider-active nav-style-1 container-fluid">
-        <BannerMultiColumn data={bannerData} sliderClass={""} />
-      </div>
+    <div className="" style={{ width: "100dvw", height: "96dvh" }}>
+      <BannerMultiColumn data={bannerData} sliderClass={""} />;
     </div>
   );
 };

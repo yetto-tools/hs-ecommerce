@@ -1,4 +1,4 @@
-import { Fragment, use, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import SEO from "../../components/seo";
@@ -49,6 +49,12 @@ const MyAccount = () => {
     phone1: usuario?.phone1 || "",
   });
 
+  useEffect(() => {
+    if (!usuario?.id) {
+      navigate("/login");
+    }
+  }, [usuario, navigate]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLocalUsuario((prev) => ({
@@ -61,13 +67,6 @@ const MyAccount = () => {
     e.preventDefault();
     dispatch(setUsuario({ ...usuario, ...localUsuario }));
   };
-
-  useEffect(() => {
-    if (!usuario?.id) {
-      navigate("/login");
-    }
-    console.log({ usuario, direcciones, token });
-  }, [usuario, direcciones, token]);
 
   return (
     <Fragment>
@@ -113,7 +112,7 @@ const MyAccount = () => {
                                   type="hidden"
                                   name="IdUsuario"
                                   min={0}
-                                  value={usuario.id}
+                                  value={usuario?.id}
                                 />
                               </div>
                             </div>
@@ -124,7 +123,7 @@ const MyAccount = () => {
                                   name="Nombre"
                                   type="text"
                                   maxLength={300}
-                                  value={usuario.name}
+                                  value={usuario?.name}
                                 />
                               </div>
                             </div>
@@ -135,7 +134,7 @@ const MyAccount = () => {
                                   name="Usuario"
                                   type="text"
                                   maxLength={50}
-                                  value={usuario.user}
+                                  value={usuario?.user}
                                 />
                               </div>
                             </div>
@@ -148,7 +147,7 @@ const MyAccount = () => {
                                   name="Correo"
                                   type="email"
                                   maxLength={150}
-                                  value={usuario.email}
+                                  value={usuario?.email}
                                 />
                               </div>
                             </div>
@@ -159,7 +158,7 @@ const MyAccount = () => {
                                   name="Telefono"
                                   type="phone"
                                   maxLength={50}
-                                  value={usuario.phone1}
+                                  value={usuario?.phone1}
                                 />
                               </div>
                             </div>

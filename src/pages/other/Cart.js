@@ -59,10 +59,18 @@ const Cart = () => {
                           <tr>
                             <th style={{ width: "10rem" }}>&nbsp;</th>
                             <th>&nbsp;</th>
-                            <th style={{textTransform:"capitalize"}}>{t("page_cart.th_unit_price")}</th>
-                            <th style={{textTransform:"capitalize"}}>{t("page_cart.th_qty")}</th>
-                            <th style={{textTransform:"capitalize"}}>{t("page_cart.th_subtotal")}</th>
-                            <th style={{textTransform:"capitalize"}}>{t("page_cart.th_action")}</th>
+                            <th style={{ textTransform: "capitalize" }}>
+                              {t("page_cart.th_unit_price")}
+                            </th>
+                            <th style={{ textTransform: "capitalize" }}>
+                              {t("page_cart.th_qty")}
+                            </th>
+                            <th style={{ textTransform: "capitalize" }}>
+                              {t("page_cart.th_subtotal")}
+                            </th>
+                            <th style={{ textTransform: "capitalize" }}>
+                              {t("page_cart.th_action")}
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -95,9 +103,7 @@ const Cart = () => {
                                   >
                                     <img
                                       className="img-fluid"
-                                      src={
-                                        cartItem.images[0]
-                                      }
+                                      src={cartItem.images[0]}
                                       alt=""
                                     />
                                   </Link>
@@ -157,7 +163,7 @@ const Cart = () => {
                                 </td>
 
                                 <td className="product-quantity">
-                                  <div className="cart-plus-minus">
+                                  <div className="">
                                     <button
                                       className="dec qtybutton"
                                       onClick={() =>
@@ -340,7 +346,10 @@ const Cart = () => {
                           }).format(cartTotalPrice)}
                         </span>
                       </h4>
-                      <Link to={process.env.PUBLIC_URL + "/checkout"} className="text-center">
+                      <Link
+                        to={process.env.PUBLIC_URL + "/checkout"}
+                        className="text-center"
+                      >
                         Comprar Ahora
                       </Link>
                     </div>
@@ -355,9 +364,9 @@ const Cart = () => {
                       <i className="pe-7s-cart"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in cart <br />{" "}
+                      No se han encontrado artículos en el carrito <br />{" "}
                       <Link to={process.env.PUBLIC_URL + "/productos"}>
-                        Shop Now
+                        Comprar Ahora
                       </Link>
                     </div>
                   </div>

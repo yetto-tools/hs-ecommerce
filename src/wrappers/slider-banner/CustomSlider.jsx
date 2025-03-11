@@ -1,6 +1,8 @@
+import clsx from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useRef, useState, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 
 const CustomSlider = ({ slides }) => {
   const sliderRef = useRef(null);
@@ -14,8 +16,8 @@ const CustomSlider = ({ slides }) => {
   useEffect(() => {
     const updateVisibleSlides = () => {
       const width = window.innerWidth;
-      if (width > 1200) setVisibleSlides(5);
-      else if (width > 992) setVisibleSlides(4);
+      if (width > 1200) setVisibleSlides(4);
+      else if (width > 992) setVisibleSlides(3);
       else if (width > 768) setVisibleSlides(3);
       else if (width > 575) setVisibleSlides(2);
       else setVisibleSlides(1);
@@ -86,50 +88,75 @@ const CustomSlider = ({ slides }) => {
   };
 
   return (
-    <div className="slider-container">
-      <button className="prev" onClick={prevSlide}>
-        <ChevronLeft size={48} color="#fff" />
-      </button>
-      <div
-        className="slider-wrapper"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
+    <section
+      className="container-fluid row mx-auto sm:px-6 lg:px-8"
+      style={{ height: "96dvh" }}
+    >
+      <section
+        className={clsx(
+          "container-fluid align-self-center mx-auto  sm:px-6 lg:px-8 slider-area",
+          "",
+          ""
+        )}
       >
-        <div
-          className="slider"
-          ref={sliderRef}
-          style={{
-            transform: `translateX(-${currentIndex * (100 / visibleSlides)}%)`,
-          }}
-        >
-          {infiniteSlides.map((slide, index) => (
-            <div key={index} className="slide">
-              <LazyLoadImage
-                src={slide.image}
-                alt={slide.name}
-                loading="lazy"
-              />
-              {slide.logo && (
-                <div className="logo-overlay">
-                  <LazyLoadImage
-                    src={slide.logo}
-                    alt={slide.name}
-                    loading="lazy"
-                  />
-                </div>
-              )}
+        <h1 className="text-5xl font-medium text-left uppercase mx-4 pb-5 text-white">
+          {"Marcas"}
+        </h1>
+
+        <div className="slider-active-black nav-style-1-black">
+          <div className="slider-container ">
+            <button className="prev" onClick={prevSlide}>
+              <ChevronLeft size={48} color="#fff" />
+            </button>
+            <div
+              className="slider-wrapper"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+            >
+              <div
+                className="slider"
+                ref={sliderRef}
+                style={{
+                  transform: `translateX(-${
+                    currentIndex * (100 / visibleSlides)
+                  }%)`,
+                }}
+              >
+                {infiniteSlides.map((slide, index) => (
+                  <div key={index} className="slide">
+                    <Link
+                      to={process.env.PUBLIC_URL + `/busqueda=${slide.name}`}
+                    >
+                      <LazyLoadImage
+                        src={slide.image}
+                        alt={slide.name}
+                        loading="lazy"
+                      />
+                      {slide.logo && (
+                        <div className="logo-overlay">
+                          <LazyLoadImage
+                            src={slide.logo}
+                            alt={slide.name}
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
+                    </Link>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+            <button className="next" onClick={nextSlide}>
+              <ChevronRight size={48} color="#fff" />
+            </button>
+          </div>
         </div>
-      </div>
-      <button className="next" onClick={nextSlide}>
-        <ChevronRight size={48} color="#fff" />
-      </button>
-    </div>
+      </section>
+    </section>
   );
 };
 

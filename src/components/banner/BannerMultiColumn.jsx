@@ -20,6 +20,7 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              backgroundPosition: index === 0 ? "right" : "left",
             }}
           >
             <div
@@ -62,12 +63,22 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
                     </h2>
                   </div>
                   <div className="col-12 col-md-12 my-2">
-                    <Link
-                      className="button uppercase"
+                    <div className="slider-btn btn-hover rounded">
+                      <Link
+                        className="banner-button animated text-black"
+                        style={{ borderRadius: "0.5rem" }}
+                        to={process.env.PUBLIC_URL + data.url}
+                      >
+                        {data.buttons[index].text}
+                      </Link>
+                    </div>
+
+                    {/* <Link
+                      className="button uppercase "
                       to={process.env.PUBLIC_URL + data.buttons[index].url}
                     >
                       {data.buttons[index].text}
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </article>
@@ -97,15 +108,35 @@ export default BannerMultiColumn;
 
 const styleCustom = `
 
+.banner-button {
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .banner-multi-column {
   width: 100%;
+  height: 96dvh;
 }
 
 .banner-wrapper {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 36rem;
+  height: 96dvh;
 }
 
 .banner-item {
@@ -123,7 +154,7 @@ const styleCustom = `
 .banner-item .content {
   text-align: center;
   color: white;
-  height: 28rem;
+  height: 96dvh;
   width: 100%;
   display: flex;
 }
@@ -145,16 +176,36 @@ const styleCustom = `
 }
 
 /* ✅ Versión móvil */
-@media (max-width: 991px) {
+@media (max-width: 1023px) {
   .banner-wrapper {
     flex-direction: column;
     height: auto;
   }
 
   .banner-item {
-    height: 50vh;
+    height: 50dvh;
   }
 }
+/* Para tabletas en modo retrato y panta_llas más pequeñas */
+@media (max-width: 768px) {
+  .banner-wrapper {
+    height: 28rem; /* Menor altura para pantallas más pequeñas */
+  }
+}
+
+/* Para teléfonos móviles en modo paisaje */
+@media (max-width: 576px) {
+  .banner-wrapper {
+    height: 24rem; /* Ajusta aún más la altura para pantallas aún más pequeñas */
+  }
+}
+
+/* Para teléfonos móviles en modo retrato */
+@media (max-width: 480px) {
+  .banner-wrapper {
+    height: 18rem; /* Altura más pequeña para móviles en modo retrato */
+  }
+
 `;
 const styleSheet = document.createElement("style");
 styleSheet.type = "text/css";

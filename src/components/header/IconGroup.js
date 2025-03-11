@@ -1,14 +1,18 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
 import { useTranslation } from "react-i18next";
 import { ShoppingCart } from "lucide-react";
+import { fetchSearchArticles } from "../../hooks/use-FetchArticles";
+import { useState } from "react";
+import { logout } from "../../store/slices/usuario-slice";
 
 const IconGroup = ({ iconWhiteClass }) => {
   const { t } = useTranslation();
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -20,12 +24,23 @@ const IconGroup = ({ iconWhiteClass }) => {
     offcanvasMobileMenu.classList.add("active");
   };
 
-  const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
 
-  const {
-    usuario: { usuario, direcciones, token },
-  } = useSelector((state) => state.usuario);
+  const { usuario } = useSelector((state) => state.usuario);
+  const isLoggedIn = useSelector((state) => state.usuario.isLoggedIn);
+
+  const [value, setValue] = useState("");
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    navigate("/busqueda=" + value.trim());
+    await dispatch(fetchSearchArticles(value.trim()));
+  };
+
+  const handleLogout = () => {
+    dispatch(logout()); // Disparar la acción de logout
+    navigate("/");
+  };
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
@@ -41,22 +56,14 @@ const IconGroup = ({ iconWhiteClass }) => {
             color: "#000",
             marginLeft: "10px",
           }}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch(e);
+            }
+          }}
         />
-        {/* 
-        
-        <button className="search-active" onClick={(e) => handleClick(e)}>
-          <i className="pe-7s-search" />
-        </button>
-        <div className="search-content">
-          <form action="#">
-            <input type="text" placeholder="Buscar..." />
-            <button className="button-search">
-              <i className="pe-7s-search" />
-            </button>
-          </form>
-        </div> 
-        
-        */}
       </div>
       <div className="same-style header-compare d-none d-lg-block ms-2">
         <div className="account-setting d-none d-lg-block">
@@ -92,16 +99,33 @@ const IconGroup = ({ iconWhiteClass }) => {
                   </span>
                 </Link>
               </li>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/registrarse"}>
-                  {t("icon_group.register")}
-                </Link>
-              </li>
+              {!isLoggedIn && (
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/registrarse"}>
+                    <span className="text-ellipsis">
+                      {t("icon_group.register")}
+                    </span>
+                  </Link>
+                </li>
+              )}
+
               <li>
                 <Link to={process.env.PUBLIC_URL + "/mi-cuenta"}>
                   {t("icon_group.my_account")}
                 </Link>
               </li>
+              {isLoggedIn && (
+                <li>
+                  <Link
+                    to={""}
+                    onClick={handleLogout}
+                    className="text-sm text-black"
+                  >
+                    {t("icon_group.logout")}
+                    <i className="pe-7s-exit" />
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

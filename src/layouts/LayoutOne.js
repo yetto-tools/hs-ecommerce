@@ -21,16 +21,12 @@ const LayoutOne = ({
         headerPositionClass={headerPositionClass}
       />
       {children}
+
       <FooterHypestreet
         backgroundColorClass="bg-black"
         spaceTopClass="pt-100"
         spaceBottomClass="pb-70"
       />
-      {/* <FooterOne
-        backgroundColorClass="bg-gray-hs"
-        spaceTopClass="pt-100"
-        spaceBottomClass="pb-70"
-      /> */}
       <ScrollToTop />
     </Fragment>
   );

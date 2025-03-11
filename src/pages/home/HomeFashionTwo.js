@@ -78,10 +78,7 @@ const HomeFashionTwo = () => {
           <HeroSliderNine spaceLeftClass="" spaceRightClass="" />
 
           {/* slider new arrivals */}
-          <div
-            className="bg-white container-fluid  d-flex flex-column justify-content-around align-items-center  align-items-center"
-            style={{ height: "48rem" }}
-          >
+          <div className="bg-white container-fluid d-flex flex-column justify-content-around align-items-center align-items-center">
             {/* <BrandLogoSliderFour
               spaceBottomClass="pb-50"
               spaceTopClass="pt-50"
@@ -93,26 +90,14 @@ const HomeFashionTwo = () => {
 
           {/*  */}
 
-          <div
-            className="bg-black d-flex flex-column justify-content-around align-items-center  align-items-center pb-5 bg-black"
-            style={{ height: "36rem" }}
-          >
-            <div className="container-fluid text-left">
-              <div className="row m-5">
-                <h1 className="text-white uppercase">Marcas</h1>
-              </div>
-            </div>
+          <div className="bg-black container-fluid d-flex flex-column justify-content-around align-items-center align-items-center">
             <CustomSlider slides={brands} />
           </div>
 
-          {/* <BannerSingleImage /> */}
-          <BannerMultiColumnImage />
-
-          {/* tab product */}
-          {/* <TabProductFive spaceBottomClass="pb-60" category="GORRAS" /> */}
-          <div className="pt-40 pb-20 bg-black"></div>
-          {/* blog featured */}
-          {/* <BlogFeatured spaceBottomClass="pb-55" /> */}
+          <div className="bg-black container-fluid d-flex flex-column justify-content-around align-items-center align-items-center">
+            {/* <BannerSingleImage /> */}
+            <BannerMultiColumnImage />
+          </div>
         </main>
       </LayoutOne>
     </Fragment>

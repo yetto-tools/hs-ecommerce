@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { ProtectedRoute } from "./wrappers/ProtectedRoute";
 
 // home pages
 
@@ -63,19 +64,30 @@ const App = () => {
               element={<ShopGridStandard />}
             />
 
+            <Route
+              path={process.env.PUBLIC_URL + "/busqueda:valor"}
+              element={<ShopGridStandard />}
+            />
+
             {/* Other pages */}
             <Route
-              path={process.env.PUBLIC_URL + "/about"}
+              path={process.env.PUBLIC_URL + "/nosotros"}
               element={<About />}
             />
             <Route
               path={process.env.PUBLIC_URL + "/contact"}
               element={<Contact />}
             />
+
             <Route
               path={process.env.PUBLIC_URL + "/mi-cuenta"}
-              element={<MyAccount />}
+              element={
+                <MyAccount />
+                // <ProtectedRoute>
+                // </ProtectedRoute>
+              }
             />
+
             <Route
               path={process.env.PUBLIC_URL + "/registrarse"}
               element={<LoginRegister />}

@@ -24,24 +24,24 @@ const ProductGridListSingle = ({
   compareItem,
   spaceBottomClass,
 }) => {
+  const dispatch = useDispatch();
+  // const { article } = useSelector((state) => state.article);
+  const { loading } = useSelector((state) => state.loader);
   const { t, i18n } = useTranslation();
 
   const [modalShow, setModalShow] = useState(false);
   const [loadingImage, setLoadingImage] = useState(true);
-  const discountedPrice = getDiscountPrice(article.price, article.discount);
-  const finalProductPrice = +(article.price * currency.currencyRate).toFixed(2);
+  const discountedPrice = getDiscountPrice(product.price, product.discount);
+  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
 
-  const dispatch = useDispatch();
-  const { article } = useSelector((state) => state.article);
-  const { loading } = useSelector((state) => state.loader);
   const handleProductDetail = async (e) => {
     e.stopPropagation();
     try {
       dispatch(setLoading(true));
-      await dispatch(fetchArticleDetail(article.sku));
+      await dispatch(fetchArticleDetail(product.sku));
     } catch (error) {
       console.error("Error al cargar detalle:", error);
     } finally {
@@ -55,14 +55,14 @@ const ProductGridListSingle = ({
       <div className={clsx("product-wrap", spaceBottomClass)}>
         <div className={clsx("product-img", loadingImage && "loading")}>
           <Link
-            to={process.env.PUBLIC_URL + "/producto/" + article.sku}
+            to={process.env.PUBLIC_URL + "/producto/" + product.sku}
             onClick={handleProductDetail}
           >
             <>
               <LazyLoadImage
                 className="default-img object-fit-cover"
                 onLoad={() => setLoadingImage(false)}
-                src={ROOT_IMAGE + article.image[0]}
+                src={ROOT_IMAGE + product.image[0]}
                 alt=""
                 width={320}
                 height={320}
@@ -74,11 +74,11 @@ const ProductGridListSingle = ({
                 }}
               />
             </>
-            {article.image.length > 1 ? (
+            {/* {product.image.length > 1 ? (
               <LazyLoadImage
                 className="hover-img object-fit-cover"
                 onLoad={() => setLoadingImage(false)}
-                src={ROOT_IMAGE + article.image[1]}
+                src={ROOT_IMAGE + product.image[1]}
                 alt=""
                 lazy="loaded"
                 width={320}
@@ -86,14 +86,14 @@ const ProductGridListSingle = ({
               />
             ) : (
               ""
-            )}
+            )} */}
           </Link>
-          {article.discount || article.new ? (
+          {product.discount || product.new ? (
             <div className="product-img-badges">
-              {article.discount && article.discount > 0.0 && (
-                <span className="pink">-{article.discount}%</span>
+              {product.discount && product.discount > 0.0 && (
+                <span className="pink">-{product.discount}%</span>
               )}
-              {article.new ? (
+              {product.new ? (
                 <span className="purple">{t("general_words.new")}</span>
               ) : (
                 ""
@@ -113,13 +113,13 @@ const ProductGridListSingle = ({
         </div>
         <div className="product-content text-center">
           <h3>
-            <Link to={process.env.PUBLIC_URL + "/producto/" + article.id}>
-              {article.name}
+            <Link to={process.env.PUBLIC_URL + "/producto/" + product.id}>
+              {product.name}
             </Link>
           </h3>
-          {article.rating && article.rating > 0 ? (
+          {product.rating && product.rating > 0 ? (
             <div className="product-rating">
-              <Rating ratingValue={article.rating} />
+              <Rating ratingValue={product.rating} />
             </div>
           ) : (
             ""
@@ -149,31 +149,31 @@ const ProductGridListSingle = ({
               {typeof product === "object" && (
                 <div className="product-img">
                   <Link
-                    to={process.env.PUBLIC_URL + "/producto/" + article.sku}
+                    to={process.env.PUBLIC_URL + "/producto/" + product.sku}
                   >
                     <LazyLoadImage
                       className="default-img img-fluid"
-                      src={process.env.PUBLIC_URL + article.image[0]}
-                      alt={article.name}
+                      src={process.env.PUBLIC_URL + product.image[0]}
+                      alt={product.name}
                     />
-                    {article.image.length > 1 ? (
+                    {product.image.length > 1 ? (
                       <LazyLoadImage
                         className="hover-img img-fluid"
-                        src={process.env.PUBLIC_URL + article.image[1]}
+                        src={process.env.PUBLIC_URL + product.image[1]}
                         alt=""
                       />
                     ) : (
                       ""
                     )}
                   </Link>
-                  {article.discount || article.new ? (
+                  {product.discount || product.new ? (
                     <div className="product-img-badges">
-                      {article.discount ? (
-                        <span className="pink">-{article.discount}%</span>
+                      {product.discount ? (
+                        <span className="pink">-{product.discount}%</span>
                       ) : (
                         ""
                       )}
-                      {article.new ? (
+                      {product.new ? (
                         <span className="purple">{t("general_words.new")}</span>
                       ) : (
                         ""
@@ -204,39 +204,39 @@ const ProductGridListSingle = ({
                   </span>
                 )}
               </div>
-              {article.rating && article.rating > 0 ? (
+              {product.rating && product.rating > 0 ? (
                 <div className="rating-review">
                   <div className="product-list-rating">
-                    <Rating ratingValue={article.rating} />
+                    <Rating ratingValue={product.rating} />
                   </div>
                 </div>
               ) : (
                 ""
               )}
-              {article.shortDescription ? (
-                <p>{article.shortDescription}</p>
+              {product.shortDescription ? (
+                <p>{product.shortDescription}</p>
               ) : (
                 ""
               )}
 
               <div className="shop-list-actions d-flex align-items-center">
                 <div className="shop-list-btn btn-hover">
-                  {article.affiliateLink ? (
+                  {product.affiliateLink ? (
                     <a
-                      href={article.affiliateLink}
+                      href={product.affiliateLink}
                       rel="noopener noreferrer"
                       target="_blank"
                     >
                       {" "}
                       Buy now{" "}
                     </a>
-                  ) : article.variation && article.variation.length >= 1 ? (
+                  ) : product.variation && product.variation.length >= 1 ? (
                     <Link
-                      to={`${process.env.PUBLIC_URL}/producto/${article.id}`}
+                      to={`${process.env.PUBLIC_URL}/producto/${product.id}`}
                     >
                       ver detalle
                     </Link>
-                  ) : article.stock && article.stock > 0 ? (
+                  ) : product.stock && product.stock > 0 ? (
                     <button
                       onClick={() => dispatch(addToCart(product))}
                       className={
@@ -272,12 +272,17 @@ const ProductGridListSingle = ({
         show={modalShow}
         onHide={() => setModalShow(false)}
         currency={currency}
+      />
+      {/* <ProductModal2
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        currency={currency}
         discountedPrice={discountedPrice}
         finalProductPrice={finalProductPrice}
         finalDiscountedPrice={finalDiscountedPrice}
         wishlistItem={wishlistItem}
         compareItem={compareItem}
-      />
+      /> */}
     </Fragment>
   );
 };

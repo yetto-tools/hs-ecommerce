@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import ShopSearch from "../../components/product/ShopSearch";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../../store/slices/articles-slice";
 
 const ShopSidebar = ({
   brands = [],
@@ -8,10 +10,12 @@ const ShopSidebar = ({
   sizes = [],
   tags = [],
   onFilterChange,
-  sideSpaceClass
+  sideSpaceClass,
 }) => {
+  const dispatch = useDispatch();
+
   const handleFilterClick = (filterType, value) => {
-    onFilterChange(filterType, value);
+    dispatch(setFilter({ filterType, value }));
   };
 
   return (
@@ -53,8 +57,13 @@ const ShopSidebar = ({
             {colors.map((color) => (
               <li key={color.id}>
                 <label>
-                  <span className="checkmark" style={{ backgroundColor: color.hex }}/>
-                  <button onClick={() => handleFilterClick("color", color.name)}>
+                  <span
+                    className="checkmark"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                  <button
+                    onClick={() => handleFilterClick("color", color.name)}
+                  >
                     {color.name}
                   </button>
                 </label>
@@ -92,7 +101,7 @@ const ShopSidebar = ({
           {tags.length ? (
             tags.map((tag, index) => (
               <span
-              className="text-xs rounded badge text-bg-light"
+                className="text-xs rounded badge text-bg-light"
                 key={index}
                 onClick={() => handleFilterClick("tag", tag.tag)}
               >

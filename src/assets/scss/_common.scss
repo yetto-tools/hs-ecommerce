@@ -1804,7 +1804,7 @@ textarea:focus {
   text-align: center;
 
   // opacity: 0;
-  color: #fff;
+  color: #000;
   border: none;
   border-radius: 50px;
   background: none;
@@ -2345,17 +2345,18 @@ button:disabled {
 }
 /* Estilos personalizados para la barra de desplazamiento */
 ::-webkit-scrollbar {
-  width: 3px; /* Ancho de la barra de desplazamiento */
+  width: 1px; /* Ancho de la barra de desplazamiento */
+  height: 1px;
 }
 
 ::-webkit-scrollbar-track {
   background: #f1f1f1; /* Color del fondo de la barra de desplazamiento */
-  border-radius: 10px; /* Esquinas redondeadas */
+  border-radius: 3px; /* Esquinas redondeadas */
 }
 
 ::-webkit-scrollbar-thumb {
   background: #888; /* Color del control deslizante de la barra de desplazamiento */
-  border-radius: 10px; /* Esquinas redondeadas */
+  border-radius: 3px; /* Esquinas redondeadas */
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -2385,7 +2386,7 @@ button:disabled {
 }
 
 .text-hover-green-hs:hover {
-  color: #b9db00;
+  color: #b9db00 !important;
   transition: color 0.3s ease;
 }
 

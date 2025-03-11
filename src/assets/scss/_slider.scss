@@ -1,16 +1,16 @@
 /*----- 3. Slider style  ------*/
 
 .slider-height-1 {
-  height: 750px;
-  @media #{$xl-layout} {
-    height: 650px;
-  }
-  @media #{$lg-layout} {
-    height: 520px;
-  }
-  @media #{$md-layout} {
-    height: 450px;
-  }
+  height: 96dvh;
+  // @media #{$xl-layout} {
+  //   height: 650px;
+  // }
+  // @media #{$lg-layout} {
+  //   height: 520px;
+  // }
+  // @media #{$md-layout} {
+  //   height: 450px;
+  // }
   @media #{$xs-layout} {
     height: auto;
     padding: 50px 0 0;
@@ -2931,16 +2931,14 @@
   color: #000;
   position: fixed;
 }
-#thumbnail > div > button.swiper-button-prev.prev-swiper-nav::after{
+#thumbnail > div > button.swiper-button-prev.prev-swiper-nav::after {
   left: 0;
 }
 #thumbnail > div > button.swiper-button-next.next-swiper-nav::after {
   right: 0;
 }
 
-
-#thumbnail > div > div
-{
+#thumbnail > div > div {
   width: 260px;
   position: absolute;
   top: 0;

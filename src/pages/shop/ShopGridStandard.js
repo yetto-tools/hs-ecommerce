@@ -5,7 +5,7 @@
 import { Fragment, useState, useEffect } from "react";
 import Paginator from "react-hooks-paginator";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { getIdsFromUrl, getSortedProducts } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -13,7 +13,10 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ShopSidebar from "../../wrappers/product/ShopSidebar";
 import ShopTopbar from "../../wrappers/product/ShopTopbar";
 import ShopProducts from "../../wrappers/product/ShopProducts";
-import { fetchArticles } from "../../hooks/use-FetchArticles";
+import {
+  fetchArticles,
+  fetchSearchArticles,
+} from "../../hooks/use-FetchArticles";
 import ShopSidebarFilters from "../shop/ShopSidebarFilters";
 
 const ShopGridStandard = () => {
@@ -36,62 +39,43 @@ const ShopGridStandard = () => {
   const dispatch = useDispatch();
 
   const { n1, n2, n3 } = getIdsFromUrl(menu, pathname);
-  console.log(n1, n2, n3);
+
   useEffect(() => {
-    dispatch(fetchArticles(n1, n2, n3));
+    if (!pathname.includes("busqueda")) {
+      dispatch(fetchArticles(n1, n2, n3));
+    } else {
+      dispatch(fetchSearchArticles(pathname.split("=")[1]));
+    }
   }, [dispatch, n1, n2, n3]);
-
-  const pageLimit = 15;
-
-  const getLayout = (layout) => {
-    setLayout(layout);
-  };
-
-  // const getSortParams = (sortType, sortValue) => {
-  //   setSortType(sortType);
-  //   setSortValue(sortValue);
-  // };
-
-  // const getFilterSortParams = (sortType, sortValue) => {
-  //   setFilterSortType(sortType);
-  //   setFilterSortValue(sortValue);
-  // };
-
-  // useEffect(() => {
-  //   let sorted = getSortedProducts(articles.articles, sortType, sortValue);
-  //   sorted = getSortedProducts(sorted, filterSortType, filterSortValue);
-  //   setSortedProducts(sorted);
-  //   setCurrentData(sorted.slice(offset, offset + pageLimit));
-  // }, [offset, articles.articles, sortType, sortValue, filterSortType, filterSortValue]);
 
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedTag, setSelectedTag] = useState(null);
 
-  const filteredProducts = (articles || []).filter((product) => {
-    const matchBrand = selectedBrand
-      ? product.brand?.toUpperCase() === selectedBrand.toUpperCase()
-      : true;
+  // const filteredProducts = (articles || []).filter((product) => {
+  //   const matchBrand = selectedBrand
+  //     ? product.brand?.toUpperCase() === selectedBrand.toUpperCase()
+  //     : true;
 
-    const matchColor = selectedColor
-      ? product.colors?.some(
-          (color) => color.name.toUpperCase() === selectedColor.toUpperCase()
-        )
-      : true;
+  //   const matchColor = selectedColor
+  //     ? product.colors?.some(
+  //         (color) => color.name.toUpperCase() === selectedColor.toUpperCase()
+  //       )
+  //     : true;
 
-    const matchSize = selectedSize
-      ? product.sizes?.some((size) => size.name === selectedSize)
-      : true;
+  //   const matchSize = selectedSize
+  //     ? product.sizes?.some((size) => size.name === selectedSize)
+  //     : true;
 
-    const matchTag = selectedTag
-      ? product.tags?.some(
-          (tag) => tag.tag.toUpperCase() === selectedTag.toUpperCase()
-        )
-      : true;
+  //   const matchTag = selectedTag
+  //     ? product.tags?.some(
+  //         (tag) => tag.tag.toUpperCase() === selectedTag.toUpperCase()
+  //       )
+  //     : true;
 
-    return matchBrand && matchColor && matchSize && matchTag;
-  });
+  //   return matchBrand && matchColor && matchSize && matchTag;
+  // });
 
   return (
     <Fragment>
@@ -120,6 +104,7 @@ const ShopGridStandard = () => {
                   getSortParams={getSortParams}
                   sideSpaceClass="mr-30"
                 /> */}
+
                 <ShopSidebarFilters
                   brands={articles.brands}
                   colors={articles.colors}
@@ -148,7 +133,7 @@ const ShopGridStandard = () => {
                 /> */}
 
                 {/* shop products */}
-                <ShopProducts layout={layout} products={filteredProducts} />
+                <ShopProducts layout={layout} products={articles} />
 
                 {/* pagination */}
                 <div className="pro-pagination-style text-center mt-30">

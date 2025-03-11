@@ -7,31 +7,28 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useTranslation } from "react-i18next";
 import { fetchLogin } from "../../hooks/use-FetchUsuario";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginRegister = () => {
-  let { pathname } = useLocation();
+  const { pathname } = useLocation();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Determina la pestaña activa basándose en la ruta
   const [activeKey, setActiveKey] = useState(
     pathname.includes("/registrarse") ? "register" : "login"
   );
-
-  useEffect(() => {
-    // Actualiza la pestaña activa cuando cambia la ruta
-    setActiveKey(pathname.includes("/registrarse") ? "register" : "login");
-  }, [pathname]);
-
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [registerData, setRegisterData] = useState({
-    usuario: "",
+    username: "",
     password: "",
     email: "",
-    telefono: "",
+    phone: "",
   });
+  const { usuario } = useSelector((state) => state.usuario);
+  useEffect(() => {
+    setActiveKey(pathname.includes("/registrarse") ? "register" : "login");
+  }, [pathname]);
 
   const handleLoginChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -41,10 +38,14 @@ const LoginRegister = () => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = () => {};
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    // Implement registration logic here
+    console.log(registerData);
+  };
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    console.log(loginData);
     await dispatch(fetchLogin(loginData));
   };
 
@@ -69,7 +70,12 @@ const LoginRegister = () => {
           ]}
         />
         <div className="login-register-area pt-100 pb-100">
-          <div className="container">
+          <div
+            className="container"
+            onClick={() => {
+              console.log(usuario);
+            }}
+          >
             <div className="row">
               <div className="col-lg-7 col-md-12 ms-auto me-auto">
                 <div className="login-register-wrapper">

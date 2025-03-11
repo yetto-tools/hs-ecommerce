@@ -103,60 +103,62 @@ const NewArrivals = ({ spaceLeftClass = "", spaceRightClass = "" }) => {
 
   return (
     <>
-      <div className="container-fluid row mx-auto px-5 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-medium text-left uppercase mx-4">
-          {"Nuevos Ingresos"}
-        </h1>
-      </div>
-
-      <section
-        className={clsx(
-          "container-fluid align-self-center mx-auto px-5 sm:px-6 lg:px-8 slider-area",
-          spaceLeftClass,
-          spaceRightClass
-        )}
+      <div
+        className="container-fluid row mx-auto sm:px-6 lg:px-8"
+        style={{ height: "96dvh" }}
       >
-        <div className="slider-active-black nav-style-1-black">
-          <Swiper
-            modules={[Navigation]}
-            navigation={{
-              nextEl: ".hs-custom-next",
-              prevEl: ".hs-custom-prev",
-            }}
-            slidesPerView={4}
-            loop={true}
-            autoplay={{ delay: 5000 }}
-            speed={1500}
-            breakpoints={{
-              0: { slidesPerView: 1, spaceBetween: 2 },
-              576: { slidesPerView: 2, spaceBetween: 5 },
-              768: { slidesPerView: 2, spaceBetween: 10 },
-              901: { slidesPerView: 3, spaceBetween: 10 },
-              1024: { slidesPerView: 4, spaceBetween: 10 },
-            }}
-          >
-            {newArrivals.map((product, index) => (
-              <SwiperSlide key={product.id || `product-${index}`}>
-                <ProductCard
-                  product={product}
-                  currency={currency}
-                  openModal={() => {
-                    handleClickProductModal(product);
-                  }}
-                />
-              </SwiperSlide>
-            ))}
+        <section
+          className={clsx(
+            "container-fluid align-self-center mx-auto sm:px-6 lg:px-8 slider-area",
+            spaceLeftClass,
+            spaceRightClass
+          )}
+        >
+          <h1 className="text-5xl font-medium text-left uppercase mx-4">
+            {"Nuevos Ingresos"}
+          </h1>
+          <div className="slider-active-black nav-style-1-black">
+            <Swiper
+              modules={[Navigation]}
+              navigation={{
+                nextEl: ".hs-custom-next",
+                prevEl: ".hs-custom-prev",
+              }}
+              slidesPerView={4}
+              loop={true}
+              autoplay={{ delay: 5000 }}
+              speed={1500}
+              breakpoints={{
+                0: { slidesPerView: 1, spaceBetween: 2 },
+                576: { slidesPerView: 2, spaceBetween: 5 },
+                768: { slidesPerView: 2, spaceBetween: 10 },
+                901: { slidesPerView: 3, spaceBetween: 10 },
+                1024: { slidesPerView: 4, spaceBetween: 10 },
+              }}
+            >
+              {newArrivals.map((product, index) => (
+                <SwiperSlide key={product.id || `product-${index}`}>
+                  <ProductCard
+                    product={product}
+                    currency={currency}
+                    openModal={() => {
+                      handleClickProductModal(product);
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
 
-            {/* Botones personalizados */}
-            <button className="hs-custom-prev hs-custom-next-black">
-              <ChevronLeft size={48} />
-            </button>
-            <button className="hs-custom-next hs-custom-prev-black">
-              <ChevronRight size={48} />
-            </button>
-          </Swiper>
-        </div>
-      </section>
+              {/* Botones personalizados */}
+              <button className="hs-custom-prev hs-custom-next-black">
+                <ChevronLeft size={48} />
+              </button>
+              <button className="hs-custom-next hs-custom-prev-black">
+                <ChevronRight size={48} />
+              </button>
+            </Swiper>
+          </div>
+        </section>
+      </div>
 
       {/* Product Modal */}
       {modalShow && (

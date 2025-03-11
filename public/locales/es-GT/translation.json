@@ -272,7 +272,8 @@
   "icon_group": {
     "login": "Inicio de Sesión",
     "register": "Registrarme",
-    "my_account": "Mi Cuenta"
+    "my_account": "Mi Cuenta",
+    "logout": "Salir"
   },
   "seo": {
     "login_register": "Inicio de Sesión, Hype Street Guatemala",
