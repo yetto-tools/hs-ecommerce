@@ -13,6 +13,7 @@ import {
 } from "../../store/slices/cart-slice";
 import { cartItemStock } from "../../helpers/product";
 import { useTranslation } from "react-i18next";
+import { ROOT_IMAGE } from "../../config";
 
 const Cart = () => {
   const { t, i18n } = useTranslation();
@@ -26,6 +27,7 @@ const Cart = () => {
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
 
+  console.log(cartItems);
   return (
     <Fragment>
       <SEO titleTemplate={t("seo.title")} description={t("seo.cart")} />
@@ -103,7 +105,7 @@ const Cart = () => {
                                   >
                                     <img
                                       className="img-fluid"
-                                      src={cartItem.images[0]}
+                                      src={ROOT_IMAGE + cartItem.images[0]}
                                       alt=""
                                     />
                                   </Link>
@@ -117,18 +119,23 @@ const Cart = () => {
                                       cartItem.id
                                     }
                                   >
-                                    {cartItem.name}
+                                    <span className="product-title fw-semibold">
+                                      {cartItem.name}
+                                    </span>
                                   </Link>
-                                  {cartItem.selectedProductColor &&
-                                  cartItem.selectedProductSize ? (
+                                  {cartItem.color && cartItem.size ? (
                                     <div className="cart-item-variation">
-                                      <span>
+                                      <span className="">
                                         {t("page_cart.cart_color")}:{" "}
-                                        {cartItem.selectedProductColor}
+                                        <small className="fw-semibold">
+                                          {cartItem.color}
+                                        </small>
                                       </span>
-                                      <span>
+                                      <span className="">
                                         {t("page_cart.cart_size")}:{" "}
-                                        {cartItem.selectedProductSize}
+                                        <small className="fw-semibold">
+                                          {cartItem.size}
+                                        </small>
                                       </span>
                                     </div>
                                   ) : (
@@ -163,7 +170,7 @@ const Cart = () => {
                                 </td>
 
                                 <td className="product-quantity">
-                                  <div className="">
+                                  <div className="cart-plus-minus">
                                     <button
                                       className="dec qtybutton"
                                       onClick={() =>
@@ -240,14 +247,20 @@ const Cart = () => {
                 </div>
                 <div className="row">
                   <div className="col-lg-12">
-                    <div className="cart-shiping-update-wrapper">
-                      <div className="cart-shiping-update">
-                        <Link to={process.env.PUBLIC_URL + "/productos"}>
+                    <div className="cart-shiping-update-wrapper ">
+                      <div className="cart-shiping-update ">
+                        <Link
+                          to={process.env.PUBLIC_URL + "/productos"}
+                          className="text-black"
+                        >
                           {t("page_cart.continue_shopping")}
                         </Link>
                       </div>
-                      <div className="cart-clear">
-                        <button onClick={() => dispatch(deleteAllFromCart())}>
+                      <div className="cart-clear ">
+                        <button
+                          onClick={() => dispatch(deleteAllFromCart())}
+                          className="text-black"
+                        >
                           {t("page_cart.clear_shopping_cart")}
                         </button>
                       </div>
@@ -348,7 +361,7 @@ const Cart = () => {
                       </h4>
                       <Link
                         to={process.env.PUBLIC_URL + "/checkout"}
-                        className="text-center"
+                        className="text-center fw-semibold hover-text-black"
                       >
                         Comprar Ahora
                       </Link>

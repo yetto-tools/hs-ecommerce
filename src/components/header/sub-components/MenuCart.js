@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getDiscountPrice } from "../../../helpers/product";
 import { deleteFromCart } from "../../../store/slices/cart-slice";
 import { useTranslation } from "react-i18next";
+import { ROOT_IMAGE } from "../../../config";
 
 const MenuCart = () => {
   const dispatch = useDispatch();
@@ -12,9 +13,9 @@ const MenuCart = () => {
   let cartTotalPrice = 0;
   const { t, i18n } = useTranslation();
 
-  useEffect(()=>{
-    console.log(cartItems)
-  },[])
+  useEffect(() => {
+    console.log(cartItems);
+  }, []);
 
   return (
     <div className="shopping-cart-content">
@@ -43,7 +44,10 @@ const MenuCart = () => {
                     <Link to={process.env.PUBLIC_URL + "/product/" + item.id}>
                       <img
                         alt=""
-                        src={item?.images[0] || item?.image }
+                        src={
+                          ROOT_IMAGE + item?.images[0] ||
+                          ROOT_IMAGE + item?.image
+                        }
                         className="img-fluid"
                       />
                     </Link>
