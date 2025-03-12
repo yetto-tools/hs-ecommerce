@@ -43,29 +43,31 @@ export function ImageRotate({ ImageBrand }) {
   );
 }
 
+
+
 export function ImageBrand({ ImageSrc }) {
+  if (!ImageSrc || !ImageSrc.image) return null; // Evita errores si `ImageSrc` no tiene datos
+
   return (
-    ImageSrc && (
-      <img
-        src={ImageSrc.image}
-        alt={ImageSrc.name}
-        className="img-fluid"
-        width={8}
-        height={600}
-        style={{
-          objectFit: "cover",
-          backgroundColor: "transparent",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          aspectRatio: "10/16",
-          transition: "transform 0.8s ease-in-out",
-        }}
-        loading="lazy"
-      />
-    )
+    <LazyLoadImage
+      src={ImageSrc.image}
+      alt={ImageSrc.name || "Imagen"}
+      className="img-fluid"
+      width={800} // Se ajusta a un tamaño más razonable
+      height={600}
+      style={{
+        objectFit: "cover",
+        aspectRatio: "10/16",
+        transition: "transform 0.8s ease-in-out",
+      }}
+      effect="blur" // Aplica efecto de desenfoque al cargar
+      placeholderSrc="/placeholder.jpg" // Imagen de baja calidad para mejorar la UX
+      srcSet={`${ImageSrc.imageSmall} 480w, ${ImageSrc.image} 1024w`}
+      sizes="(max-width: 768px) 480px, 1024px"
+    />
   );
 }
+
 
 const BrandSlider = ({ spaceLeftClass, spaceRightClass }) => {
   const brands = [
