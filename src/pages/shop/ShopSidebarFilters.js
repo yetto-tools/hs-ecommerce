@@ -4,8 +4,6 @@ import ShopSearch from "../../components/product/ShopSearch";
 import { useDispatch, useSelector } from "react-redux";
 
 const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
-  const dispatch = useDispatch();
-
   const handleFilterClick = (filterType, value) => {
     console.log({ filterType, value });
     // dispatch(setFilters({ filterType, value }));
@@ -14,10 +12,6 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
   const handleTest = () => {
     console.log(filters);
   };
-
-  // const handleClearFilters = () => {
-  //   dispatch(resetFilters());
-  // };
 
   return (
     <div className={clsx("sidebar-style", "pr-20", sideSpaceClass)}>
@@ -37,8 +31,8 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
               </button>
             </li>
             {filters &&
-              filters?.brands.map((brand) => (
-                <li key={brand.id}>
+              filters?.brands?.map((brand) => (
+                <li key={brand.id + brand.name}>
                   <button
                     onClick={() => handleFilterClick("brand", brand.name)}
                   >
@@ -61,8 +55,8 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
               </button>
             </li>
             {filters &&
-              filters?.colors.map((color) => (
-                <li key={color.id}>
+              filters?.colors?.map((color) => (
+                <li key={color.id + color.name}>
                   <label className="d-flex align-items-center cursor-pointer">
                     <span
                       className="checkmark p-2 rounded-circle border"
@@ -97,8 +91,8 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
               </button>
             </li>
             {filters &&
-              filters?.sizes.map((size) => (
-                <li key={size.id}>
+              filters?.sizes?.map((size) => (
+                <li key={size.id + size.name}>
                   <button onClick={() => handleFilterClick("size", size.name)}>
                     {size.name}
                   </button>
@@ -112,11 +106,11 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
       <div className="sidebar-widget mt-50">
         <h4 className="pro-sidebar-title fw-bold">Etiquetas</h4>
         <div className="sidebar-widget-tag mt-25 w-50">
-          {filters && filters?.tags.length ? (
-            filters?.tags.map((tag, index) => (
+          {filters && filters?.tags?.length ? (
+            filters?.tags?.map((tag, index) => (
               <span
                 className="text-xs rounded badge text-bg-light"
-                key={index}
+                key={index + tag.tag}
                 onClick={() => handleFilterClick("tag", tag.tag)}
               >
                 {tag.tag}

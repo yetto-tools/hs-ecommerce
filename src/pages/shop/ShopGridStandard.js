@@ -2,7 +2,7 @@
 // 2023-12-02
 // vista de productos con filtros
 
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, lazy } from "react";
 import Paginator from "react-hooks-paginator";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
@@ -12,12 +12,14 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ShopSidebar from "../../wrappers/product/ShopSidebar";
 import ShopTopbar from "../../wrappers/product/ShopTopbar";
-import ShopProducts from "../../wrappers/product/ShopProducts";
+
 import {
   fetchArticles,
   fetchSearchArticles,
 } from "../../hooks/use-FetchArticles";
-import ShopSidebarFilters from "../shop/ShopSidebarFilters";
+
+const ShopProducts = lazy(() => import("../../wrappers/product/ShopProducts"));
+const ShopSidebarFilters = lazy(() => import("../shop/ShopSidebarFilters"));
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
@@ -88,9 +90,8 @@ const ShopGridStandard = () => {
                 /> */}
 
                 {/* shop products */}
-                {filteredArticles && (
-                  <ShopProducts layout={layout} products={articles} />
-                )}
+
+                <ShopProducts layout={layout} products={articles} />
 
                 {/* pagination */}
                 <div className="pro-pagination-style text-center mt-30">
