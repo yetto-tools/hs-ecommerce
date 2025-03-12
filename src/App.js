@@ -51,6 +51,10 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/"}
               element={<HomeFashionTwo />}
             />
+            <Route
+              path={process.env.PUBLIC_URL + "/inicio"}
+              element={<HomeFashionTwo />}
+            />
 
             {/* Shop pages */}
             {/* <Route
@@ -79,14 +83,15 @@ const App = () => {
               element={<Contact />}
             />
 
-            <Route
-              path={process.env.PUBLIC_URL + "/mi-cuenta"}
+            {/* <Route
+              path={process.env.PUBLIC_URL + ""}
               element={
-                <MyAccount />
+                <></>
+                // <MyAccount />
                 // <ProtectedRoute>
                 // </ProtectedRoute>
               }
-            />
+            /> */}
 
             <Route
               path={process.env.PUBLIC_URL + "/registrarse"}

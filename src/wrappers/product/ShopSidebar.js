@@ -14,7 +14,7 @@ import ShopTag from "../../components/product/ShopTag";
 
 
 const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
-  console.log(products);
+  
   const uniqueCategories = getIndividualCategories(products.brands);
   const uniqueColors = getIndividualColors(products.colors);
   const uniqueSizes = getProductsIndividualSizes(products.sizes);

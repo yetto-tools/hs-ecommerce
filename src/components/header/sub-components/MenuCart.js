@@ -13,9 +13,7 @@ const MenuCart = () => {
   let cartTotalPrice = 0;
   const { t, i18n } = useTranslation();
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, []);
+  
 
   return (
     <div className="shopping-cart-content">

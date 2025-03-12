@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import Swiper, { SwiperSlide } from "../../components/swiper";
 
 import { ROOT_IMAGE } from "../../config";
 import { EffectFade, Navigation, Thumbs } from "swiper";
+
 
 function ProductModal2({ show, onHide, currency }) {
   const dispatch = useDispatch();
@@ -56,8 +57,8 @@ function ProductModal2({ show, onHide, currency }) {
     loop: true,
     autoplay: true,
     slideToClickedSlide: true,
-    navigation: true,
-    modules: [Thumbs, Navigation],
+  
+    modules: [Thumbs],
   };
   return (
     <Modal
@@ -71,7 +72,7 @@ function ProductModal2({ show, onHide, currency }) {
           <div className="row">
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-large-image-wrapper px-4">
-                <Swiper options={gallerySwiperParams}>
+                <Swiper options={gallerySwiperParams} >
                   {articleDetail.images &&
                     articleDetail.images.map((image, index) => (
                       <SwiperSlide key={index}>
@@ -85,7 +86,18 @@ function ProductModal2({ show, onHide, currency }) {
                 </Swiper>
               </div>
               <div className="product-small-image-wrapper mt-40" id="thumbnail">
-                <Swiper options={thumbnailSwiperParams}>
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                touchRatio={0.2}
+                freeMode={true}
+                loop={true}
+                autoplay={{ delay: 2500 }}
+                slideToClickedSlide={true}
+                navigation={true}
+                modules={[Thumbs, Navigation]} // ✅ Asegura que se pasan los módulos correctamente
+              >
                   {articleDetail.image &&
                     articleDetail.images.map((image, i) => {
                       return (
@@ -117,6 +129,7 @@ function ProductModal2({ show, onHide, currency }) {
                   articleDetail={articleDetail}
                   setSelectedVariant={setSelectedVariant}
                   setProductStock={setProductStock}
+                  setQuantityCount={setQuantityCount}
                 />
 
                 <div

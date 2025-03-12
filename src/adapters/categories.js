@@ -34,7 +34,7 @@ export function convertUrlToIds(group, genre) {
   if (groupId) {
     params.idGroup = groupId || null;
   }
-  console.log({ params });
+  
   // Devuelve la nueva URL formateada con IDs
   return params;
 }

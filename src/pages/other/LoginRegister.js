@@ -15,6 +15,8 @@ const LoginRegister = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const {isLoggedIn} = useSelector((state) => state.usuario);
+
   const [activeKey, setActiveKey] = useState(
     pathname.includes("/registrarse") ? "register" : "login"
   );
@@ -32,6 +34,7 @@ const LoginRegister = () => {
 
   const handleLoginChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
+
   };
 
   const handleRegisterChange = (e) => {
@@ -41,13 +44,20 @@ const LoginRegister = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     // Implement registration logic here
-    console.log(registerData);
+
   };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     await dispatch(fetchLogin(loginData));
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
+
 
   return (
     <Fragment>
@@ -72,9 +82,7 @@ const LoginRegister = () => {
         <div className="login-register-area pt-100 pb-100">
           <div
             className="container"
-            onClick={() => {
-              console.log(usuario);
-            }}
+          
           >
             <div className="row">
               <div className="col-lg-7 col-md-12 ms-auto me-auto">

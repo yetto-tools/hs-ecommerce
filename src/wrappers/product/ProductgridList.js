@@ -8,11 +8,14 @@ const ProductGridList = ({ products, spaceBottomClass }) => {
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
   const { loading } = useSelector((state) => state.loader);
+
+
+
   return (
     <Fragment>
       {loading && LoadingIndicator}
       <Suspense fallback={LoadingIndicator}>
-        {products?.map((product) => {
+        {products && products?.map((product) => {
           return (
             <div className="col-xl-4 col-sm-6" key={product.sku}>
               <ProductGridListSingle

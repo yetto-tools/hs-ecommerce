@@ -3,6 +3,7 @@ import clsx from "clsx";
 import ShopSearch from "../../components/product/ShopSearch";
 import { useDispatch } from "react-redux";
 import { setFilter } from "../../store/slices/articles-slice";
+import { useEffect } from "react";
 
 const ShopSidebar = ({
   brands = [],
@@ -17,6 +18,10 @@ const ShopSidebar = ({
   const handleFilterClick = (filterType, value) => {
     dispatch(setFilter({ filterType, value }));
   };
+
+  useEffect(()=>{
+    console.log({brands:brands,colors:colors,sizes:sizes,tags:tags});
+  },[])
 
   return (
     <div className={clsx("sidebar-style", "pr-20", sideSpaceClass)}>

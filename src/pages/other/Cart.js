@@ -27,7 +27,7 @@ const Cart = () => {
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
 
-  console.log(cartItems);
+
   return (
     <Fragment>
       <SEO titleTemplate={t("seo.title")} description={t("seo.cart")} />
@@ -352,7 +352,7 @@ const Cart = () => {
 
                       <h4 className="grand-totall-title mb-5">
                         <span className="mb-4">
-                          {console.log(currency)}
+                          
                           {new Intl.NumberFormat(i18n.language, {
                             style: "currency",
                             currency: currency.currencyName,

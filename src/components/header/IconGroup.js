@@ -39,7 +39,7 @@ const IconGroup = ({ iconWhiteClass }) => {
 
   const handleLogout = () => {
     dispatch(logout()); // Disparar la acción de logout
-    navigate("/");
+    navigate("/inicio");
   };
 
   return (

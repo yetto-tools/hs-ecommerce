@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { setActiveSort } from "../../helpers/product";
 
 const ShopTag = ({ tags, getSortParams }) => {
-  console.log(tags);
+  
+  
   return (
     <div className="sidebar-widget mt-50">
       <h4 className="pro-sidebar-title">Etiquetas</h4>

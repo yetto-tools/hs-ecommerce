@@ -87,7 +87,7 @@ export const getProductCartQuantity = (cartItems, product, color, size) => {
         single.selectedProductColor === color &&
         single.selectedProductSize === size
     );
-    console.log(productInCart);
+  
 
     if (product.variation) {
       // Corrección: Asegurarse de que 'exactMatch' no es undefined
@@ -244,7 +244,7 @@ export const getIndividualSilueta = (products) => {
       );
     });
   const individualProductSilueta = getIndividualItemArray(productSilueta);
-  console.log(individualProductSilueta);
+ 
   return individualProductSilueta;
 };
 
@@ -283,7 +283,7 @@ export const getIndividualColors = (products) => {
 // };
 export const getProductsIndividualSizes = (products) => {
   const sizeSet = new Set();
-  console.log(products);
+  
   products.forEach((product) => {
     product.sizes?.forEach((size) => {
       if (size.name) sizeSet.add(size.name.trim());

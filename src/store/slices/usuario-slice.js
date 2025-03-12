@@ -4,6 +4,8 @@ const usuarioSlice = createSlice({
   name: "usuario",
   initialState: {
     usuario: null,
+    address: [],
+    token: null,
     loading: false,
     error: null,
     isLoggedIn: false,
@@ -26,8 +28,15 @@ const usuarioSlice = createSlice({
       state.usuario = null;
       state.isLoggedIn = false;
     },
+    userAddress(state, action) {
+      state.address = action.payload;
+    },
+    userToken(state, action) {
+      state.token = action.payload;
+    },
+
   },
 });
 
-export const { setUsuario, setError, login, logout } = usuarioSlice.actions;
+export const { setUsuario, setError, login, logout, userAddress, userToken } = usuarioSlice.actions;
 export default usuarioSlice.reducer;

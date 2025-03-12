@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, use, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import SEO from "../../components/seo";
@@ -7,6 +7,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsuario } from "../../store/slices/usuario-slice";
+import cogoToast from "cogo-toast";
 
 const deptos = [
   { id: 1, name: "ALTA VERAPAZ" },
@@ -38,22 +39,39 @@ const MyAccount = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {
-    usuario: { usuario, direcciones, token },
-  } = useSelector((state) => state.usuario);
+  const isLoggedIn = useSelector((state) => state.usuario.isLoggedIn);
+  const { usuario } = useSelector((state) => state.usuario);
+  const direcciones = useSelector((state) => state.usuario.address);
+
+  // const {
+  //   usuario: { usuario, direcciones, token },
+  // } = useSelector((state) => state.usuario);
+
+  useEffect(() => {
+   
+    if (!isLoggedIn) {  
+      navigate("/login");
+      const { hide } =  cogoToast.warn("Necesita iniciar Sessión " , {
+        position: "bottom-left",
+        onClick: () => {
+          hide();
+        },
+      });
+    }
+    
+  
+  }, [isLoggedIn]);
+
+
 
   const [localUsuario, setLocalUsuario] = useState({
     id: usuario?.id || "",
     user: usuario?.user || "",
-    email: usuario?.email || "",
+    email:usuario?.email || "",
     phone1: usuario?.phone1 || "",
   });
 
-  useEffect(() => {
-    if (!usuario?.id) {
-      navigate("/login");
-    }
-  }, [usuario, navigate]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -232,7 +250,7 @@ const MyAccount = () => {
                             </h4>
                           </div>
                           {direcciones &&
-                            direcciones.map((direccion) => (
+                           direcciones.map((direccion) => (
                               <div className="entries-wrapper">
                                 <div className="row">
                                   <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
@@ -390,3 +408,4 @@ const MyAccount = () => {
 };
 
 export default MyAccount;
+

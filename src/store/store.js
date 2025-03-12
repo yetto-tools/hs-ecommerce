@@ -41,6 +41,8 @@ const rootReducer = combineReducers({
   loader: loadingReducer,
   newArrivals: newArrivalsReducer,
   usuario: usuarioReducer,
+  address: usuarioReducer,
+  token: usuarioReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

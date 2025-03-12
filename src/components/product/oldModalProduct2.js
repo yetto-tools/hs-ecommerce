@@ -74,7 +74,7 @@ function ProductModal2({ currency, show, onHide }) {
   };
 
   const handleAddToCart = () => {
-    console.log({ handleAddToCart: selectedVariant });
+   
     if (selectedVariant) {
       dispatch(
         addToCart({
@@ -86,7 +86,7 @@ function ProductModal2({ currency, show, onHide }) {
   };
 
   const handleGoToCart = () => {
-    console.log({ handleGoToCart: selectedVariant });
+   
     if (selectedVariant) {
       dispatch(
         addToCart({

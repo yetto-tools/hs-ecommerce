@@ -5,7 +5,7 @@
     "subtitle": "",
     "button": "VER AHORA",
     "image": "/assets/img/SliderPrincipal/banner1.webp",
-    "url": "/productos"
+    "url": "/nuevos-ingresos"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "subtitle": "",
     "button": "",
     "image": "/assets/img/SliderPrincipal/banner2.webp",
-    "url": "/productos"
+    "url": "/nuevos-ingresos"
   },
   {
     "id": 3,
@@ -21,6 +21,6 @@
     "subtitle": "NUEVOS INGRESOS",
     "button": "VER AHORA",
     "image": "/assets/img/SliderPrincipal/banner3.webp",
-    "url": "/productos"
+    "url": "/nuevos-ingresos"
   }
 ]

@@ -35,7 +35,7 @@ export const fetchArticles = (n1, n2, n3) => async (dispatch) => {
     if (response.ok) {
       const articles = adapterArticles(data);
       dispatch(setArticles(articles));
-      console.log(articles);
+      
     } else {
       throw new Error(data.message || "Error fetching products");
     }
@@ -62,14 +62,16 @@ export const fetchArticleDetail = (id) => async (dispatch) => {
 
     if (response.ok) {
       const article = adapterArticleDetail(data);
-      console.log(article);
+      
       dispatch(setArticleDetail(article));
     } else {
+      
       throw new Error(data.message || "Error fetching products");
     }
 
     // Aquí actualizas el estado global
   } catch (error) {
+    console.log(error);
     cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
   } finally {
     dispatch(setLoading(false));
@@ -78,7 +80,7 @@ export const fetchArticleDetail = (id) => async (dispatch) => {
 
 export const fetchNewArticles = () => async (dispatch) => {
   const url = `${API_URL}/api/${API_VERSION}/items/new-items`;
-  console.log(url);
+  
   try {
     dispatch(setLoading(true));
     const response = await fetch(url, {
@@ -130,6 +132,7 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
     const { data, message } = await response.json();
     if (response.ok) {
       const articles = adapterSearchArticles(data);
+      console.log(articles);
       dispatch(setArticles(articles));
       const { hide } = cogoToast.success(`Resultados de la busqueda`, {
         position: "bottom-left",
@@ -141,6 +144,7 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
       throw new Error(message || "Error fetching products");
     }
   } catch (error) {
+    console.log(error);
     dispatch(setError(error.message));
     cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
   } finally {

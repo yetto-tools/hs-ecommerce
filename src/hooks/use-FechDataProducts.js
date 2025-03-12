@@ -5,7 +5,7 @@ import { adapterArticleDetail } from "../adapters/articles";
 export const fetchProductById = async (idProduct) => {
   const host = "https://apihs.yettotools.com";
   const version = "v1";
-  console.log(host);
+
   const url = `${host}/api/${version}/article/${idProduct}`;
   const requestOptions = {
     method: "GET",

@@ -1,9 +1,11 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 export const VariantSelector = ({
   articleDetail,
   setSelectedVariant,
   setProductStock,
+  setQuantityCount
 }) => {
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [selectedColorId, setSelectedColorId] = useState(null);
@@ -38,14 +40,19 @@ export const VariantSelector = ({
           <div className="pro-details-size mb-4">
             <h5 className="fw-bold mb-4">Talla:</h5>
             <div className="pro-details-size-content mb-2">
-              {articleDetail.sizes.map((size) => (
+              {
+              
+              articleDetail.sizes.map((size) => (
+
+                
                 <label
-                  className="pro-details-size-content--single"
+                  className={clsx("pro-details-size-content--single") }
                   key={size.id}
                   style={{
                     backgroundColor:
                       selectedSizeId === size.id ? "#b9db00" : "transparent",
                     cursor: "pointer",
+                    display: articleDetail.variation.find((v) => v.idSize === size.id).stock > 0 ? "inline-block" : "none",
                   }}
                 >
                   <input
@@ -53,7 +60,11 @@ export const VariantSelector = ({
                     name="sizeSelection"
                     className=" visually-hidden"
                     checked={selectedSizeId === size.id}
-                    onChange={() => setSelectedSizeId(size.id)}
+                    onChange={() => (
+                      setSelectedSizeId(size.id),
+                      setQuantityCount(1)
+                      
+                    )}
                   />
 
                   <span className="size-name d-flex inline-block align-items-end justify-content-center text-black">
@@ -61,6 +72,8 @@ export const VariantSelector = ({
                     <small className="lowercase fs-6">{size.unit || ""}</small>
                   </span>
                 </label>
+                  
+                
               ))}
             </div>
           </div>

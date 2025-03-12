@@ -1,6 +1,6 @@
 import { API_URL } from "../config";
 import { setLoading, setError } from "../store/slices/loading-slice";
-import { login, setUsuario } from "../store/slices/usuario-slice";
+import { login, setUsuario, userAddress, userToken } from "../store/slices/usuario-slice";
 import cogoToast from "cogo-toast";
 import {
   adapterAddressesUser,
@@ -28,11 +28,14 @@ export const fetchLogin = (userData) => async (dispatch) => {
 
     const usuario = adapterUsuario(data.usuario);
     const direcciones = adapterAddressesUser(data.direcciones);
+
     const token = data.token;
     dispatch(setUsuario({ usuario, direcciones, token }));
     dispatch(login(usuario));
+    dispatch(userAddress(direcciones));
+    dispatch(userToken(token));
     cogoToast.success("Bienvenido: " + usuario.name, {
-      position: "bottom-left",
+      position: "top-center",
     });
   } catch (error) {
     cogoToast.warn(`${error.message}`, {

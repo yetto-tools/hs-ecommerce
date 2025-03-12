@@ -7,7 +7,7 @@ export const fetchProducts =
   (level1 = 0, level2 = 0, level3 = 0) =>
   async (dispatch) => {
     const url = `${API_URL}/api/articulos/${level1}/${level2}/${level3}`;
-    console.log(API_URL);
+
     try {
       const response = await fetch(url);
       if (!response.ok) {

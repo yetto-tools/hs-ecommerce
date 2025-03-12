@@ -34,7 +34,7 @@ const adapterProduct = (product, idxProduct) => {
 
 
 export const adapterArticleDetail2 = (data = {}, tallas = [], colores = [], marcas = [], etiquetas = []) => {
-  console.log(data);
+  
   return {
     sku: data.Sku || "",
     name: data.Nombre_Comercial || "",
@@ -68,7 +68,7 @@ export const adapterArticleDetail2 = (data = {}, tallas = [], colores = [], marc
 };
 
 export const adapterArticleDetail = (data = {}, tallas = [], colores = [], marcas = [], etiquetas = []) => {
-  console.log(data);
+  
   return data;
 };
 

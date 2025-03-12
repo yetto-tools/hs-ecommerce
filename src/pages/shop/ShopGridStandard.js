@@ -32,6 +32,7 @@ const ShopGridStandard = () => {
 
   const { articles } = useSelector((state) => state.articles);
 
+
   const menu = useSelector((state) => state.menu.menu);
   const location = useLocation();
   const pathname = location.pathname;
@@ -133,6 +134,8 @@ const ShopGridStandard = () => {
                 /> */}
 
                 {/* shop products */}
+      
+
                 <ShopProducts layout={layout} products={articles} />
 
                 {/* pagination */}

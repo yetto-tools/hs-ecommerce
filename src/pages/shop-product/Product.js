@@ -24,7 +24,7 @@ const Product = () => {
         if (data.code === 200) {
           const adaptedProduct = adapterProduct(data.data);
           setProduct(adaptedProduct);
-          console.log(adaptedProduct);
+         
         }
       })
       .catch((error) => console.error("Error fetching product:", error));

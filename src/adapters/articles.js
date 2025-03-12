@@ -1,21 +1,23 @@
 export const adapterSearchArticles = (data) => {
-  return data.articulo.map((article) => adapterArticle(article || []));
+  return data.articulos.map((article) => adapterArticle(article || []));
 };
 
-export const adapterArticles = (data) => {
+export const adapterArticles = (data) => {  
   return data.articulos.map((article) => adapterArticle(article || []));
 };
 
 export const adapterArticle = (data = {}) => {
+  
+
   return {
-    sku: data.Sku || "",
-    name: data.Nombre_Comercial || "",
-    price: data.Precio_SD || 0,
-    discountedPrice: data.Precio_CD || 0,
-    discount: data.Descuento_Porcentaje || 0,
-    shortDescription: data.Descripcion_p || "",
-    image: [data.Imagen_1, data.Imagen_2].filter(Boolean) || [],
-    stock: data.Cantidad,
+    sku: data?.Sku || "",
+    name: data?.Nombre_Comercial || "",
+    price: data?.Precio_SD || 0,
+    discountedPrice: data?.Precio_CD || 0,
+    discount: data?.Descuento_Porcentaje || 0,
+    shortDescription: data?.Descripcion_p || "",
+    image: [data?.Imagen_1, data?.Imagen_2].filter(Boolean) || [],
+    stock: data?.Cantidad || 0,
     images:
       [
         data.Imagen_1,
@@ -31,28 +33,9 @@ export const adapterArticle = (data = {}) => {
   };
 };
 
-/**
- * Adapts article data to the expected product detail data structure.
- *
- * @param {object} data - The article data returned from the API.
- * @param {object} data.articulo - The article details.
- * @param {array} data.variantes - The article variants.
- * @param {array} data.relacionados - The related products.
- * @param {array} data.talla - The available sizes.
- * @param {array} data.color - The available colors.
- *
- * @returns {object} The adapted product detail data.
- */
+
 export const adapterArticleDetail = (data) => {
-  /*************  ✨ Codeium Command ⭐  *************/
-  /**
-   * Adapts related article data to the expected product data structure.
-   *
-   * @param {array} relacionados - The related article data returned from the API.
-   *
-   * @returns {array} The adapted product data.
-   */
-  /******  e1b1a018-0c97-455b-913d-fe20ccc4bd89  *******/
+  
   function adapterArticle(relacionados) {
     // Ensure this function is properly defined to handle related products
     return relacionados.map((item) => ({
