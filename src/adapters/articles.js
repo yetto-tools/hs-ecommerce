@@ -1,14 +1,20 @@
 export const adapterSearchArticles = (data) => {
-  return data.articulos.map((article) => adapterArticle(article || []));
+  const articulos = data.articulos.map((article) =>
+    adapterArticle(article || [])
+  );
+
+  return articulos;
 };
 
-export const adapterArticles = (data) => {  
-  return data.articulos.map((article) => adapterArticle(article || []));
+export const adapterArticles = (data) => {
+  const articulos = data.articulos.map((article) =>
+    adapterArticle(article || [])
+  );
+
+  return articulos;
 };
 
 export const adapterArticle = (data = {}) => {
-  
-
   return {
     sku: data?.Sku || "",
     name: data?.Nombre_Comercial || "",
@@ -33,9 +39,7 @@ export const adapterArticle = (data = {}) => {
   };
 };
 
-
 export const adapterArticleDetail = (data) => {
-  
   function adapterArticle(relacionados) {
     // Ensure this function is properly defined to handle related products
     return relacionados.map((item) => ({
@@ -131,5 +135,55 @@ export const adapterArticleDetail = (data) => {
 };
 
 export const adapterNewArrivals = (data) => {
-  return data.map((article) => adapterArticle(article || []));
+  const articulos = data.articulos.map((article) =>
+    adapterArticle(article || [])
+  );
+  return articulos;
+};
+
+export const adapterFilters = (data) => {
+  return {
+    categories: data.categorias || [],
+    tags: adapterTags(data.etiquetas) || [],
+    brands: adapterBrands(data.marcas) || [],
+    colors: adapterColors(data.colores) || [],
+    sizes: adapterSizes(data.tallas) || [],
+  };
+};
+
+export const adapterSizes = (data) => {
+  return data.map((item) => {
+    return {
+      id: item.idSize,
+      name: item.Nombre,
+    };
+  });
+};
+
+export const adapterColors = (data) => {
+  return data.map((item) => {
+    return {
+      id: item.idColor,
+      name: item.Nombre,
+      hex: item.Codigo_HEX,
+      rgb: item.Codigo_RGB,
+    };
+  });
+};
+
+export const adapterBrands = (data) => {
+  return data.map((item) => {
+    return {
+      id: item.idFabricante,
+      name: item.Nombre,
+    };
+  });
+};
+
+export const adapterTags = (data) => {
+  return data.map((item) => {
+    return {
+      tag: item.Etiqueta,
+    };
+  });
 };

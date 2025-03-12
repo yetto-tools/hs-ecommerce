@@ -4,6 +4,7 @@ const articlesSlice = createSlice({
   name: "articles",
   initialState: {
     articles: [], // ✅ Debe estar definido como array desde el inicio
+    filteredArticles: [],
     loading: false,
     error: null,
     filters: {},
@@ -13,15 +14,13 @@ const articlesSlice = createSlice({
       state.articles = action.payload;
     },
 
-    setFilter(state, action) {
-      const { filterType, value } = action.payload;
-      // Si el valor es 'all', elimina el filtro para ese tipo
-      if (value === "all") {
-        delete state.filters[filterType];
-      } else {
-        // Establece o actualiza el filtro para el tipo especificado
-        state.filters[filterType] = value;
-      }
+    setFilters(state, action) {
+      state.filters = {
+        ...state.filters,
+        [action.payload.filterType]: action.payload.value,
+      };
+      // Aplica filtros cada vez que se actualizan
+      state.filteredArticles = applyFilters(state.articles, state.filters);
     },
 
     setLoading(state, action) {
@@ -35,6 +34,21 @@ const articlesSlice = createSlice({
   },
 });
 
-export const { setArticles, setFilter, setLoading, setError } =
+// Función para aplicar filtros a los artículos
+function applyFilters(articles, filters) {
+  return articles.filter((article) => {
+    return Object.entries(filters).every(([key, value]) => {
+      // Si el filtro es 'all', se ignora ese filtro
+      if (value === "all") return true;
+      if (key === "brand") return article.brand === value;
+      if (key === "color") return article.color === value;
+      if (key === "size") return article.size === value;
+      if (key === "tag") return article.tags.includes(value);
+      return true;
+    });
+  });
+}
+
+export const { setArticles, setFilters, setLoading, setError } =
   articlesSlice.actions;
 export default articlesSlice.reducer;

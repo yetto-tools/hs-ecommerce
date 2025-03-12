@@ -31,7 +31,8 @@ const ShopGridStandard = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
 
   const { articles } = useSelector((state) => state.articles);
-
+  const { filters } = useSelector((state) => state.filters);
+  const { filteredArticles } = useSelector((state) => state.articles);
 
   const menu = useSelector((state) => state.menu.menu);
   const location = useLocation();
@@ -78,6 +79,15 @@ const ShopGridStandard = () => {
   //   return matchBrand && matchColor && matchSize && matchTag;
   // });
 
+  const handleFilterChange = (filterType, value) => {
+    // Aquí podrías realizar acciones adicionales si es necesario cuando cambian los filtros
+    console.log(`Filtro aplicado: ${filterType} = ${value}`);
+  };
+
+  useEffect(() => {
+    console.log(filters);
+  }, []);
+
   return (
     <Fragment>
       <SEO
@@ -100,17 +110,8 @@ const ShopGridStandard = () => {
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
 
-                {/* <ShopSidebar
-                  products={articles}
-                  getSortParams={getSortParams}
-                  sideSpaceClass="mr-30"
-                /> */}
-
                 <ShopSidebarFilters
-                  brands={articles.brands}
-                  colors={articles.colors}
-                  sizes={articles.brands}
-                  tags={articles.tags}
+                  filters={filters}
                   onFilterChange={(type, value) => {
                     if (type === "brand")
                       setSelectedBrand(value === "all" ? null : value);
@@ -134,9 +135,9 @@ const ShopGridStandard = () => {
                 /> */}
 
                 {/* shop products */}
-      
-
-                <ShopProducts layout={layout} products={articles} />
+                {filteredArticles && (
+                  <ShopProducts layout={layout} products={articles} />
+                )}
 
                 {/* pagination */}
                 <div className="pro-pagination-style text-center mt-30">

@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useRef, useState, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
-
+import "./_CustomSlider.scss";
 const CustomSlider = ({ slides }) => {
   const sliderRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(slides.length);
@@ -161,99 +161,3 @@ const CustomSlider = ({ slides }) => {
 };
 
 export default CustomSlider;
-
-// CSS con soporte para 5, 4, 3 o 2 imágenes visibles
-const styles = `
-.slider-container {
-  position: relative;
-  width: 96%;
-  margin: auto;
-  overflow: hidden;
-  background: black;
-  display: flex;
-  align-items: center;
-}
-
-.slider-wrapper {
-  overflow: hidden;
-  width: 100%;
-  margin-inline: 3.5rem;
-  cursor: grab;
-}
-
-.slider {
-  display: flex;
-  transition: transform 0.6s ease-in-out;
-  width: fit-content;
-}
-
-.slide {
-  position: relative;
-  padding: 0px;
-  box-sizing: border-box;
-}
-
-.slide img {
-  width: 100%;
-  display: block;
-}
-
-.slide:hover {
-  cursor: pointer;
-  opacity: 0.3;
-  transition: transform 0.6s ease-in-out;
-}
-
-.slide:hover img {
-  transform: scale(1.01);
-}
-
-.logo-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80px;
-  height: auto;
-}
-
-/* Responsive para cantidad de imágenes */
-@media (min-width: 1200px) {
-  .slide { min-width: 20%; } /* 5 imágenes */
-}
-
-@media (max-width: 1200px) {
-  .slide { min-width: 25%; } /* 4 imágenes */
-}
-
-@media (max-width: 992px) {
-  .slide { min-width: 33.33%; } /* 3 imágenes */
-}
-
-@media (max-width: 768px) {
-  .slide { min-width: 50%; } /* 2 imágenes */
-}
-
-
-@media (max-width: 575px) {
-  .slide { min-width: 100%; } /* 1 imágenes */
- 
-}
-.prev, .next {
-  position: absolute;
-  transform: translateY(-50%);
-  top: 50%;
-  background: rgba(255, 255, 255, 0);
-  border: none;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.prev { left: 1px; }
-.next { right: 1px; }
-`;
-
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);

@@ -21,7 +21,7 @@ import articleDetailReducer from "./slices/articleDetail-slice";
 import loadingReducer from "./slices/loading-slice";
 import newArrivalsReducer from "./slices/newArrivals-slice";
 import usuarioReducer from "./slices/usuario-slice";
-
+import filtersReducer from "./slices/filters-slice";
 const persistConfig = {
   key: "flone",
   version: 1.1,
@@ -38,6 +38,7 @@ const rootReducer = combineReducers({
   menu: menuReduce,
   articles: articlesReducer,
   articleDetail: articleDetailReducer,
+  filters: filtersReducer,
   loader: loadingReducer,
   newArrivals: newArrivalsReducer,
   usuario: usuarioReducer,

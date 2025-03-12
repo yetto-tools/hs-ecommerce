@@ -3,14 +3,15 @@ import {
   adapterArticles,
   adapterArticleDetail,
   adapterNewArrivals,
-  adapterArticle,
   adapterSearchArticles,
+  adapterFilters,
 } from "../adapters/articles";
 import {
   setArticleDetail,
   setError,
 } from "../store/slices/articleDetail-slice";
 import { setArticles } from "../store/slices/articles-slice";
+import { setFilters } from "../store/slices/filters-slice";
 
 import { API_URL, API_VERSION } from "../config";
 import { setLoading } from "../store/slices/loading-slice";
@@ -35,7 +36,10 @@ export const fetchArticles = (n1, n2, n3) => async (dispatch) => {
     if (response.ok) {
       const articles = adapterArticles(data);
       dispatch(setArticles(articles));
-      
+
+      const filters = adapterFilters(data);
+      console.log(filters);
+      dispatch(setFilters(filters));
     } else {
       throw new Error(data.message || "Error fetching products");
     }
@@ -62,10 +66,8 @@ export const fetchArticleDetail = (id) => async (dispatch) => {
 
     if (response.ok) {
       const article = adapterArticleDetail(data);
-      
       dispatch(setArticleDetail(article));
     } else {
-      
       throw new Error(data.message || "Error fetching products");
     }
 
@@ -80,7 +82,7 @@ export const fetchArticleDetail = (id) => async (dispatch) => {
 
 export const fetchNewArticles = () => async (dispatch) => {
   const url = `${API_URL}/api/${API_VERSION}/items/new-items`;
-  
+
   try {
     dispatch(setLoading(true));
     const response = await fetch(url, {
@@ -96,8 +98,10 @@ export const fetchNewArticles = () => async (dispatch) => {
     const { data } = await response.json();
     if (response.ok) {
       const articles = adapterNewArrivals(data);
-
       dispatch(setNewArrivals(articles));
+
+      const filters = adapterFilters(data);
+      dispatch(setFilters(filters));
     } else {
       throw new Error(data.message || "Error fetching products");
     }
@@ -132,8 +136,11 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
     const { data, message } = await response.json();
     if (response.ok) {
       const articles = adapterSearchArticles(data);
-      console.log(articles);
       dispatch(setArticles(articles));
+
+      const filters = adapterFilters(data);
+      dispatch(setFilters(filters));
+
       const { hide } = cogoToast.success(`Resultados de la busqueda`, {
         position: "bottom-left",
         onClick: () => {
