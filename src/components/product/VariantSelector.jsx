@@ -5,12 +5,18 @@ export const VariantSelector = ({
   articleDetail,
   setSelectedVariant,
   setProductStock,
-  setQuantityCount
+  setQuantityCount,
 }) => {
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [selectedColorId, setSelectedColorId] = useState(null);
 
+  const [saleOut, setSaleOut] = useState(false);
+
   useEffect(() => {
+    if (articleDetail.stock === 0) {
+      setSaleOut(true);
+    }
+
     if ((selectedSizeId || selectedColorId) && articleDetail.variation) {
       const variant = articleDetail.variation.find((v) => {
         const matchesSize = selectedSizeId ? v.idSize === selectedSizeId : true;
@@ -40,19 +46,23 @@ export const VariantSelector = ({
           <div className="pro-details-size mb-4">
             <h5 className="fw-bold mb-4">Talla:</h5>
             <div className="pro-details-size-content mb-2">
-              {
-              
-              articleDetail.sizes.map((size) => (
-
-                
+              {articleDetail.sizes.map((size) => (
                 <label
-                  className={clsx("pro-details-size-content--single") }
+                  className={clsx("pro-details-size-content--single")}
                   key={size.id}
                   style={{
                     backgroundColor:
                       selectedSizeId === size.id ? "#b9db00" : "transparent",
-                    cursor: "pointer",
-                    display: articleDetail.variation.find((v) => v.idSize === size.id).stock > 0 ? "inline-block" : "none",
+                    cursor:
+                      articleDetail.variation.find((v) => v.idSize === size.id)
+                        .stock > 0
+                        ? "pointer"
+                        : "not-allowed",
+                    opacity:
+                      articleDetail.variation.find((v) => v.idSize === size.id)
+                        .stock > 0
+                        ? "1"
+                        : "0.5",
                   }}
                 >
                   <input
@@ -60,11 +70,14 @@ export const VariantSelector = ({
                     name="sizeSelection"
                     className=" visually-hidden"
                     checked={selectedSizeId === size.id}
-                    onChange={() => (
-                      setSelectedSizeId(size.id),
-                      setQuantityCount(1)
-                      
-                    )}
+                    onChange={() => {
+                      setSelectedSizeId(size.id);
+                      setQuantityCount(1);
+                    }}
+                    disabled={
+                      articleDetail.variation.find((v) => v.idSize === size.id)
+                        .stock === 0
+                    }
                   />
 
                   <span className="size-name d-flex inline-block align-items-end justify-content-center text-black">
@@ -72,8 +85,6 @@ export const VariantSelector = ({
                     <small className="lowercase fs-6">{size.unit || ""}</small>
                   </span>
                 </label>
-                  
-                
               ))}
             </div>
           </div>
