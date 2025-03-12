@@ -83,15 +83,14 @@ const App = () => {
               element={<Contact />}
             />
 
-            {/* <Route
-              path={process.env.PUBLIC_URL + ""}
+            <Route
+              path={process.env.PUBLIC_URL + "/mi-cuenta"}
               element={
-                <></>
-                // <MyAccount />
-                // <ProtectedRoute>
-                // </ProtectedRoute>
+                <ProtectedRoute>
+                  <MyAccount />
+                </ProtectedRoute>
               }
-            /> */}
+            />
 
             <Route
               path={process.env.PUBLIC_URL + "/registrarse"}
