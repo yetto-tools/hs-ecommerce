@@ -7,9 +7,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const SwiperSlider = forwardRef(
-  ({ options, prevIcon, nextIcon, children, className="", navClass }, ref) => {
+  (
+    { options, prevIcon, nextIcon, children, className = "", navClass },
+    ref
+  ) => {
     const modules = options?.modules !== undefined ? options.modules : [];
-    const prevClass = `prev-${navClass || "swiper-nav"} ${className}`; 
+    const prevClass = `prev-${navClass || "swiper-nav"} ${className}`;
     const nextClass = `next-${navClass || "swiper-nav"} ${className}`;
     const sliderOptions = {
       slidesPerView: 1,
@@ -43,12 +46,14 @@ const SwiperSlider = forwardRef(
       <div className={cn("swiper-wrap", "")} ref={ref}>
         {sliderOptions?.navigation && (
           <>
-            <button type="button" className={`swiper-button-prev ${prevClass}`}>
-             
-            </button>
-            <button type="button" className={`swiper-button-next ${nextClass}`}>
-              
-            </button>
+            <button
+              type="button"
+              className={`swiper-button-prev ${prevClass}`}
+            ></button>
+            <button
+              type="button"
+              className={`swiper-button-next ${nextClass}`}
+            ></button>
           </>
         )}
         <Swiper {...sliderOptions}>{children}</Swiper>
@@ -61,15 +66,15 @@ export { SwiperSlide };
 
 SwiperSlider.propTypes = {
   options: PropTypes.shape({}),
-  prevIcon: PropTypes.string,
-  nextIcon: PropTypes.string,
+  prevIcon: PropTypes.node,
+  nextIcon: PropTypes.node,
   children: PropTypes.node,
   className: PropTypes.string,
   navClass: PropTypes.string,
 };
 
 SwiperSlider.defaultProps = {
-  prevIcon:  <ChevronLeft size={30} />,
+  prevIcon: <ChevronLeft size={30} />,
   nextIcon: <ChevronRight size={30} />,
   navStyle: 1,
   dotStyle: 1,
