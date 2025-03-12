@@ -38,8 +38,8 @@ const articlesSlice = createSlice({
 function applyFilters(articles, filters) {
   return articles.filter((article) => {
     return Object.entries(filters).every(([key, value]) => {
-      // Si el filtro es 'all', se ignora ese filtro
-      if (value === "all") return true;
+      // Ignorar el filtro si el valor es 'all', undefined o null
+      if (value === "all" || value === undefined || value === null) return true;
       if (key === "brand") return article.brand === value;
       if (key === "color") return article.color === value;
       if (key === "size") return article.size === value;

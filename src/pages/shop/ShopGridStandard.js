@@ -50,40 +50,6 @@ const ShopGridStandard = () => {
     }
   }, [dispatch, n1, n2, n3]);
 
-  const [selectedBrand, setSelectedBrand] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedTag, setSelectedTag] = useState(null);
-
-  // const filteredProducts = (articles || []).filter((product) => {
-  //   const matchBrand = selectedBrand
-  //     ? product.brand?.toUpperCase() === selectedBrand.toUpperCase()
-  //     : true;
-
-  //   const matchColor = selectedColor
-  //     ? product.colors?.some(
-  //         (color) => color.name.toUpperCase() === selectedColor.toUpperCase()
-  //       )
-  //     : true;
-
-  //   const matchSize = selectedSize
-  //     ? product.sizes?.some((size) => size.name === selectedSize)
-  //     : true;
-
-  //   const matchTag = selectedTag
-  //     ? product.tags?.some(
-  //         (tag) => tag.tag.toUpperCase() === selectedTag.toUpperCase()
-  //       )
-  //     : true;
-
-  //   return matchBrand && matchColor && matchSize && matchTag;
-  // });
-
-  const handleFilterChange = (filterType, value) => {
-    // Aquí podrías realizar acciones adicionales si es necesario cuando cambian los filtros
-    console.log(`Filtro aplicado: ${filterType} = ${value}`);
-  };
-
   useEffect(() => {
     console.log(filters);
   }, []);
@@ -110,20 +76,7 @@ const ShopGridStandard = () => {
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
 
-                <ShopSidebarFilters
-                  filters={filters}
-                  onFilterChange={(type, value) => {
-                    if (type === "brand")
-                      setSelectedBrand(value === "all" ? null : value);
-                    if (type === "color")
-                      setSelectedColor(value === "all" ? null : value);
-                    if (type === "size")
-                      setSelectedSize(value === "all" ? null : value);
-                    if (type === "tag")
-                      setSelectedTag(value === "all" ? null : value);
-                  }}
-                  sideSpaceClass=""
-                />
+                <ShopSidebarFilters filters={filters} sideSpaceClass="" />
               </div>
               <div className="col-lg-9 order-1 order-lg-2">
                 {/* shop topbar */}

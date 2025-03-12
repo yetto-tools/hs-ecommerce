@@ -2,20 +2,22 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import ShopSearch from "../../components/product/ShopSearch";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilters } from "../../store/slices/articles-slice";
 
-const ShopSidebarFilters = ({ filters, onFilterChange, sideSpaceClass }) => {
+const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
   const dispatch = useDispatch();
-  const { filters: currentFilter } = useSelector((state) => state.filters);
+
   const handleFilterClick = (filterType, value) => {
-    console.log(filters);
-    dispatch(setFilters({ filterType, value }));
-    onFilterChange(filterType, value);
+    console.log({ filterType, value });
+    // dispatch(setFilters({ filterType, value }));
   };
 
-  const handleData = () => {
-    console.log(currentFilter);
+  const handleTest = () => {
+    console.log(filters);
   };
+
+  // const handleClearFilters = () => {
+  //   dispatch(resetFilters());
+  // };
 
   return (
     <div className={clsx("sidebar-style", "pr-20", sideSpaceClass)}>
@@ -24,7 +26,7 @@ const ShopSidebarFilters = ({ filters, onFilterChange, sideSpaceClass }) => {
 
       {/* Marcas */}
       <div className="sidebar-widget">
-        <h4 className="pro-sidebar-title" onClick={handleData}>
+        <h4 className="pro-sidebar-title fw-bold" onClick={handleTest}>
           Marcas
         </h4>
         <div className="sidebar-widget-list mt-30">
@@ -50,7 +52,7 @@ const ShopSidebarFilters = ({ filters, onFilterChange, sideSpaceClass }) => {
 
       {/* Colores */}
       <div className="sidebar-widget mt-50">
-        <h4 className="pro-sidebar-title">Colores</h4>
+        <h4 className="pro-sidebar-title fw-bold">Colores</h4>
         <div className="sidebar-widget-list mt-20">
           <ul>
             <li>
@@ -86,7 +88,7 @@ const ShopSidebarFilters = ({ filters, onFilterChange, sideSpaceClass }) => {
 
       {/* Tallas */}
       <div className="sidebar-widget mt-40">
-        <h4 className="pro-sidebar-title">Tallas</h4>
+        <h4 className="pro-sidebar-title fw-bold">Tallas</h4>
         <div className="sidebar-widget-list mt-20">
           <ul>
             <li>
@@ -108,7 +110,7 @@ const ShopSidebarFilters = ({ filters, onFilterChange, sideSpaceClass }) => {
 
       {/* Etiquetas */}
       <div className="sidebar-widget mt-50">
-        <h4 className="pro-sidebar-title">Etiquetas</h4>
+        <h4 className="pro-sidebar-title fw-bold">Etiquetas</h4>
         <div className="sidebar-widget-tag mt-25 w-50">
           {filters && filters.tags.length ? (
             filters.tags.map((tag, index) => (
@@ -131,7 +133,6 @@ const ShopSidebarFilters = ({ filters, onFilterChange, sideSpaceClass }) => {
 
 ShopSidebarFilters.propTypes = {
   filters: PropTypes.object,
-  onFilterChange: PropTypes.func.isRequired,
   sideSpaceClass: PropTypes.string,
 };
 
