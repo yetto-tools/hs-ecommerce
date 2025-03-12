@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
-const SEO = ({ title, titleTemplate, description }) => {
-  const location = useLocation();
-  
+const SEO = ({
+  title = "Hype Street",
+  titleTemplate = "Las mejores Marcas",
+  description = "Tiendas, y kioscos con ropa, sneakers y accesorios de las mejores marcas.",
+}) => {
   return (
     <HelmetProvider>
       <Helmet>
@@ -24,13 +23,6 @@ SEO.propTypes = {
   title: PropTypes.string,
   titleTemplate: PropTypes.string,
   description: PropTypes.string,
-};
-
-SEO.defaultProps = {
-  title: "Hype Street",
-  titleTemplate: "Las mejores Marcas",
-  description:
-    "Tiendas, y kioscos con ropa, sneakers y accesorios de las mejores marcas.",
 };
 
 export default SEO;
