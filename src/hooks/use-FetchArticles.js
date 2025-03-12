@@ -99,14 +99,12 @@ export const fetchNewArticles = () => async (dispatch) => {
     if (response.ok) {
       const articles = adapterNewArrivals(data);
       dispatch(setNewArrivals(articles));
-
-      const filters = adapterFilters(data);
-      dispatch(setFilters(filters));
     } else {
       throw new Error(data.message || "Error fetching products");
     }
   } catch (error) {
     dispatch(setError(error.message));
+    console.log({ fn: "fetchNewArrivals", error });
     cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
   } finally {
     dispatch(setLoading(false));

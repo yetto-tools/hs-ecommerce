@@ -37,7 +37,7 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
               </button>
             </li>
             {filters &&
-              filters.brands.map((brand) => (
+              filters?.brands.map((brand) => (
                 <li key={brand.id}>
                   <button
                     onClick={() => handleFilterClick("brand", brand.name)}
@@ -61,7 +61,7 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
               </button>
             </li>
             {filters &&
-              filters.colors.map((color) => (
+              filters?.colors.map((color) => (
                 <li key={color.id}>
                   <label className="d-flex align-items-center cursor-pointer">
                     <span
@@ -97,7 +97,7 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
               </button>
             </li>
             {filters &&
-              filters.sizes.map((size) => (
+              filters?.sizes.map((size) => (
                 <li key={size.id}>
                   <button onClick={() => handleFilterClick("size", size.name)}>
                     {size.name}
@@ -112,8 +112,8 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
       <div className="sidebar-widget mt-50">
         <h4 className="pro-sidebar-title fw-bold">Etiquetas</h4>
         <div className="sidebar-widget-tag mt-25 w-50">
-          {filters && filters.tags.length ? (
-            filters.tags.map((tag, index) => (
+          {filters && filters?.tags.length ? (
+            filters?.tags.map((tag, index) => (
               <span
                 className="text-xs rounded badge text-bg-light"
                 key={index}

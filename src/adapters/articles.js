@@ -135,10 +135,25 @@ export const adapterArticleDetail = (data) => {
 };
 
 export const adapterNewArrivals = (data) => {
-  const articulos = data.articulos.map((article) =>
-    adapterArticle(article || [])
-  );
+  console.log(data);
+  const articulos = data.map((article) => adapterNewArrival(article || []));
   return articulos;
+};
+
+export const adapterNewArrival = (data) => {
+  return {
+    id: data.idArticulo,
+    code: data.CodigoInterno,
+    sku: data.Sku,
+    name: data.Nombre_Comercial,
+    shortDescription: data.Descripcion_p,
+    price: data.Precio_SD,
+    discount: data.Descuento_Porcentaje,
+    discountedPrice: data.Precio_CD,
+    image: data.Imagen_1,
+    images: [data.Imagen_1],
+    stock: data.Cantidad,
+  };
 };
 
 export const adapterFilters = (data) => {
