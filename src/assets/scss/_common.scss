@@ -1977,6 +1977,12 @@ textarea:focus {
   }
 }
 
+.btn-hover-green:hover{
+  background-color: #b9db00 !important;
+  color: black !important;
+  transition: all 0.5s ease-in-out 0s;
+}
+
 .btn-hover {
   a,
   button {
@@ -2429,4 +2435,18 @@ button:disabled {
 .form-select:focus {
   border-color: rgb(184, 219, 21, 254);
   box-shadow: 0 0 0 0.25rem rgba(184, 219, 21, 0.302);
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
