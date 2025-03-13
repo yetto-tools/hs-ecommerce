@@ -1,19 +1,136 @@
-import { Fragment } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { Loader2, Search } from "lucide-react";
+
+import { fetchValidaNIT } from "../../hooks/use-fetchValidaNIT";
+
+import { adapterOrderCustomer, adapterOrderProducts } from "../../adapters/order";
+
 
 const Checkout = () => {
   const { t, i18n } = useTranslation();
   let cartTotalPrice = 0;
 
   let { pathname } = useLocation();
+
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+  const { loading, validacionNit, error } = useSelector((state) => state.validarNit);
+  const [formValues, setFormValues] = useState({ nitCliente: "", nameCliente: "", firstName: "", lastName: "" });
+
+  const style = {
+    fontWeight: "500",
+    lineHeight: "1",
+    zIndex: "9",
+    display: "block",
+    width: "2.5rem",
+    padding: "0.5rem",
+    textAlign: "center",
+    letterSpacing: "1px",
+    textTransform: "uppercase",
+    color: "#fff",
+    border: "none",
+    borderRadius: "3px",
+    background: "none",
+    backgroundColor: "#000",
+  };
+
+  
+  // 🟢 Maneja cambios en el input del NIT/DPI
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setFormValues((prev) => ({ ...prev, nitCliente: value }));
+  };
+
+  // 🟢 Validación y envío de consulta
+  const handleCheckNit = () => {
+    const { nitCliente } = formValues;
+
+    if (!nitCliente.trim()) {
+      alert(`El campo NIT/DPI no puede estar vacío.`);
+      return;
+    }
+
+
+    console.log("Validando NIT/DPI:", nitCliente);
+    dispatch(fetchValidaNIT(nitCliente));
+  };
+
+  // 🟢 Auto completar formulario cuando se reciba la respuesta de validación
+  useEffect(() => {
+    if (validacionNit) {
+      console.log("Datos recibidos:", validacionNit);
+
+      // Si es DPI, dividimos el nombre en firstName y lastName
+      let firstName = validacionNit.Nombre || "";
+      let lastName = "";
+
+      if (firstName.includes(",") && !firstName.includes("CF")) {
+        const nameParts = firstName.split(",");
+        firstName = nameParts[1].trim();
+        lastName = nameParts[0].trim();
+      }
+      console.log("Datos recibidos:", {
+        
+        nameCliente: validacionNit.Nombre,
+        firstName,
+        lastName,
+        nitCliente: validacionNit.Nit
+      });
+      setFormValues((prev) => ({
+        ...prev,
+        nameCliente: validacionNit.Nombre,
+        nitCliente: validacionNit.Nit
+      }));
+    }
+  }, [validacionNit]);
+
+
+
+  const handleSendOrder = () => {
+    if (!formValues.nitCliente || cartItems.length === 0) {
+      alert("Debe ingresar un NIT y agregar productos al carrito.");
+      return;
+    }
+  
+ 
+  
+    // Cliente
+    const orderCliente =  adapterOrderCustomer(formValues)
+    
+    // Productos
+    const orderProducts = adapterOrderProducts(cartItems)
+    
+    // Construcción del JSON final
+    const order = {orderCliente, products:orderProducts}
+  
+    console.log("Orden Generada:", order);
+  
+    // Aquí puedes enviarlo al backend
+    fetch("/api/orden", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert("Orden enviada con éxito!");
+        console.log("Respuesta del servidor:", data);
+      })
+      .catch((error) => {
+        console.error("Error al enviar la orden:", error);
+        alert("Hubo un error al enviar la orden.");
+      });
+  };
+  
 
   return (
     <Fragment>
@@ -37,33 +154,49 @@ const Checkout = () => {
                   <div className="billing-info-wrap">
                     <h3>{t("page_checkout.billing_details")}</h3>
                     <div className="row">
-                      <div className="col-lg-6 col-md-6">
+                    <div className="col-lg-12">
                         <div className="billing-info mb-20">
+                          <div className=" d-flex flex-row justify-content-start align-items-center gap-2">
+                          <label>{t("page_checkout.vat") }</label>
+                          <label>{"|"}</label>
+                          <label>{t("page_checkout.dpi") }</label>
+                            </div>
+                            <div className="place-order d-flex position-relative align-items-center gap-2">
+                              <input 
+                                type="search"         
+                                value={formValues.nitCliente}
+                                onChange={handleChange} 
+                                disabled={loading}
+                                required={true}
+                              />
+                              <button type="button" className="btn-hover-green text-center " style={style} onClick={handleCheckNit}
+                               disabled={loading}
+                              >
+                                {
+                                  loading 
+                                  ? <Loader2 className="animate-spin" /> 
+                                  : <Search className="postion-fixed" />
+                                }
+                              </button>
+                            </div>
+                        </div>
+                      </div>
+                      <div className="col-lg-12  ">
+                        <div className="billing-info mb-20" >
                           <label>{t("page_checkout.first_name")}</label>
-                          <input type="text" />
+                          <input type="text" name="nameCliente"  value={formValues.nameCliente} readOnly={true}/>
+                          
                         </div>
                       </div>
+                      
                       <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
+                        <div className="billing-info mb-20" hidden>
                           <label>{t("page_checkout.last_name")}</label>
-                          <input type="text" />
+                          <input type="hidden" name="lastNameCliente"/>
                         </div>
                       </div>
-                      <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>{t("page_checkout.company_name")}</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-select mb-20">
-                          <label>{t("page_checkout.country")}</label>
-                          <select>
-                            <option>{t("page_checkout.select_country")}</option>
-                            <option>Guatemala</option>
-                          </select>
-                        </div>
-                      </div>
+
+
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>{t("page_checkout.street_address")}</label>
@@ -78,6 +211,17 @@ const Checkout = () => {
                           />
                         </div>
                       </div>
+
+                      <div className="col-lg-12">
+                        <div className="billing-select mb-20">
+                          <label>{t("page_checkout.country")}</label>
+                          <select>
+                            <option>{t("page_checkout.select_country")}</option>
+                            <option>Guatemala</option>
+                          </select>
+                        </div>
+                      </div>
+                      
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>{t("page_checkout.city")}</label>
@@ -203,7 +347,7 @@ const Checkout = () => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover">
+                      <button className="btn-hover" onClick={handleSendOrder}>
                         {t("page_checkout.place_order")}
                       </button>
                     </div>
