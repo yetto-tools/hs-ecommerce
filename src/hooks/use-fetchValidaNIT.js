@@ -29,12 +29,12 @@ export const fetchValidaNIT = (nit) => async (dispatch) => {
     
     const {Encabezado: [Encabezado] } = data;    
     if(!Encabezado ){
-      setError(true);
+      dispatch(setError(true));
       throw new Error("Error al validar NIT");
     }
     
     if(Encabezado.Respuesta === "False"){
-      setError(true);
+      dispatch(setError(true));
       throw new Error(Encabezado.Descripcion);
     }    
     
@@ -55,15 +55,16 @@ export const fetchValidaNIT = (nit) => async (dispatch) => {
     cogoToast.success( Encabezado.Descripcion, {
       position: "top-center",
     });
-    setError(false);
+    dispatch(setError(false));
   } catch (error) {
+    dispatch(setError(true));
     const  { hide } = cogoToast.warn(`${error.message}`, {
       position: "top-center",
       onClick: () => {
         hide()
       }
     });
-    setError(true);
+    
   } finally {
     dispatch(setLoading(false));
   }

@@ -11,6 +11,8 @@ import { Loader2, Search } from "lucide-react";
 import { fetchValidaNIT } from "../../hooks/use-fetchValidaNIT";
 
 import { adapterOrderCustomer, adapterOrderProducts } from "../../adapters/order";
+import clsx from "clsx";
+import { setError } from "../../store/slices/validaNit-slice";
 
 
 const Checkout = () => {
@@ -23,7 +25,7 @@ const Checkout = () => {
   const { cartItems } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
-  const { loading, validacionNit, error } = useSelector((state) => state.validarNit);
+  const {validacionNit,loading, error } = useSelector((state) => state.validarNit);
   const [formValues, setFormValues] = useState({ nitCliente: "", nameCliente: "", firstName: "", lastName: "" });
 
   const style = {
@@ -48,6 +50,7 @@ const Checkout = () => {
   const handleChange = (e) => {
     const { value } = e.target;
     setFormValues((prev) => ({ ...prev, nitCliente: value }));
+    dispatch(setError(false));
   };
 
   // 🟢 Validación y envío de consulta
@@ -67,7 +70,7 @@ const Checkout = () => {
   // 🟢 Auto completar formulario cuando se reciba la respuesta de validación
   useEffect(() => {
     if (validacionNit) {
-      console.log("Datos recibidos:", validacionNit);
+      console.log("Datos recibidos:", error);
 
       // Si es DPI, dividimos el nombre en firstName y lastName
       let firstName = validacionNit.Nombre || "";
@@ -91,7 +94,7 @@ const Checkout = () => {
         nitCliente: validacionNit.Nit
       }));
     }
-  }, [validacionNit]);
+  }, [validacionNit,error]);
 
 
 
@@ -168,6 +171,7 @@ const Checkout = () => {
                                 onChange={handleChange} 
                                 disabled={loading}
                                 required={true}
+                                className={clsx(error && "border-danger text-danger fw-bold")}
                               />
                               <button type="button" className="btn-hover-green text-center " style={style} onClick={handleCheckNit}
                                disabled={loading}

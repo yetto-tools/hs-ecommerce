@@ -5,7 +5,7 @@ const validaNitSlice = createSlice({
   initialState: {
     validacionNit: null,
     loading: false,
-    error: null,
+    error: false,
     
   },
   reducers: {
@@ -23,5 +23,5 @@ const validaNitSlice = createSlice({
   },
 });
 
-export const { setValidacionNit,setLoading, setError, } = validaNitSlice.actions;
+export const { setValidacionNit, setLoading, setError, } = validaNitSlice.actions;
 export default validaNitSlice.reducer;
