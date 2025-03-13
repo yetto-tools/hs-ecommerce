@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Instalar módulos de Swiper que vamos a utilizar
@@ -138,7 +138,7 @@ const BrandSlider = ({ spaceLeftClass, spaceRightClass }) => {
       >
         <div className="slider-active-black nav-style-1-black">
           <Swiper
-            modules={[Navigation]}
+            modules={[Navigation, Autoplay]}
             navigation={{
               nextEl: ".hs-custom-next",
               prevEl: ".hs-custom-prev",
@@ -167,6 +167,8 @@ const BrandSlider = ({ spaceLeftClass, spaceRightClass }) => {
                 spaceBetween: 10, // Espacio más grande entre slides
               },
             }}
+            grabCursor={true} 
+            simulateTouch={true} 
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
           >
