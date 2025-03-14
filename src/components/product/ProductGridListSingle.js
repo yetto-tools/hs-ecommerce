@@ -54,8 +54,8 @@ const ProductGridListSingle = ({
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
         <div className={clsx("product-img", loadingImage && "loading")}>
-          <Link
-            to={process.env.PUBLIC_URL + "/producto/" + product.sku}
+          <div
+           
             onClick={handleProductDetail}
           >
             <>
@@ -87,7 +87,7 @@ const ProductGridListSingle = ({
             ) : (
               ""
             )} */}
-          </Link>
+          </div>
           {product.discount || product.new ? (
             <div className="product-img-badges">
               {product.discount && product.discount > 0.0 && (
