@@ -24,6 +24,7 @@ export const adapterMenu = (result) => {
         title: row.N1_Nombre,
         slug: slugify(row.N1_Nombre),
         subitems: [],
+        nivel: `${row.N1}/${row.N2||0}/${row.N3||0}`,// IDs de nivel 1, 2 y 3
       });
     }
 
@@ -36,26 +37,22 @@ export const adapterMenu = (result) => {
         title: row.N2_Nombre,
         slug: `${nivel1.slug}/${slugify(row.N2_Nombre)}`,
         subitems: [],
+        nivel: `${row.N1}/${row.N2}/${row.N3||0}`, // IDs de nivel 1, 2 y 3
       });
     }
 
     const nivel2 = nivel1.subitems.find((item) => item.id === row.N2);
 
     // Nivel 3
-    if (
-      row.N3 &&
-      nivel2 &&
-      !nivel2.subitems.find((item) => item.id === row.N3)
-    ) {
+    if (row.N3 && nivel2 && !nivel2.subitems.find((item) => item.id === row.N3)) {
       nivel2.subitems.push({
         id: row.N3,
         title: row.N3_Nombre,
         slug: `${nivel2.slug}/${slugify(row.N3_Nombre)}`,
+        nivel: `${row.N1}/${row.N2}/${row.N3}`, // IDs de nivel 1, 2 y 3
       });
     }
   });
 
-  const menu = Array.from(menuMap.values());
-
-  return menu;
+  return Array.from(menuMap.values());
 };
