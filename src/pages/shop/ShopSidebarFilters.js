@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import ShopSearch from "../../components/product/ShopSearch";
-import { useDispatch, useSelector } from "react-redux";
+
 
 const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
   const handleFilterClick = (filterType, value) => {
     console.log({ filterType, value });
-    // dispatch(setFilters({ filterType, value }));
+    
   };
 
   const handleTest = () => {

@@ -5,7 +5,7 @@
 import { Fragment, useState, useEffect, lazy } from "react";
 import Paginator from "react-hooks-paginator";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { getIdsFromUrl, getSortedProducts } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -37,20 +37,32 @@ const ShopGridStandard = () => {
   const { filteredArticles } = useSelector((state) => state.articles);
 
   const menu = useSelector((state) => state.menu.menu);
+
+  const {params} = useSelector((state) => state.urlParams);
+
   const location = useLocation();
-  const pathname = location.pathname;
+  const [searchParams] = useSearchParams();
+
+  // Obtener la categoría desde la URL
+  const categoria = searchParams.get("categoria");
+  const busqueda = searchParams.get("busqueda");
+
+  const { pathname } = location;
 
   const dispatch = useDispatch();
 
-  const { n1, n2, n3 } = getIdsFromUrl(menu, pathname);
+  
+  const [n1 = 0, n2 = 0, n3 = 0] = params?.split("/").map(Number) || [];
+
 
   useEffect(() => {
-    if (!pathname.includes("busqueda")) {
-      dispatch(fetchArticles(n1, n2, n3));
+    console.log(params);
+    if (!busqueda) {
+      dispatch(fetchArticles(n1 ||0 , n2||0 , n3||0 ));
     } else {
-      dispatch(fetchSearchArticles(pathname.split("=")[1]));
+      dispatch(fetchSearchArticles(busqueda));
     }
-  }, [dispatch, n1, n2, n3]);
+  }, [dispatch, searchParams, params]);
 
   useEffect(() => {
     console.log(filters);
