@@ -23,11 +23,12 @@ import newArrivalsReducer from "./slices/newArrivals-slice";
 import usuarioReducer from "./slices/usuario-slice";
 import filtersReducer from "./slices/filters-slice";
 import validaNitReducer from "./slices/validaNit-slice";
+import urlParamsReducer from "./slices/urlParams-slice";
 const persistConfig = {
   key: "flone",
   version: 1.1,
   storage,
-  blacklist: ["currency", "compare", "wishlist", "menu", "articles", "validarNit"],
+  blacklist: ["currency", "compare", "wishlist", "menu", "articles", "validarNit", "urlParams"],
   // blacklist: ["currency", "cart", "compare", "wishlist", "menu", "articles"],
 };
 
@@ -46,6 +47,7 @@ const rootReducer = combineReducers({
   address: usuarioReducer,
   token: usuarioReducer,
   validarNit: validaNitReducer,
+  urlParams : urlParamsReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
