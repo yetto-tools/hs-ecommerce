@@ -83,23 +83,19 @@
   "blog_details_standard": "Blog Details Standard",
   "blog_details_video": "Blog Details Video",
   "blog_details_slider": "Blog Details Slider",
-
   "header_top": {
     "call_phone": "Call us +(00) 000-0000-0000",
     "text_delivery": "Free delivery on order over"
   },
-
   "shop_search": {
     "label": "Search",
     "place_holder": "Search here..."
   },
-
   "shop_categories": {
     "categories": "Categories ",
     "filter_all": "All Categories",
     "not_found": "Not found categories"
   },
-
   "shop_select_filter_sort": {
     "default": "Default",
     "high_to_low": "Price - Hight to Low",
@@ -108,9 +104,7 @@
     "of": "of",
     "result": "result"
   },
-
   "page_login": {},
-
   "page_cart": {
     "title": "Cart",
     "label_home": "Home",
@@ -127,7 +121,6 @@
     "continue_shopping": " Continue Shopping",
     "clear_shopping_cart": "Clear Shopping Cart"
   },
-
   "page_checkout": {
     "titleTemplate": "Confirma Compra",
     "description": "Confirmación de Compra",
@@ -135,7 +128,7 @@
     "first_name": "First Name",
     "last_name": "Last Name",
     "vat": "NIT",
-    "dpi":"Docuento Personal Identidad (DPI)",
+    "dpi": "Docuento Personal Identidad (DPI)",
     "country": "Country",
     "select_country": "Select a country",
     "street_address": "Street Address",
@@ -152,9 +145,10 @@
     "product": "Product",
     "shipping": "Shipping",
     "free_shipping": "Free Shipping",
-    "place_order": "PLACE ORDER"
+    "place_order": "PLACE ORDER",
+    "price": "precio",
+    "quantity": "quantity"
   },
-
   "footer": {
     "store_location": "Store Location",
     "suscribe": "Newletter",
@@ -167,15 +161,12 @@
     "payment_method": "Payment Method",
     "text_placeholder": "Enter your email address..."
   },
-
   "footer_copyright": {
     "legal_right": "All Rights Reserved"
   },
-
   "mobile_menu_select_choose": {
     "choose_lang": "Choose Language"
   },
-
   "general_words": {
     "new": "New",
     "silhouettes": "silhouettes",
@@ -212,7 +203,6 @@
     "not_fount_silhouettes": "No silhouettes found",
     "view_more_products": "VIEW MORE PRODUCTS"
   },
-
   "page_login_register": {
     "label_home": "Home",
     "label_login": "Login - Register",
@@ -224,7 +214,6 @@
     "placeholder_input_password": "Password",
     "placeholder_input_email": "Email"
   },
-
   "page_my_account": {
     "title": "My Account",
     "label_home": "Home",
@@ -238,18 +227,15 @@
     "phone": "Phone",
     "mobile": "Mobile",
     "submit": "Continue",
-
     "step_two": "Change My Password",
     "change_password": "Change Password",
     "password": "Password",
     "password_confirm": "Password Confirm",
-
     "step_three": "Modify your address entries",
     "address_entry": "Address Entries",
     "edit": "Edit",
     "delete": "Delete"
   },
-
   "page_not_found": {
     "seo_title": "Not Found",
     "seo_description": "404 Not Found Content",
@@ -260,20 +246,17 @@
     "placeholder_search": "Search...",
     "back_to_home": "Back to home page"
   },
-
   "tab_product": {
     "new_array": "New Arrivals",
     "best_seller": "Best Seller",
     "sale_items": "collections",
     "view_more_products": "view more products"
   },
-
   "icon_group": {
     "login": "Login",
     "register": "Register",
     "my_account": "My Account"
   },
-
   "seo": {
     "login_register": "Login page, Hype Street Guatemala",
     "my_account": "Account User, Hype Street Guatemala",

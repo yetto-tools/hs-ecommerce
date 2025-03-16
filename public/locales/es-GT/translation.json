@@ -154,7 +154,7 @@
     "first_name": "Nombre",
     "last_name": "Apellido",
     "vat": "NIT",
-    "dpi":"Docuento Personal Identidad (DPI)",
+    "dpi": "Docuento Personal Identidad (DPI)",
     "country": "País",
     "select_country": "Seleccionar País",
     "street_address": "Dirección",
@@ -171,7 +171,8 @@
     "product": "Productos",
     "shipping": "Envío",
     "free_shipping": "Envío Gratis",
-    "place_order": "Confirmar Compra"
+    "place_order": "Confirmar Compra",
+    "quantity": "cantidad"
   },
   "general_words": {
     "new": "Nuevo",
@@ -262,7 +263,7 @@
     "title_message": "OOPS! PAGINA NO ENCONTRADA",
     "description_message": "Lo sentimos, pero la página que busca no existe, ha sido eliminada, su nombre ha cambiado o no está disponible temporalmente.",
     "placeholder_search": "Buscar...",
-    "back_to_home": "Regresar al inicio"
+    "back_to_home": "Volver a la página principal"
   },
   "tab_product": {
     "new_array": "Nuevas Producciones",
