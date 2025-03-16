@@ -27,12 +27,15 @@ const NotFound = () => {
             <div className="row justify-content-center">
               <div className="col-xl-7 col-lg-8 text-center">
                 <div className="error">
+                  <Link to={process.env.PUBLIC_URL + "/"}>
+                    
                   <h1>404</h1>
                   <h2>{
                     t("page_not_found.title_message") 
                     ? t("page_not_found.title_message")
                     : "404 page"}
                   </h2>
+                  </Link>
                   <p>
                     {
                       t("page_not_found.description_message") 
@@ -40,10 +43,11 @@ const NotFound = () => {
                       : "OOPS! PAGE NOT FOUND"
                     }
                   </p>
-                  <form className="searchform mb-50">
+                  
+                  <form className="searchform mb-50" action={process.env.PUBLIC_URL + "/productos"}>
                     <input
-                      type="text"
-                      name="search"
+                      type="search"
+                      name="busqueda"
                       id="error_search"
                       placeholder={
                         t("page_not_found.placeholder_search") 
@@ -52,15 +56,15 @@ const NotFound = () => {
                       }
                       className="searchform__input"
                     />
-                    <button type="submit" className="searchform__submit">
+                    <button type="submit" className="searchform__submit text-black fw-bold">
                       <i className="fa fa-search" />
                     </button>
                   </form>
-                  <Link to={process.env.PUBLIC_URL + "/"} className="error-btn">
+                  <Link to={process.env.PUBLIC_URL + "/"} className="btn-hover text-black fw-bold fs-1 my-5">
                     {
                       t("page_not_found.placeholder_search") 
-                      ? t("page_not_found.placeholder_search") 
-                      :  "Back to home page"}
+                      ? t("page_not_found.back_to_home") 
+                      :  "Volver a la página principal"}
                   </Link>
                 </div>
               </div>
