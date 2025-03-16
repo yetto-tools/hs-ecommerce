@@ -33,7 +33,7 @@ const IconGroup = ({ iconWhiteClass }) => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    navigate("/busqueda=" + value.trim());
+    navigate("/productos?busqueda=" + value.trim());
     await dispatch(fetchSearchArticles(value.trim()));
   };
 

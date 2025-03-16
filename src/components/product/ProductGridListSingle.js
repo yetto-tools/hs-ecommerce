@@ -60,7 +60,7 @@ const ProductGridListSingle = ({
           >
             <>
               <LazyLoadImage
-                className="default-img object-fit-cover"
+                className="default-img"
                 onLoad={() => setLoadingImage(false)}
                 src={ROOT_IMAGE + product.image[0]}
                 alt=""
@@ -72,6 +72,7 @@ const ProductGridListSingle = ({
                   e.target.onerror = null;
                   e.target.src = "/default/no-image.jpg";
                 }}
+                data-src={ROOT_IMAGE + product.image[0]}
               />
             </>
             {/* {product.image.length > 1 ? (

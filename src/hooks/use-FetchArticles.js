@@ -27,18 +27,24 @@ export const fetchArticles = (n1, n2, n3) => async (dispatch) => {
       headers: { "Content-Type": "application/json" },
     });
 
+    const { data } = await response.json();
+
     if (!response.ok) {
-      cogoToast.error(`Error: ${response.status}`, { position: "bottom-left" });
-      throw new Error(`Error: ${response.status}`);
+      const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
+        position: "top-center",
+        onClick: () => {
+          hide();
+        },
+      });
+      return;
     }
 
-    const { data } = await response.json();
+
+    
     if (response.ok) {
       const articles = adapterArticles(data);
       dispatch(setArticles(articles));
-
       const filters = adapterFilters(data);
-      console.log(filters);
       dispatch(setFilters(filters));
     } else {
       throw new Error(data.message || "Error fetching products");
@@ -58,9 +64,15 @@ export const fetchArticleDetail = (id) => async (dispatch) => {
     dispatch(setLoading(true));
     const response = await fetch(url, { method: "GET" });
     if (!response.ok) {
-      cogoToast.error(`Error: ${response.status}`, { position: "bottom-left" });
-      throw new Error(`Error: ${response.status}`);
+      const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
+        position: "top-center",
+        onClick: () => {
+          hide();
+        },
+      });
+      return;
     }
+
 
     const { data } = await response.json();
 
@@ -91,9 +103,15 @@ export const fetchNewArticles = () => async (dispatch) => {
     });
 
     if (!response.ok) {
-      cogoToast.error(`Error: ${response.status}`, { position: "bottom-left" });
-      throw new Error(`Error: ${response.status}`);
+      const { hide } = cogoToast.info(`Sin resultados de  Nuevos Productos`, {
+        position: "top-center",
+        onClick: () => {
+          hide();
+        },
+      });
+      return;
     }
+
 
     const { data } = await response.json();
     if (response.ok) {
@@ -123,7 +141,7 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
 
     if (!response.ok) {
       const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
-        position: "bottom-left",
+        position: "top-center",
         onClick: () => {
           hide();
         },
@@ -140,7 +158,7 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
       dispatch(setFilters(filters));
 
       const { hide } = cogoToast.success(`Resultados de la busqueda`, {
-        position: "bottom-left",
+        position: "top-center",
         onClick: () => {
           hide();
         },
@@ -151,7 +169,7 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
   } catch (error) {
     console.log(error);
     dispatch(setError(error.message));
-    cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
+    cogoToast.error(`Error: ${error.message}`, { position: "top-center", });
   } finally {
     dispatch(setLoading(false));
   }

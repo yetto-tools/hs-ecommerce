@@ -277,9 +277,10 @@ const Checkout = () => {
                     <h3>{t("page_checkout.your_order")}</h3>
                     <div className="your-order-wrap gray-bg-4">
                       <div className="your-order-product-info">
-                        <div className="your-order-top">
+                        <div className="your-order-top" onClick={() => console.log(cartItems)}>
                           <ul>
                             <li>{t("page_checkout.product")}</li>
+                            <li>{t("page_checkout.price")} X {t("page_checkout.quantity")}</li>
                             <li>Total</li>
                           </ul>
                         </div>
@@ -304,9 +305,11 @@ const Checkout = () => {
                                     finalProductPrice * cartItem.quantity);
                               return (
                                 <li key={key}>
-                                  <span className="order-middle-left">
-                                    {cartItem.name} X {cartItem.quantity}
-                                  </span>{" "}
+                                  <span className="order-middle-left text-truncate">
+                                    {cartItem.name} - {cartItem.size} 
+                                  </span>
+                                  <strong>{cartItem.price} X {cartItem.quantity} </strong>
+                                  
                                   <span className="order-price">
                                     {discountedPrice !== null
                                       ? new Intl.NumberFormat(i18n.language, {
@@ -323,6 +326,7 @@ const Checkout = () => {
                                           finalProductPrice * cartItem.quantity
                                         )}
                                   </span>
+                                  
                                 </li>
                               );
                             })}

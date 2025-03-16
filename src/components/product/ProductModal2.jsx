@@ -83,6 +83,11 @@ function ProductModal2({ show, onHide, currency }) {
                           src={`${ROOT_IMAGE}${image}`}
                           alt={articleDetail.name}
                           className="img-fluid"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/default/no-image.jpg";
+                          }}
+                          loading="lazy"
                         />
                       </SwiperSlide>
                     ))}
@@ -99,6 +104,12 @@ function ProductModal2({ show, onHide, currency }) {
                               src={ROOT_IMAGE + image}
                               className="img-fluid object-fit-cover"
                               alt={articleDetail.name}
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "/default/no-image.jpg";
+                              }}
+                              data-src={ROOT_IMAGE + image}
+                              loading="lazy"
                             />
                           </div>
                         </SwiperSlide>
