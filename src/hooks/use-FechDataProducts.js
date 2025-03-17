@@ -1,5 +1,4 @@
 import cogoToast from "cogo-toast";
-import { adapterProductDetail } from "../adapters/products";
 import { adapterArticleDetail } from "../adapters/articles";
 
 export const fetchProductById = async (idProduct) => {
@@ -20,7 +19,9 @@ export const fetchProductById = async (idProduct) => {
     }
     const { data } = await response.json();
     const { articulos, tallas, colores, marcas, etiquetas } = data;
-    const processedData = articulos.map(item => adapterArticleDetail(item, tallas, colores, marcas, etiquetas));
+    const processedData = articulos.map((item) =>
+      adapterArticleDetail(item, tallas, colores, marcas, etiquetas)
+    );
     console.log(processedData);
 
     return processedData;

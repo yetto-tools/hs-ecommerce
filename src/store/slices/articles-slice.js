@@ -3,7 +3,7 @@ const { createSlice } = require("@reduxjs/toolkit");
 const articlesSlice = createSlice({
   name: "articles",
   initialState: {
-    articles: [], // ✅ Debe estar definido como array desde el inicio
+    articles: [],
     filteredArticles: [],
     loading: false,
     error: null,
@@ -12,21 +12,43 @@ const articlesSlice = createSlice({
   reducers: {
     setArticles(state, action) {
       state.articles = action.payload;
+      state.filteredArticles = applyFilters(state.articles, state.filters); // Reapply filters when articles change
     },
-
     setFilters(state, action) {
-      state.filters = {
-        ...state.filters,
-        [action.payload.filterType]: action.payload.value,
-      };
-      // Aplica filtros cada vez que se actualizan
+      const { filterType, value } = action.payload;
+
+      // If the filter value is "all", reset the filter type
+      if (value === "all") {
+        const { [filterType]: removed, ...rest } = state.filters;
+        state.filters = rest;
+      } else {
+        // Ensure the filter type array exists
+        const existingFilters = state.filters[filterType] || [];
+
+        // Check if the value is already included, if so, remove it, if not, add it
+        if (existingFilters.includes(value)) {
+          state.filters[filterType] = existingFilters.filter(
+            (item) => item !== value
+          );
+          if (state.filters[filterType].length === 0) {
+            delete state.filters[filterType]; // Remove the key if no filters are left
+          }
+        } else {
+          state.filters[filterType] = [...existingFilters, value];
+        }
+      }
+
+      // Reapply filters to the articles
       state.filteredArticles = applyFilters(state.articles, state.filters);
     },
 
+    resetFilters(state) {
+      state.filters = {};
+      state.filteredArticles = state.articles;
+    },
     setLoading(state, action) {
       state.loading = action.payload;
     },
-
     setError(state, action) {
       state.error = action.payload;
       state.loading = false;
@@ -34,21 +56,37 @@ const articlesSlice = createSlice({
   },
 });
 
-// Función para aplicar filtros a los artículos
-function applyFilters(articles, filters) {
-  return articles.filter((article) => {
-    return Object.entries(filters).every(([key, value]) => {
-      // Ignorar el filtro si el valor es 'all', undefined o null
-      if (value === "all" || value === undefined || value === null) return true;
-      if (key === "brand") return article.brand === value;
-      if (key === "color") return article.color === value;
-      if (key === "size") return article.size === value;
-      if (key === "tag") return article.tags.includes(value);
-      return true;
-    });
-  });
+function applyFilters(products, filters) {
+  let results = products;
+
+  // Filtrar por color
+  if (filters.color) {
+    results = results.filter((product) =>
+      product.colors.some((color) =>
+        filters.color.includes(color.name.toUpperCase())
+      )
+    );
+  }
+
+  // Filtrar por tamaño
+  if (filters.size) {
+    results = results.filter((product) =>
+      product.sizes.some((size) => filters.size.includes(size.name))
+    );
+  }
+
+  // Filtrar por marca
+  if (filters.brand) {
+    results = results.filter((product) =>
+      product.brands.some((brand) =>
+        filters.brand.includes(brand.name.toUpperCase())
+      )
+    );
+  }
+
+  return results;
 }
 
-export const { setArticles, setFilters, setLoading, setError } =
+export const { setArticles, setFilters, resetFilters, setLoading, setError } =
   articlesSlice.actions;
 export default articlesSlice.reducer;

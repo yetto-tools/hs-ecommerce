@@ -1977,7 +1977,7 @@ textarea:focus {
   }
 }
 
-.btn-hover-green:hover{
+.btn-hover-green:hover {
   background-color: #b9db00 !important;
   color: black !important;
   transition: all 0.5s ease-in-out 0s;
@@ -2437,7 +2437,6 @@ button:disabled {
   box-shadow: 0 0 0 0.25rem rgba(184, 219, 21, 0.302);
 }
 
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -2449,4 +2448,14 @@ button:disabled {
 
 .animate-spin {
   animation: spin 1s linear infinite;
+}
+
+li.active-filter > button {
+  background-color: $theme-color;
+  border-color: $theme-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  gap: 5px;
 }

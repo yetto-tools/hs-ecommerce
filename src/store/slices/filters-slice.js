@@ -23,5 +23,6 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { setFilters, setLoading, setError } = filtersSlice.actions;
+export const { setFilters, setDataFilter, setLoading, setError } =
+  filtersSlice.actions;
 export default filtersSlice.reducer;

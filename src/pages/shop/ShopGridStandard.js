@@ -23,50 +23,32 @@ const ShopSidebarFilters = lazy(() => import("../shop/ShopSidebarFilters"));
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
-  const [sortType, setSortType] = useState("");
-  const [sortValue, setSortValue] = useState("");
-  const [filterSortType, setFilterSortType] = useState("");
-  const [filterSortValue, setFilterSortValue] = useState("");
-  const [offset, setOffset] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentData, setCurrentData] = useState([]);
-  const [sortedProducts, setSortedProducts] = useState([]);
 
   const { articles } = useSelector((state) => state.articles);
   const { filters } = useSelector((state) => state.filters);
-  const { filteredArticles } = useSelector((state) => state.articles);
 
-  const menu = useSelector((state) => state.menu.menu);
-
-  const {params} = useSelector((state) => state.urlParams);
+  const { params } = useSelector((state) => state.urlParams);
 
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
   // Obtener la categoría desde la URL
-  const categoria = searchParams.get("categoria");
+
   const busqueda = searchParams.get("busqueda");
 
   const { pathname } = location;
 
   const dispatch = useDispatch();
 
-  
   const [n1 = 0, n2 = 0, n3 = 0] = params?.split("/").map(Number) || [];
 
-
   useEffect(() => {
-    console.log(params);
     if (!busqueda) {
-      dispatch(fetchArticles(n1 ||0 , n2||0 , n3||0 ));
+      dispatch(fetchArticles(n1 || 0, n2 || 0, n3 || 0));
     } else {
       dispatch(fetchSearchArticles(busqueda));
     }
   }, [dispatch, searchParams, params]);
-
-  useEffect(() => {
-    console.log(filters);
-  }, []);
 
   return (
     <Fragment>

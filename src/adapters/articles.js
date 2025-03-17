@@ -1,41 +1,42 @@
 export const adapterSearchArticles = (data) => {
   const articulos = data.articulos.map((article) =>
-    adapterArticle(article || [])
+    adapterArticle(article || [], data)
   );
 
   return articulos;
 };
 
 export const adapterArticles = (data) => {
+  console.log(data);
   const articulos = data.articulos.map((article) =>
-    adapterArticle(article || [])
+    adapterArticle(article || [], data)
   );
 
   return articulos;
 };
 
-export const adapterArticle = (data = {}) => {
+export const adapterArticle = (ariticulos = {}, data = {}) => {
   return {
-    sku: data?.Sku || "",
-    name: data?.Nombre_Comercial || "",
-    price: data?.Precio_SD || 0,
-    discountedPrice: data?.Precio_CD || 0,
-    discount: data?.Descuento_Porcentaje || 0,
-    shortDescription: data?.Descripcion_p || "",
-    image: [data?.Imagen_1, data?.Imagen_2].filter(Boolean) || [],
-    stock: data?.Cantidad || 0,
+    sku: ariticulos?.Sku || "",
+    name: ariticulos?.Nombre_Comercial || "",
+    price: ariticulos?.Precio_SD || 0,
+    discountedPrice: ariticulos?.Precio_CD || 0,
+    discount: ariticulos?.Descuento_Porcentaje || 0,
+    shortDescription: ariticulos?.Descripcion_p || "",
+    image: [ariticulos?.Imagen_1, ariticulos?.Imagen_2].filter(Boolean) || [],
+    stock: ariticulos?.Cantidad || 0,
     images:
       [
-        data.Imagen_1,
-        data.Imagen_2,
-        data.Imagen_3,
-        data.Imagen_4,
-        data.Imagen_5,
+        ariticulos.Imagen_1,
+        ariticulos.Imagen_2,
+        ariticulos.Imagen_3,
+        ariticulos.Imagen_4,
+        ariticulos.Imagen_5,
       ].filter(Boolean) || [],
-    colors: data.colores || [],
-    brands: data.marcas || [],
-    tags: data.etiquetas || [],
-    sizes: data.tallas || [],
+    colors: adapterColors(data.colores) || [],
+    brands: adapterBrands(data.marcas) || [],
+    tags: adapterTags(data.etiquetas) || [],
+    sizes: adapterSizes(data.tallas) || [],
   };
 };
 

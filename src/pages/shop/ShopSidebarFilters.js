@@ -1,40 +1,58 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import ShopSearch from "../../components/product/ShopSearch";
-
+import { resetFilters, setFilters } from "../../store/slices/articles-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
 
 const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
-  const handleFilterClick = (filterType, value) => {
-    console.log({ filterType, value });
-    
-  };
+  const dispatch = useDispatch();
+  const activeFilters = useSelector((state) => state.articles.filters);
 
-  const handleTest = () => {
-    console.log(filters);
-  };
+  const handleResetFilters = useCallback(() => {
+    dispatch(resetFilters());
+  }, [dispatch]);
+
+  const handleFilterClick = useCallback(
+    (filterType, value) => {
+      dispatch(setFilters({ filterType, value }));
+    },
+    [dispatch]
+  );
+
+  const isActive = (filterType, value) =>
+    activeFilters[filterType]?.includes(value);
 
   return (
     <div className={clsx("sidebar-style", "pr-20", sideSpaceClass)}>
       {/* Buscador */}
       <ShopSearch />
-
+      <button
+        onClick={handleResetFilters}
+        className="btn btn-outline-secondary mt-3 mb-3"
+      >
+        Limpiar Filtros
+      </button>
       {/* Marcas */}
       <div className="sidebar-widget">
-        <h4 className="pro-sidebar-title fw-bold" onClick={handleTest}>
-          Marcas
-        </h4>
+        <h4 className="pro-sidebar-title fw-bold">Marcas</h4>
         <div className="sidebar-widget-list mt-30">
           <ul>
-            <li>
+            <li className={clsx({ "active-filter": isActive("brand", "all") })}>
               <button onClick={() => handleFilterClick("brand", "all")}>
                 Todas las Marcas
               </button>
             </li>
             {filters &&
               filters?.brands?.map((brand) => (
-                <li key={brand.id + brand.name}>
+                <li
+                  key={brand.id + brand.name}
+                  className={clsx({
+                    "active-filter": isActive("brand", brand?.name),
+                  })}
+                >
                   <button
-                    onClick={() => handleFilterClick("brand", brand.name)}
+                    onClick={() => handleFilterClick("brand", brand?.name)}
                   >
                     {brand.name}
                   </button>
@@ -109,7 +127,7 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
           {filters && filters?.tags?.length ? (
             filters?.tags?.map((tag, index) => (
               <span
-                className="text-xs rounded badge text-bg-light"
+                className="text-xs rounded badge text-bg-light cursor-hand"
                 key={index + tag.tag}
                 onClick={() => handleFilterClick("tag", tag.tag)}
               >
