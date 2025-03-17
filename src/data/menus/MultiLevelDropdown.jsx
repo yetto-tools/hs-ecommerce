@@ -12,7 +12,6 @@ const MultiLevelDropdown = ({ sidebarMenu = false }) => {
   const { menu } = useSelector((state) => state.menu);
   const { params } = useSelector((state) => state.urlParams);
 
-
   useEffect(() => {
     dispatch(fetchMenu());
   }, [dispatch]);

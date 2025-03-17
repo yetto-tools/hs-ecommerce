@@ -1,0 +1,53 @@
+.offcanvas-navigation {
+  width: 100%;
+  background-color: #fff; // Cambia al color que prefieras
+  padding: 15px;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      position: relative;
+      border-bottom: 1px solid #eee; // Línea divisoria suave
+
+      .toggle-submenu {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      a {
+        display: block;
+        padding: 10px 15px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s;
+
+        &:hover,
+        &:focus {
+          background-color: #f8f8f8;
+        }
+      }
+    }
+  }
+
+  .sub-menu {
+    display: none; // Oculta los submenús inicialmente
+
+    &.active {
+      display: block; // Muestra el submenú cuando está activo
+    }
+  }
+}

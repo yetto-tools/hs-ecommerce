@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import data from "../../data/menus.json";
-import { fetchArticles } from "../../hooks/use-FetchArticles";
-
-import { useDispatch, useSelector } from "react-redux";
 
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   return (

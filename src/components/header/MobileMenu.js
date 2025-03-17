@@ -21,7 +21,7 @@ const MobileMenu = () => {
     const numMenuExpand = menuExpand.length;
 
     for (let i = 0; i < numMenuExpand; i++) {
-      menuExpand[i].addEventListener("click", e => {
+      menuExpand[i].addEventListener("click", (e) => {
         sideMenuExpand(e);
       });
     }
@@ -33,7 +33,7 @@ const MobileMenu = () => {
     }
   });
 
-  const sideMenuExpand = e => {
+  const sideMenuExpand = (e) => {
     e.currentTarget.parentElement.classList.toggle("active");
   };
 
@@ -60,9 +60,6 @@ const MobileMenu = () => {
 
           {/* mobile nav menu */}
           <MobileNavMenu />
-
-          {/* mobile language and currency */}
-          <MobileLangCurChange />
 
           {/* mobile widgets */}
           <MobileWidgets />
