@@ -18,6 +18,7 @@ export const adapterArticles = (data) => {
 export const adapterArticle = (ariticulos = {}, data = {}) => {
   return {
     sku: ariticulos?.Sku || "",
+    code: ariticulos?.CodigoInterno,
     name: ariticulos?.Nombre_Comercial || "",
     price: ariticulos?.Precio_SD || 0,
     discountedPrice: ariticulos?.Precio_CD || 0,
@@ -48,6 +49,7 @@ export const adapterArticleDetail = (data) => {
       sku: item.Sku,
       name: item.Nombre_Comercial,
       description: item.Descripcion_p,
+      code: item.CodigoInterno,
       price: parseFloat(item.Precio_SD),
       discount: parseFloat(item.Descuento_Porcentaje),
       discountedPrice: parseFloat(item.Precio_CD),
@@ -62,6 +64,7 @@ export const adapterArticleDetail = (data) => {
       sku: item.Sku,
       name: item.Nombre_Comercial,
       description: item.Descripcion_p,
+      code: item.CodigoInterno,
       price: parseFloat(item.Precio_SD),
       discount: parseFloat(item.Descuento_Porcentaje),
       discountedPrice: parseFloat(item.Precio_CD),
@@ -104,6 +107,7 @@ export const adapterArticleDetail = (data) => {
     id: data.articulo.Sku || "",
     sku: data.articulo.Sku || "",
     name: data.articulo.Nombre_Comercial || "",
+    code: data.articulo.CodigoInterno,
     price: parseFloat(data.articulo.Precio_SD) || 0,
     discount: parseFloat(data.articulo.Descuento_Porcentaje) || 0,
     discountedPrice: parseFloat(data.articulo.Precio_CD) || 0,

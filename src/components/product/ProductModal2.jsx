@@ -23,6 +23,7 @@ function ProductModal2({ show, onHide, currency }) {
   const [quantityCount, setQuantityCount] = useState(1);
   const { i18n } = useTranslation();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const {cartItems} = useSelector((state) => state.cart);
 
   const handleAddToCart = () => {
     if (selectedVariant && productStock > 0) {
@@ -30,9 +31,14 @@ function ProductModal2({ show, onHide, currency }) {
     }
   };
 
-  const handleBuyNow = () => {
-    if (selectedVariant && productStock > 0) {
+  const handleBuyNow = () => {   
+    const exist = cartItems.find(cart => cart.id === selectedVariant.id)    
+    if (selectedVariant && productStock > 0 && exist.length === 0) {
+      
       dispatch(addToCart({ ...selectedVariant, quantity: quantityCount }));
+      Navigate("/cart"); 
+    }
+    else{
       Navigate("/cart");
     }
   };
@@ -121,6 +127,7 @@ function ProductModal2({ show, onHide, currency }) {
             <div className="col-md-7 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
                 <h2>{articleDetail.name}</h2>
+                
                 <div className="product-details-price gap-4">
                   <span className="fs-4 fw-bold">
                     {CurrencyFormatter(
@@ -143,12 +150,15 @@ function ProductModal2({ show, onHide, currency }) {
                     )}
                   </span>
                 </div>
+                
                 <VariantSelector
                   articleDetail={articleDetail}
                   setSelectedVariant={setSelectedVariant}
                   setProductStock={setProductStock}
                   setQuantityCount={setQuantityCount}
                 />
+                
+                <small><b>SKU:</b> {articleDetail.sku}</small>
 
                 <div
                   className="pro-details-quality"
@@ -201,14 +211,14 @@ function ProductModal2({ show, onHide, currency }) {
                   <div className="pro-details-cart ">
                     <div className="d-flex align-items-center justify-content-start gap-5 mt-3">
                       <button
-                        className="px-4 py-3 bg-black text-white fw-semibold"
+                        className="px-4 py-3 button-active-hs btn-black"
                         onClick={handleAddToCart}
                         disabled={!canAddToCart}
                       >
                         Añadir al carrito{" "}
                       </button>
                       <button
-                        className="px-4 py-3 bg-black text-white fw-semibold"
+                        className="px-4 py-3 button-active-hs btn-black"
                         onClick={handleBuyNow}
                         disabled={!canAddToCart}
                       >
@@ -217,6 +227,7 @@ function ProductModal2({ show, onHide, currency }) {
                     </div>
                   </div>
                 </div>
+                
                 <div className="pro-details-list container-md mt-4 max-h-25 overflow-y-scroll">
                   <details className="">
                     <summary>Descripción</summary>

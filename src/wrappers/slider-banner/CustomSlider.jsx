@@ -129,7 +129,7 @@ const CustomSlider = ({ slides }) => {
                 {infiniteSlides.map((slide, index) => (
                   <div key={index} className="slide">
                     <Link
-                      to={process.env.PUBLIC_URL + `/busqueda=${slide.name}`}
+                      to={process.env.PUBLIC_URL + `/productos?busqueda=${encodeURI(slide.name)}`}
                     >
                       <LazyLoadImage
                         src={slide.image}

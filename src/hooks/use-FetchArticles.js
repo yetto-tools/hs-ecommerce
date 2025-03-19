@@ -174,3 +174,58 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
+
+
+
+export const fetchFilterAritcle = (value) => async (dispatch) => 
+{
+  console.log(value)
+  const url = `${API_URL}/api/${API_VERSION}/items/filter-items`;
+  const body = {xml: value};
+  console.log(body)
+  try {
+    dispatch(setLoading(true));
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    const { data, message } = await response.json();
+    
+    if (!response.ok) {
+      const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
+        position: "top-center",
+        onClick: () => {
+          hide();
+        },
+      });
+      return;
+    }
+
+    
+    if (response.ok) {
+      const articles = adapterSearchArticles(data);
+      dispatch(setArticles(articles));
+
+      const filters = adapterFilters(data);
+      dispatch(setFilters(filters));
+
+      const { hide } = cogoToast.success(`Resultados de la busqueda`, {
+        position: "top-center",
+        onClick: () => {
+          hide();
+        },
+      });
+    } else {
+      throw new Error(message || "Error fetching products");
+    }
+  } catch (error) {
+    console.log(error);
+    dispatch(setError(error.message));
+    cogoToast.error(`Error: ${error.message}`, { position: "top-center", });
+  } finally {
+    dispatch(setLoading(false));
+  }
+} 
+//fetchArticles

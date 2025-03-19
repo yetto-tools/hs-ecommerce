@@ -21,7 +21,7 @@ const ProductCard = ({ product, currency, openModal }) => {
   const { i18n } = useTranslation();
   return (
     <div className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area">
-      <Link to={product.url}>
+      <Link to={product.url} className="noHover">
         <div className="container row product-card mx-auto">
           <div className="d-flex align-items-center justify-content-center align-content-around">
             <div className="pro-same-action pro-quickview">
@@ -56,7 +56,7 @@ const ProductCard = ({ product, currency, openModal }) => {
               <span className="text-lg">
                 <span
                   className="price border px-4 font-semibold rounded border-dark hove:bg-black"
-                  style={{ paddingBlock: "0.3rem" }}
+                  style={{ paddingBlock: "0.3rem" ,background:"#b9db00", color: "black" }}yar
                 >
                   {Intl.NumberFormat(i18n.language, {
                     style: "currency",

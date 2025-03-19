@@ -58,7 +58,7 @@ export const fetchValidaNIT = (nit) => async (dispatch) => {
     dispatch(setError(false));
   } catch (error) {
     dispatch(setError(true));
-    const  { hide } = cogoToast.warn(`${error.message}`, {
+    const  { hide } = cogoToast.warn(`${"El NIT o DPI no es Valido"}`, {
       position: "top-center",
       onClick: () => {
         hide()

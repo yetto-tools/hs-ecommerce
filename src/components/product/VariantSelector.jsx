@@ -17,6 +17,12 @@ export const VariantSelector = ({
       setSaleOut(true);
     }
 
+        // Auto seleccionar talla si solo hay una opción
+        if (articleDetail.sizes && articleDetail.sizes.length === 1) {
+          setSelectedSizeId(articleDetail.sizes[0].id);
+          setQuantityCount(1);
+        }
+
     if ((selectedSizeId || selectedColorId) && articleDetail.variation) {
       const variant = articleDetail.variation.find((v) => {
         const matchesSize = selectedSizeId ? v.idSize === selectedSizeId : true;

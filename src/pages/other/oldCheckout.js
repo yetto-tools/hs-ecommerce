@@ -1,21 +1,19 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { Loader2, Search } from "lucide-react";
 
 import { fetchValidaNIT } from "../../hooks/use-fetchValidaNIT";
 
 import { adapterOrderCustomer, adapterOrderProducts } from "../../adapters/order";
-
+import clsx from "clsx";
 import { setError } from "../../store/slices/validaNit-slice";
-import { validateEmail, validatePhone } from "../../helpers/validator";
-import { FormDatosCliente } from "../payment/FormDatosCliente";
-import { FormDireccionEntrega } from "../payment/FormDireccionEntrega";
-import cogoToast from "cogo-toast";
+import { validateEmail } from "../../helpers/validator";
 
 
 const Checkout = () => {
@@ -34,9 +32,7 @@ const Checkout = () => {
   const {validacionNit,loading, error } = useSelector((state) => state.validarNit);
   const [formValues, setFormValues] = useState({ nitCliente: "", nameCliente: "", firstName: "", lastName: "" });
 
-  const [errorsValidate, setErrorsValidate] = useState(false);
   const [errorValidateEmail, setErrorValidateEmail] = useState(false);
-  const [errorValidatePhone, setErrorValidatePhone] = useState(false);
 
   const style = {
     fontWeight: "500",
@@ -59,20 +55,15 @@ const Checkout = () => {
   // 🟢 Maneja cambios en el input del NIT/DPI
   const handleChange = (e) => {
     const { name,  value } = e.target;
-    console.log(name,  value );
+    console.log(e.target);
     setFormValues((prev) => ({ ...prev, nitCliente: value }));
     dispatch(setError(false));
     setErrorValidateEmail(false);
       // Validar email
       switch(name){    
-        case "email":          
-        console.log(validateEmail(value))
-          setErrorsValidate((prev) => ({ ...prev, name: validateEmail(value)  }));
+        case "email":
+          validateEmail(value) === false ? setErrorValidateEmail(true) : setErrorValidateEmail(false)
         break;
-        case "telefono":
-          console.log(validatePhone(value))
-          setErrorsValidate((prev) => ({ ...prev, name: validatePhone(value)  }));
-          break;
       }
   };
 
@@ -82,7 +73,6 @@ const Checkout = () => {
 
     if (!nitCliente.trim()) {
       alert(`El campo NIT/DPI no puede estar vacío.`);
-      document.querySelector("#nitCliente").click();
       return;
     }
 
@@ -127,12 +117,8 @@ const Checkout = () => {
 
     try{
 
-    if (!formValues.nitCliente) {
-      cogoToast.error("Debe ingresar un NIT ");
-      return;
-    }
-    if(cartItems.length === 0){
-      cogoToast.error("Debe de Agregar Productos al Carrito");
+    if (!formValues.nitCliente || cartItems.length === 0) {
+      alert("Debe ingresar un NIT y agregar productos al carrito.");
       return;
     }
     handleCheckNit();
@@ -207,31 +193,146 @@ const Checkout = () => {
                     <h3>{t("page_checkout.billing_details")}</h3>
                     <div className="row">
                     <div className="col-lg-12">
+                        <div className="billing-info mb-20">
+                          <div className=" d-flex flex-row justify-content-start align-items-center gap-2">
+                          <label>{t("page_checkout.vat") }</label>
+                          <label>{"|"}</label>
+                          <label>{t("page_checkout.dpi") }</label>
+                            </div>
+                            <div className="place-order d-flex position-relative align-items-center gap-2">
+                              <input 
+                                type="search"         
+                                value={formValues.nitCliente}
+                                onChange={handleChange} 
+                                disabled={loading}
+                                required={true}
+                                className={clsx(error && "border-danger text-danger fw-bold")}
+                              />
+                              <button type="button" className="btn-hover-green text-center " style={style} onClick={handleCheckNit}
+                               disabled={loading}
+                              >
+                                {
+                                  loading 
+                                  ? <Loader2 className="animate-spin" /> 
+                                  : <Search className="postion-fixed" />
+                                }
+                              </button>
+                            </div>
+                        </div>
+                      </div>
+                      <div className="col-lg-12  ">
+                        <div className="billing-info mb-20" >
+                          <label>{t("page_checkout.first_name")}</label>
+                          <input type="text" name="nameCliente"  value={formValues.nameCliente} readOnly={true}/>
+                          
+                        </div>
+                      </div>
+                      
+                      <div className="col-lg-6 col-md-6">
+                        <div className="billing-info mb-20" hidden>
+                          <label>{t("page_checkout.last_name")}</label>
+                          <input type="hidden" name="lastNameCliente"/>
+                        </div>
+                      </div>
 
-                      <FormDatosCliente 
-                        formValues={formValues}
-                        handleChange={handleChange} 
-                        handleCheckNit={handleCheckNit} 
-                        loading={loading} 
-                        error={error}
-                        style={style}  />
 
-                    </div>
+                      <div className="col-lg-12">
+                        <div className="billing-info mb-20">
+                          <label>{t("page_checkout.street_address")}</label>
+                          <input
+                            className="billing-address"
+                            placeholder={t("page_checkout.street")}
+                            type="text"
+                          />
+                          <input
+                            placeholder="Casa, nivel , apartamento..."
+                            type="text"
+                          />
+                        </div>
+                      </div>
+
                       <div className="mt-5">
                         <h3>Datos de Entrega</h3>
                         <hr/>
                       </div>
-                      <FormDireccionEntrega 
-                        country={country}
-                        formValues={formValues} 
-                        handleChange={handleChange} 
-                        errorsValidate={errorsValidate}
-                        
-                        />
 
+                      <div className="col-lg-12">
+                        <div className="billing-select mb-20">
+                          <label htmlFor="idPais">{t("page_checkout.country")}</label>
+                          <select name="idPais" id="idPais" >
+                            <option name="idPais">{t("page_checkout.select_country")}</option>
+                            {
+                              country &&
+                              country.paises.map((pais, index) => (
+                                <option key={pais.id || `pais-${index}`} value={pais.id}>{pais.Nombre}</option>
+                              ))
+                            }
+                          </select>
+                        </div>
+                      </div>
+
+                  
+
+                      <div className="col-lg-12">
+                        <div className="billing-select mb-20">
+                          <label>{t("page_checkout.select_country")}</label>
+                          <select name="idPais">
+                            <option name="idPais">{t("page_checkout.select_country")}</option>
+                            {
+                              country &&
+                              country.departamentos.map((depto, index ) => (
+                                <option key={depto.id || `depto-${index}`} value={depto.id}>{depto.Nombre}</option>
+                              ))
+                            }
+                          </select>
+                        </div>
+                      </div>                     
+                      <div className="col-lg-12">
+                        <div className="billing-info mb-20">
+                          <label>{t("page_checkout.city")}</label>
+                          <input type="text" />
+                        </div>
+                      </div>
+
+                      <div className="col-lg-6 col-md-6">
+                        <div className="billing-info mb-20">
+                          <label>{t("page_checkout.phone1")}</label>
+                          <input type="text" />
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-6">
+                        <div className="billing-info mb-20">
+                          <label>{t("page_checkout.phone2")}</label>
+                          <input type="text" />
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-6">
+                        <div className="billing-info mb-20">
+                          <label htmlFor="email" className={clsx(errorValidateEmail && "text-danger")}>{t("page_checkout.email_address")}</label>
+                          <input 
+                            type="email" 
+                            name="email" 
+                            value={formValues.email} 
+                            required 
+                            onChange={handleChange}
+                            className={clsx(errorValidateEmail && "border-danger text-danger fw-bold")}
+                          />
+                          {errorValidateEmail && <p className="text-danger mt-1">{"correo inválido"}</p>} {/* Mensaje de error */}
+                        </div>
+                      </div>
                     </div>
 
-                    
+                    <div className="additional-info-wrap">
+                      <h4>{t("page_checkout.additional_information")}</h4>
+                      <div className="additional-info">
+                        <label>{t("page_checkout.order_notes")}</label>
+                        <textarea
+                          placeholder="Notas sobre su pedido, Ej: Llamar antes de la entrega."
+                          name="message"
+                          defaultValue={""}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -362,4 +463,3 @@ const Checkout = () => {
 };
 
 export default Checkout;
-

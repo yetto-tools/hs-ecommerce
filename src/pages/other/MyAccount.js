@@ -1,4 +1,4 @@
-import { Fragment, use, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import SEO from "../../components/seo";
@@ -8,31 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsuario } from "../../store/slices/usuario-slice";
 import cogoToast from "cogo-toast";
-
-const deptos = [
-  { id: 1, name: "ALTA VERAPAZ" },
-  { id: 2, name: "BAJA VERAPAZ" },
-  { id: 3, name: "CHIMALTENANGO" },
-  { id: 4, name: "CHIQUIMULA" },
-  { id: 5, name: "EL PROGRESO" },
-  { id: 6, name: "ESCUINTLA" },
-  { id: 7, name: "GUATEMALA" },
-  { id: 8, name: "HUEHUETENANGO" },
-  { id: 9, name: "IZABAL" },
-  { id: 10, name: "JALAPA" },
-  { id: 11, name: "JUTIAPA" },
-  { id: 12, name: "PETÉN" },
-  { id: 13, name: "QUETZALTENANGO" },
-  { id: 14, name: "QUICHÉ" },
-  { id: 15, name: "RETALHULEU" },
-  { id: 16, name: "SACATEPÉQUEZ" },
-  { id: 17, name: "SAN MARCOS" },
-  { id: 18, name: "SANTA ROSA" },
-  { id: 19, name: "SOLOLÁ" },
-  { id: 20, name: "SUCHITEPÉQUEZ" },
-  { id: 21, name: "TOTONICAPÁN" },
-  { id: 22, name: "ZACAPA" },
-];
+import { fetchResetPassword } from "../../hooks/use-FetchUsuario";
 
 const MyAccount = () => {
   const { t } = useTranslation();
@@ -42,6 +18,9 @@ const MyAccount = () => {
   const isLoggedIn = useSelector((state) => state.usuario.isLoggedIn);
   const { usuario } = useSelector((state) => state.usuario);
   const direcciones = useSelector((state) => state.usuario.address);
+
+  const { country } = useSelector((state) => state.paramsWeb);
+
 
   // const {
   //   usuario: { usuario, direcciones, token },
@@ -71,6 +50,14 @@ const MyAccount = () => {
     phone1: usuario?.phone1 || "",
   });
 
+  const [resetUsuario, setResetUsuario] = useState({
+    tipo: 1 ,
+    usuario: usuario.usuario || "",
+    claveAnterior:  "",
+    claveNueva:   "",
+  });
+
+
 
 
   const handleInputChange = (e) => {
@@ -85,6 +72,26 @@ const MyAccount = () => {
     e.preventDefault();
     dispatch(setUsuario({ ...usuario, ...localUsuario }));
   };
+
+
+  const handleResetPassword = async(e) => {
+    e.preventDefault();
+    await dispatch(fetchResetPassword(resetUsuario));
+    setResetUsuario({
+      tipo: 1 ,
+      usuario: usuario.usuario || "",
+      claveAnterior:  "",
+      claveNueva:   "", 
+    })
+  };
+  const handleResetPasswordChange = (e) => {
+    const { name, value } = e.target;
+    setResetUsuario((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
 
   return (
     <Fragment>
@@ -206,27 +213,48 @@ const MyAccount = () => {
                             <h4 className="fw-600">
                               {t("page_my_account.change_password")}
                             </h4>
-                            <h5>{t("page_my_account.password")}</h5>
+                          </div>
+                          <div className="row">
+                            <div class="billing-info">
+                            <label htmlFor="usuario">{t("page_login_register.email")}</label>
+                            <input type="hidden" name="tipo" value="1" />
+                            <input type="email" name="usuario" 
+                              value={resetUsuario.usuario} 
+                              placeholder="correo"
+                              onChange={handleResetPasswordChange}
+                              />
+                            </div>
                           </div>
                           <div className="row">
                             <div className="col-lg-12 col-md-12">
                               <div className="billing-info">
-                                <label>{t("page_my_account.password")}</label>
-                                <input type="password" />
+                                <label>{t("page_my_account.password_after")}</label>
+                                <input type="password" 
+                                  maxLength={50} 
+                                  name="claveAnterior" 
+                                  value={resetUsuario.claveAnterior} 
+                                  placeholder="Contraseña Anterio"
+                                  onChange={handleResetPasswordChange}
+                                  />
                               </div>
                             </div>
                             <div className="col-lg-12 col-md-12">
                               <div className="billing-info">
                                 <label>
-                                  {t("page_my_account.password_confirm")}
+                                  {t("page_my_account.password_new")}
                                 </label>
-                                <input type="password" />
+                                <input type="password"  maxLength={50} 
+                                  name="claveNueva" 
+                                  value={resetUsuario.claveNueva} 
+                                  placeholder="Contraseña Nueva"
+                                  onChange={handleResetPasswordChange}
+                                  />
                               </div>
                             </div>
                           </div>
                           <div className="billing-back-btn">
                             <div className="billing-btn">
-                              <button type="submit">
+                              <button type="submit" onClick={handleResetPassword}>
                                 {t("page_my_account.submit")}
                               </button>
                             </div>
@@ -312,9 +340,16 @@ const MyAccount = () => {
                                                 </label>
                                                 <select className="form-select">
                                                   <optgroup label="Paises">
-                                                    <option value={1} selected>
-                                                      Guatemala
-                                                    </option>
+                                                  {
+                                                    country &&
+                                                    country.paises.map((pais, index) => (
+                                                      <option 
+                                                        key={pais.IdPais || `pais-${index}`} 
+                                                        value={pais.IdPais} 
+                                                        selected={ pais.IdPais == 1}
+                                                      >{pais.Nombre}</option>
+                                                    ))
+                                                  }
                                                   </optgroup>
                                                 </select>
                                               </div>
@@ -328,15 +363,12 @@ const MyAccount = () => {
                                                 </label>
                                                 <select className="form-select">
                                                   <optgroup label="Departamentos">
-                                                    {deptos &&
-                                                      deptos.map((depto) => (
-                                                        <option
-                                                          value={1}
-                                                          selected
-                                                        >
-                                                          {depto.name}
-                                                        </option>
-                                                      ))}
+                                                  {
+                                                      country &&
+                                                      country.departamentos.map((depto, index ) => (
+                                                        <option key={depto.id || `depto-${index}`} value={depto.id}>{depto.Nombre}</option>
+                                                      ))
+                                                    }
                                                   </optgroup>
                                                 </select>
                                               </div>

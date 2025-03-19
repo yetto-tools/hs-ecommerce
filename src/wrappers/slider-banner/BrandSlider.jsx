@@ -74,14 +74,14 @@ const BrandSlider = ({ spaceLeftClass, spaceRightClass }) => {
     {
       id: 1,
       logo: "",
-      image: "/assets/img/marcas/new era.jpg",
-      name: "new era",
+      image: "/assets/img/marcas/new-era.jpg",
+      name: "new-era",
     },
     {
       id: 2,
       logo: "",
-      image: "/assets/img/marcas/mitchelle & ness.jpg",
-      name: "mitchell & ness",
+      image: "/assets/img/marcas/mitchell.jpg",
+      name: "mitchell",
     },
     {
       id: 3,
@@ -110,8 +110,8 @@ const BrandSlider = ({ spaceLeftClass, spaceRightClass }) => {
     {
       id: 7,
       logo: "",
-      image: "/assets/img/marcas/new balance.jpg",
-      name: "new balance",
+      image: "/assets/img/marcas/new-balance.jpg",
+      name: "new-balance",
     },
     {
       id: 8,

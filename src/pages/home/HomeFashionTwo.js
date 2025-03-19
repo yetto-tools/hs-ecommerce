@@ -22,7 +22,7 @@ const HomeFashionTwo = () => {
     {
       id: 2,
       logo: "",
-      image: "/assets/img/marcas/mitchelle & ness.jpg",
+      image: "/assets/img/marcas/mitchell.jpg",
       name: "mitchell & ness",
     },
     {
@@ -52,7 +52,7 @@ const HomeFashionTwo = () => {
     {
       id: 7,
       logo: "",
-      image: "/assets/img/marcas/new balance.jpg",
+      image: "/assets/img/marcas/new-balance.jpg",
       name: "new balance",
     },
     {

@@ -147,7 +147,10 @@
     "free_shipping": "Free Shipping",
     "place_order": "PLACE ORDER",
     "price": "precio",
-    "quantity": "quantity"
+    "quantity": "quantity",
+    "invalid_email": "invalid",
+    "select_state": "state",
+    "address_delivery": "delivery"
   },
   "footer": {
     "store_location": "Store Location",
@@ -212,7 +215,12 @@
     "remember_me": "Remember me",
     "forgot_password": "Forgot password",
     "placeholder_input_password": "Password",
-    "placeholder_input_email": "Email"
+    "placeholder_input_email": "Email",
+    "username": "username",
+    "password": "password",
+    "email": "email",
+    "phone": "phone",
+    "name": "name"
   },
   "page_my_account": {
     "title": "My Account",

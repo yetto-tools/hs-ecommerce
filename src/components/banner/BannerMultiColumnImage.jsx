@@ -2,8 +2,11 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import { EffectFade } from "swiper";
 import sliderData from "../../data/hero-sliders/banner-single-image.json";
+import {ROOT_IMAGE}  from "../../config"
 
 import BannerMultiColumn from "./BannerMultiColumn";
+ 
+const BANNER_IMAGE = ROOT_IMAGE.replace("articulos", '');
 
 const params = {
   effect: "fade",
@@ -26,10 +29,10 @@ const bannerData = {
   id: 1,
   title: "",
   subtitle: "",
-  desktop: "/assets/img/banner/banner2.png",
+  desktop: BANNER_IMAGE+"banners/banner2.png",
   mobileImages: [
-    "/assets/img/banner/banner2.1.png",
-    "/assets/img/banner/banner2.2.png",
+    BANNER_IMAGE+"banners/banner2.1.png",
+    BANNER_IMAGE+"banners/banner2.2.png",
   ],
   buttons: [
     {
@@ -45,7 +48,7 @@ const bannerData = {
       color: "primary",
     },
   ],
-  image: "/assets/img/banner/banner2.png",
+  image:BANNER_IMAGE+"banner/banner2.png",
   url: "/productos",
 };
 

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 import { useTranslation } from "react-i18next";
+import { URL_FACEBOOK, URL_INSTAGRAM } from "../../config";
 
 const FooterOne = ({
   backgroundColorClass,
@@ -133,7 +134,7 @@ const FooterOne = ({
                   <ul>
                     <li>
                       <a
-                        href="https://www.facebook.com/Hypestreetstoree/?locale=es_LA"
+                        href={URL_FACEBOOK}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -145,7 +146,7 @@ const FooterOne = ({
                     </li>
                     <li>
                       <a
-                        href="https://www.instagram.com/hypestreetstore/?hl=es"
+                        href={URL_INSTAGRAM}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -173,38 +174,7 @@ const FooterOne = ({
             </div>
           </div>
         </div>
-        <div className={`${"container my-0"}`}>
-          <span className="copy text-white">
-            ©{new Date().getFullYear()}{" "}
-            <a href="/" className="text-white">
-              Hype Street Guatemala
-            </a>
-            .
-          </span>
-        </div>
-        <div className="container mx-auto mt-4">
-          <div className="row d-flex justify-content-start">
-            <div className="col-4 d-flex gap-2 align-items-center">
-              <span className="text-white ">creador por: </span>
-              <a
-                href="//dssolutionsgt.com"
-                target="_blank"
-                without
-                rel="noreferrer"
-                style={{ padding: "10px" }}
-              >
-                <span
-                  style={{
-                    color: "#aac02d",
-                    fontWeight: "semibold",
-                  }}
-                >
-                  DS Solutions
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
+    
       </footer>
     </>
   );

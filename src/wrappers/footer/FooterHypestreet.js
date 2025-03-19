@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { URL_FACEBOOK, URL_INSTAGRAM, URL_TIKTOK } from "../../config";
 
 const FooterHypestreet = ({
   backgroundColorClass,
@@ -27,7 +28,7 @@ const FooterHypestreet = ({
         <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-center flex-wrap">
           {/* Columna de Ayuda */}
           <div className="col-md-4 col-sm-8 mx-auto my-5 text-md-start text-sm-center ">
-            <h5 className="font-bold text-lg uppercase mt-0 text-white text-hover-green-hs">
+            <h5 className="font-bold text-lg uppercase mt-0 text-white">
               {t("footer.help")}
             </h5>
             <ul className="list-unstyled mt-4">
@@ -73,20 +74,23 @@ const FooterHypestreet = ({
             </div>
             <div className="d-flex justify-content-center">
               <Link
-                to="https://www.facebook.com/Hypestreetstoree"
+                to={URL_FACEBOOK}
                 className="m-2 bg-white rounded-circle text-hover-green-hs"
+                target="_blank"
               >
                 <FaFacebookF className="text-black m-1 text-hover-green-hs" />
               </Link>
               <Link
-                to="https://www.instagram.com/hypestreet.gt"
+                to={URL_INSTAGRAM}
                 className="m-2 bg-white rounded-circle text-hover-green-hs"
+                target="_blank"
               >
                 <FaInstagram className="text-black m-1 text-hover-green-hs" />
               </Link>
               <Link
-                to="https://www.tiktok.com/@hypestreetgt"
+                to={URL_TIKTOK}
                 className="m-2 bg-white rounded-circle text-hover-green-hs"
+                target="_blank"
               >
                 <FaTiktok className="text-black m-1 text-hover-green-hs" />
               </Link>
@@ -100,14 +104,14 @@ const FooterHypestreet = ({
                 {t("about_us")}
               </Link>
             </p>
-            <p className="text-white text-xs font-semibold capitalize text-hover-green-hs">
+            <p className="text-white text-xs font-semibold capitalize ">
               <small>&copy; 2025 Hype Street Guatemala</small>
             </p>
           </div>
 
           {/* Columna de contacto */}
           <div className="col-md-4 col-sm-8 mx-auto my-5 text-md-end text-sm-center">
-            <h5 className="font-bold text-lg mt-0 text-white text-hover-green-hs">
+            <h5 className="font-bold text-lg mt-0 text-white">
               {t("footer.contact_us")}
             </h5>
             <ul className="list-unstyled mt-4">
@@ -144,28 +148,11 @@ const FooterHypestreet = ({
 
       <div className="text-center mt-4">
         <span className="text-black text-hover-green-hs">
-          ©{new Date().getFullYear()}{" "}
-          <Link to="/" className="text-black text-hover-green-hs">
-            {t("footer.company_name")}
-          </Link>
+
         </span>
       </div>
 
-      <div className="container mt-4">
-        <div className="row mt-4">
-          <div className="col-12 d-flex justify-content-center align-item-center mt-4">
-            <span className="text-black text-xs">Creador por: </span>
-            <a
-              href="//dssolutionsgt.com"
-              target="_blank"
-              rel="noreferrer"
-              className="mx-2 text-xs"
-            >
-              DS Solutions
-            </a>
-          </div>
-        </div>
-      </div>
+     
     </footer>
   );
 };

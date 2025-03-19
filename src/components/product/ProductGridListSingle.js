@@ -53,11 +53,13 @@ const ProductGridListSingle = ({
   return (
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
+                        
         <div className={clsx("product-img", loadingImage && "loading")}>
-          <div
-           
+          <div           
             onClick={handleProductDetail}
           >
+    
+
             <>
               <LazyLoadImage
                 className="default-img"
@@ -106,7 +108,7 @@ const ProductGridListSingle = ({
 
           <div className="product-action">
             <div className="pro-same-action pro-cart w-100">
-              <button onClick={handleProductDetail} title="Quick View">
+              <button onClick={handleProductDetail} title="Quick View" className="">
                 <View size={20} /> Ver
               </button>
             </div>

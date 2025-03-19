@@ -3,6 +3,11 @@ import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ProtectedRoute } from "./wrappers/ProtectedRoute";
+import { fetchMenu } from "./hooks/use-FetchMenu";
+import { fetchCountry, fetchParamsWeb } from "./hooks/use-FetchParams";
+import PaymentPage from "./pages/payment/PaymentPage";
+import ProductDescriptionInfo from "./components/product/ProductDescriptionInfo";
+import ProductDetail from "./pages/shop-product/ProductDetail";
 
 // home pages
 
@@ -37,7 +42,19 @@ export const LoadingIndicator = (
 );
 
 const App = () => {
+
+  const dispatch = useDispatch();
+  
+
+  useEffect(() => {
+    dispatch(fetchMenu());
+    dispatch(fetchParamsWeb());
+    dispatch(fetchCountry());
+  }, [dispatch]);
   const { loading } = useSelector((state) => state.loader);
+
+
+
 
   // Indicador de carga
 
@@ -68,6 +85,11 @@ const App = () => {
               element={<ShopGridStandard />}
             />
 
+            {/* <Route
+              path={process.env.PUBLIC_URL + "/producto/:sku"}
+              element={<ProductDetail />}
+            /> */}
+
  
             {/* Other pages */}
             <Route
@@ -92,6 +114,12 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/registrarse"}
               element={<LoginRegister />}
             />
+
+            <Route
+              path={process.env.PUBLIC_URL + "/pago"}
+              element={<PaymentPage />}
+            />
+
             <Route
               path={process.env.PUBLIC_URL + "/login"}
               element={<LoginRegister />}

@@ -20,7 +20,7 @@ const MultiLevelDropdown = ({ sidebarMenu = false }) => {
     if (!items?.length) return null;
 
     return (
-      <ul className={clsx("dropdown-menu my-0", isFirstLevel && "show")}>
+      <ul className={clsx("dropdown-menu  my-0", isFirstLevel && "show d-flex")} >
         {items.map((item, index) => (
           <li
             key={item.id + "-" + index}

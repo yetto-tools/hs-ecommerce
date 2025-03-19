@@ -14,6 +14,7 @@ import {
 import { cartItemStock } from "../../helpers/product";
 import { useTranslation } from "react-i18next";
 import { ROOT_IMAGE } from "../../config";
+import ProductModal2 from "../../components/product/ProductModal2";
 
 const Cart = () => {
   const { t, i18n } = useTranslation();
@@ -26,7 +27,11 @@ const Cart = () => {
 
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
+  const [modalShow, setModalShow] = useState(false);
 
+  const handleProductQuickView = (product) => {
+    setModalShow(true);
+  };
 
   return (
     <Fragment>
@@ -81,6 +86,7 @@ const Cart = () => {
                               cartItem.price,
                               cartItem.discount
                             );
+
                             const finalProductPrice = (
                               cartItem.price * currency.currencyRate
                             ).toFixed(2);
@@ -96,13 +102,9 @@ const Cart = () => {
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
-                                    }
-                                  >
+                                    <Link 
+                                      to={"/productos?busqueda=" + cartItem.sku}
+                                    >
                                     <img
                                       className="img-fluid"
                                       src={ROOT_IMAGE + cartItem.images[0]}
@@ -115,8 +117,8 @@ const Cart = () => {
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
+                                      "/productos?busqueda=" +
+                                      cartItem.sku
                                     }
                                   >
                                     <span className="product-title fw-semibold">
@@ -136,6 +138,9 @@ const Cart = () => {
                                         <small className="fw-semibold">
                                           {cartItem.size}
                                         </small>
+                                      </span>
+                                      <span className="text-xs">
+                                        {cartItem.code}
                                       </span>
                                     </div>
                                   ) : (
@@ -250,6 +255,7 @@ const Cart = () => {
                     <div className="cart-shiping-update-wrapper ">
                       <div className="cart-shiping-update ">
                         <Link
+                          
                           to={process.env.PUBLIC_URL + "/productos"}
                           className="text-black"
                         >
@@ -350,8 +356,8 @@ const Cart = () => {
                         </span>
                       </h5> */}
 
-                      <h4 className="grand-totall-title mb-5">
-                        <span className="mb-4">
+                      <h4 className="grand-totall-title mb-5" >
+                        <span className="mb-4" >
                           
                           {new Intl.NumberFormat(i18n.language, {
                             style: "currency",
@@ -361,7 +367,7 @@ const Cart = () => {
                       </h4>
                       <Link
                         to={process.env.PUBLIC_URL + "/checkout"}
-                        className="text-center fw-semibold hover-text-black"
+                        className="button-active-hs btn-black fw-bold"
                       >
                         Comprar Ahora
                       </Link>
@@ -387,10 +393,13 @@ const Cart = () => {
               </div>
             )}
           </div>
+
         </div>
       </LayoutOne>
     </Fragment>
   );
 };
+
+
 
 export default Cart;

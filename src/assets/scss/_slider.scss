@@ -643,7 +643,8 @@
       text-transform: uppercase;
       font-weight: 600;
       color: #010101;
-      border: 1px solid #333;
+      /* border: 1px solid #333; */
+      border:none;
       background-color: #eeeff1;
       @media #{$xs-layout} {
         padding: 14px 30px 16px;

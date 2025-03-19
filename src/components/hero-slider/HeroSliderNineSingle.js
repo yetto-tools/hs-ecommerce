@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const HeroSliderNineSingle = ({ data, sliderClass }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const sliderRef = useRef(null);
-
+  const [imageSrc, setImageSrc] = useState("");
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -24,14 +24,24 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
     return () => observer.disconnect();
   }, []);
 
+
+  useEffect(() => {
+    const updateImage = () => {
+      const isMobile = window.innerWidth <= 1366;
+      setImageSrc(process.env.PUBLIC_URL + (isMobile ? data.mobileImage : data.image));
+    };
+
+    updateImage(); // Configurar imagen al inicio
+    window.addEventListener("resize", updateImage); // Detectar cambios
+
+    return () => window.removeEventListener("resize", updateImage);
+  }, [data]);
   return (
     <div
       ref={sliderRef}
       className="single-slider-2 slider-height-1 d-flex align-items-center slider-height-res mx-auto bg-img"
       style={{
-        backgroundImage: imageLoaded
-          ? `url(${process.env.PUBLIC_URL + data.image})`
-          : "none", // No carga la imagen hasta que sea visible
+        backgroundImage: imageLoaded ? `url(${imageSrc})` : "none",// No carga la imagen hasta que sea visible
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -62,7 +72,7 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
                   <Link
                     className="animated text-black"
                     style={{ borderRadius: "0.5rem" }}
-                    to={process.env.PUBLIC_URL + data.url}
+                    to={process.env.PUBLIC_URL + "productos?categoria="+ data.url}
                   >
                     {data.button}
                   </Link>

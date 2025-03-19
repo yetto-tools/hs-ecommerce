@@ -28,6 +28,8 @@ const HeaderOne = ({
     };
   }, []);
 
+  
+
   const handleScroll = () => {
     setScroll(window.scrollY);
   };

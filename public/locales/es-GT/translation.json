@@ -172,7 +172,10 @@
     "shipping": "Envío",
     "free_shipping": "Envío Gratis",
     "place_order": "Confirmar Compra",
-    "quantity": "cantidad"
+    "quantity": "Cantidad",
+    "invalid_email": "correo no valido",
+    "select_state": "Seleccionar Departamento",
+    "address_delivery": "Dirección de Entrega"
   },
   "general_words": {
     "new": "Nuevo",
@@ -220,7 +223,13 @@
     "forgot_password": "Olvide Mi Contraseña",
     "placeholder_input_password": "Contraseña",
     "placeholder_input_email": "Correo",
-    "placeholder_input_phone": "Telefono"
+    "placeholder_input_phone": "Telefono",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "email": "Correo",
+    "phone": "Telefono",
+    "name": "Nombre",
+    "placeholder_input_name": "Nombre"
   },
   "page_my_account": {
     "title": "Mi Cuenta",
@@ -253,7 +262,9 @@
     "username": "Usuario",
     "address": {
       "name": "Nombre"
-    }
+    },
+    "password_after": "Contraseña Anterior",
+    "password_new": "Nueva Contraseña"
   },
   "page_not_found": {
     "seo_title": "Pagina 404",

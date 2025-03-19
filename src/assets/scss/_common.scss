@@ -1991,7 +1991,6 @@ textarea:focus {
     transition: all 0.5s ease-in-out 0s;
     &:hover {
       color: #fff;
-      border: 1px solid $theme-color;
     }
     &::before,
     &::after {
@@ -2019,7 +2018,6 @@ textarea:focus {
       right: auto;
       left: 0;
       width: 100%;
-      border: 1px solid #788e00;
     }
   }
 
@@ -2389,7 +2387,8 @@ button:disabled {
 }
 
 ::selection {
-  background-color: #f0ffad; /* Color de fondo al seleccionar */
+  //background-color: #f0ffad; /* Color de fondo al seleccionar */
+  background-color: transparent;
 }
 
 .text-hover-green-hs:hover {
@@ -2458,4 +2457,51 @@ li.active-filter > button {
   justify-content: center;
   justify-items: center;
   gap: 5px;
+}
+
+
+
+.button {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #b8db15;
+    color: black;
+  }
+}
+
+
+.button-active-hs {
+  display: inline-block;
+  padding: 10px 20px;
+  color: black;
+  font-weight: bold;
+  border-radius: 3px; // Bordes redondeados
+  border: 1px solid white;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  &.btn-white{
+    background-color: white;
+    color: black;
+  }
+  &.btn-black {
+    background-color: black;
+    color: white;
+  }
+
+  &:hover {
+    background-color: $theme-color;
+    color: #000;
+  }
+}
+
+
+.noHover{
+  pointer-events: none;
 }

@@ -6,14 +6,14 @@ const BrandGrid = () => {
     {
       id: 1,
       logo: "",
-      image: "/assets/img/marcas/new era.jpg",
+      image: "/assets/img/marcas/new-era.jpg",
       name: "new era",
     },
     {
       id: 2,
       logo: "",
-      image: "/assets/img/marcas/mitchelle & ness.jpg",
-      name: "mitchell & ness",
+      image: "/assets/img/marcas/mitchell.jpg",
+      name: "mitchell&ness",
     },
     {
       id: 3,
@@ -42,7 +42,7 @@ const BrandGrid = () => {
     {
       id: 7,
       logo: "",
-      image: "/assets/img/marcas/new balance.jpg",
+      image: "/assets/img/marcas/new-balance.jpg",
       name: "new balance",
     },
     {

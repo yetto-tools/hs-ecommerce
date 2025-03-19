@@ -12,10 +12,7 @@ const ProductGridList = ({ products, spaceBottomClass }) => {
   const info = useSelector((state) => state.articles.filteredArticles);
   const { filters } = useSelector((state) => state.articles);
 
-  const handle = () => {
-    console.log(filteredArticles, filters);
-    console.log(info);
-  };
+ 
 
   return (
     <Fragment>
@@ -27,9 +24,10 @@ const ProductGridList = ({ products, spaceBottomClass }) => {
               <div
                 className="col-xl-4 col-sm-6"
                 key={product.sku}
-                onClick={handle}
                 name="product-grid-list"
               >
+
+                
                 <ProductGridListSingle
                   spaceBottomClass={spaceBottomClass}
                   product={product}
