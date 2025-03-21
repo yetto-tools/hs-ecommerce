@@ -73,7 +73,7 @@
   "login_register": "Login / Registro",
   "about_us": "¿quiénes somos?",
   "useful_links": "Enlaces Rápidos",
-  "follow_us": "Quienes somos",
+  "follow_us": "Siguenos en:",
   "contact_us": "Contáctanos",
   "404_page": "Página 404",
   "blog": "Blog",
@@ -293,5 +293,10 @@
     "my_account": "Cuenta de Usuario, Hype Street Guatemala",
     "cart": "Carrito de Compra, Hype Street Guatemala",
     "title": "Carrito de Compra, Hype Street Guatemala"
-  }
+  },
+  "name": "Nombre",
+  "email": "Correo",
+  "message": "Tu Mensaje",
+  "send_message": "Enviar",
+  "subject": "Asunto"
 }

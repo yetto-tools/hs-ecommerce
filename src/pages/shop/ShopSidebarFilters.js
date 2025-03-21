@@ -26,22 +26,24 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
       
       if(params){
         const [ n1,n2,n3] = params?.split('/').map(Number);
-        console.log({n1,n2,n3})
+        
         dispatch(fetchArticles(n1,n2,n3))
         dispatch(resetFilters());
       }
     
-    // window.location.reload(); // Recargar la página
+    //  window.location.reload(); // Recargar la página
   };
 
   // Aplicar filtros dinámicamente
   const handleFilterClick = useCallback(
     async (filterType, value) => {
+      const [n1, n2, n3] =query.get("categoria")?.split('/') || [];  
+      if(!value && n3){
+        
+        value=n3
+      }
 
-      
-      const [n1, n2, n3] =query.get("categoria")?.split('/') || [];
-
-      
+     
 
       if (value === "todo") {
         handleResetFilters(); // Si selecciona "Todo", se resetea y recarga
@@ -54,7 +56,7 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
           [filterType]: [value],
           ...(n3 ? { "marca": [n3] } : {}) // Agregar "marca" solo si `n3` no está vacío o undefined
         };
-        console.log(filtersToSend)
+        
 
         await dispatch(fetchFilterAritcle(jsonToXml(filtersToSend)));
 
@@ -73,7 +75,14 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
 
   }
 
-  
+  useEffect(() => {
+    
+    const [n1, n2, n3] =query.get("categoria")?.split('/') || [];  
+    if(n3){
+
+      handleFilterClick("Marca", null);
+    }
+  },[])
 
   
   return (

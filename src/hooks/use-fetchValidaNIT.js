@@ -47,7 +47,7 @@ export const fetchValidaNIT = (nit) => async (dispatch) => {
     }
     else{
       const { Detalle:[Detalle] } =  data;
-      console.log(Detalle);
+      
       dispatch(setValidacionNit(Detalle));
     }
       

@@ -46,7 +46,7 @@ const FooterHypestreet = ({
               <li>
                 <Link
                   className="text-white text-hover-green-hs"
-                  to="/terms-conditions"
+                  to="/terminos-y-condiciones"
                 >
                   {t("footer.terms_conditions")}
                 </Link>

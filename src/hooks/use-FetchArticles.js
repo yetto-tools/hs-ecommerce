@@ -85,7 +85,7 @@ export const fetchArticleDetail = (id) => async (dispatch) => {
 
     // Aquí actualizas el estado global
   } catch (error) {
-    console.log(error);
+    
     cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
   } finally {
     dispatch(setLoading(false));
@@ -122,7 +122,7 @@ export const fetchNewArticles = () => async (dispatch) => {
     }
   } catch (error) {
     dispatch(setError(error.message));
-    console.log({ fn: "fetchNewArrivals", error });
+    
     cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
   } finally {
     dispatch(setLoading(false));
@@ -167,7 +167,7 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
       throw new Error(message || "Error fetching products");
     }
   } catch (error) {
-    console.log(error);
+    
     dispatch(setError(error.message));
     cogoToast.error(`Error: ${error.message}`, { position: "top-center", });
   } finally {
@@ -221,7 +221,7 @@ export const fetchFilterAritcle = (value) => async (dispatch) =>
       throw new Error(message || "Error fetching products");
     }
   } catch (error) {
-    console.log(error);
+    
     dispatch(setError(error.message));
     cogoToast.error(`Error: ${error.message}`, { position: "top-center", });
   } finally {

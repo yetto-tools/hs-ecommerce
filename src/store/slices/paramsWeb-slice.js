@@ -3,14 +3,14 @@ const { createSlice } = require('@reduxjs/toolkit');
 const paramsWebSlice = createSlice({
     name: "paramsWeb",
     initialState: {
-        parmas: [],
+        params: [],
         country: {},
         loading: false,
         error: null
     },
     reducers: {
         setParamsWeb: (state, action) => {
-            state.parmas = action.payload
+            state.params = action.payload
         },
         setCountry: (state, action) => {
             state.country = action.payload

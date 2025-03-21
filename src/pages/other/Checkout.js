@@ -16,6 +16,7 @@ import { validateEmail, validatePhone } from "../../helpers/validator";
 import { FormDatosCliente } from "../payment/FormDatosCliente";
 import { FormDireccionEntrega } from "../payment/FormDireccionEntrega";
 import cogoToast from "cogo-toast";
+import ModalLoginOrRegister from "../../wrappers/ModalLoginOrRegister";
 
 
 const Checkout = () => {
@@ -25,7 +26,7 @@ const Checkout = () => {
   let { pathname } = useLocation();
 
   const { country } = useSelector((state) => state.paramsWeb);
-
+  const { usuario } = useSelector((state) => state.usuario);
 
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
@@ -35,8 +36,7 @@ const Checkout = () => {
   const [formValues, setFormValues] = useState({ nitCliente: "", nameCliente: "", firstName: "", lastName: "" });
 
   const [errorsValidate, setErrorsValidate] = useState(false);
-  const [errorValidateEmail, setErrorValidateEmail] = useState(false);
-  const [errorValidatePhone, setErrorValidatePhone] = useState(false);
+  const [show, setShow] = useState(false);
 
   const style = {
     fontWeight: "500",
@@ -59,18 +59,17 @@ const Checkout = () => {
   // 🟢 Maneja cambios en el input del NIT/DPI
   const handleChange = (e) => {
     const { name,  value } = e.target;
-    console.log(name,  value );
+
     setFormValues((prev) => ({ ...prev, nitCliente: value }));
     dispatch(setError(false));
-    setErrorValidateEmail(false);
       // Validar email
       switch(name){    
         case "email":          
-        console.log(validateEmail(value))
+        
           setErrorsValidate((prev) => ({ ...prev, name: validateEmail(value)  }));
         break;
         case "telefono":
-          console.log(validatePhone(value))
+        
           setErrorsValidate((prev) => ({ ...prev, name: validatePhone(value)  }));
           break;
       }
@@ -86,8 +85,6 @@ const Checkout = () => {
       return;
     }
 
-
-    console.log("Validando NIT/DPI:", nitCliente);
     dispatch(fetchValidaNIT(nitCliente));
 
   };
@@ -124,6 +121,16 @@ const Checkout = () => {
 
 
   const handleSendOrder = () => {
+    console.log(usuario)
+
+    if( usuario === null){
+      setShow(true);
+      cogoToast.info("Debe Iniciar Sesión", { position: "top-center" });
+
+      return;
+    }
+
+
 
     try{
 
@@ -182,6 +189,8 @@ const Checkout = () => {
   const handleInvoces =()=>{
     console.log(cartItems)
   }
+
+  const handleClose = () => setShow(false);
 
   return (
     <Fragment>
@@ -356,6 +365,7 @@ const Checkout = () => {
             )}
           </div>
         </div>
+        <ModalLoginOrRegister show={show} onHide={handleClose} />
       </LayoutOne>
     </Fragment>
   );

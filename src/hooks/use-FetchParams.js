@@ -26,7 +26,6 @@ export const fetchParamsWeb = () => async (dispatch) => {
   
       dispatch(setParamsWeb(data.parametros));
 
-      console.log(data.parametros)
   
     } catch (error) {
       cogoToast.warn(`${error.message}`, {
@@ -49,7 +48,7 @@ export const fetchCountry = () => async (dispatch) => {
       });
   
       const { data, message } = await response.json(); // Primero obtener la respuesta y luego verificar el estado
-      console.log(data)
+      
       const { message: mensaje } = adapterMessage(message);
       if (!response.ok) {      
         throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
@@ -57,8 +56,6 @@ export const fetchCountry = () => async (dispatch) => {
   
       dispatch(setCountry(data));
 
-      console.log(data)              
-  
     } catch (error) {
       cogoToast.warn(`${error.message}`, {
         position: "top-center",

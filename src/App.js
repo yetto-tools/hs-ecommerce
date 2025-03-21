@@ -1,13 +1,10 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ProtectedRoute } from "./wrappers/ProtectedRoute";
 import { fetchMenu } from "./hooks/use-FetchMenu";
 import { fetchCountry, fetchParamsWeb } from "./hooks/use-FetchParams";
-import PaymentPage from "./pages/payment/PaymentPage";
-import ProductDescriptionInfo from "./components/product/ProductDescriptionInfo";
-import ProductDetail from "./pages/shop-product/ProductDetail";
 
 // home pages
 
@@ -17,20 +14,21 @@ const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 
-// product pages
-const Product = lazy(() => import("./pages/shop-product/Product"));
+
 
 // other pages
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
 const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
-
 const Cart = lazy(() => import("./pages/other/Cart"));
-
 const Checkout = lazy(() => import("./pages/other/Checkout"));
-
+const PageTerminosYCondiciones  = lazy(()=>import("./pages/other/PageTerminosYCondiciones"));
+const PaymentPage = lazy(()=>import("./pages/payment/PaymentPage"))
 const NotFound = lazy(() => import("./pages/other/NotFound"));
+
+
+
 
 export const LoadingIndicator = (
   <div className="flone-preloader-wrapper">
@@ -130,6 +128,12 @@ const App = () => {
             <Route
               path={process.env.PUBLIC_URL + "/checkout"}
               element={<Checkout />}
+            />
+
+            <Route
+              path={process.env.PUBLIC_URL + "/terminos-y-condiciones"}
+              element={<PageTerminosYCondiciones />
+              }
             />
 
             <Route path="*" element={<NotFound />} />

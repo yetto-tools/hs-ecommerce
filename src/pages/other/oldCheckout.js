@@ -55,7 +55,7 @@ const Checkout = () => {
   // 🟢 Maneja cambios en el input del NIT/DPI
   const handleChange = (e) => {
     const { name,  value } = e.target;
-    console.log(e.target);
+    
     setFormValues((prev) => ({ ...prev, nitCliente: value }));
     dispatch(setError(false));
     setErrorValidateEmail(false);
@@ -76,8 +76,6 @@ const Checkout = () => {
       return;
     }
 
-
-    console.log("Validando NIT/DPI:", nitCliente);
     dispatch(fetchValidaNIT(nitCliente));
 
   };
@@ -166,7 +164,7 @@ const Checkout = () => {
   };
   
   const handleInvoces =()=>{
-    console.log(cartItems)
+    
   }
 
   return (

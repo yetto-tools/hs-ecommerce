@@ -162,7 +162,10 @@
     "terms_conditions": "Support Policy",
     "size_guide": "Hype Street Silhouettes",
     "payment_method": "Payment Method",
-    "text_placeholder": "Enter your email address..."
+    "text_placeholder": "Enter your email address...",
+    "contact_here": "Contact Here",
+    "store_locations": "Store Location",
+    "contact_us": "Contact Us"
   },
   "footer_copyright": {
     "legal_right": "All Rights Reserved"
@@ -242,7 +245,9 @@
     "step_three": "Modify your address entries",
     "address_entry": "Address Entries",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "password_after": "password after",
+    "password_new": "new password"
   },
   "page_not_found": {
     "seo_title": "Not Found",
@@ -268,6 +273,15 @@
   "seo": {
     "login_register": "Login page, Hype Street Guatemala",
     "my_account": "Account User, Hype Street Guatemala",
-    "cart": "Cart Shopping, Hype Street Guatemala"
-  }
+    "cart": "Cart Shopping, Hype Street Guatemala",
+    "page_login_register": {
+      "title": "Registarse"
+    }
+  },
+  "name": "Name",
+  "email": "email",
+  "message": "Your Message",
+  "send_message": "Send",
+  "subject": "Subject",
+  "whatsapp": "WhatsApp"
 }

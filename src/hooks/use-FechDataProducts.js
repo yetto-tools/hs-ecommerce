@@ -22,7 +22,6 @@ export const fetchProductById = async (idProduct) => {
     const processedData = articulos.map((item) =>
       adapterArticleDetail(item, tallas, colores, marcas, etiquetas)
     );
-    console.log(processedData);
 
     return processedData;
   } catch (error) {
@@ -109,7 +108,7 @@ export const fetchProductsByGroupAndGenre =
 //     }
 //     const data = await response.json();
 
-//     console.log(data);
+
 
 //     // Convertir y procesar los datos
 //     const processedData = data;

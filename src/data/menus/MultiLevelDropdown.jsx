@@ -6,15 +6,19 @@ import { fetchMenu } from "../../hooks/use-FetchMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setUrlParams } from "../../store/slices/urlParams-slice";
+import { resetFilters } from "../../store/slices/articles-slice";
 
 const MultiLevelDropdown = ({ sidebarMenu = false }) => {
   const dispatch = useDispatch();
   const { menu } = useSelector((state) => state.menu);
   const { params } = useSelector((state) => state.urlParams);
+  
 
   useEffect(() => {
     dispatch(fetchMenu());
   }, [dispatch]);
+
+
 
   const renderMenu = (items, isFirstLevel = false) => {
     if (!items?.length) return null;
@@ -30,6 +34,9 @@ const MultiLevelDropdown = ({ sidebarMenu = false }) => {
             )}
             name="item-menu"
             level={item.nivel}
+            onClick={(e) => {
+              dispatch(resetFilters());
+            }}
           >
             <Link
               name="item-link"
@@ -42,6 +49,8 @@ const MultiLevelDropdown = ({ sidebarMenu = false }) => {
               level={item.nivel}
               onClick={(e) => {
                 dispatch(setUrlParams(item.nivel));
+                dispatch(resetFilters());
+
               }}
             >
               {item.title}

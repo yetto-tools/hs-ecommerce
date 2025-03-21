@@ -40,7 +40,7 @@ export function  jsonToXml(json) {
             json[key].forEach(value => {
                 xml += `<detalle>\n`;
                 xml += `<Tipo>${key}</Tipo>\n`;
-                xml += `<Valor>${value}</Valor>\n`;
+                xml += `<Valor>${value.replace(/-/g, " ").replace(/&/g, "&amp;")}</Valor>\n`;
                 xml += `</detalle>\n`;
             });
         }
