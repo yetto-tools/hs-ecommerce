@@ -20,8 +20,8 @@ SwiperCore.use([Navigation]);
 const ProductCard = ({ product, currency, openModal }) => {
   const { i18n } = useTranslation();
   return (
-    <div className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area">
-      <Link to={product.url} className="noHover">
+    <div className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area"  onClick={openModal} style={{cursor: "pointer"}}>
+      <Link to={product.url} className="">
         <div className="container row product-card mx-auto">
           <div className="d-flex align-items-center justify-content-center align-content-around">
             <div className="pro-same-action pro-quickview">
@@ -54,15 +54,15 @@ const ProductCard = ({ product, currency, openModal }) => {
               </h5>
 
               <span className="text-lg">
-                <span
-                  className="price border px-4 font-semibold rounded border-dark hove:bg-black"
-                  style={{ paddingBlock: "0.3rem" ,background:"#b9db00", color: "black" }}yar
+                <button
+                  className="price border px-4 font-semibold button-active-hs btn-white border-black"
+                  style={{ paddingBlock: "0.3rem" , color: "black", borderRadius: "8px", }}
                 >
                   {Intl.NumberFormat(i18n.language, {
                     style: "currency",
                     currency: currency.currencyName,
                   }).format(product.discountedPrice)}
-                </span>
+                </button>
               </span>
 
               {product.discount > 0 && (
@@ -95,6 +95,7 @@ const NewArrivals = ({ spaceLeftClass = "", spaceRightClass = "" }) => {
   }, [dispatch]);
 
   const handleClickProductModal = (product) => {
+    
     dispatch(fetchArticleDetail(product.sku));
     if (loading === false) {
       setModalShow(product);

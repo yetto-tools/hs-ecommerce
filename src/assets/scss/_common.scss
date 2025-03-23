@@ -2505,3 +2505,13 @@ li.active-filter > button {
 .noHover{
   pointer-events: none;
 }
+
+
+.border-black {
+  border: 1px solid black !important;
+}
+
+button.border-black:hover {
+  border: 1px solid $theme-color !important;
+  transition: all;
+}

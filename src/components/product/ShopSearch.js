@@ -29,7 +29,8 @@ const ShopSearch = () => {
       await dispatch(fetchSearchArticles(value.trim()));
     } else {
       // Si el input está vacío, regresar a "/productos" y limpiar la búsqueda
-      navigate("/productos");
+      navigate("/productos", { replace: false }); // React Router
+
     }
   };
 

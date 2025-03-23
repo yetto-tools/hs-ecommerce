@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProtectedRoute } from "./wrappers/ProtectedRoute";
 import { fetchMenu } from "./hooks/use-FetchMenu";
 import { fetchCountry, fetchParamsWeb } from "./hooks/use-FetchParams";
+import PageVersion from "./pages/other/PageVersion";
 
 // home pages
 
@@ -135,7 +136,7 @@ const App = () => {
               element={<PageTerminosYCondiciones />
               }
             />
-
+            <Route path="/version" element={<PageVersion />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

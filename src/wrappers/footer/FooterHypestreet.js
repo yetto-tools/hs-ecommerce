@@ -148,7 +148,7 @@ const FooterHypestreet = ({
 
       <div className="text-center mt-4">
         <span className="text-black text-hover-green-hs">
-
+          {}
         </span>
       </div>
 

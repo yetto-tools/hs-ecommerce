@@ -35,6 +35,8 @@ const ShopGridStandard = () => {
   // Obtener la categoría desde la URL
 
   const busqueda = searchParams.get("busqueda");
+  
+  
 
   const { pathname } = location;
 
@@ -46,6 +48,7 @@ const ShopGridStandard = () => {
     if (!busqueda) {
       dispatch(fetchArticles(n1 || 0, n2 || 0, n3 || 0));
     } else {
+      
       dispatch(fetchSearchArticles(busqueda));
     }
   }, [dispatch, searchParams, params]);

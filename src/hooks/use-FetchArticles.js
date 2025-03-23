@@ -130,7 +130,9 @@ export const fetchNewArticles = () => async (dispatch) => {
 };
 
 export const fetchSearchArticles = (value) => async (dispatch) => {
-  const url = `${API_URL}/api/${API_VERSION}/items/search/${value}`;
+  const code =   encodeURIComponent(value.split("/")[0]);  
+  console.log(code)
+  const url = `${API_URL}/api/${API_VERSION}/items/search?value=${code}`;
 
   try {
     dispatch(setLoading(true));
