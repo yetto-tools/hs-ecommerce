@@ -1,6 +1,6 @@
 {
   "name": "hs-ecommerce",
-  "version": "1.22.26",
+  "version": "1.22.24",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",

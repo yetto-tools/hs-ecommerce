@@ -1,7 +1,7 @@
 .offcanvas-navigation {
   width: 100%;
   background-color: #fff; // Cambia al color que prefieras
-  padding: 15px;
+  padding-block: 15px;
   ul {
     list-style: none;
     padding: 0;
@@ -50,4 +50,38 @@
       display: block; // Muestra el submenú cuando está activo
     }
   }
+}
+
+.btn-arrow-flat {
+  border: none;
+  background-color: none;
+}
+
+#offcanvas-navigation > ul > li > div > a > span {
+  font-size: 1.1rem;
+  margin-block: 0.5rem;
+  color: #000;
+}
+
+#offcanvas-navigation > ul > li > div.pl-5 > ul > li > div > a > span {
+  font-size: 1rem;
+  padding-left: 0.938rem;
+  color: #0d0d0d;
+}
+
+#offcanvas-navigation
+  > ul
+  > li
+  > div.pl-5
+  > ul
+  > li.col-12.mx-md-1.px-md-1.dropdown-submenu
+  > div.pl-5
+  > ul
+  > li
+  > div.d-flex.justify-content-between.align-items-center
+  > a
+  > span {
+  font-size: 0.938rem;
+  padding-left: 1.3rem;
+  color: #0d0d0d;
 }

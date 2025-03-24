@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
+
 import { ChevronRight, ChevronDown } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
@@ -12,20 +12,32 @@ const MobileNavMenu = () => {
   const dispatch = useDispatch();
   const { menu } = useSelector((state) => state.menu);
   const [openSubmenus, setOpenSubmenus] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchMenu());
   }, [dispatch]);
 
   const toggleSubMenu = (id) => {
-    setOpenSubmenus((prev) => ({ ...prev, [id]: !prev[id] }));
+    setOpenSubmenus((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   const renderMenu = (items, isFirstLevel = false) => {
     if (!items?.length) return null;
 
     return (
-      <ul className={clsx("dropdown-menu my-0", { show: isFirstLevel })}>
+      <ul
+        className={clsx(
+          "dropdown-menu my-0",
+          {
+            show: isFirstLevel || openSubmenus[items[0].id],
+          },
+          !isFirstLevel && "show"
+        )}
+      >
         {items.map((item, index) => (
           <li
             key={item.id + "-" + index}
@@ -50,15 +62,16 @@ const MobileNavMenu = () => {
                   if (item.subitems?.length > 0) {
                     toggleSubMenu(item.id);
                   }
+                  navigate(`/productos?categoria=${item.slug}`);
                 }}
               >
-                <span style={!isFirstLevel ? { paddingLeft: "15px" } : {}}>
+                <span className={clsx(!isFirstLevel && "text-item-submenu")}>
                   {item.title}
                 </span>
               </Link>
               {item.subitems?.length > 0 && (
                 <button
-                  className="toggle-submenu-btn"
+                  className="toggle-submenu-btn btn-arrow-flat"
                   onClick={() => toggleSubMenu(item.id)}
                 >
                   {openSubmenus[item.id] ? (
