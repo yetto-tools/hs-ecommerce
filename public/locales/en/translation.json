@@ -150,7 +150,9 @@
     "quantity": "quantity",
     "invalid_email": "invalid",
     "select_state": "state",
-    "address_delivery": "delivery"
+    "address_delivery": "delivery",
+    "payment_information": "Payment",
+    "pay": "Pay"
   },
   "footer": {
     "store_location": "Store Location",

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
@@ -53,13 +53,8 @@ const ProductGridListSingle = ({
   return (
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
-                        
         <div className={clsx("product-img", loadingImage && "loading")}>
-          <div           
-            onClick={handleProductDetail}
-          >
-    
-
+          <div onClick={handleProductDetail}>
             <>
               <LazyLoadImage
                 className="default-img"
@@ -108,7 +103,11 @@ const ProductGridListSingle = ({
 
           <div className="product-action">
             <div className="pro-same-action pro-cart w-100">
-              <button onClick={handleProductDetail} title="Quick View" className="">
+              <button
+                onClick={handleProductDetail}
+                title="Quick View"
+                className=""
+              >
                 <View size={20} /> Ver
               </button>
             </div>

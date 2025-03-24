@@ -37,7 +37,7 @@
       height: 45px;
       padding: 2px 20px;
 
-//background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/select.png") no-repeat scroll right 18px center;
+      //background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/select.png") no-repeat scroll right 18px center;
 
       cursor: pointer;
 
@@ -45,7 +45,7 @@
       border: 1px solid #e6e6e6;
 
       -webkit-appearance: none;
-         -moz-appearance: none;
+      -moz-appearance: none;
     }
   }
   .checkout-account {
@@ -295,4 +295,18 @@
       padding-bottom: 60px;
     }
   }
+}
+
+.sticky-column {
+  position: -webkit-sticky; /* Para soporte de Safari */
+  position: sticky;
+  top: 110px; /* Cambia este valor según tu cabecera o navbar si tienes uno */
+  height: calc(
+    100vh - tu_cabecera_height
+  ); /* Ajusta según la altura de tu cabecera/navbar */
+  overflow-y: auto; /* Permite scroll dentro del elemento si es necesario */
+}
+
+.read-only-input {
+  background-color: oklch(0.97 0.001 106.424) !important;
 }

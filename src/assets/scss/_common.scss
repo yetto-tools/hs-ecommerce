@@ -2387,8 +2387,9 @@ button:disabled {
 }
 
 ::selection {
-  //background-color: #f0ffad; /* Color de fondo al seleccionar */
-  background-color: transparent;
+  background-color: #f0ffad; /* Color de fondo al seleccionar */
+  color: #000000;
+  //background-color: transparent;
 }
 
 .text-hover-green-hs:hover {
@@ -2459,8 +2460,6 @@ li.active-filter > button {
   gap: 5px;
 }
 
-
-
 .button {
   background-color: black;
   color: white;
@@ -2475,7 +2474,6 @@ li.active-filter > button {
   }
 }
 
-
 .button-active-hs {
   display: inline-block;
   padding: 10px 20px;
@@ -2486,7 +2484,7 @@ li.active-filter > button {
   text-transform: uppercase;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-  &.btn-white{
+  &.btn-white {
     background-color: white;
     color: black;
   }
@@ -2501,11 +2499,9 @@ li.active-filter > button {
   }
 }
 
-
-.noHover{
+.noHover {
   pointer-events: none;
 }
-
 
 .border-black {
   border: 1px solid black !important;
@@ -2515,3 +2511,11 @@ button.border-black:hover {
   border: 1px solid $theme-color !important;
   transition: all;
 }
+
+// .enable-selection {
+//   // Aplica estilos a todos los descendientes directos e indirectos
+//   *::selection {
+//     background-color: #f0ffab; // Sin comillas y utilizando SCSS
+//     color: black;
+//   }
+// }

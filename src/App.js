@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProtectedRoute } from "./wrappers/ProtectedRoute";
 import { fetchMenu } from "./hooks/use-FetchMenu";
 import { fetchCountry, fetchParamsWeb } from "./hooks/use-FetchParams";
-import PageVersion from "./pages/other/PageVersion";
+
+const PageVersion = lazy(() => import("./pages/other/PageVersion"));
 
 // home pages
 
@@ -15,8 +16,6 @@ const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 
-
-
 // other pages
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
@@ -24,12 +23,11 @@ const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
 const Cart = lazy(() => import("./pages/other/Cart"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
-const PageTerminosYCondiciones  = lazy(()=>import("./pages/other/PageTerminosYCondiciones"));
-const PaymentPage = lazy(()=>import("./pages/payment/PaymentPage"))
+const PageTerminosYCondiciones = lazy(() =>
+  import("./pages/other/PageTerminosYCondiciones")
+);
+const PaymentPage = lazy(() => import("./pages/payment/PaymentPage"));
 const NotFound = lazy(() => import("./pages/other/NotFound"));
-
-
-
 
 export const LoadingIndicator = (
   <div className="flone-preloader-wrapper">
@@ -41,9 +39,7 @@ export const LoadingIndicator = (
 );
 
 const App = () => {
-
   const dispatch = useDispatch();
-  
 
   useEffect(() => {
     dispatch(fetchMenu());
@@ -51,9 +47,6 @@ const App = () => {
     dispatch(fetchCountry());
   }, [dispatch]);
   const { loading } = useSelector((state) => state.loader);
-
-
-
 
   // Indicador de carga
 
@@ -89,7 +82,6 @@ const App = () => {
               element={<ProductDetail />}
             /> */}
 
- 
             {/* Other pages */}
             <Route
               path={process.env.PUBLIC_URL + "/nosotros"}
@@ -133,8 +125,7 @@ const App = () => {
 
             <Route
               path={process.env.PUBLIC_URL + "/terminos-y-condiciones"}
-              element={<PageTerminosYCondiciones />
-              }
+              element={<PageTerminosYCondiciones />}
             />
             <Route path="/version" element={<PageVersion />} />
             <Route path="*" element={<NotFound />} />

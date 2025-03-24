@@ -175,7 +175,9 @@
     "quantity": "Cantidad",
     "invalid_email": "correo no valido",
     "select_state": "Seleccionar Departamento",
-    "address_delivery": "Dirección de Entrega"
+    "address_delivery": "Dirección de Entrega",
+    "payment_information": "Informacion de Pago",
+    "pay": "Confirmar Pago"
   },
   "general_words": {
     "new": "Nuevo",

@@ -25,14 +25,21 @@ import filtersReducer from "./slices/filters-slice";
 import validaNitReducer from "./slices/validaNit-slice";
 import urlParamsReducer from "./slices/urlParams-slice";
 import paramsWebReducer from "./slices/paramsWeb-slice";
-
-
+import orderReducer from "./slices/order-slice";
 
 const persistConfig = {
   key: "flone",
   version: 1.1,
   storage,
-  blacklist: ["currency", "compare", "wishlist", "menu", "articles", "validarNit", "urlParams"],
+  blacklist: [
+    "currency",
+    "compare",
+    "wishlist",
+    "menu",
+    "articles",
+    "validarNit",
+    "urlParams",
+  ],
 };
 
 const rootReducer = combineReducers({
@@ -50,8 +57,9 @@ const rootReducer = combineReducers({
   address: usuarioReducer,
   token: usuarioReducer,
   validarNit: validaNitReducer,
-  urlParams : urlParamsReducer,
-  paramsWeb: paramsWebReducer
+  urlParams: urlParamsReducer,
+  paramsWeb: paramsWebReducer,
+  order: orderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
