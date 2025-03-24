@@ -16,6 +16,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.center-loader {
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
 
 .flone-preloader span {
   position: absolute;
