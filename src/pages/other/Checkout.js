@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,11 +21,13 @@ import { FormLogin } from "../payment/FormLogin";
 
 import cogoToast from "cogo-toast";
 import { CreditCardForm } from "../payment/CreditCardForm";
+import { scrollToElement } from "../../helpers/scroll-top";
+
 
 const Checkout = () => {
   const { t, i18n } = useTranslation();
+  const inputRef = useRef(null);
   let cartTotalPrice = 0;
-
   let { pathname } = useLocation();
 
   const { country } = useSelector((state) => state.paramsWeb);
@@ -91,6 +93,7 @@ const Checkout = () => {
   useEffect(() => {
     if (!usuario) {
       cogoToast.info("Debe Iniciar Sesión", { position: "top-center" });
+      document.documentElement.scrollTo(0, 0);
       setShow(true);
       return;
     }
@@ -119,6 +122,7 @@ const Checkout = () => {
         nitCliente: validacionNit.Nit,
       }));
     }
+    inputRef.current?.focus();
   }, [usuario, validacionNit, error]);
 
   const handleSendOrder = (e) => {
@@ -127,11 +131,15 @@ const Checkout = () => {
     if (usuario === null) {
       setShow(true);
       cogoToast.info("Debe Iniciar Sesión", { position: "top-center" });
+      document.documentElement.scrollTo(0, 0);  
+      inputRef.current?.focus();
+      console.log(inputRef.current);
       return;
     }
 
     if (!formValues.nitCliente) {
       cogoToast.error("Debe ingresar un NIT ");
+      scrollToElement("billing-info");
       return;
     }
     if (cartItems.length === 0) {
@@ -208,11 +216,11 @@ const Checkout = () => {
               <div className="row">
                 <div className="col-lg-6  col-md-12">
                   <div className="billing-info-wrap mb-30">
-                    <FormLogin style={style} />
+                    <FormLogin style={style}  inputRef={inputRef}/>
                   </div>
 
-                  <div className="billing-info-wrap">
-                    <h3>{t("page_checkout.billing_details")}</h3>
+                  <div className="billing-info-wrap" id="billing-info">
+                    <h3 >{t("page_checkout.billing_details")}</h3>
                     <div className="row">
                       <div className="col-lg-12">
                         <FormDatosCliente

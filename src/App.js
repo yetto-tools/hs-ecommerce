@@ -31,7 +31,7 @@ const NotFound = lazy(() => import("./pages/other/NotFound"));
 
 export const LoadingIndicator = (
   <div className="flone-preloader-wrapper">
-    <div className="flone-preloader">
+    <div className="flone-preloader center-loader">
       <span></span>
       <span></span>
     </div>

@@ -1,12 +1,14 @@
 import clsx from "clsx";
 import { Loader2, LogIn } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect,  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchLogin } from "../../hooks/use-FetchUsuario";
 
-export const FormLogin = ({ style }) => {
+export const FormLogin = ({ style , inputRef}) => {
+  
   const dispatch = useDispatch();
+
   const { usuario } = useSelector((state) => state.usuario);
   const [loading, setLoading] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
@@ -37,6 +39,8 @@ export const FormLogin = ({ style }) => {
     }
   }, [usuario]);
 
+
+
   return (
     <form onSubmit={handleLoginSubmit} method="post">
       <div className="billing-info pb-4">
@@ -63,6 +67,7 @@ export const FormLogin = ({ style }) => {
                     value={usuario.name}
                     readOnly
                     className="read-only-input"
+                    ref={inputRef}
                   />
                 </div>
                 <div className="col-6 mt-4">
