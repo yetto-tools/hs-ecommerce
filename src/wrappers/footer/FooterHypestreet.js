@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { URL_FACEBOOK, URL_INSTAGRAM, URL_TIKTOK } from "../../config";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const FooterHypestreet = ({
   backgroundColorClass,
@@ -13,6 +15,33 @@ const FooterHypestreet = ({
   extraFooterClass,
 }) => {
   const { t } = useTranslation();
+const { params } = useSelector((state) => state.paramsWeb);
+  const [storeInfo, setStoreInfo] = useState({});
+
+  useEffect(() => {
+    if (params?.length) {
+      const mapping = {
+        DIRECCIONPRINCIPAL: "direccion",
+        FACEBOOK: "facebook",
+        INSTAGRAM: "instagram",
+        TIKTOK: "tiktok",
+        CORREO: "correo",
+        CANALWHATSAPP: "whatsapp",
+      };
+
+      const newStoreInfo = params.reduce((acc, param) => {
+        const key = mapping[param.Nombre];
+        if (key) {
+          acc[key] = param.Valor;
+        }
+        return acc;
+      }, {});
+
+      // Actualizar el estado con la información de la tienda
+
+      setStoreInfo(newStoreInfo);
+    }
+  }, [params]);
 
   return (
     <footer
@@ -129,7 +158,7 @@ const FooterHypestreet = ({
                 </Link>
               </li>
               <li>
-                <Link className="text-white text-hover-green-hs" to="/whatsapp">
+                <Link className="text-white text-hover-green-hs" to={storeInfo?.whatsapp}>
                   {t("whatsapp")}
                 </Link>
               </li>

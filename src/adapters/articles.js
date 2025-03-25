@@ -7,7 +7,6 @@ export const adapterSearchArticles = (data) => {
 };
 
 export const adapterArticles = (data) => {
-  console.log(data);
   const articulos = data.articulos.map((article) =>
     adapterArticle(article || [], data)
   );
@@ -139,8 +138,7 @@ export const adapterArticleDetail = (data) => {
   };
 };
 
-export const adapterNewArrivals = (data) => {
-  console.log(data);
+export const adapterNewArrivals = (data) => {  
   const articulos = data.map((article) => adapterNewArrival(article || []));
   return articulos;
 };

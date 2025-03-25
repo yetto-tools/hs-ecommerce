@@ -1,6 +1,6 @@
 {
   "name": "hs-ecommerce",
-  "version": "1.22.28",
+  "version": "1.22.26",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
@@ -48,7 +48,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "npx react-scripts build",
+    "build": "yarn react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prebuild": "standard-version --no-verify --infe CHANGELOG.md && node update-env.js",

@@ -249,7 +249,13 @@
     "edit": "Edit",
     "delete": "Delete",
     "password_after": "password after",
-    "password_new": "new password"
+    "password_new": "new password",
+    "address_name": "address name",
+    "address_street": "street",
+    "address_country": "country",
+    "address_city": "city",
+    "address_phone": "phone",
+    "address_comment": "comment"
   },
   "page_not_found": {
     "seo_title": "Not Found",
