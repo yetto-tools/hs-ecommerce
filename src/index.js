@@ -16,8 +16,22 @@ import "./i18n";
 
 // store.dispatch(setProducts(products));
 
+
+
+
 const container = document.getElementById('root');
 const root = createRoot(container);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((reg) => console.log('✅ SW registrado:', reg.scope))
+      .catch((err) => console.error('❌ Falló el registro del SW:', err));
+  });
+}
+
+
+
 root.render(
     <Provider store={store}>
       <PersistProvider>
