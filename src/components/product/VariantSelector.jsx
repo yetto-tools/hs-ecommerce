@@ -6,45 +6,43 @@ export const VariantSelector = ({
   setSelectedVariant,
   setProductStock,
   setQuantityCount,
+  setSelectedVariantImage
 }) => {
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [selectedColorId, setSelectedColorId] = useState(null);
-
   const [saleOut, setSaleOut] = useState(false);
 
+  
+  
   useEffect(() => {
-    if (articleDetail.stock === 0) {
-      setSaleOut(true);
+    if (articleDetail?.variation?.length > 0) {
+      const firstAvailable = articleDetail.variation[0];
+      if (firstAvailable) {
+        setSelectedSizeId(firstAvailable.idSize);
+        setSelectedColorId(firstAvailable.idcolor);
+        setQuantityCount(1);
+      }
     }
+  }, [articleDetail]);
 
-        // Auto seleccionar talla si solo hay una opción
-        if (articleDetail.sizes && articleDetail.sizes.length === 1) {
-          setSelectedSizeId(articleDetail.sizes[0].id);
-          setQuantityCount(1);
-        }
-
-    if ((selectedSizeId || selectedColorId) && articleDetail.variation) {
+  useEffect(() => {
+    if (articleDetail.variation) {
       const variant = articleDetail.variation.find((v) => {
         const matchesSize = selectedSizeId ? v.idSize === selectedSizeId : true;
-        const matchesColor = selectedColorId
-          ? v.idcolor === selectedColorId
-          : true;
-        return matchesSize && matchesColor && v.stock > 0;
+        const matchesColor = selectedColorId ? v.idcolor === selectedColorId : true;
+        return matchesSize && matchesColor;
       });
+
       setSelectedVariant(variant || null);
       setProductStock(variant ? variant.stock : 0);
+      setSelectedVariantImage(variant ? variant.images : []);
     } else {
       setSelectedVariant(null);
       setProductStock(0);
+      setSelectedVariantImage([]);
     }
-  }, [
-    selectedSizeId,
-    selectedColorId,
-    articleDetail.variation,
-    setSelectedVariant,
-    setProductStock,
-  ]);
-
+  }, [selectedSizeId, selectedColorId, articleDetail.variation]);
+ 
   return (
     <div className="pro-details-size-color mt-3">
       <div className="d-flex flex-column ">
@@ -111,7 +109,12 @@ export const VariantSelector = ({
                       height: "30px",
                       borderRadius: "50%",
                       cursor: "pointer",
-                      border: "1px solid #00000038",
+                      outline: "1px solid #00000038",
+                      opacity: selectedColorId === color.id ? "1" : "0.3",
+                      border: `1px solid ${color.colorHex}ff`,
+                      boxShadow: selectedColorId === color.id
+                      ? "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px"
+                      : "none"
                     }}
                   >
                     <input

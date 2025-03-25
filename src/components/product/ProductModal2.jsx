@@ -11,7 +11,8 @@ import { VariantSelector } from "./VariantSelector";
 import Swiper, { SwiperSlide } from "../../components/swiper";
 
 import { ROOT_IMAGE } from "../../config";
-import { EffectFade, Navigation, Thumbs } from "swiper";
+import { EffectFade, Thumbs } from "swiper";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function ProductModal2({ show, onHide, currency }) {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function ProductModal2({ show, onHide, currency }) {
   const { i18n } = useTranslation();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const {cartItems} = useSelector((state) => state.cart);
+  const [selectedVariantImage, setSelectedVariantImage] = useState([]);
 
   const handleAddToCart = () => {
     if (selectedVariant && productStock > 0) {
@@ -69,6 +71,15 @@ function ProductModal2({ show, onHide, currency }) {
     setThumbsSwiper(null);
     onHide();
   };
+
+  useEffect(() => {
+    if (articleDetail && articleDetail?.variants?.length > 0) {
+      setSelectedVariant(articleDetail.variants[0]);
+      setProductStock(articleDetail.variants[0].stock);
+      setSelectedVariantImage(articleDetail.variants[0].images);
+    }
+  }, [articleDetail]);
+
   return (
     <Modal
       show={show}
@@ -82,10 +93,11 @@ function ProductModal2({ show, onHide, currency }) {
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-large-image-wrapper px-4">
                 <Swiper options={gallerySwiperParams}>
-                  {articleDetail.images &&
-                    articleDetail.images.map((image, index) => (
+                  
+                  {selectedVariantImage &&
+                    selectedVariantImage.map((image, index) => (
                       <SwiperSlide key={index}>
-                        <img
+                        <LazyLoadImage
                           src={`${ROOT_IMAGE}${image}`}
                           alt={articleDetail.name}
                           className="img-fluid"
@@ -94,6 +106,14 @@ function ProductModal2({ show, onHide, currency }) {
                             e.target.src = "/default/no-image.jpg";
                           }}
                           loading="lazy"
+                          style={
+                            {
+                              minHeight:"360px",
+                              aspectRatio: "10/16",
+                              objectFit: "contain",
+                              objectPosition: "center top",
+                            }
+                          }
                         />
                       </SwiperSlide>
                     ))}
@@ -101,8 +121,8 @@ function ProductModal2({ show, onHide, currency }) {
               </div>
               <div className="product-small-image-wrapper mt-40" id="thumbnail">
                 <Swiper options={thumbnailSwiperParams}>
-                  {articleDetail.image &&
-                    articleDetail.images.map((image, i) => {
+                  {selectedVariantImage &&
+                    selectedVariantImage.map((image, i) => {
                       return (
                         <SwiperSlide key={i} className="svg-slider-arrow-black">
                           <div className="single-image">
@@ -156,6 +176,7 @@ function ProductModal2({ show, onHide, currency }) {
                   setSelectedVariant={setSelectedVariant}
                   setProductStock={setProductStock}
                   setQuantityCount={setQuantityCount}
+                  setSelectedVariantImage={setSelectedVariantImage}
                 />
                 
                 <small><b>SKU:</b> {articleDetail.sku}</small>
