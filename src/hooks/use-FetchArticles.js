@@ -57,8 +57,16 @@ export const fetchArticles = (n1, n2, n3) => async (dispatch) => {
   }
 };
 
-export const fetchArticleDetail = (id) => async (dispatch) => {
+export const fetchArticleDetail = (id) => async (dispatch, getState)  => {
+  const { articleDetail } = getState(); // Ajusta esto si tu estado es diferente
+  console.log(articleDetail);
+  if (articleDetail?.articleDetail?.id == id) {
+    return; // Ya tienes los datos del artículo
+  }
+
   const url = `${API_URL}/api/${API_VERSION}/items/${id}`;
+
+
 
   try {
     dispatch(setLoading(true));
@@ -130,8 +138,7 @@ export const fetchNewArticles = () => async (dispatch) => {
 };
 
 export const fetchSearchArticles = (value) => async (dispatch) => {
-  const code =   encodeURIComponent(value.split("/")[0]);  
-  console.log(code)
+  const code =   encodeURIComponent(value.split("/")[0]);    
   const url = `${API_URL}/api/${API_VERSION}/items/search?value=${code}`;
 
   try {

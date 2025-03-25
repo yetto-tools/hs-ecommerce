@@ -5,7 +5,14 @@ import { setCountry, setParamsWeb } from "../store/slices/paramsWeb-slice";
 import { adapterMessage } from "../adapters/message";
 
 
-export const fetchParamsWeb = () => async (dispatch) => {
+export const fetchParamsWeb = () => async (dispatch, getState) => {
+
+  const { paramsWeb } = getState(); // Ajusta esto si tu estado es diferente
+  
+  if (!paramsWeb?.params?.length) {
+    return; // Ya tienes los datos del artículo
+  }
+
     const url = `${API_URL}/api/v1/configurations/system-parameters`;
     try {
       
