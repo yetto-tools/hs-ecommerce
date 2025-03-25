@@ -1,6 +1,6 @@
 {
   "name": "hs-ecommerce",
-  "version": "1.22.28",
+  "version": "1.22.26",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
@@ -51,7 +51,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prebuild": "standard-version --no-verify --infile CHANGELOG.md && node update-env.js",
+    "prebuild": "standard-version --no-verify --infe CHANGELOG.md && node update-env.js",
     "version-bump": "standard-version --no-verify --infile CHANGELOG.md --release-as minor"
   },
   "eslintConfig": {
