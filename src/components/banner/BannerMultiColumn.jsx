@@ -2,8 +2,12 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { ROOT_IMAGE } from "../../config";
 
-const BannerMultiColumn = ({ data, sliderClass }) => {
+
+
+const BannerMultiColumn = ({ data, sliderClass }) => {  
+  const BANNER_IMAGE = ROOT_IMAGE.replace("articulos","")
   return (
     <div className={`banner-multi-column ${sliderClass}`}>
       <div className="banner-wrapper">
@@ -12,7 +16,7 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
             key={index}
             className="banner-item"
             style={{
-              backgroundImage: `url(${image})`,
+              backgroundImage: `url(${BANNER_IMAGE+image})`,
               backgroundSize: "cover",
               objectFit: "cover",
               scale: "scaleX(-1)",
@@ -67,7 +71,7 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
                       <Link
                         className="banner-button animated text-black"
                         style={{ borderRadius: "0.5rem" }}
-                        to={process.env.PUBLIC_URL + data.url}
+                        to={data?.buttons[index].url}
                       >
                         {data.buttons[index].text}
                       </Link>

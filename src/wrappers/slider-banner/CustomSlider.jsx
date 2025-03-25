@@ -11,6 +11,7 @@ const CustomSlider = ({ slides }) => {
   const infiniteSlides = [...slides, ...slides, ...slides];
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  
 
   // Detecta el tamaño de la pantalla y ajusta las imágenes visibles
   useEffect(() => {
