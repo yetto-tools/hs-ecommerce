@@ -17,30 +17,35 @@ const HomeFashionTwo = () => {
       id: 1,
       logo: "",
       image: "/assets/img/marcas/new era.jpg",
+      imageHover: "/assets/img/marcas/new era-hover.jpg",
       name: "new era",
     },
     {
       id: 2,
       logo: "",
       image: "/assets/img/marcas/mitchell.jpg",
+      imageHover: "/assets/img/marcas/mitchell-hover.jpg",
       name: "mitchell & ness",
     },
     {
       id: 3,
       logo: "",
       image: "/assets/img/marcas/adidas.jpg",
+      imageHover: "/assets/img/marcas/adidas-hover.jpg",
       name: "adidas",
     },
     {
       id: 4,
       logo: "",
       image: "/assets/img/marcas/nike.jpg",
+      imageHover: "/assets/img/marcas/nike-hover.jpg",
       name: "nike",
     },
     {
       id: 5,
       logo: "",
       image: "/assets/img/marcas/jordan.jpg",
+      imageHover: "/assets/img/marcas/jordan-hover.jpg",
       name: "jordan",
     },
     {
@@ -59,8 +64,16 @@ const HomeFashionTwo = () => {
       id: 8,
       logo: "",
       image: "/assets/img/marcas/asics.jpg",
+      imageHover: "/assets/img/marcas/asics-hover.jpg",
       name: "asics",
     },
+    // {
+    //   id: 9,
+    //   logo: "/assets/img/marcas/test-puma-hover.png",
+    //   image: "/assets/img/marcas/test-puma.jpg",
+    //   imageHover: "/assets/img/marcas/test-puma-hover.png",
+    //   name: "asics",
+    // },
   ];
   return (
     <Fragment>

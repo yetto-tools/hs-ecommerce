@@ -54,11 +54,15 @@ const ShopSidebarFilters = ({ filters, sideSpaceClass }) => {
         const filtersToSend = {
           ...activeFilters,
           [filterType]: [value],
+          
           ...(n3 ? { "marca": [n3] } : {}) // Agregar "marca" solo si `n3` no está vacío o undefined
         };
-        
 
-        await dispatch(fetchFilterAritcle(jsonToXml(filtersToSend)));
+        // Agregar "grupo" solo si `n1` no está vacío o undefined
+        // conserva estado de seleccion previo segun menu
+        const grupo = n1 ? n1 : "";
+
+        await dispatch(fetchFilterAritcle(jsonToXml(filtersToSend, grupo )));
 
       }
     },
