@@ -105,7 +105,7 @@ export const FormLogin = ({ style , inputRef}) => {
               <h3 className="container px-0 row">
                 <span
                   onClick={handleShowLogin}
-                  ariaExpanded={showLogin}
+                  aria-expanded={showLogin}
                   className="col-lg-6 col-md-6 px-0"
                 >
                   {showLogin ? (
