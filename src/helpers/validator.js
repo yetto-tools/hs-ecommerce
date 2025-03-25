@@ -39,8 +39,16 @@ export const validarIdentificacion = (valor) => {
   return { valor, tipo: "Inválido" }; // Si no cumple con ningún formato
 };
 
-export function jsonToXml(json) {
-  let xml = "<detalles>\n";
+export function jsonToXml(json, grupo) {
+  
+  
+  let xml = `
+  <encabezados>
+    <encabezado>
+    ${`<Grupo>${grupo}</Grupo>` }
+    </encabezado>
+  </encabezados>
+  <detalles>\n`;
   let hasData = false;
 
   Object.keys(json).forEach((key) => {
