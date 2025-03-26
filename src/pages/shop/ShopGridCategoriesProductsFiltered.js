@@ -18,7 +18,7 @@ import {
   mapCategoryToGenre,
   mapCategoryToGroup,
 } from "../../adapters/categories";
-import { fetchProductsByGroupAndGenre } from "../../hooks/use-FechDataProducts";
+import { fetchProductsByGroupAndGenre } from "../../hooks/use-FetchDataProducts";
 
 const ShopGridCategoriesProductsFiltered = () => {
   const [layout, setLayout] = useState("grid three-column");
