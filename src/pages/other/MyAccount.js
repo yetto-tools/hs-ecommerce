@@ -16,8 +16,8 @@ const MyAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.usuario.isLoggedIn);
-  const { usuario } = useSelector((state) => state.usuario);
-  const direcciones = useSelector((state) => state.usuario.address);
+  const { usuario, address } = useSelector((state) => state.usuario);
+  
 
   const { country } = useSelector((state) => state.paramsWeb);
 
@@ -277,8 +277,8 @@ const MyAccount = () => {
                               {t("page_my_account.address_entry")}
                             </h4>
                           </div>
-                          {direcciones &&
-                           direcciones.map((direccion) => (
+                          {address &&
+                           address.map((direccion) => (
                               <div className="entries-wrapper">
                                 <div className="row">
                                   <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
@@ -346,7 +346,7 @@ const MyAccount = () => {
                                                       <option 
                                                         key={pais.IdPais || `pais-${index}`} 
                                                         value={pais.IdPais} 
-                                                        selected={ pais.IdPais == 1}
+                                                        selected={ Number(pais.IdPais) === 1}
                                                       >{pais.Nombre}</option>
                                                     ))
                                                   }
@@ -420,8 +420,7 @@ const MyAccount = () => {
                             ))}
                           <div className="billing-back-btn">
                             <div className="billing-btn">
-                              <button type="submit">
-                                {t("page_my_account.submit")}
+                              <button type="submit" className="px-4 py-3 button-active-hs btn-black">
                               </button>
                             </div>
                           </div>
