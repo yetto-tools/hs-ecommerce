@@ -115,10 +115,12 @@ export const fetchResetPassword = (userData) => {
         body: JSON.stringify(userData),
       });
 
+      const { data, message } = await response.json(); // Primero obtener la respuesta y luego verificar el estado
+      const { message: mensaje } = adapterMessage(message);
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Error ${response.status}: ${errorText}`);
+        throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
       }
+
 
       let jsonResponse;
       try {
@@ -127,8 +129,7 @@ export const fetchResetPassword = (userData) => {
         throw new Error("La respuesta del servidor no es un JSON válido.");
       }
 
-      const { data, message } = jsonResponse;
-      const { message: mensaje } = adapterMessage(message);
+  
 
       cogoToast.success(
         `Bienvenido: ${data?.respuesta?.Respuesta || "Usuario"}`,
