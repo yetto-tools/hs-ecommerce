@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { Loader2, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+
 export const FormDatosCliente = ({
   formValues,
   handleChange,
@@ -13,8 +14,11 @@ export const FormDatosCliente = ({
 }) => {
   const { t } = useTranslation();
 
+
+
+
   return (
-    <form onSubmit={handleCheckNit} ref={ref}>
+    <form onSubmit={handleCheckNit} ref={ref} >
       <div className="billing-info mb-20">
         <div className=" d-flex flex-row justify-content-start align-items-center gap-2">
           <label htmlFor="nitCliente">{t("page_checkout.vat")}</label>
@@ -65,17 +69,7 @@ export const FormDatosCliente = ({
         </div>
       </div>
 
-      <div className="col-lg-12">
-        <div className="billing-info mb-20">
-          <label>{t("page_checkout.street_address")}</label>
-          <input
-            className="billing-address"
-            placeholder={t("page_checkout.street")}
-            type="text"
-            required
-          />
-        </div>
-      </div>
+
     </form>
   );
 };

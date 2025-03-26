@@ -168,7 +168,7 @@ export const CreditCardForm = ({ handleSubmitPayment }) => {
                   </button>
                 </div>
 
-                <div className="col-12">
+                <div className="col-12 hidden">
                   <input name="type" value={formValues.type} />
                   <input name="key_id" value="14482124" />
                   <input name="hash" id="hash" />
