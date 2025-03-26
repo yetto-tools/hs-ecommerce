@@ -7,10 +7,10 @@ import cogoToast from "cogo-toast";
 export const fetchMenu = () => async (dispatch, getState) => {
 
   const { menu } = getState(); // Ajusta esto si tu estado es diferente
-    console.log(getState())
-  // if (!menu.menu.length) {
-  //   return; // Ya tienes los datos del artículo
-  // }
+    
+  if (menu?.menu?.length > 0) {
+    return; // Ya tienes los datos del artículo
+  }
 
   const url = `${API_URL}/api/v1/menu`;
   try {
