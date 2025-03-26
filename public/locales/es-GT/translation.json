@@ -178,7 +178,8 @@
     "address_delivery": "Dirección de Entrega",
     "payment_information": "Informacion de Pago",
     "pay": "Confirmar Pago",
-    "select_address": "Elegir dirección"
+    "select_address": "Elegir dirección",
+    "add_address": "Nueva"
   },
   "general_words": {
     "new": "Nuevo",

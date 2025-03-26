@@ -14,7 +14,7 @@ import { ROOT_IMAGE } from "../../config";
 
 SwiperCore.use([Navigation]);
 
-const ProductCard = ({ product, currency, openModal }) => {
+const ProductCard = ({ product, currency, openModal, index }) => {
   const { i18n } = useTranslation();
   return (
     <div className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area">
@@ -36,11 +36,10 @@ const ProductCard = ({ product, currency, openModal }) => {
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     aspectRatio: "8/7",
-                    transform: "scaleX(-1)",
                     transition: "transform 0.5s ease-in-out",
                     transformOrigin: "center center",
                   }}
-                  loading="lazy"
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
               </button>
             </div>
@@ -125,6 +124,7 @@ const BannerPrincipal = ({
                   product={product}
                   currency={currency}
                   openModal={() => setModalShow(product)}
+                  index={index}
                 />
               </SwiperSlide>
             ))}

@@ -22,8 +22,7 @@ export const FormDatosCliente = ({
       <div className="billing-info mb-20">
         <div className=" d-flex flex-row justify-content-start align-items-center gap-2">
           <label htmlFor="nitCliente">{t("page_checkout.vat")}</label>
-          <label>{"|"}</label>
-          <label>{t("page_checkout.dpi")}</label>
+          <label>{"|"}</label><label>{t("page_checkout.dpi")}</label>
         </div>
         <div className="place-order d-flex position-relative align-items-center gap-2">
           <input
