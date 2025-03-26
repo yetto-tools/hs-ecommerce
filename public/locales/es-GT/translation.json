@@ -177,7 +177,8 @@
     "select_state": "Seleccionar Departamento",
     "address_delivery": "Dirección de Entrega",
     "payment_information": "Informacion de Pago",
-    "pay": "Confirmar Pago"
+    "pay": "Confirmar Pago",
+    "select_address": "Elegir dirección"
   },
   "general_words": {
     "new": "Nuevo",

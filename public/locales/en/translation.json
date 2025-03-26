@@ -152,7 +152,8 @@
     "select_state": "state",
     "address_delivery": "delivery",
     "payment_information": "Payment",
-    "pay": "Pay"
+    "pay": "Pay",
+    "select_address": "select address"
   },
   "footer": {
     "store_location": "Store Location",
