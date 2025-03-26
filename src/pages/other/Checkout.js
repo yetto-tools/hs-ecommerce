@@ -69,15 +69,19 @@ const Checkout = () => {
 
   // 🟢 Maneja cambios en el input del NIT/DPI
   const handleChange = (e) => {
+    e.preventDefault();
     const { name, value } = e.target;
 
-    setFormValues((prev) => ({ ...prev, nitCliente: value }));
+    setFormValues((prev) => ({ ...prev, [name]: value }));
     dispatch(setError(false));
     // Validar email
   };
 
   // 🟢 Validación y envío de consulta
-  const handleCheckNit = () => {
+  const handleCheckNit = (e) => {
+
+    e.preventDefault();
+
     const { nitCliente } = formValues;
 
     if (!nitCliente.trim()) {
