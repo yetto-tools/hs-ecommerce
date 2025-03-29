@@ -1,9 +1,11 @@
 
 
-import { Icon, MapPinPlus } from "lucide-react";
+import { MapPinPlus } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import FormNuevaDireccion from "../../components/address/FormNuevaDireccion";
+
 
 
 export const FormDireccionEntrega = ({
@@ -51,17 +53,12 @@ export const FormDireccionEntrega = ({
       {
         showAddressNew && (
           <div className="col-lg-12 col-md-12 mt-2">
-            <div className="additional-info-wrap">
-              <h4>{t("page_checkout.additional_information")}</h4>
-              <div className="additional-info">
-                <textarea
-                  placeholder="Notas sobre su pedido, Ej: Llamar antes de la entrega."
-                  name="message"
-                  value={formValues.message}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
+           <FormNuevaDireccion 
+             country={country}
+             formValues={formValues}
+             handleChange={handleChange}
+             errorsValidate={errorsValidate}
+           /> 
           </div>
         )
       }

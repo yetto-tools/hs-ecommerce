@@ -22,6 +22,8 @@ import { FormLogin } from "../payment/FormLogin";
 import cogoToast from "cogo-toast";
 import { CreditCardForm } from "../payment/CreditCardForm";
 import { scrollToElement } from "../../helpers/scroll-top";
+import { Car, Loader2, Search, Send } from "lucide-react";
+import { API_URL } from "../../config";
 
 
 const Checkout = () => {
@@ -79,18 +81,17 @@ const Checkout = () => {
 
   // 🟢 Validación y envío de consulta
   const handleCheckNit = (e) => {
-
     e.preventDefault();
-
     const { nitCliente } = formValues;
-
     if (!nitCliente.trim()) {
       alert(`El campo NIT/DPI no puede estar vacío.`);
       document.querySelector("#nitCliente").click();
       return;
     }
-
     dispatch(fetchValidaNIT(nitCliente));
+
+    
+
   };
 
   // 🟢 Auto completar formulario cuando se reciba la respuesta de validación
@@ -129,7 +130,7 @@ const Checkout = () => {
     inputRef.current?.focus();
   }, [usuario, validacionNit, error]);
 
-  const handleSendOrder = (e) => {
+  const handleSendOrder = async(e) => {
     e.preventDefault();
 
     if (usuario === null) {
@@ -152,7 +153,8 @@ const Checkout = () => {
     }
 
     try {
-      handleCheckNit();
+      const respuesta = await handleCheckNit();
+      console.log(respuesta);
 
       if (error) {
         return;
@@ -170,35 +172,59 @@ const Checkout = () => {
       // Construcción del JSON final
       const order = { orderCliente, products: orderProducts };
 
+      console.log(API_URL+"/api/invoices");
       console.log("Orden Generada:", order);
 
       // Aquí puedes enviarlo al backend
-      fetch("/api/orden", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          alert("Pédido enviada con éxito!");
-          console.log("Respuesta del servidor:", data);
-        })
-        .catch((error) => {
-          console.error(" un error durante la validación de datos", error);
-          alert("Hubo un error durante la validación de datos");
-        });
+      // fetch(API_URL +"/api/invoices", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(order),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     alert("Pédido enviada con éxito!");
+      //     console.log("Respuesta del servidor:", data);
+      //   })
+      //   .catch((error) => {
+      //     console.error(" un error durante la validación de datos", error);
+      //     console.error("Hubo un error durante la validación de datos");
+      //   });
     } catch (error) {
-      alert("Hubo un error durante la validación de datos");
+      console.error("Error: Hubo un error durante la validación de datos");
     } finally {
       dispatch(setError(false));
     }
   };
 
-  const handleInvoces = () => {
-    console.log(cartItems);
+  const handleInvoces = (e) => {
+    e.preventDefault();
+
+  
+        // Cliente
+          const orderCliente = adapterOrderCustomer(formValues);
+
+          // Productos
+          const orderProducts = adapterOrderProducts(cartItems, {
+            iva: 1.12,
+            idAlmacen: 1,
+          });
+          
+         let ordern = {}
+         ordern = adapterOrderCustomer(formValues);
+         ordern.products = orderProducts;
+    console.log({
+      ordern
+      
+    });
+    
   };
 
   const handleClose = () => setShow(false);
+  
+
+
+
 
   return (
     <Fragment>
@@ -246,15 +272,34 @@ const Checkout = () => {
                         handleChange={handleChange}
                         errorsValidate={errorsValidate}
                       />
+
+                      <div className="mt-5">
+                        <h3>Confirmar Orden de Compra</h3>
+                        <hr />
+                        <button
+                            type="submit"
+                            className="button-active-hs btn-black w-100 d-flex justify-content-center align-items-center gap-2 py-2"
+                            disabled={loading}
+                            onClick={handleInvoces}
+                          >
+                            <span>{t("send_message")}</span>
+
+                            {loading ? (
+                              <Loader2 className="animate-spin" />
+                            ) : (
+                              <Send className="position-relative" />
+                            )}
+                          </button>
+                      </div>
                     </div>
                   </div>
                   <br />
-                  <div className="billing-info-wrap mt-40">
+                  <div className="billing-info-wrap mt-40 hidden">
                     <h3>{t("page_checkout.payment_information")}</h3>
                     <hr />
                     <div className="row">
-                      <div className="col-lg-12">
-                        <CreditCardForm handleSubmitPayment={handleSendOrder} />
+                      <div className="col-lg-12 ">
+                        {/* <CreditCardForm handleSubmitPayment={handleSendOrder} /> */}
                       </div>
                     </div>
                   </div>
@@ -342,7 +387,7 @@ const Checkout = () => {
                         </div>
                         <div
                           className="your-order-total"
-                          onClick={handleInvoces}
+                          
                         >
                           <ul>
                             <li className="order-total fw-bold">Total</li>

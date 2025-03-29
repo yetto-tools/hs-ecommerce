@@ -26,6 +26,7 @@ import validaNitReducer from "./slices/validaNit-slice";
 import urlParamsReducer from "./slices/urlParams-slice";
 import paramsWebReducer from "./slices/paramsWeb-slice";
 import orderReducer from "./slices/order-slice";
+import sendEmailReducer from "./slices/emailSend-slice";
 
 const persistConfig = {
   key: "flone",
@@ -39,6 +40,7 @@ const persistConfig = {
     "articles",
     "validarNit",
     "urlParams",
+    "sendEamil",
   ],
 };
 
@@ -60,6 +62,7 @@ const rootReducer = combineReducers({
   urlParams: urlParamsReducer,
   paramsWeb: paramsWebReducer,
   order: orderReducer,
+  sendEmail: sendEmailReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

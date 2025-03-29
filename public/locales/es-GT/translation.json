@@ -179,7 +179,8 @@
     "payment_information": "Informacion de Pago",
     "pay": "Confirmar Pago",
     "select_address": "Elegir dirección",
-    "add_address": "Nueva"
+    "add_address": "Nueva",
+    "save_address": "Guardar Dirección"
   },
   "general_words": {
     "new": "Nuevo",

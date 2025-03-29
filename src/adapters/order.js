@@ -1,3 +1,5 @@
+import Decimal from "decimal.js";
+
 const adapterOrdenTest = (cliente={}, data={}) => {
 return {
   nitCliente: "12739251",
@@ -44,25 +46,32 @@ export const adapterOrderCustomer = (formValues) => {
     descuentoMonto: 0, // Monto del descuento
     comentarios: "", // Puedes agregar un campo de comentarios en el formulario
     BACOrderId: "", // Si tienes un ID de orden de BAC
-    BACResponse: "failed",
+    BACResponse: "",
     BACTransactionID: ""
   };
 }
 
-export const adapterOrderProducts = (cartItems, {iva=1.12, idAlmacen=1}) =>
-    cartItems.map((cartItem) => ({
-        itemCode: cartItem.sku || "",
-        quantity: cartItem.quantity || 0,
-        idArticulo: cartItem.id || "",
-        codigoInterno: cartItem.codigoInterno || "",
-        descripcion: cartItem.name || "",
-        precioUnitario: cartItem.price || 0,
-        total: (cartItem.price * cartItem.quantity) || 0,
-        impuestoMonto: cartItem.price - (cartItem.price / iva) || 0, // Si tienes impuestos, agrégalo aquí
-        descuentoPorcentaje: cartItem.discount || 0,
-        descuentoMonto: 0, // Si hay descuentos en monto
-        idAlmacen: idAlmacen // Ajustar si se tiene almacenes distintos
-}));
+export const adapterOrderProducts = (cartItems, {iva=1.12, idAlmacen=1}) => {
+  console.log(cartItems);
+  return cartItems.map((cartItem) => ({
+      itemCode: cartItem.sku || "",
+      quantity: cartItem.quantity || 0,
+      idArticulo: cartItem.id || "",
+      codigoInterno: cartItem.code || "",
+      descripcion: cartItem.name || "",
+      precioUnitario: new Decimal(cartItem.price).toFixed(2) || new Decimal(0).toFixed(2),
+      total: new Decimal((cartItem.price * cartItem.quantity)).toFixed(2) || new Decimal(0).toFixed(2),
+      impuestoMonto: new Decimal(cartItem.price - (cartItem.price / iva) ).toFixed(2)|| new Decimal(0).toFixed(2), // Si tienes impuestos, agrégalo aquí
+      descuentoPorcentaje: cartItem.discount || 0,
+      descuentoMonto: new Decimal((cartItem.price * cartItem.quantity) * cartItem.discount / 100).toFixed(2) || new Decimal(0).toFixed(2), // Si hay descuentos en monto
+      idAlmacen: idAlmacen // Ajustar si se tiene almacenes distintos
+  })
+  )
+  ;
+}
+  
+
+
 
 
 

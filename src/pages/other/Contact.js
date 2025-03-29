@@ -5,7 +5,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // import GoogleMap from "../../components/google-map";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   FaEnvelope,
   FaFacebook,
@@ -13,13 +13,25 @@ import {
   FaTiktok,
   FaWhatsapp,
 } from "react-icons/fa";
+import { fetchCorreo } from "../../hooks/use-fetchCorreo";
+import cogoToast from "cogo-toast";
+import { Loader2, Send } from "lucide-react";
+
 
 const Contact = () => {
   let { pathname } = useLocation();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const { params } = useSelector((state) => state.paramsWeb);
   const [storeInfo, setStoreInfo] = useState({});
+  const [formValues, setFormValues] = useState({
+    'name': "",
+    'email': "",
+    'subject': '',
+    'message': "",
+  });
 
   useEffect(() => {
     if (params?.length) {
@@ -45,6 +57,49 @@ const Contact = () => {
       setStoreInfo(newStoreInfo);
     }
   }, [params]);
+
+
+  const handleFormChange = (e) => {
+    const {name, value} = e.target
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const handleSendMail = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try{
+
+      const res = await dispatch(fetchCorreo({
+        tipo: 'contacto',
+        datos: formValues,
+        loading: false
+      }));
+    
+      if (res) {
+        cogoToast.success(res, { position: "bottom-center" });
+    
+        // Limpiar el formulario 
+        setFormValues({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      }
+    }
+    catch(error){
+        console.log(error)
+    }
+    finally
+    {
+      setLoading(false);
+    }
+  };
+  
+
 
   return (
     <Fragment>
@@ -181,13 +236,16 @@ const Contact = () => {
                   <div className="contact-title">
                     <h2>{t("contact_us")}</h2>
                   </div>
-                  <form className="contact-form-style">
+                  <form className="contact-form-style" onSubmit={handleSendMail}>
                     <div className="row">
                       <div className="col-lg-6">
                         <input
                           name="name"
                           placeholder={t("name")}
                           type="text"
+                          required={true}
+                          onChangeCapture={handleFormChange}
+                          value={formValues.name}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -195,6 +253,8 @@ const Contact = () => {
                           name="email"
                           placeholder={t("email")}
                           type="email"
+                          onChangeCapture={handleFormChange}
+                          value={formValues.email}
                         />
                       </div>
                       <div className="col-lg-12">
@@ -202,6 +262,8 @@ const Contact = () => {
                           name="subject"
                           placeholder={t("subject")}
                           type="text"
+                          onChangeCapture={handleFormChange}
+                          value={formValues.subject}
                         />
                       </div>
                       <div className="col-lg-12">
@@ -209,13 +271,25 @@ const Contact = () => {
                           name="message"
                           placeholder={t("message")}
                           defaultValue={""}
+                          onChangeCapture={handleFormChange}
+                          value={formValues.message}
                         />
+                        <div className="row col-12 mx-auto">
                         <button
-                          className="button-active-hs btn-black"
-                          type="submit"
+                            type="submit"
+                            className="button-active-hs btn-black d-flex justify-content-center align-items-center gap-4 "
+                            disabled={loading}
                         >
-                          {t("send_message")}
+                          <span className="mr-4">
+                            {t("send_message")}
+                            </span>
+                          {loading ? (
+                            <Loader2 className="animate-spin" />
+                          ) : (
+                            <Send className="postion-fixed" />
+                          )}
                         </button>
+                        </div>
                       </div>
                     </div>
                   </form>

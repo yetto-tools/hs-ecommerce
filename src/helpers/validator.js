@@ -80,3 +80,31 @@ export function jsonToXml(json, grupo) {
 //   console.log(validarIdentificacion("C/F")); // C/F
 //   console.log(validarIdentificacion("cf")); // C/F
 //   console.log(validarIdentificacion("1234-5678")); // Inválido
+
+
+export function generarBase64ParaSQLServer(objeto) {
+  const jsonString = JSON.stringify(objeto);
+  const base64 = btoa(unescape(encodeURIComponent(jsonString))); // maneja caracteres especiales
+  return base64;
+}
+
+export const generarCorrelativoFactura = () => {
+  const now = new Date();
+
+  const pad = (num, size = 2) => num.toString().padStart(size, "0");
+
+  const year = now.getFullYear();              // 2025
+  const month = pad(now.getMonth() + 1);       // 01-12
+  const day = pad(now.getDate());              // 01-31
+  const hour = pad(now.getHours());            // 00-23
+  const minute = pad(now.getMinutes());        // 00-59
+  const second = pad(now.getSeconds());        // 00-59
+  const millis = pad(now.getMilliseconds(), 3); // 000-999
+
+  const random = Math.floor(Math.random() * 10000).toString().padStart(4, "0"); // 4 dígitos aleatorios
+
+  const correlativo = `FAC-${year}${month}${day}-${hour}${minute}${second}${millis}-${random}`;
+
+  return correlativo; // Máx. 37 caracteres
+};
+

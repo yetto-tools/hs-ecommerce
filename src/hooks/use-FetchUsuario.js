@@ -145,3 +145,102 @@ export const fetchResetPassword = (userData) => {
     }
   };
 };
+
+
+
+export const fetchNewAdressUser = (idUser, newAddressData, enableLoading = false) => {
+  return async (dispatch) => {
+    
+    dispatch(setLoading(enableLoading));
+
+    if (!idUser) {
+      cogoToast.warn("Los datos del usuario son requeridos", {
+        position: "bottom-left",
+      });
+      return;
+    }
+    const url = `${API_URL}/api/v1/addresses/new-address`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newAddressData),
+      });
+
+      const responseJson = await response.json(); // Primero obtener la respuesta y luego verificar el estado
+      const { data, message }  = responseJson; // Primero obtener la respuesta y luego verificar el estado
+      const { message: mensaje } = adapterMessage(message);
+      if (!response.ok) {
+        throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
+      }
+
+      responseJson.data = adapterAddressesUser(responseJson.data);
+      dispatch(userAddress(responseJson.data));
+            
+      cogoToast.success(
+        `Bienvenido: ${data?.respuesta?.Respuesta || "Usuario"}`,
+        {
+          position: "top-center",
+          onClick: (toast) => toast.hide(),
+        }
+      );
+    } catch (error) {
+      cogoToast.warn(error.message, { position: "bottom-left" });
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const fetchAdressUser = (usuario, enableLoading = false) => {
+  return async (dispatch) => {
+
+  dispatch(setLoading(enableLoading));
+
+    if (!usuario?.id) {
+      cogoToast.warn("Los datos del usuario son requeridos", {
+        position: "bottom-left",
+      });
+      return;
+    }
+    const usuario = btoa({
+      idUsuario: usuario.id,
+      correo: usuario.email,
+      nombre: usuario.name
+    })
+
+    const bodyContent = `${usuario.id}|${usuario.correo}|${usuario.nombre}`;
+
+    const url = `${API_URL}/api/v1/user/${bodyContent}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const responseJson = await response.json(); // Primero obtener la respuesta y luego verificar el estado
+      const { data, message }  = responseJson; // Primero obtener la respuesta y luego verificar el estado
+      const { message: mensaje } = adapterMessage(message);
+      if (!response.ok) {
+        throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
+      }
+
+      responseJson.data = adapterAddressesUser(responseJson.data);
+      dispatch(userAddress(responseJson.data));
+            
+      cogoToast.success(
+        `Bienvenido: ${data?.respuesta?.Respuesta || "Usuario"}`,
+        {
+          position: "top-center",
+          onClick: (toast) => toast.hide(),
+        }
+      );
+    } catch (error) {
+      cogoToast.warn(error.message, { position: "bottom-left" });
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+}

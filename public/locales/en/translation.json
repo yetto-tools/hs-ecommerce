@@ -154,7 +154,8 @@
     "payment_information": "Payment",
     "pay": "Pay",
     "select_address": "select address",
-    "add_address": "add new address"
+    "add_address": "add new address",
+    "save_address": "Save Address"
   },
   "footer": {
     "store_location": "Store Location",
