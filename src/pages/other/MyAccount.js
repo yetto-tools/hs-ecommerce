@@ -17,48 +17,38 @@ const MyAccount = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.usuario.isLoggedIn);
   const { usuario, address } = useSelector((state) => state.usuario);
-  
 
   const { country } = useSelector((state) => state.paramsWeb);
-
 
   // const {
   //   usuario: { usuario, direcciones, token },
   // } = useSelector((state) => state.usuario);
 
   useEffect(() => {
-   
-    if (!isLoggedIn) {  
+    if (!isLoggedIn) {
       navigate("/login");
-      const { hide } =  cogoToast.warn("Necesita iniciar Sessión " , {
+      const { hide } = cogoToast.warn("Necesita iniciar Sessión ", {
         position: "bottom-left",
         onClick: () => {
           hide();
         },
       });
     }
-    
-  
   }, [isLoggedIn]);
-
-
 
   const [localUsuario, setLocalUsuario] = useState({
     id: usuario?.id || "",
     user: usuario?.user || "",
-    email:usuario?.email || "",
+    email: usuario?.email || "",
     phone1: usuario?.phone1 || "",
   });
 
   const [resetUsuario, setResetUsuario] = useState({
-    tipo: 1 ,
+    tipo: 1,
     usuario: usuario.usuario || "",
-    claveAnterior:  "",
-    claveNueva:   "",
+    claveAnterior: "",
+    claveNueva: "",
   });
-
-
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -73,16 +63,15 @@ const MyAccount = () => {
     dispatch(setUsuario({ ...usuario, ...localUsuario }));
   };
 
-
-  const handleResetPassword = async(e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
     await dispatch(fetchResetPassword(resetUsuario));
     setResetUsuario({
-      tipo: 1 ,
+      tipo: 1,
       usuario: usuario.usuario || "",
-      claveAnterior:  "",
-      claveNueva:   "", 
-    })
+      claveAnterior: "",
+      claveNueva: "",
+    });
   };
   const handleResetPasswordChange = (e) => {
     const { name, value } = e.target;
@@ -91,7 +80,6 @@ const MyAccount = () => {
       [name]: value,
     }));
   };
-
 
   return (
     <Fragment>
@@ -216,26 +204,33 @@ const MyAccount = () => {
                           </div>
                           <div className="row">
                             <div class="billing-info">
-                            <label htmlFor="usuario">{t("page_login_register.email")}</label>
-                            <input type="hidden" name="tipo" value="1" />
-                            <input type="email" name="usuario" 
-                              value={resetUsuario.usuario} 
-                              placeholder="correo"
-                              onChange={handleResetPasswordChange}
+                              <label htmlFor="usuario">
+                                {t("page_login_register.email")}
+                              </label>
+                              <input type="hidden" name="tipo" value="1" />
+                              <input
+                                type="email"
+                                name="usuario"
+                                value={resetUsuario.usuario}
+                                placeholder="correo"
+                                onChange={handleResetPasswordChange}
                               />
                             </div>
                           </div>
                           <div className="row">
                             <div className="col-lg-12 col-md-12">
                               <div className="billing-info">
-                                <label>{t("page_my_account.password_after")}</label>
-                                <input type="password" 
-                                  maxLength={50} 
-                                  name="claveAnterior" 
-                                  value={resetUsuario.claveAnterior} 
+                                <label>
+                                  {t("page_my_account.password_after")}
+                                </label>
+                                <input
+                                  type="password"
+                                  maxLength={50}
+                                  name="claveAnterior"
+                                  value={resetUsuario.claveAnterior}
                                   placeholder="Contraseña Anterio"
                                   onChange={handleResetPasswordChange}
-                                  />
+                                />
                               </div>
                             </div>
                             <div className="col-lg-12 col-md-12">
@@ -243,18 +238,23 @@ const MyAccount = () => {
                                 <label>
                                   {t("page_my_account.password_new")}
                                 </label>
-                                <input type="password"  maxLength={50} 
-                                  name="claveNueva" 
-                                  value={resetUsuario.claveNueva} 
+                                <input
+                                  type="password"
+                                  maxLength={50}
+                                  name="claveNueva"
+                                  value={resetUsuario.claveNueva}
                                   placeholder="Contraseña Nueva"
                                   onChange={handleResetPasswordChange}
-                                  />
+                                />
                               </div>
                             </div>
                           </div>
                           <div className="billing-back-btn">
                             <div className="billing-btn">
-                              <button type="submit" onClick={handleResetPassword}>
+                              <button
+                                type="submit"
+                                onClick={handleResetPassword}
+                              >
                                 {t("page_my_account.submit")}
                               </button>
                             </div>
@@ -263,7 +263,7 @@ const MyAccount = () => {
                       </Accordion.Body>
                     </Accordion.Item>
 
-                    <Accordion.Item
+                    {/* <Accordion.Item
                       eventKey="2"
                       className="single-my-account mb-20"
                     >
@@ -426,7 +426,7 @@ const MyAccount = () => {
                           </div>
                         </div>
                       </Accordion.Body>
-                    </Accordion.Item>
+                    </Accordion.Item> */}
                   </Accordion>
                 </div>
               </div>
@@ -439,4 +439,3 @@ const MyAccount = () => {
 };
 
 export default MyAccount;
-
