@@ -6,16 +6,15 @@ import { useTranslation } from "react-i18next";
 import { Loader2, Send } from "lucide-react";
 import { fetchNewAdressUser } from "../../hooks/use-FetchUsuario";
 
-const FormNuevaDireccion = () => {
+const FormNuevaDireccion = ({ setShowAddressNew }) => {
   const dispatch = useDispatch();
-  const {t } = useTranslation();
-  const { usuario, address } = useSelector((state) => state.usuario);  
+  const { t } = useTranslation();
+  const { usuario, address } = useSelector((state) => state.usuario);
   const { country } = useSelector((state) => state.paramsWeb);
   const [loading, setLoading] = useState(false);
 
-
   const [formData, setFormData] = useState({
-    idUsuario:"",
+    idUsuario: "",
     nombre: "",
     idPais: 1,
     idDepartamento: "",
@@ -31,7 +30,7 @@ const FormNuevaDireccion = () => {
 
   // Filtrar municipios al seleccionar un departamento
   useEffect(() => {
-    console.log(usuario)
+    console.log(usuario);
     if (formData.idDepartamento) {
       const filtrados = country?.municipios?.filter(
         (mun) => Number(mun.IdDepartamento) === Number(formData.idDepartamento)
@@ -54,7 +53,9 @@ const FormNuevaDireccion = () => {
     e.preventDefault();
 
     if (!usuario?.id) {
-      return cogoToast.error("Debe iniciar sesión para registrar una dirección.");
+      return cogoToast.error(
+        "Debe iniciar sesión para registrar una dirección."
+      );
     }
 
     const nuevaDireccion = {
@@ -63,31 +64,56 @@ const FormNuevaDireccion = () => {
     };
 
     try {
-      await dispatch(fetchNewAdressUser(usuario.id, nuevaDireccion));
-      cogoToast.success("Dirección guardada correctamente");
+      setLoading(true);
 
-      // Reset
-      setFormData({
-        nombre: "",
-        idPais: 1,
-        idDepartamento: "",
-        idMunicipio: "",
-        telefono: "",
-        direccion: "",
-        observaciones: "",
-        predeterminada: 1,
-        estado: 1,
-      });
+      const isSuccess = await dispatch(
+        fetchNewAdressUser(usuario.id, nuevaDireccion)
+      );
+      console.log("Direccion guardada con exito");
+      /// Reset
+      if (isSuccess) {
+        setFormData({
+          nombre: "",
+          idPais: 1,
+          idDepartamento: "",
+          idMunicipio: "",
+          telefono: "",
+          direccion: "",
+          observaciones: "",
+          predeterminada: 1,
+          estado: 1,
+        });
+        setShowAddressNew((prevState) => !prevState);
+      }
     } catch (error) {
       cogoToast.error("Error al guardar la dirección");
+    } finally {
+      setLoading(false);
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 border rounded shadow-sm mt-4">
-      <h4 className="mb-3 font-semibold">Agregar Nueva Dirección</h4>
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-4 border rounded shadow-sm mt-4"
+    >
+      <h4
+        className="mb-3 font-semibold"
+        onClick={() => {
+          console.log(address);
+        }}
+      >
+        Agregar Nueva Dirección
+      </h4>
       <div className="mb-3">
         <label className="form-label">Nombre Direccion</label>
-        <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} className="form-control" required />
+        <input
+          type="text"
+          name="nombre"
+          value={formData.nombre}
+          onChange={handleChange}
+          className="form-control"
+          required
+        />
       </div>
 
       <div className="mb-3">
@@ -117,18 +143,18 @@ const FormNuevaDireccion = () => {
           className="form-select"
           required
         >
+          <option value="">Seleccione un Departamento</option>
           {country?.departamentos?.map((depto) => (
             <option key={depto.IdDepartamento} value={depto.IdDepartamento}>
               {depto.Nombre}
             </option>
           ))}
-
         </select>
       </div>
 
       <div className="mb-3">
         <label className="form-label">Municipio</label>
-        
+
         <select
           name="idMunicipio"
           value={formData.idMunicipio}
@@ -144,22 +170,39 @@ const FormNuevaDireccion = () => {
             </option>
           ))}
         </select>
-      
       </div>
 
       <div className="mb-3">
         <label className="form-label">Teléfono</label>
-        <input type="text" name="telefono" value={formData.telefono} onChange={handleChange} className="form-control" required />
+        <input
+          type="text"
+          name="telefono"
+          value={formData.telefono}
+          onChange={handleChange}
+          className="form-control"
+          required
+        />
       </div>
 
       <div className="mb-3">
         <label className="form-label">Dirección</label>
-        <textarea name="direccion" value={formData.direccion} onChange={handleChange} className="form-control" required />
+        <textarea
+          name="direccion"
+          value={formData.direccion}
+          onChange={handleChange}
+          className="form-control"
+          required
+        />
       </div>
 
       <div className="mb-3">
         <label className="form-label">Observaciones</label>
-        <textarea name="observaciones" value={formData.observaciones} onChange={handleChange} className="form-control" />
+        <textarea
+          name="observaciones"
+          value={formData.observaciones}
+          onChange={handleChange}
+          className="form-control"
+        />
       </div>
 
       <div className="row justify-content-center">
@@ -179,7 +222,6 @@ const FormNuevaDireccion = () => {
           </button>
         </div>
       </div>
-
     </form>
   );
 };
