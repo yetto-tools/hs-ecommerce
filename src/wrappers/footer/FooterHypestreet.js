@@ -89,16 +89,14 @@ const FooterHypestreet = ({
               <img
                 src="/logo-white-footer.png"
                 alt="HS logo"
-                className="mb-3"
-                style={{ width: "64px", objectFit: "cover" }}
+                className="mb-3 w-64px object-cover"
               />
               <div className="vertical-line"></div>
 
               <img
                 src="/Logo Es Con Hype By. Rayan.png"
                 alt="HS logo"
-                className="mb-3"
-                style={{ width: "64px", objectFit: "contain" }}
+                className="mb-3 w-64px object-contain"
               />
             </div>
             <div className="d-flex justify-content-center">
@@ -168,10 +166,11 @@ const FooterHypestreet = ({
             </ul>
             <div className="d-flex justify-content-end mt-5">
               <img
-                src={"/logo-visa.png"}
+                src={"/logo-visa.webp"}
                 alt="logo-visa"
                 width={80}
                 height={30}
+                loading="lazy"
               />
             </div>
           </div>

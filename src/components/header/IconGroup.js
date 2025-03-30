@@ -68,6 +68,9 @@ const IconGroup = ({ iconWhiteClass }) => {
       <div className="same-style header-compare d-none d-lg-block ms-2">
         <div className="account-setting d-none d-lg-block">
           <button
+            type="button"
+            id="account-button"
+            name="account"
             className="account-setting-active"
             onClick={(e) => handleClick(e)}
           >
@@ -132,7 +135,13 @@ const IconGroup = ({ iconWhiteClass }) => {
       </div>
 
       <div className="same-style cart-wrap d-none d-lg-block ms-2">
-        <button className="icon-cart" onClick={(e) => handleClick(e)}>
+        <button
+          type="button"
+          id="cart-button"
+          name="cart"
+          className="icon-cart"
+          onClick={(e) => handleClick(e)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

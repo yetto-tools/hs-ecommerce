@@ -26,19 +26,9 @@ const ProductCard = ({ product, currency, openModal, index }) => {
                 <LazyLoadImage
                   src={ROOT_IMAGE + product.image[0]}
                   alt={product.name}
-                  className="img"
+                  className="img image-banner-principal"
                   width={192}
                   height={192}
-                  style={{
-                    objectFit: "cover",
-                    backgroundColor: "transparent",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    aspectRatio: "8/7",
-                    transition: "transform 0.5s ease-in-out",
-                    transformOrigin: "center center",
-                  }}
                   loading={index === 0 ? "eager" : "lazy"}
                 />
               </button>

@@ -644,7 +644,7 @@
       font-weight: 600;
       color: #010101;
       /* border: 1px solid #333; */
-      border:none;
+      border: none;
       background-color: #eeeff1;
       @media #{$xs-layout} {
         padding: 14px 30px 16px;
@@ -2946,4 +2946,30 @@
   left: 0;
   transform: translate(10%, -40%);
   padding-left: 50px;
+}
+
+.hs-img-slider {
+  z-index: 0;
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+}
+
+.hs-img-slider-principal {
+  z-index: 0;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: "opacity 0.5s ease-in-out";
+}
+
+.image-banner-principal {
+  object-fit: "cover";
+  background-color: "transparent";
+  background-size: "cover";
+  background-position: "center";
+  background-repeat: "no-repeat";
+  aspect-ratio: "8/7";
+  transition: "transform 0.5s ease-in-out";
+  transform-origin: "center center";
 }

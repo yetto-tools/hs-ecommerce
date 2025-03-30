@@ -24,11 +24,12 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
     return () => observer.disconnect();
   }, []);
 
-
   useEffect(() => {
     const updateImage = () => {
       const isMobile = window.innerWidth <= 1366;
-      setImageSrc(process.env.PUBLIC_URL + (isMobile ? data.mobileImage : data.image));
+      setImageSrc(
+        process.env.PUBLIC_URL + (isMobile ? data.mobileImage : data.image)
+      );
     };
 
     updateImage(); // Configurar imagen al inicio
@@ -38,10 +39,10 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
   }, [data]);
   return (
     <div
-    ref={sliderRef}
-    className="single-slider-2 slider-height-1 d-flex align-items-center slider-height-res mx-auto position-relative overflow-hidden"
-  >
-     {imageLoaded && (
+      ref={sliderRef}
+      className="single-slider-2 slider-height-1 d-flex align-items-center slider-height-res mx-auto position-relative overflow-hidden"
+    >
+      {/* {imageLoaded && (
     <img
       src={imageSrc}
       alt={data?.title || "Slide"}
@@ -54,7 +55,31 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
         transition: "opacity 0.5s ease-in-out",
       }}
     />
-  )}
+  )} */}
+
+      {imageLoaded && (
+        <picture>
+          {/* Imagen para escritorio */}
+          <source
+            media="(min-width: 1367px)"
+            srcSet={process.env.PUBLIC_URL + data.image}
+            type="image/webp"
+          />
+          {/* Imagen para móvil */}
+          <source
+            media="(max-width: 1366px)"
+            srcSet={process.env.PUBLIC_URL + data.mobileImage}
+            type="image/webp"
+          />
+          {/* Fallback */}
+          <img
+            src={process.env.PUBLIC_URL + data.image}
+            alt={data?.title || "Slide"}
+            className="hero-slide-img position-absolute w-100 h-100 object-fit-cover hs-img-slider-principal"
+          />
+        </picture>
+      )}
+
       <div className="container">
         {typeof data === "object" && data.title.length > 0 && (
           <div className="row justify-content-start">
@@ -78,7 +103,9 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
                   <Link
                     className="animated text-black"
                     style={{ borderRadius: "0.5rem" }}
-                    to={process.env.PUBLIC_URL + "productos?categoria="+ data.url}
+                    to={
+                      process.env.PUBLIC_URL + "productos?categoria=" + data.url
+                    }
                   >
                     {data.button}
                   </Link>
@@ -103,8 +130,6 @@ HeroSliderNineSingle.propTypes = {
 };
 
 export default HeroSliderNineSingle;
-
-
 
 // import PropTypes from "prop-types";
 // import { useState, useEffect, useRef } from "react";
@@ -131,7 +156,6 @@ export default HeroSliderNineSingle;
 
 //     return () => observer.disconnect();
 //   }, []);
-
 
 //   useEffect(() => {
 //     const updateImage = () => {
@@ -205,4 +229,3 @@ export default HeroSliderNineSingle;
 // };
 
 // export default HeroSliderNineSingle;
-
