@@ -11,6 +11,7 @@ export const adapterUsuario = (data) => {
 
 export const adapterAddressUser = (direccion) => {
   return {
+    idAddress: direccion.IdUsuario_Direccion,
     idUser: direccion.IdUsuario,
     name: direccion.Nombre || "",
     idCountry: direccion.IdPais,
@@ -19,13 +20,33 @@ export const adapterAddressUser = (direccion) => {
     phone: direccion.Telefono || "",
     address: direccion.Direccion || "",
     comment: direccion.Observaciones || "",
-    default: direccion.Predeterminada === 1,
+    default: direccion.Predeterminada || 0,
     status: direccion.Estado || 0,
   };
 };
 
 export const adapterAddressesUser = (direcciones) => {
   return direcciones.map((direccion) => adapterAddressUser(direccion));
+};
+
+export const adapterNewAdressesUser = (direcciones) => {
+  return direcciones.map((direccion) => adapterNewAdressUser(direccion));
+};
+
+export const adapterNewAdressUser = (direccion) => {
+  return {
+    idAddress: direccion.IdUsuario_Direccion || 0,
+    idUser: direccion.IdUsuario,
+    name: direccion.Nombre || "",
+    idCountry: direccion.IdPais,
+    idState: direccion.IdDepartamento,
+    idCity: direccion.IdMunicipio,
+    phone: direccion.Telefono || "",
+    address: direccion.Direccion || "",
+    comment: direccion.Observaciones || "",
+    default: direccion.Predeterminada || 0,
+    status: direccion.Estado || 0,
+  };
 };
 
 export const adapterLoginUser = (data) => {
