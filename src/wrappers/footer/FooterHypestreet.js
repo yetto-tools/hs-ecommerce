@@ -15,7 +15,7 @@ const FooterHypestreet = ({
   extraFooterClass,
 }) => {
   const { t } = useTranslation();
-const { params } = useSelector((state) => state.paramsWeb);
+  const { params } = useSelector((state) => state.paramsWeb);
   const [storeInfo, setStoreInfo] = useState({});
 
   useEffect(() => {
@@ -158,7 +158,10 @@ const { params } = useSelector((state) => state.paramsWeb);
                 </Link>
               </li>
               <li>
-                <Link className="text-white text-hover-green-hs" to={storeInfo?.whatsapp}>
+                <Link
+                  className="text-white text-hover-green-hs"
+                  to={storeInfo?.whatsapp}
+                >
                   {t("whatsapp")}
                 </Link>
               </li>
@@ -176,12 +179,8 @@ const { params } = useSelector((state) => state.paramsWeb);
       </div>
 
       <div className="text-center mt-4">
-        <span className="text-black text-hover-green-hs">
-          {}
-        </span>
+        <span className="text-black text-hover-green-hs">{}</span>
       </div>
-
-     
     </footer>
   );
 };
