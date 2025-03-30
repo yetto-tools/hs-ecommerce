@@ -1,12 +1,11 @@
 import clsx from "clsx";
 import { Loader2, LogIn } from "lucide-react";
-import { useEffect,  useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchLogin } from "../../hooks/use-FetchUsuario";
 
-export const FormLogin = ({ style , inputRef}) => {
-  
+export const FormLogin = ({ setFormValues, style, inputRef }) => {
   const dispatch = useDispatch();
 
   const { usuario } = useSelector((state) => state.usuario);
@@ -31,19 +30,27 @@ export const FormLogin = ({ style , inputRef}) => {
 
   const handleLoginChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
+    setFormValues((prev) => ({
+      ...prev,
+      ["idCliente"]: e.target.value,
+    }));
   };
 
   useEffect(() => {
     if (!usuario) {
       setLoginData({ id: 0, email: "", password: "" });
+    } else {
+      setFormValues((prev) => ({
+        ...prev,
+        ["idCliente"]: usuario.id,
+        ["phone"]: usuario.phone1,
+      }));
     }
   }, [usuario]);
 
-
-
   return (
     <form onSubmit={handleLoginSubmit} method="post">
-      <div className="billing-info pb-4">
+      <div className="billing-info pb-4" id="login-section">
         {usuario ? (
           <div className="mb-5">
             <h3>Usuario</h3>
