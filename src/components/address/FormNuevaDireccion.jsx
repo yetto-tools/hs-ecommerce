@@ -30,7 +30,6 @@ const FormNuevaDireccion = ({ setShowAddressNew }) => {
 
   // Filtrar municipios al seleccionar un departamento
   useEffect(() => {
-    console.log(usuario);
     if (formData.idDepartamento) {
       const filtrados = country?.municipios?.filter(
         (mun) => Number(mun.IdDepartamento) === Number(formData.idDepartamento)
