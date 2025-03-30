@@ -10,6 +10,8 @@ import cogoToast from "cogo-toast";
 import {
   adapterAddressesUser,
   adapterLoginUser,
+  adapterNewAdressesUser,
+  adapterNewAdressUser,
   adapterUsuario,
 } from "../adapters/usuario";
 import { adapterMessage } from "../adapters/message";
@@ -121,15 +123,12 @@ export const fetchResetPassword = (userData) => {
         throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
       }
 
-
       let jsonResponse;
       try {
         jsonResponse = await response.json();
       } catch {
         throw new Error("La respuesta del servidor no es un JSON válido.");
       }
-
-  
 
       cogoToast.success(
         `Bienvenido: ${data?.respuesta?.Respuesta || "Usuario"}`,
@@ -146,21 +145,23 @@ export const fetchResetPassword = (userData) => {
   };
 };
 
-
-
-export const fetchNewAdressUser = (idUser, newAddressData, enableLoading = false) => {
+export const fetchNewAdressUser = (
+  idUser,
+  newAddressData,
+  enableLoading = false
+) => {
   return async (dispatch) => {
-    
     dispatch(setLoading(enableLoading));
-
+    let isSuccess = false;
     if (!idUser) {
       cogoToast.warn("Los datos del usuario son requeridos", {
         position: "bottom-left",
       });
       return;
     }
-    const url = `${API_URL}/api/v1/addresses/new-address`;
 
+    const url = `${API_URL}/api/v1/addresses/new-address`;
+    newAddressData.observaciones = newAddressData.observaciones || "--";
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -169,7 +170,50 @@ export const fetchNewAdressUser = (idUser, newAddressData, enableLoading = false
       });
 
       const responseJson = await response.json(); // Primero obtener la respuesta y luego verificar el estado
-      const { data, message }  = responseJson; // Primero obtener la respuesta y luego verificar el estado
+      const { data, message } = responseJson; // Primero obtener la respuesta y luego verificar el estado
+      const { message: mensaje } = adapterMessage(message);
+      if (!response.ok) {
+        throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
+      }
+
+      const { direcciones } = data;
+
+      console.log(direcciones);
+      const addresses = adapterNewAdressesUser(direcciones);
+      dispatch(userAddress(addresses));
+      console.log(addresses);
+      cogoToast.success("Dirección guardada correctamente");
+      isSuccess = true;
+    } catch (error) {
+      cogoToast.warn(error.message, { position: "bottom-left" });
+    } finally {
+      dispatch(setLoading(false));
+      return isSuccess;
+    }
+  };
+};
+
+export const fetchAdressUser = (usuario, enableLoading = false) => {
+  return async (dispatch) => {
+    dispatch(setLoading(enableLoading));
+
+    if (!usuario?.id) {
+      cogoToast.warn("Los datos del usuario son requeridos", {
+        position: "bottom-left",
+      });
+      return;
+    }
+
+    const url = `${API_URL}/api/v1/user/${usuario.id}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const responseJson = await response.json(); // Primero obtener la respuesta y luego verificar el estado
+      const { data, message } = responseJson; // Primero obtener la respuesta y luego verificar el estado
       const { message: mensaje } = adapterMessage(message);
       if (!response.ok) {
         throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
@@ -177,7 +221,7 @@ export const fetchNewAdressUser = (idUser, newAddressData, enableLoading = false
 
       responseJson.data = adapterAddressesUser(responseJson.data);
       dispatch(userAddress(responseJson.data));
-            
+
       cogoToast.success(
         `Bienvenido: ${data?.respuesta?.Respuesta || "Usuario"}`,
         {
@@ -192,55 +236,3 @@ export const fetchNewAdressUser = (idUser, newAddressData, enableLoading = false
     }
   };
 };
-
-export const fetchAdressUser = (usuario, enableLoading = false) => {
-  return async (dispatch) => {
-
-  dispatch(setLoading(enableLoading));
-
-    if (!usuario?.id) {
-      cogoToast.warn("Los datos del usuario son requeridos", {
-        position: "bottom-left",
-      });
-      return;
-    }
-    const usuario = btoa({
-      idUsuario: usuario.id,
-      correo: usuario.email,
-      nombre: usuario.name
-    })
-
-    const bodyContent = `${usuario.id}|${usuario.correo}|${usuario.nombre}`;
-
-    const url = `${API_URL}/api/v1/user/${bodyContent}`;
-
-    try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const responseJson = await response.json(); // Primero obtener la respuesta y luego verificar el estado
-      const { data, message }  = responseJson; // Primero obtener la respuesta y luego verificar el estado
-      const { message: mensaje } = adapterMessage(message);
-      if (!response.ok) {
-        throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
-      }
-
-      responseJson.data = adapterAddressesUser(responseJson.data);
-      dispatch(userAddress(responseJson.data));
-            
-      cogoToast.success(
-        `Bienvenido: ${data?.respuesta?.Respuesta || "Usuario"}`,
-        {
-          position: "top-center",
-          onClick: (toast) => toast.hide(),
-        }
-      );
-    } catch (error) {
-      cogoToast.warn(error.message, { position: "bottom-left" });
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
-}
