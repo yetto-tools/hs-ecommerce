@@ -1,10 +1,10 @@
-const CACHE_NAME = 'cra-cache-v1'; // Opcional si quieres seguir usando esta lógica
+const CACHE_NAME = "cra-cache-v1"; // Opcional si quieres seguir usando esta lógica
 const CURRENT_VERSION = __APP_VERSION__; // inyectado automáticamente
-const OFFLINE_URL = '/offline.html';
-const VERSION_URL = '/version.json';
+const OFFLINE_URL = "/offline.html";
+const VERSION_URL = "/version.json";
 
-self.addEventListener('install', (event) => {
-  console.log('[SW] Instalando...');
+self.addEventListener("install", (event) => {
+  console.log("[SW] Instalando...");
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
@@ -15,24 +15,26 @@ self.addEventListener('install', (event) => {
       const remoteVersion = data.version;
 
       if (remoteVersion !== CURRENT_VERSION) {
-        console.log(`[SW] Versión actual (${CURRENT_VERSION}) no coincide con versión remota (${remoteVersion}). Borrando caché...`);
+        console.log(
+          `[SW] Versión actual (${CURRENT_VERSION}) no coincide con versión remota (${remoteVersion}). Borrando caché...`
+        );
         await caches.delete(CACHE_NAME);
       } else {
-        console.log('[SW] Versión actual válida:', CURRENT_VERSION);
+        console.log("[SW] Versión actual válida:", CURRENT_VERSION);
       }
     })()
   );
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
-  console.log('[SW] Activando...');
+self.addEventListener("activate", (event) => {
+  console.log("[SW] Activando...");
   event.waitUntil(
     caches.keys().then((cacheNames) =>
       Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log('[SW] Borrando caché antigua:', cache);
+            console.log("[SW] Borrando caché antigua:", cache);
             return caches.delete(cache);
           }
         })
@@ -42,8 +44,8 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
+self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") return;
 
   event.respondWith(
     (async () => {
@@ -57,7 +59,7 @@ self.addEventListener('fetch', (event) => {
 
         return networkResponse;
       } catch (error) {
-        console.error('[SW] Sin conexión. Borrando caché y mostrando offline.');
+        console.error("[SW] Sin conexión. Borrando caché y mostrando offline.");
 
         await caches.delete(CACHE_NAME);
 
@@ -65,10 +67,13 @@ self.addEventListener('fetch', (event) => {
 
         const cache = await caches.open(CACHE_NAME);
         const offlinePage = await cache.match(OFFLINE_URL);
-        return offlinePage || new Response('Sin conexión.', {
-          status: 503,
-          statusText: 'Service Unavailable'
-        });
+        return (
+          offlinePage ||
+          new Response("Sin conexión.", {
+            status: 503,
+            statusText: "Service Unavailable",
+          })
+        );
       }
     })()
   );
