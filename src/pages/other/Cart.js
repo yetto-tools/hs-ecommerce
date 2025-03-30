@@ -102,9 +102,9 @@ const Cart = () => {
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
-                                    <Link 
-                                      to={"/productos?busqueda=" + cartItem.sku}
-                                    >
+                                  <Link
+                                    to={"/productos?busqueda=" + cartItem.sku}
+                                  >
                                     <img
                                       className="img-fluid"
                                       src={ROOT_IMAGE + cartItem.images[0]}
@@ -255,7 +255,6 @@ const Cart = () => {
                     <div className="cart-shiping-update-wrapper ">
                       <div className="cart-shiping-update ">
                         <Link
-                          
                           to={process.env.PUBLIC_URL + "/productos"}
                           className="text-black"
                         >
@@ -356,9 +355,8 @@ const Cart = () => {
                         </span>
                       </h5> */}
 
-                      <h4 className="grand-totall-title mb-5" >
-                        <span className="mb-4" >
-                          
+                      <h4 className="grand-totall-title mb-5">
+                        <span className="mb-4">
                           {new Intl.NumberFormat(i18n.language, {
                             style: "currency",
                             currency: currency.currencyName,
@@ -393,13 +391,10 @@ const Cart = () => {
               </div>
             )}
           </div>
-
         </div>
       </LayoutOne>
     </Fragment>
   );
 };
-
-
 
 export default Cart;
