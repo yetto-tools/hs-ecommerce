@@ -20,11 +20,17 @@ import { FormDireccionEntrega } from "../payment/FormDireccionEntrega";
 import { FormLogin } from "../payment/FormLogin";
 
 import cogoToast from "cogo-toast";
-import { CreditCardForm } from "../payment/CreditCardForm";
-import { scrollToElement } from "../../helpers/scroll-top";
-import { Car, Loader2, Search, Send } from "lucide-react";
-import { API_URL } from "../../config";
 
+import { scrollToElement } from "../../helpers/scroll-top";
+import { Loader2, Send } from "lucide-react";
+import { API_URL } from "../../config";
+import { generarCorrelativoFactura } from "../../helpers/validator";
+import Decimal from "decimal.js";
+import { fetchOrder } from "../../hooks/use-FetchOrder";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+import { deleteAllFromCart } from "../../store/slices/cart-slice";
 
 const Checkout = () => {
   const { t, i18n } = useTranslation();
@@ -33,10 +39,11 @@ const Checkout = () => {
   let { pathname } = useLocation();
 
   const { country } = useSelector((state) => state.paramsWeb);
-  const { usuario } = useSelector((state) => state.usuario);
-
+  const { usuario, address } = useSelector((state) => state.usuario);
+  const { params } = useSelector((state) => state.paramsWeb);
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
+  const [loadingOrder, setLoadingOrder] = useState(false);
 
   const dispatch = useDispatch();
   const { validacionNit, loading, error } = useSelector(
@@ -51,6 +58,7 @@ const Checkout = () => {
 
   const [errorsValidate, setErrorsValidate] = useState(false);
   const [show, setShow] = useState(false);
+  const [showAddressNew, setShowAddressNew] = useState(false);
 
   const style = {
     fontWeight: "500",
@@ -89,9 +97,6 @@ const Checkout = () => {
       return;
     }
     dispatch(fetchValidaNIT(nitCliente));
-
-    
-
   };
 
   // 🟢 Auto completar formulario cuando se reciba la respuesta de validación
@@ -115,117 +120,144 @@ const Checkout = () => {
         firstName = nameParts[1].trim();
         lastName = nameParts[0].trim();
       }
-      console.log("Datos recibidos:", {
-        nameCliente: validacionNit.Nombre,
-        firstName,
-        lastName,
-        nitCliente: validacionNit.Nit,
-      });
+
       setFormValues((prev) => ({
         ...prev,
         nameCliente: validacionNit.Nombre,
         nitCliente: validacionNit.Nit,
+        firstName: validacionNit.Nombre,
+        lastNameCliente: "",
       }));
     }
     inputRef.current?.focus();
   }, [usuario, validacionNit, error]);
 
-  const handleSendOrder = async(e) => {
+  const handleInvoces = async (e) => {
     e.preventDefault();
 
-    if (usuario === null) {
-      setShow(true);
-      cogoToast.info("Debe Iniciar Sesión", { position: "top-center" });
-      document.documentElement.scrollTo(0, 0);  
-      inputRef.current?.focus();
-      console.log(inputRef.current);
+    if (!formValues.idCliente) {
+      cogoToast.error("Debe de Iniciar Sesión");
+      scrollToElement("login-section");
       return;
     }
 
     if (!formValues.nitCliente) {
-      cogoToast.error("Debe ingresar un NIT ");
-      scrollToElement("billing-info");
+      cogoToast.error("Debe de Agregar nit / dpi");
+      scrollToElement("nit-section");
+      document.querySelector("#nit-section > button").click();
       return;
     }
+    if (!formValues.nameCliente) {
+      cogoToast.error("Debe de Agregar nit / dpi para Validar");
+      scrollToElement("nit-section");
+      document.querySelector("#nit-section > button").click();
+      return;
+    }
+    if (
+      !formValues.idDireccion === "Elegir dirección" ||
+      formValues.idDireccion === "" ||
+      formValues.idDireccion === null ||
+      formValues.idDireccion === undefined
+    ) {
+      cogoToast.error("Debe de Agregar una dirección");
+      return;
+    }
+
     if (cartItems.length === 0) {
       cogoToast.error("Debe de Agregar Productos al Carrito");
       return;
     }
 
-    try {
-      const respuesta = await handleCheckNit();
-      console.log(respuesta);
+    // Cliente
+    // let orderCliente = adapterOrderCustomer(formValues);
+    // console.log(orderCliente);
+    // Productos
+    const orderProducts = adapterOrderProducts(cartItems, {
+      iva: 1.12,
+      idAlmacen: 1,
+    });
 
-      if (error) {
-        return;
+    const { address: defaultAddress } = address.find(
+      (item) => item.idAddress === Number(formValues.idDireccion)
+    );
+
+    let order = {};
+    order = adapterOrderCustomer(formValues);
+    order.idCliente = usuario.id;
+    order.idDireccion = formValues.idDireccion;
+    order.products = orderProducts;
+    order.correoCliente = usuario.email;
+    order.telefonoCliente = formValues.phone;
+    order.direccionCliente = defaultAddress;
+    order.comentarios = formValues.message || "";
+    order.impuesto = formValues.impuesto;
+    order.total = Number(cartTotalPrice.toFixed(2));
+    order.impuesto = Number(
+      new Decimal(cartTotalPrice - cartTotalPrice / 1.12).toFixed(2)
+    );
+    order.documentoLocal = generarCorrelativoFactura();
+    order.BAC_HASH = "1";
+    order.BAC_MONTO = Number(cartTotalPrice.toFixed(2));
+    order.IdUsuario_Direccion = formValues.idDireccion;
+
+    const { Valor } = params.find((item) => item.Nombre === "ENTORNOPRUEBAS");
+
+    if (Number(Valor) !== Number(formValues.nitCliente)) {
+      cogoToast.error(
+        "Entorno de Pruebas Activado Verifique El Nit del Cliente para realizar la prueba",
+        {
+          position: "top-center",
+        }
+      );
+      return;
+    }
+
+    try {
+      setLoadingOrder(true);
+      const url = `${API_URL}/api/v1/invoices`;
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+      });
+      const jsonResponse = await response.json(); // Primero obtener la respuesta y luego verificar el estado
+
+      if (!response.ok) {
+        const { message } = jsonResponse;
+        console.log(message);
+        throw new Error(message || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
       }
 
-      // Cliente
-      const orderCliente = adapterOrderCustomer(formValues);
-
-      // Productos
-      const orderProducts = adapterOrderProducts(cartItems, {
-        iva: 1.12,
-        idAlmacen: 1,
-      });
-
-      // Construcción del JSON final
-      const order = { orderCliente, products: orderProducts };
-
-      console.log(API_URL+"/api/invoices");
-      console.log("Orden Generada:", order);
-
-      // Aquí puedes enviarlo al backend
-      // fetch(API_URL +"/api/invoices", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(order),
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     alert("Pédido enviada con éxito!");
-      //     console.log("Respuesta del servidor:", data);
-      //   })
-      //   .catch((error) => {
-      //     console.error(" un error durante la validación de datos", error);
-      //     console.error("Hubo un error durante la validación de datos");
-      //   });
+      const { data, message } = jsonResponse;
+      if (message === "success") {
+        handleAlert();
+        dispatch(deleteAllFromCart());
+        return;
+      }
     } catch (error) {
-      console.error("Error: Hubo un error durante la validación de datos");
+      console.error("Hubo un error durante la validación de datos");
+      cogoToast.error(`${error}`, { position: "bottom-center" });
     } finally {
-      dispatch(setError(false));
+      setLoadingOrder(false);
     }
   };
 
-  const handleInvoces = (e) => {
-    e.preventDefault();
-
-  
-        // Cliente
-          const orderCliente = adapterOrderCustomer(formValues);
-
-          // Productos
-          const orderProducts = adapterOrderProducts(cartItems, {
-            iva: 1.12,
-            idAlmacen: 1,
-          });
-          
-         let ordern = {}
-         ordern = adapterOrderCustomer(formValues);
-         ordern.products = orderProducts;
-    console.log({
-      ordern
-      
-    });
-    
-  };
-
   const handleClose = () => setShow(false);
-  
+  const MySwal = withReactContent(Swal);
 
-
-
-
+  const handleAlert = () => {
+    MySwal.fire({
+      position: "center",
+      icon: "success",
+      title: "Su Pedido ha sido enviado, nos pondremos en contacto con usted",
+      showConfirmButton: true,
+      timer: 2500,
+      customClass: {
+        confirmButton: "button-active-hs btn-black fw-bold mt-1 px-4 py-2",
+      },
+    });
+  };
   return (
     <Fragment>
       <SEO
@@ -246,13 +278,17 @@ const Checkout = () => {
               <div className="row">
                 <div className="col-lg-6  col-md-12">
                   <div className="billing-info-wrap mb-30">
-                    <FormLogin style={style}  inputRef={inputRef}/>
+                    <FormLogin
+                      setFormValues={setFormValues}
+                      style={style}
+                      inputRef={inputRef}
+                    />
                   </div>
 
                   <div className="billing-info-wrap" id="billing-info">
-                    <h3 >{t("page_checkout.billing_details")}</h3>
+                    <h3>{t("page_checkout.billing_details")}</h3>
                     <div className="row">
-                      <div className="col-lg-12">
+                      <div className="col-lg-12" id="nit">
                         <FormDatosCliente
                           formValues={formValues}
                           handleChange={handleChange}
@@ -268,28 +304,37 @@ const Checkout = () => {
                       </div>
                       <FormDireccionEntrega
                         country={country}
+                        setFormValues={setFormValues}
                         formValues={formValues}
                         handleChange={handleChange}
                         errorsValidate={errorsValidate}
+                        setShowAddressNew={setShowAddressNew}
+                        showAddressNew={showAddressNew}
                       />
 
                       <div className="mt-5">
-                        <h3>Confirmar Orden de Compra</h3>
+                        <h3
+                          onClick={() => {
+                            console.log(cartItems);
+                          }}
+                        >
+                          Confirmar Orden de Compra
+                        </h3>
                         <hr />
                         <button
-                            type="submit"
-                            className="button-active-hs btn-black w-100 d-flex justify-content-center align-items-center gap-2 py-2"
-                            disabled={loading}
-                            onClick={handleInvoces}
-                          >
-                            <span>{t("send_message")}</span>
+                          type="submit"
+                          className="button-active-hs btn-black w-100 d-flex justify-content-center align-items-center gap-2 py-2"
+                          disabled={loadingOrder}
+                          onClick={handleInvoces}
+                        >
+                          <span>{t("send_message")}</span>
 
-                            {loading ? (
-                              <Loader2 className="animate-spin" />
-                            ) : (
-                              <Send className="position-relative" />
-                            )}
-                          </button>
+                          {loadingOrder ? (
+                            <Loader2 className="animate-spin" />
+                          ) : (
+                            <Send className="position-relative" />
+                          )}
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -385,10 +430,7 @@ const Checkout = () => {
                             <li>{t("page_checkout.free_shipping")}</li>
                           </ul>
                         </div>
-                        <div
-                          className="your-order-total"
-                          
-                        >
+                        <div className="your-order-total">
                           <ul>
                             <li className="order-total fw-bold">Total</li>
                             <li>
