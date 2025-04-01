@@ -6,15 +6,18 @@ import MenuCart from "./sub-components/MenuCart";
 import { useTranslation } from "react-i18next";
 import { ShoppingCart } from "lucide-react";
 import { fetchSearchArticles } from "../../hooks/use-FetchArticles";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { logout } from "../../store/slices/usuario-slice";
 
 const IconGroup = ({ iconWhiteClass }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userRef = useRef(null);
+
   const handleClick = (e) => {
-    e.currentTarget.nextSibling.classList.toggle("active");
+    e?.currentTarget?.nextSibling?.classList?.toggle("active");
   };
 
   const triggerMobileMenu = () => {
@@ -41,6 +44,19 @@ const IconGroup = ({ iconWhiteClass }) => {
     dispatch(logout()); // Disparar la acción de logout
     navigate("/inicio");
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []); // Array de dependencias vacío para que solo se aplique al montar y desmontar
+  function handleClickOutside(event) {
+    if (userRef.current && !userRef.current.contains(event.target)) {
+      // revove class active
+      userRef.current.classList.remove("active");
+    }
+  }
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
@@ -92,7 +108,11 @@ const IconGroup = ({ iconWhiteClass }) => {
               <path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path>
             </svg>
           </button>
-          <div className="account-dropdown" style={{ width: "280px" }}>
+          <div
+            className="account-dropdown"
+            style={{ width: "280px" }}
+            ref={userRef}
+          >
             <ul>
               <li>
                 <Link to={process.env.PUBLIC_URL + "/login"}>
