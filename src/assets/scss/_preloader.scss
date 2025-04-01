@@ -6,7 +6,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #f7f7f7;
+  background-color: #00000092;
+  backdrop-filter: blur(5px);
+  //opacity: 0.5;
   z-index: 999999;
 }
 
@@ -31,13 +33,13 @@
   height: 150px;
   border-radius: 100%;
   background: #b8db15;
-  -webkit-animation: preloader 1.3s linear infinite;
-  animation: preloader 1.3s linear infinite;
+  -webkit-animation: preloader 1s linear infinite;
+  animation: preloader 1s linear infinite;
 }
 
 .flone-preloader span:last-child {
-  animation-delay: -0.8s;
-  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.5s;
+  -webkit-animation-delay: -0.5s;
 }
 
 @keyframes preloader {

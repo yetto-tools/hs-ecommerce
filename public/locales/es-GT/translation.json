@@ -145,7 +145,8 @@
     "cart_color": "Color",
     "cart_size": "Talla",
     "continue_shopping": "Continuar Comprando",
-    "clear_shopping_cart": "Limpiar Carrito"
+    "clear_shopping_cart": "Limpiar Carrito",
+    "cart_out_of_stock": "Sin Existencias"
   },
   "page_checkout": {
     "titleTemplate": "Confirma Compra",

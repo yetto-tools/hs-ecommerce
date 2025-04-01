@@ -327,12 +327,12 @@ h3.cart-page-title {
           cursor: pointer;
 
           color: #242424;
-//background: #fff url("../../assets/img/icon-img/cart.png") no-repeat scroll right 18px center;
+          //background: #fff url("../../assets/img/icon-img/cart.png") no-repeat scroll right 18px center;
           border: 1px solid #ebebeb;
           box-shadow: none;
 
           -webkit-appearance: none;
-             -moz-appearance: none;
+          -moz-appearance: none;
         }
         input {
           height: 40px;
@@ -518,7 +518,8 @@ h3.cart-page-title {
     text-align: center;
     text-transform: capitalize;
 
-    color: #fff;
+    color: #000;
+
     border-radius: 3px;
     background-color: #000;
     &:hover {

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import HeroSliderNine from "../../wrappers/hero-slider/HeroSliderNine";
@@ -10,71 +10,10 @@ import BannerMultiColumn from "../../components/banner/BannerMultiColumn";
 import BannerMultiColumnImage from "../../components/banner/BannerMultiColumnImage";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNewArticles } from "../../hooks/use-FetchArticles";
-
+import brand from "../../data/BannerPrincipal.json";
 const HomeFashionTwo = () => {
-  const brands = [
-    {
-      id: 1,
-      logo: "",
-      image: "/assets/img/marcas/new era.jpg",
-      imageHover: "/assets/img/marcas/new era-hover.jpg",
-      name: "new era",
-    },
-    {
-      id: 2,
-      logo: "",
-      image: "/assets/img/marcas/mitchell.jpg",
-      imageHover: "/assets/img/marcas/mitchell-hover.jpg",
-      name: "mitchell & ness",
-    },
-    {
-      id: 3,
-      logo: "",
-      image: "/assets/img/marcas/adidas.jpg",
-      imageHover: "/assets/img/marcas/adidas-hover.jpg",
-      name: "adidas",
-    },
-    {
-      id: 4,
-      logo: "",
-      image: "/assets/img/marcas/nike.jpg",
-      imageHover: "/assets/img/marcas/nike-hover.jpg",
-      name: "nike",
-    },
-    {
-      id: 5,
-      logo: "",
-      image: "/assets/img/marcas/jordan.jpg",
-      imageHover: "/assets/img/marcas/jordan-hover.jpg",
-      name: "jordan",
-    },
-    {
-      id: 6,
-      logo: "",
-      image: "/assets/img/marcas/puma.jpg",
-      name: "puma",
-    },
-    {
-      id: 7,
-      logo: "",
-      image: "/assets/img/marcas/new-balance.jpg",
-      name: "new balance",
-    },
-    {
-      id: 8,
-      logo: "",
-      image: "/assets/img/marcas/asics.jpg",
-      imageHover: "/assets/img/marcas/asics-hover.jpg",
-      name: "asics",
-    },
-    // {
-    //   id: 9,
-    //   logo: "/assets/img/marcas/test-puma-hover.png",
-    //   image: "/assets/img/marcas/test-puma.jpg",
-    //   imageHover: "/assets/img/marcas/test-puma-hover.png",
-    //   name: "asics",
-    // },
-  ];
+  const [data, setData] = useState(null);
+
   return (
     <Fragment>
       <SEO
@@ -104,7 +43,7 @@ const HomeFashionTwo = () => {
           {/*  */}
 
           <div className="bg-black container-fluid d-flex flex-column justify-content-around align-items-center align-items-center">
-            <CustomSlider slides={brands} />
+            <CustomSlider slides={brand} />
           </div>
 
           <div className="bg-black container-fluid d-flex flex-column justify-content-around align-items-center align-items-center">

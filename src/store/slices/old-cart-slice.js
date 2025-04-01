@@ -106,24 +106,6 @@ const cartSlice = createSlice({
     deleteAllFromCart(state) {
       state.cartItems = [];
     },
-    updateCartItemQuantity(state, action) {
-      const { cartItemId, quantity } = action.payload;
-      const index = state.cartItems.findIndex(
-        (item) => item.cartItemId === cartItemId
-      );
-      if (index !== -1) {
-        state.cartItems[index].quantity = quantity;
-      }
-    },
-    markItemAsSoldOut(state, action) {
-      const { cartItemId } = action.payload;
-      const index = state.cartItems.findIndex(
-        (item) => item.cartItemId === cartItemId
-      );
-      if (index !== -1) {
-        state.cartItems[index].isSoldOut = true;
-      }
-    },
   },
 });
 
@@ -132,7 +114,5 @@ export const {
   deleteFromCart,
   decreaseQuantity,
   deleteAllFromCart,
-  updateCartItemQuantity,
-  markItemAsSoldOut,
 } = cartSlice.actions;
 export default cartSlice.reducer;

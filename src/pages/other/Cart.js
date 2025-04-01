@@ -1,6 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SEO from "../../components/seo";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -10,11 +10,18 @@ import {
   decreaseQuantity,
   deleteFromCart,
   deleteAllFromCart,
+  updateCartItemQuantity,
+  markItemAsSoldOut,
 } from "../../store/slices/cart-slice";
 import { cartItemStock } from "../../helpers/product";
 import { useTranslation } from "react-i18next";
 import { ROOT_IMAGE } from "../../config";
-import ProductModal2 from "../../components/product/ProductModal2";
+import { fetchStock } from "../../hooks/use-FetchStock";
+import cogoToast from "cogo-toast";
+import { Button } from "react-bootstrap";
+import clsx from "clsx";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 const Cart = () => {
   const { t, i18n } = useTranslation();
@@ -27,12 +34,58 @@ const Cart = () => {
 
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
-  const [modalShow, setModalShow] = useState(false);
+  const [readyToCheckout, setReadyToCheckout] = useState(false);
+  const navigate = useNavigate();
 
-  const handleProductQuickView = (product) => {
-    setModalShow(true);
+  useEffect(() => {
+    verifyStockAndSetReady();
+  }, [cartItems]);
+
+  const verifyStockAndSetReady = async () => {
+    let allItemsAvailable = true;
+    for (const item of cartItems) {
+      const stock = await fetchStock(item.code);
+      if (stock === 0) {
+        dispatch(markItemAsSoldOut({ cartItemId: item.cartItemId }));
+        allItemsAvailable = false;
+      } else if (item.quantity > stock) {
+        // dispatch(
+        //   updateCartItemQuantity({
+        //     cartItemId: item.cartItemId,
+        //     quantity: stock,
+        //   })
+        // );
+        // cogoToast.warn(
+        //   `La cantidad de ${item.name} ha sido ajustada debido a cambios en el stock.`
+        // );
+        allItemsAvailable = false;
+      }
+    }
+    setReadyToCheckout(allItemsAvailable);
   };
 
+  const handleCheckout = () => {
+    if (!readyToCheckout) {
+      handleAlert();
+      return;
+    }
+    navigate("/checkout");
+  };
+
+  const MySwal = withReactContent(Swal);
+
+  const handleAlert = () => {
+    MySwal.fire({
+      position: "center",
+      icon: "warning",
+      title: "el producto no se encuentra disponible",
+      showConfirmButton: true,
+      timer: 2500,
+      customClass: {
+        confirmButton: "button-active-hs btn-black fw-bold mt-1 px-4 py-2",
+      },
+    });
+  };
   return (
     <Fragment>
       <SEO titleTemplate={t("seo.title")} description={t("seo.cart")} />
@@ -184,12 +237,26 @@ const Cart = () => {
                                     >
                                       -
                                     </button>
-                                    <input
-                                      className="cart-plus-minus-box"
-                                      type="text"
-                                      value={cartItem.quantity}
-                                      readOnly
-                                    />
+                                    {readyToCheckout ? (
+                                      <input
+                                        className="cart-plus-minus-box"
+                                        type="text"
+                                        value={cartItem.quantity}
+                                        readOnly
+                                      />
+                                    ) : (
+                                      <>
+                                        <input
+                                          className="cart-plus-minus-box border-danger text-danger fw-semibold"
+                                          type="text"
+                                          value={0}
+                                          readOnly
+                                        />
+                                        <small className="text-danger fw-semibold">
+                                          {t("page_cart.cart_out_of_stock")}
+                                        </small>
+                                      </>
+                                    )}
                                     <button
                                       className="inc qtybutton"
                                       onClick={() =>
@@ -363,12 +430,16 @@ const Cart = () => {
                           }).format(cartTotalPrice)}
                         </span>
                       </h4>
-                      <Link
-                        to={process.env.PUBLIC_URL + "/checkout"}
-                        className="button-active-hs btn-black fw-bold"
+                      <button
+                        className={clsx(
+                          "button-active-hs btn-black fw-bold",
+                          { "btn-disabled": !readyToCheckout } // Esto es solo un ejemplo
+                        )}
+                        disabled={!readyToCheckout}
+                        onClick={handleCheckout}
                       >
                         Comprar Ahora
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
