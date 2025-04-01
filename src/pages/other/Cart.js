@@ -78,7 +78,7 @@ const Cart = () => {
     MySwal.fire({
       position: "center",
       icon: "warning",
-      title: "el producto no se encuentra disponible",
+      title: "Hay productos sin existencia, debe de quitarlos del carrito",
       showConfirmButton: true,
       timer: 2500,
       customClass: {
@@ -435,7 +435,6 @@ const Cart = () => {
                           "button-active-hs btn-black fw-bold",
                           { "btn-disabled": !readyToCheckout } // Esto es solo un ejemplo
                         )}
-                        disabled={!readyToCheckout}
                         onClick={handleCheckout}
                       >
                         Comprar Ahora

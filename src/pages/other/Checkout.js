@@ -31,6 +31,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import { deleteAllFromCart } from "../../store/slices/cart-slice";
+import { fetchStock } from "../../hooks/use-FetchStock";
 
 const Checkout = () => {
   const { t, i18n } = useTranslation();
@@ -134,6 +135,33 @@ const Checkout = () => {
 
   const handleInvoces = async (e) => {
     e.preventDefault();
+
+    if (cartItems.length === 0) {
+      cogoToast.error("Debe de Agregar Productos al Carrito");
+      return;
+    }
+
+    let allItemsInStock = true;
+    for (const item of cartItems) {
+      const stock = await fetchStock(item.code);
+      if (item.quantity > stock) {
+        handleAlertSaleOut(
+          `No hay suficiente stock para ${item.name}. 
+           Disponible: ${stock}`
+        );
+        allItemsInStock = false;
+      }
+    }
+
+    if (!allItemsInStock) {
+      // cogoToast.error(
+      //   "Ajuste las cantidades de los productos según el stock disponible antes de proceder."
+      // );
+      // handleAlertSaleOut(
+      //   `No hay suficiente stock para ${item.name}. Disponible: ${stock}`
+      // );
+      return;
+    }
 
     if (!formValues.idCliente) {
       cogoToast.error("Debe de Iniciar Sesión");
@@ -251,6 +279,20 @@ const Checkout = () => {
       position: "center",
       icon: "success",
       title: "Su Pedido ha sido enviado, nos pondremos en contacto con usted",
+      showConfirmButton: true,
+      timer: 2500,
+      customClass: {
+        confirmButton: "button-active-hs btn-black fw-bold mt-1 px-4 py-2",
+      },
+    });
+  };
+
+  const handleAlertSaleOut = (title, message) => {
+    MySwal.fire({
+      position: "center",
+      icon: "warning",
+      title: title,
+      body: message,
       showConfirmButton: true,
       timer: 2500,
       customClass: {
