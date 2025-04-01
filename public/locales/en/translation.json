@@ -119,7 +119,8 @@
     "cart_color": "Color",
     "cart_size": "Size",
     "continue_shopping": " Continue Shopping",
-    "clear_shopping_cart": "Clear Shopping Cart"
+    "clear_shopping_cart": "Clear Shopping Cart",
+    "cart_out_of_stock": "Out Stock"
   },
   "page_checkout": {
     "titleTemplate": "Confirma Compra",

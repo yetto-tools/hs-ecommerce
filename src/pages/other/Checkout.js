@@ -45,7 +45,7 @@ const Checkout = () => {
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
   const [loadingOrder, setLoadingOrder] = useState(false);
-
+  const [readyToCheckout, setReadyToCheckout] = useState(false);
   const dispatch = useDispatch();
   const { validacionNit, loading, error } = useSelector(
     (state) => state.validarNit
@@ -142,6 +142,7 @@ const Checkout = () => {
     }
 
     let allItemsInStock = true;
+    setReadyToCheckout(true);
     for (const item of cartItems) {
       const stock = await fetchStock(item.code);
       if (item.quantity > stock) {
@@ -150,6 +151,7 @@ const Checkout = () => {
            Disponible: ${stock}`
         );
         allItemsInStock = false;
+        setReadyToCheckout(false);
       }
     }
 

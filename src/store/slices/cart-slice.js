@@ -116,12 +116,12 @@ const cartSlice = createSlice({
       }
     },
     markItemAsSoldOut(state, action) {
-      const { cartItemId } = action.payload;
+      const { cartItemId, isSoldOut } = action.payload;
       const index = state.cartItems.findIndex(
         (item) => item.cartItemId === cartItemId
       );
       if (index !== -1) {
-        state.cartItems[index].isSoldOut = true;
+        state.cartItems[index].isSoldOut = isSoldOut;
       }
     },
   },

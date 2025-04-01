@@ -46,19 +46,19 @@ const Cart = () => {
     for (const item of cartItems) {
       const stock = await fetchStock(item.code);
       if (stock === 0) {
-        dispatch(markItemAsSoldOut({ cartItemId: item.cartItemId }));
+        dispatch(
+          markItemAsSoldOut({ cartItemId: item.cartItemId, isSoldOut: true })
+        );
         allItemsAvailable = false;
       } else if (item.quantity > stock) {
-        // dispatch(
-        //   updateCartItemQuantity({
-        //     cartItemId: item.cartItemId,
-        //     quantity: stock,
-        //   })
-        // );
-        // cogoToast.warn(
-        //   `La cantidad de ${item.name} ha sido ajustada debido a cambios en el stock.`
-        // );
+        dispatch(
+          markItemAsSoldOut({ cartItemId: item.cartItemId, isSoldOut: true })
+        );
         allItemsAvailable = false;
+      } else {
+        dispatch(
+          markItemAsSoldOut({ cartItemId: item.cartItemId, isSoldOut: false })
+        );
       }
     }
     setReadyToCheckout(allItemsAvailable);
@@ -153,7 +153,10 @@ const Cart = () => {
                               : (cartTotalPrice +=
                                   finalProductPrice * cartItem.quantity);
                             return (
-                              <tr key={key}>
+                              <tr
+                                key={key}
+                                className={cartItem.isSoldOut ? "sold-out" : ""}
+                              >
                                 <td className="product-thumbnail">
                                   <Link
                                     to={"/productos?busqueda=" + cartItem.sku}
@@ -237,7 +240,7 @@ const Cart = () => {
                                     >
                                       -
                                     </button>
-                                    {readyToCheckout ? (
+                                    {!cartItem.isSoldOut ? (
                                       <input
                                         className="cart-plus-minus-box"
                                         type="text"
