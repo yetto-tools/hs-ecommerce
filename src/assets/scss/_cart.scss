@@ -542,6 +542,7 @@ h3.cart-page-title {
 }
 
 .sold-out {
-  border: 0.5px solid #ff0000;
+  padding-left: 0.5px;
+  border-left: 2.5px solid #ff0000;
   color: #ff0000 !important;
 }

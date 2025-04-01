@@ -69,7 +69,14 @@ const MenuCart = () => {
                   : (cartTotalPrice += finalProductPrice * item.quantity);
 
                 return (
-                  <li className="single-shopping-cart" key={item.cartItemId}>
+                  <li
+                    key={item.cartItemId}
+                    className={
+                      item.isSoldOut
+                        ? "sold-out single-shopping-cart"
+                        : "single-shopping-cart"
+                    }
+                  >
                     <div className="shopping-cart-img">
                       <button
                         id={item.id}
@@ -84,7 +91,7 @@ const MenuCart = () => {
                             ROOT_IMAGE + item?.image
                           }
                           width={70}
-                          className="img-fluid"
+                          className="img-fluid ml-4"
                         />
                       </button>
                     </div>
@@ -156,7 +163,7 @@ const MenuCart = () => {
             </div>
             <div className="shopping-cart-btn btn-hover text-center">
               <Link
-                className="default-btn text-black"
+                className="default-btn"
                 to={process.env.PUBLIC_URL + "/cart"}
               >
                 {t("general_words.view_cart")}
