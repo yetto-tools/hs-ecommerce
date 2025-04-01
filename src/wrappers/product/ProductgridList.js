@@ -12,8 +12,6 @@ const ProductGridList = ({ products, spaceBottomClass }) => {
   const info = useSelector((state) => state.articles.filteredArticles);
   const { filters } = useSelector((state) => state.articles);
 
- 
-
   return (
     <Fragment>
       {loading && LoadingIndicator}
@@ -26,8 +24,6 @@ const ProductGridList = ({ products, spaceBottomClass }) => {
                 key={product.sku}
                 name="product-grid-list"
               >
-
-                
                 <ProductGridListSingle
                   spaceBottomClass={spaceBottomClass}
                   product={product}
