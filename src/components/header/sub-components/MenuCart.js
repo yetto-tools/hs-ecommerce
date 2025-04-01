@@ -77,7 +77,7 @@ const MenuCart = () => {
                         : "single-shopping-cart"
                     }
                   >
-                    <div className="shopping-cart-img">
+                    <div className="shopping-cart-img d-flex px-3">
                       <button
                         id={item.id}
                         name={item.code}
@@ -96,7 +96,7 @@ const MenuCart = () => {
                       </button>
                     </div>
                     <div className="shopping-cart-title">
-                      <h4 className="mb-4">
+                      <h4 className="mb-2">
                         <span className="text-left text-black fs-6">
                           {" "}
                           {item.name}{" "}
@@ -105,9 +105,17 @@ const MenuCart = () => {
                           </small>
                         </span>
                       </h4>
-                      <h6>
-                        {t("page_cart.th_qty")}: {item?.quantity}
-                      </h6>
+
+                      {!item.isSoldOut ? (
+                        <h6>
+                          {t("page_cart.th_qty")}: {item?.quantity}
+                        </h6>
+                      ) : (
+                        <h6 className="text-danger fw-bold">
+                          {t("page_cart.th_qty")}:{" 0"}
+                        </h6>
+                      )}
+
                       <h6>
                         {"Precio"}:{" "}
                         {discountedPrice !== null
