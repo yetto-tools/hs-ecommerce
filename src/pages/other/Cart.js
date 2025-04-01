@@ -271,14 +271,15 @@ const Cart = () => {
                                         )
                                       }
                                       disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity &&
-                                        cartItem.quantity >=
-                                          cartItemStock(
-                                            cartItem,
-                                            cartItem.selectedProductColor,
-                                            cartItem.selectedProductSize
-                                          )
+                                        cartItem.isSoldOut ||
+                                        (cartItem !== undefined &&
+                                          cartItem.quantity &&
+                                          cartItem.quantity >=
+                                            cartItemStock(
+                                              cartItem,
+                                              cartItem.selectedProductColor,
+                                              cartItem.selectedProductSize
+                                            ))
                                       }
                                     >
                                       +

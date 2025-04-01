@@ -6,7 +6,7 @@ import MenuCart from "./sub-components/MenuCart";
 import { useTranslation } from "react-i18next";
 import { ShoppingCart } from "lucide-react";
 import { fetchSearchArticles } from "../../hooks/use-FetchArticles";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { logout } from "../../store/slices/usuario-slice";
 
 const IconGroup = ({ iconWhiteClass }) => {
@@ -17,7 +17,10 @@ const IconGroup = ({ iconWhiteClass }) => {
   const userRef = useRef(null);
 
   const handleClick = (e) => {
-    e?.currentTarget?.nextSibling?.classList?.toggle("active");
+    console.log(e?.currentTarget?.nextSibling?.classList);
+    if (!userRef.current.contains(e.target)) {
+      e?.currentTarget?.nextSibling?.classList?.toggle("active");
+    }
   };
 
   const triggerMobileMenu = () => {
@@ -44,19 +47,6 @@ const IconGroup = ({ iconWhiteClass }) => {
     dispatch(logout()); // Disparar la acción de logout
     navigate("/inicio");
   };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []); // Array de dependencias vacío para que solo se aplique al montar y desmontar
-  function handleClickOutside(event) {
-    if (userRef.current && !userRef.current.contains(event.target)) {
-      // revove class active
-      userRef.current.classList.remove("active");
-    }
-  }
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>

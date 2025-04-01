@@ -24,7 +24,7 @@ const MenuCart = () => {
     }
     try {
       dispatch(setLoading(true));
-      await dispatch(fetchArticleDetail(product.sku));
+      await dispatch(fetchArticleDetail(product.code));
     } catch (error) {
       console.error("Error al cargar detalle:", error);
     } finally {
