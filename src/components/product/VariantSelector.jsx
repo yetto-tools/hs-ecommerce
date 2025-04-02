@@ -52,8 +52,11 @@ export const VariantSelector = ({
             <div className="pro-details-size-content mb-2">
               {articleDetail.sizes.map((size) => (
                 <label
-                  className={clsx("pro-details-size-content--single")}
-                  key={size.id}
+                className={clsx("pro-details-size-content--single", {
+                  "disabled-size":
+                    articleDetail.variation.find((v) => v.idSize === size.id)
+                      .stock === 0,
+                })}
                   style={{
                     backgroundColor:
                       selectedSizeId === size.id ? "#b9db00" : "transparent",

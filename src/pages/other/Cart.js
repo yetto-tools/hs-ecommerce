@@ -262,7 +262,24 @@ const Cart = () => {
                                     )}
                                     <button
                                       className="inc qtybutton"
-                                      onClick={() =>
+                                      onClick={() => {
+                                        if(
+                                          cartItem.isSoldOut ||
+                                        
+                                          (cartItem !== undefined &&
+                                            cartItem.quantity &&
+                                            cartItem.quantity >=
+                                              cartItemStock(
+                                                cartItem,
+                                                cartItem.selectedProductColor,
+                                                cartItem.selectedProductSize
+                                              ))
+                                        ) {
+                                            cogoToast.error("Cantidad excede el stock disponible", {
+                                                                          position: "bottom-left",
+                                                                        });
+                                                                        return;
+                                        } 
                                         dispatch(
                                           addToCart({
                                             ...cartItem,
@@ -270,17 +287,8 @@ const Cart = () => {
                                           })
                                         )
                                       }
-                                      disabled={
-                                        cartItem.isSoldOut ||
-                                        (cartItem !== undefined &&
-                                          cartItem.quantity &&
-                                          cartItem.quantity >=
-                                            cartItemStock(
-                                              cartItem,
-                                              cartItem.selectedProductColor,
-                                              cartItem.selectedProductSize
-                                            ))
                                       }
+                                      
                                     >
                                       +
                                     </button>

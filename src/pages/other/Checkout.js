@@ -106,6 +106,7 @@ const Checkout = () => {
       cogoToast.info("Debe Iniciar Sesión", { position: "top-center" });
       document.documentElement.scrollTo(0, 0);
       setShow(true);
+      
       return;
     }
 
@@ -135,11 +136,66 @@ const Checkout = () => {
 
   const handleInvoces = async (e) => {
     e.preventDefault();
+    setLoadingOrder(true);
+
+    if (!formValues.idCliente) {
+      
+      cogoToast.error("Debe de Iniciar Sesión");
+      scrollToElement("login-section");
+      setLoadingOrder(false);
+      return;
+    }
+
+    if (!formValues.nitCliente) {
+      cogoToast.error("Debe de Agregar nit / dpi");
+      scrollToElement("nit-section");
+      document.querySelector("#nit-section > button").click();
+      setLoadingOrder(false);
+      return;
+    }
+    if (!formValues.nameCliente) {
+      cogoToast.error("Debe de Agregar nit / dpi para Validar");
+      scrollToElement("nit-section");
+      document.querySelector("#nit-section > button").click();
+      setLoadingOrder(false);
+      return;
+    }
+    if (
+      !formValues.idDireccion === "Elegir dirección" ||
+      formValues.idDireccion === "" ||
+      formValues.idDireccion === null ||
+      formValues.idDireccion === undefined
+    ) {
+      cogoToast.error("Debe de Agregar una dirección");
+      setLoadingOrder(false);
+      return;
+    }
 
     if (cartItems.length === 0) {
       cogoToast.error("Debe de Agregar Productos al Carrito");
+      setLoadingOrder(false);
       return;
     }
+
+
+    if (cartItems.length === 0) {
+      cogoToast.error("Debe de Agregar Productos al Carrito");
+      setLoadingOrder(false);
+      return;
+    }
+
+
+    
+    if(address?.length === 0){
+      return ;
+    }
+    console.log(address)
+
+
+    
+    // const { address: defaultAddress } = address.find(
+    //   (street) => street.idAddress === Number(formValues.idDireccion)
+    // );
 
     let allItemsInStock = true;
     setReadyToCheckout(true);
@@ -162,41 +218,10 @@ const Checkout = () => {
       // handleAlertSaleOut(
       //   `No hay suficiente stock para ${item.name}. Disponible: ${stock}`
       // );
+      setLoadingOrder(false);
       return;
     }
 
-    if (!formValues.idCliente) {
-      cogoToast.error("Debe de Iniciar Sesión");
-      scrollToElement("login-section");
-      return;
-    }
-
-    if (!formValues.nitCliente) {
-      cogoToast.error("Debe de Agregar nit / dpi");
-      scrollToElement("nit-section");
-      document.querySelector("#nit-section > button").click();
-      return;
-    }
-    if (!formValues.nameCliente) {
-      cogoToast.error("Debe de Agregar nit / dpi para Validar");
-      scrollToElement("nit-section");
-      document.querySelector("#nit-section > button").click();
-      return;
-    }
-    if (
-      !formValues.idDireccion === "Elegir dirección" ||
-      formValues.idDireccion === "" ||
-      formValues.idDireccion === null ||
-      formValues.idDireccion === undefined
-    ) {
-      cogoToast.error("Debe de Agregar una dirección");
-      return;
-    }
-
-    if (cartItems.length === 0) {
-      cogoToast.error("Debe de Agregar Productos al Carrito");
-      return;
-    }
 
     // Cliente
     // let orderCliente = adapterOrderCustomer(formValues);
@@ -207,9 +232,7 @@ const Checkout = () => {
       idAlmacen: 1,
     });
 
-    const { address: defaultAddress } = address.find(
-      (item) => item.idAddress === Number(formValues.idDireccion)
-    );
+
 
     let order = {};
     order = adapterOrderCustomer(formValues);
@@ -218,7 +241,7 @@ const Checkout = () => {
     order.products = orderProducts;
     order.correoCliente = usuario.email;
     order.telefonoCliente = formValues.phone;
-    order.direccionCliente = defaultAddress;
+    order.direccionCliente = "defaultAddress" ||  usuario.address[address.length - 1] || "";
     order.comentarios = formValues.message || "";
     order.impuesto = formValues.impuesto;
     order.total = Number(cartTotalPrice.toFixed(2));
@@ -230,17 +253,25 @@ const Checkout = () => {
     order.BAC_MONTO = Number(cartTotalPrice.toFixed(2));
     order.IdUsuario_Direccion = formValues.idDireccion;
 
-    const { Valor } = params.find((item) => item.Nombre === "ENTORNOPRUEBAS");
-
-    if (Number(Valor) !== Number(formValues.nitCliente)) {
-      cogoToast.error(
-        "Entorno de Pruebas Activado Verifique El Nit del Cliente para realizar la prueba",
-        {
-          position: "top-center",
-        }
+    try {
+      const ENTORNOPRUEBAS = params.find(
+        (item) => item.Nombre === "ENTORNOPRUEBAS"
       );
-      return;
+
+      if (ENTORNOPRUEBAS?.Valor != formValues.nitCliente) {
+        cogoToast.error(
+          "Entorno de Pruebas Activado Verifique El Nit del Cliente para realizar la prueba",
+          {
+            position: "top-center",
+          }
+        );
+        setLoadingOrder(false);  
+        return;
+      }
+    } catch (error) {
+      setLoadingOrder(false);  
     }
+    
 
     try {
       setLoadingOrder(true);
@@ -271,6 +302,7 @@ const Checkout = () => {
     } finally {
       setLoadingOrder(false);
     }
+    
   };
 
   const handleClose = () => setShow(false);

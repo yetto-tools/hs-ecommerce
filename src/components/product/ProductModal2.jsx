@@ -13,6 +13,7 @@ import Swiper, { SwiperSlide } from "../../components/swiper";
 import { ROOT_IMAGE } from "../../config";
 import { EffectFade, Thumbs } from "swiper";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import cogoToast from "cogo-toast";
 
 function ProductModal2({ show, onHide, currency }) {
   const dispatch = useDispatch();
@@ -26,12 +27,42 @@ function ProductModal2({ show, onHide, currency }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const {cartItems} = useSelector((state) => state.cart);
   const [selectedVariantImage, setSelectedVariantImage] = useState([]);
+  const cartItem = cartItems.find(item =>
+    item.id === selectedVariant?.id &&
+    item.selectedProductColor === selectedVariant?.selectedProductColor &&
+    item.selectedProductSize === selectedVariant?.selectedProductSize
+  );
+  
+  const cartQty = cartItem?.quantity || 0;
+  const maxQtyDisponible = productStock - cartQty;
 
+  // const handleAddToCart = () => {
+  //   if (selectedVariant && productStock > 0) {
+  //     dispatch(addToCart({ ...selectedVariant, quantity: quantityCount }));
+  //   }
+  // };
   const handleAddToCart = () => {
-    if (selectedVariant && productStock > 0) {
-      dispatch(addToCart({ ...selectedVariant, quantity: quantityCount }));
+    if (!selectedVariant || productStock === 0) return;
+  
+    const existingItem = cartItems.find(item =>
+      item.id === selectedVariant.id &&
+      item.selectedProductColor === selectedVariant.selectedProductColor &&
+      item.selectedProductSize === selectedVariant.selectedProductSize
+    );
+  
+    const currentCartQty = existingItem?.quantity || 0;
+    const newTotalQty = currentCartQty + quantityCount;
+  
+    if (newTotalQty > productStock) {
+      cogoToast.error("Cantidad excede el stock disponible", {
+        position: "bottom-left",
+      });
+      return;
     }
+  
+    dispatch(addToCart({ ...selectedVariant, quantity: quantityCount }));
   };
+  
 
   const handleBuyNow = () => {   
     const exist = cartItems.find(cart => cart.id === selectedVariant.id)    
@@ -195,28 +226,34 @@ function ProductModal2({ show, onHide, currency }) {
                       <>
                         <button
                           className="dec qtybutton text-black"
-                          disabled={quantityCount <= 1}
+                          disabled={quantityCount <= 1 }
                           onClick={() =>
                             setQuantityCount((count) => Math.max(1, count - 1))
                           }
                         >
                           -
                         </button>
+                        
                         <input
                           className="cart-plus-minus-box text-black text-center"
                           type="number"
                           value={quantityCount}
                           readOnly
                         />
-
+                          {console.log(quantityCount >= maxQtyDisponible)}
                         <button
                           className="inc qtybutton text-black"
-                          disabled={quantityCount >= productStock}
-                          onClick={() =>
+                          onClick={() => {
+                            if (quantityCount >= maxQtyDisponible) {
+                              cogoToast.error("Cantidad excede el stock disponible", {
+                                position: "bottom-left",
+                              });
+                              return;
+                            }
                             setQuantityCount((count) =>
-                              Math.min(productStock, count + 1)
-                            )
-                          }
+                              Math.min(maxQtyDisponible, count + 1)
+                            );
+                          }}
                         >
                           +
                         </button>
