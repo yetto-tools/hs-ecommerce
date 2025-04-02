@@ -252,25 +252,6 @@ const Checkout = () => {
     order.BAC_HASH = "1";
     order.BAC_MONTO = Number(cartTotalPrice.toFixed(2));
     order.IdUsuario_Direccion = formValues.idDireccion;
-
-    try {
-      const ENTORNOPRUEBAS = params.find(
-        (item) => item.Nombre === "ENTORNOPRUEBAS"
-      );
-
-      if (ENTORNOPRUEBAS?.Valor != formValues.nitCliente) {
-        cogoToast.error(
-          "Entorno de Pruebas Activado Verifique El Nit del Cliente para realizar la prueba",
-          {
-            position: "top-center",
-          }
-        );
-        setLoadingOrder(false);  
-        return;
-      }
-    } catch (error) {
-      setLoadingOrder(false);  
-    }
     
 
     try {

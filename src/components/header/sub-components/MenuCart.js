@@ -161,13 +161,13 @@ const MenuCart = () => {
             </div>
             <div className="shopping-cart-btn btn-hover text-center">
               <Link
-                className="default-btn"
+                className="default-btn text-black fw-bold"
                 to={process.env.PUBLIC_URL + "/cart"}
               >
                 {t("general_words.view_cart")}
               </Link>
               <Link
-                className="default-btn text-black"
+                className="default-btn text-black fw-bold"
                 to={process.env.PUBLIC_URL + "/checkout"}
               >
                 {t("checkout")}

@@ -150,7 +150,7 @@ function ProductModal2({ show, onHide, currency }) {
                     ))}
                 </Swiper>
               </div>
-              <div className="product-small-image-wrapper mt-40" id="thumbnail">
+              <div className="product-small-image-wrapper mt-40 d-sm-none d-md-block" id="thumbnail">
                 <Swiper options={thumbnailSwiperParams}>
                   {selectedVariantImage &&
                     selectedVariantImage.map((image, i) => {

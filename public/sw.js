@@ -1,5 +1,5 @@
 const CACHE_NAME = "cra-cache-v1";
-const CURRENT_VERSION = "1.22.32";
+const CURRENT_VERSION = "1.22.34";
 const OFFLINE_URL = "/offline.html";
 const VERSION_URL = "/version.json";
 
@@ -73,7 +73,7 @@ self.addEventListener("fetch", (event) => {
         const offlinePage = await cache.match(OFFLINE_URL);
         return (
           offlinePage ||
-          new Response("Sin conexión.", {
+          new Response("<h1>Sin conexión.</h1>", {
             status: 503,
             statusText: "Service Unavailable",
           })
