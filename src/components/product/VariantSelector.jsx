@@ -6,14 +6,12 @@ export const VariantSelector = ({
   setSelectedVariant,
   setProductStock,
   setQuantityCount,
-  setSelectedVariantImage
+  setSelectedVariantImage,
 }) => {
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [selectedColorId, setSelectedColorId] = useState(null);
   const [saleOut, setSaleOut] = useState(false);
 
-  
-  
   useEffect(() => {
     if (articleDetail?.variation?.length > 0) {
       const firstAvailable = articleDetail.variation[0];
@@ -29,7 +27,9 @@ export const VariantSelector = ({
     if (articleDetail.variation) {
       const variant = articleDetail.variation.find((v) => {
         const matchesSize = selectedSizeId ? v.idSize === selectedSizeId : true;
-        const matchesColor = selectedColorId ? v.idcolor === selectedColorId : true;
+        const matchesColor = selectedColorId
+          ? v.idcolor === selectedColorId
+          : true;
         return matchesSize && matchesColor;
       });
 
@@ -42,7 +42,7 @@ export const VariantSelector = ({
       setSelectedVariantImage([]);
     }
   }, [selectedSizeId, selectedColorId, articleDetail.variation]);
- 
+
   return (
     <div className="pro-details-size-color mt-3">
       <div className="d-flex flex-column ">
@@ -52,7 +52,11 @@ export const VariantSelector = ({
             <div className="pro-details-size-content mb-2">
               {articleDetail.sizes.map((size) => (
                 <label
-                  className={clsx("pro-details-size-content--single")}
+                  className={clsx("pro-details-size-content--single", {
+                    "disabled-size":
+                      articleDetail.variation.find((v) => v.idSize === size.id)
+                        .stock === 0,
+                  })}
                   key={size.id}
                   style={{
                     backgroundColor:
@@ -112,9 +116,10 @@ export const VariantSelector = ({
                       outline: "1px solid #00000038",
                       opacity: selectedColorId === color.id ? "1" : "0.3",
                       border: `1px solid ${color.colorHex}ff`,
-                      boxShadow: selectedColorId === color.id
-                      ? "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px"
-                      : "none"
+                      boxShadow:
+                        selectedColorId === color.id
+                          ? "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px"
+                          : "none",
                     }}
                   >
                     <input

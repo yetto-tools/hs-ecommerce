@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getDiscountPrice } from "../../../helpers/product";
 import { deleteFromCart } from "../../../store/slices/cart-slice";
@@ -17,20 +17,10 @@ const MenuCart = () => {
   const { t, i18n } = useTranslation();
   const [modalShow, setModalShow] = useState(false);
   const cartRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleProductQuickView = async (e, product) => {
-    if (cartRef.current) {
-      cartRef.current.classList.remove("active"); // Remueve la clase 'active' del carrito
-    }
-    try {
-      dispatch(setLoading(true));
-      await dispatch(fetchArticleDetail(product.code));
-    } catch (error) {
-      console.error("Error al cargar detalle:", error);
-    } finally {
-      setModalShow(true);
-      dispatch(setLoading(false));
-    }
+    navigate("/cart");
   };
 
   useEffect(() => {

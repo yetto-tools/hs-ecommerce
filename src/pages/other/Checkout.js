@@ -230,17 +230,21 @@ const Checkout = () => {
     order.BAC_MONTO = Number(cartTotalPrice.toFixed(2));
     order.IdUsuario_Direccion = formValues.idDireccion;
 
-    const { Valor } = params.find((item) => item.Nombre === "ENTORNOPRUEBAS");
-
-    if (Number(Valor) !== Number(formValues.nitCliente)) {
-      cogoToast.error(
-        "Entorno de Pruebas Activado Verifique El Nit del Cliente para realizar la prueba",
-        {
-          position: "top-center",
-        }
+    try {
+      const ENTORNOPRUEBAS = params.find(
+        (item) => item.Nombre === "ENTORNOPRUEBAS"
       );
-      return;
-    }
+
+      if (ENTORNOPRUEBAS?.Valor != formValues.nitCliente) {
+        cogoToast.error(
+          "Entorno de Pruebas Activado Verifique El Nit del Cliente para realizar la prueba",
+          {
+            position: "top-center",
+          }
+        );
+        return;
+      }
+    } catch (error) {}
 
     try {
       setLoadingOrder(true);

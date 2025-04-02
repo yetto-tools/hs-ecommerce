@@ -24,7 +24,7 @@ function ProductModal2({ show, onHide, currency }) {
   const [quantityCount, setQuantityCount] = useState(1);
   const { i18n } = useTranslation();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const {cartItems} = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.cart);
   const [selectedVariantImage, setSelectedVariantImage] = useState([]);
 
   const handleAddToCart = () => {
@@ -33,14 +33,12 @@ function ProductModal2({ show, onHide, currency }) {
     }
   };
 
-  const handleBuyNow = () => {   
-    const exist = cartItems.find(cart => cart.id === selectedVariant.id)    
+  const handleBuyNow = () => {
+    const exist = cartItems.find((cart) => cart.id === selectedVariant.id);
     if (selectedVariant && productStock > 0 && exist.length === 0) {
-      
       dispatch(addToCart({ ...selectedVariant, quantity: quantityCount }));
-      Navigate("/cart"); 
-    }
-    else{
+      Navigate("/cart");
+    } else {
       Navigate("/cart");
     }
   };
@@ -90,36 +88,36 @@ function ProductModal2({ show, onHide, currency }) {
       <Modal.Body>
         <div className="modal-body">
           <div className="row">
-            <div className="col-md-5 col-sm-12 col-xs-12">
+            <div className="col-md-5 col-sm-8 col-xs-8 mx-auto" id="slider-img">
               <div className="product-large-image-wrapper px-4">
                 <Swiper options={gallerySwiperParams}>
-                  
                   {selectedVariantImage &&
                     selectedVariantImage.map((image, index) => (
                       <SwiperSlide key={index}>
                         <LazyLoadImage
                           src={`${ROOT_IMAGE}${image}`}
                           alt={articleDetail.name}
-                          className="img-fluid"
+                          className="img-fluid hide-on-small"
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = "/default/no-image.jpg";
                           }}
                           loading="lazy"
-                          style={
-                            {
-                              minHeight:"360px",
-                              aspectRatio: "10/16",
-                              objectFit: "contain",
-                              objectPosition: "center top",
-                            }
-                          }
+                          style={{
+                            minHeight: "360px",
+                            aspectRatio: "10/16",
+                            objectFit: "contain",
+                            objectPosition: "center top",
+                          }}
                         />
                       </SwiperSlide>
                     ))}
                 </Swiper>
               </div>
-              <div className="product-small-image-wrapper mt-40" id="thumbnail">
+              <div
+                className="product-small-image-wrapper mt-40 d-sm-none d-md-block"
+                id="thumbnail"
+              >
                 <Swiper options={thumbnailSwiperParams}>
                   {selectedVariantImage &&
                     selectedVariantImage.map((image, i) => {
@@ -147,7 +145,7 @@ function ProductModal2({ show, onHide, currency }) {
             <div className="col-md-7 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
                 <h2>{articleDetail.name}</h2>
-                
+
                 <div className="product-details-price gap-4">
                   <span className="fs-4 fw-bold">
                     {CurrencyFormatter(
@@ -170,7 +168,7 @@ function ProductModal2({ show, onHide, currency }) {
                     )}
                   </span>
                 </div>
-                
+
                 <VariantSelector
                   articleDetail={articleDetail}
                   setSelectedVariant={setSelectedVariant}
@@ -178,8 +176,10 @@ function ProductModal2({ show, onHide, currency }) {
                   setQuantityCount={setQuantityCount}
                   setSelectedVariantImage={setSelectedVariantImage}
                 />
-                
-                <small><b>SKU:</b> {articleDetail.sku}</small>
+
+                <small>
+                  <b>SKU:</b> {articleDetail.sku}
+                </small>
 
                 <div
                   className="pro-details-quality"
@@ -248,7 +248,7 @@ function ProductModal2({ show, onHide, currency }) {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="pro-details-list container-md mt-4 max-h-25 overflow-y-scroll">
                   <details className="">
                     <summary>Descripción</summary>
