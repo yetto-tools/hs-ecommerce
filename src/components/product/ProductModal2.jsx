@@ -151,7 +151,7 @@ function ProductModal2({ show, onHide, currency }) {
     >
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
-        <div className="modal-body">
+        <div className="modal-body py-0">
           <div className="row">
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-large-image-wrapper px-4">

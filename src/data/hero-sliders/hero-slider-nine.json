@@ -4,8 +4,8 @@
     "title": "NUEVOS INGRESOS",
     "subtitle": "",
     "button": "VER AHORA",
-    "image": "/assets/img/SliderPrincipal/banner1.webp",
-    "mobileImage": "/assets/img/SliderPrincipal/banner1.webp",
+    "image": "banner1.jpg",
+    "mobileImage": "banner1-movil.jpg",
     "url": "/nuevos-ingresos"
   },
   {
@@ -13,8 +13,8 @@
     "title": "",
     "subtitle": "",
     "button": "",
-    "image": "/assets/img/SliderPrincipal/banner2.webp",
-    "mobileImage": "/assets/img/SliderPrincipal/banner2-movil.webp",
+    "image": "banner2.jpg",
+    "mobileImage": "banner2-movil.jpg",
     "url": "/nuevos-ingresos"
   },
   {
@@ -22,8 +22,8 @@
     "title": "",
     "subtitle": "NUEVOS INGRESOS",
     "button": "VER AHORA",
-    "image": "/assets/img/SliderPrincipal/banner3.webp",
-    "mobileImage": "/assets/img/SliderPrincipal/banner3.webp",
+    "image": "banner3.jpg",
+    "mobileImage": "banner3-movil.jpg",
     "url": "/nuevos-ingresos"
   }
 ]

@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { ROOT_BANNER } from "../../config";
 
 const HeroSliderNineSingle = ({ data, sliderClass }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -28,7 +29,7 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
     const updateImage = () => {
       const isMobile = window.innerWidth <= 1366;
       setImageSrc(
-        process.env.PUBLIC_URL + (isMobile ? data.mobileImage : data.image)
+        ROOT_BANNER + (isMobile ? data.mobileImage : data.image)
       );
     };
 
@@ -56,30 +57,33 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
       }}
     />
   )} */}
-
+      <Link 
+      to={
+        process.env.PUBLIC_URL + "productos?categoria=" + data.url
+      }>
       {imageLoaded && (
         <picture>
           {/* Imagen para escritorio */}
           <source
             media="(min-width: 1367px)"
-            srcSet={process.env.PUBLIC_URL + data.image}
-            type="image/webp"
+            srcSet={ROOT_BANNER + data.image}
+            type="image/jpg"
           />
           {/* Imagen para móvil */}
           <source
             media="(max-width: 1366px)"
-            srcSet={process.env.PUBLIC_URL + data.mobileImage}
-            type="image/webp"
+            srcSet={ROOT_BANNER + data.mobileImage }
+            type="image/jpg"
           />
           {/* Fallback */}
           <img
-            src={process.env.PUBLIC_URL + data.image}
+            src={ROOT_BANNER + data.image}
             alt={data?.title || "Slide"}
             className="hero-slide-img position-absolute w-100 h-100 object-fit-cover hs-img-slider-principal"
           />
         </picture>
       )}
-
+</Link>
       <div className="container">
         {typeof data === "object" && data.title.length > 0 && (
           <div className="row justify-content-start">

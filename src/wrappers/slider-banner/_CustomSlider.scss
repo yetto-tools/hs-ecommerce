@@ -112,3 +112,28 @@
 .next {
   right: 1px;
 }
+
+
+
+// .product-small-image-wrapper .slick-prev,
+// .product-small-image-wrapper .slick-next {
+//   top: 35%;
+//   z-index: 10;
+//   background: rgba(255, 255, 255, 0);
+//   border-radius: 50%;
+//   width: 25px;
+//   height: 25px;
+// }
+
+// .product-small-image-wrapper .slick-prev:before,
+// .product-small-image-wrapper .slick-next:before {
+//   color: #000;
+//   font-size: 18px;
+// }
+
+
+.product-small-image-wrapper .slick-prev,
+.product-small-image-wrapper .slick-next { 
+  top:20%
+
+}

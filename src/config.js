@@ -5,7 +5,8 @@ const API_TOKEN = process.env.REACT_APP_API_TOKEN;
 const API_NIT = process.env.REACT_APP_API_NIT;
 const ROOT_IMAGE =
   "https://hypestreet.dssolutionsgt.com/ftp_imagenes/articulos/";
-
+const ROOT_BANNER ="https://hypestreet.dssolutionsgt.com/ftp_imagenes/BannerPrincipal/"
+const ROOT_MULTIBANNER ="https://hypestreet.dssolutionsgt.com/ftp_imagenes/banners/"
 const URL_INSTAGRAM =
   "https://www.instagram.com/esconhype?igsh=MXVyeWlxZnM3bnJxaw%3D%3D&utm_source=qr";
 const URL_FACEBOOK = "https://www.facebook.com/Hypestreetstoree/?locale=es_LA";
@@ -23,4 +24,6 @@ export {
   URL_TIKTOK,
   URL_FACEBOOK,
   APP_VERSION,
+  ROOT_BANNER,
+  ROOT_MULTIBANNER
 };

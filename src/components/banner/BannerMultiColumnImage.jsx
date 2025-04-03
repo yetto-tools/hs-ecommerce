@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { EffectFade } from "swiper";
 
 import dataBannerMultiColumn from "../../data/BannerMultiColumnImage.json"
-import {ROOT_IMAGE}  from "../../config"
 
 import BannerMultiColumn from "./BannerMultiColumn";
  

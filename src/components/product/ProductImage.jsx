@@ -4,6 +4,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ROOT_IMAGE } from "../../config";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+
 
 const ProductImageGallery = ({ images = [], productName = "" }) => {
   const [nav1, setNav1] = useState(null);
@@ -30,9 +33,10 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
     ref: slider1,
     slidesToShow: 1,
     swipeToSlide: true,
-    arrows: false,
+    arrows: true,
     fade: true,
     initialSlide: 0,
+    
   };
 
   const thumbSettings = {
@@ -45,6 +49,8 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
     dots: false,
     centerMode: false,
     initialSlide: 0,
+    prevArrow: <button className="custom-prev"><ChevronLeft size={32} color="#000" /></button>,
+    nextArrow: <button className="custom-next"><ChevronRight size={32} color="#000"/></button>,
   };
 
   return (
@@ -52,7 +58,7 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
       <Slider {...mainSettings}>
         {sortedImages.map((image, i) => (
           <div key={i} className="single-image">
-            <LazyLoadImage
+            <img
               src={`${ROOT_IMAGE}${image}`}
               className="img-fluid object-fit-cover"
               alt={productName}
@@ -60,8 +66,9 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
                 e.target.onerror = null;
                 e.target.src = "/default/no-image.jpg";
               }}
-              width={500}
-              height={500}
+              width={480}
+              height={480}
+              loading="eager"
             />
           </div>
         ))}

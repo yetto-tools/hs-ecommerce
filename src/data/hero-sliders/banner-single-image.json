@@ -7,7 +7,7 @@
     "mobileImages": ["/assets/img/banner/banner2.1.png", "/assets/img/banner/banner2.2.png"],
     "buttons": [
       {
-        "label": "LOOK BOOK",
+        "label": "Ver colección",
         "url": "/productos",
         "text": "ver colección",
         "color": "primary"

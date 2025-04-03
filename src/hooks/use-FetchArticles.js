@@ -30,7 +30,7 @@ export const fetchArticles = (n1, n2, n3) => async (dispatch) => {
     const { data } = await response.json();
 
     if (!response.ok) {
-      const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
+      const { hide } = cogoToast.info(`Próximamente`, {
         position: "top-center",
         onClick: () => {
           hide();
@@ -70,7 +70,7 @@ export const fetchArticleDetail =
       dispatch(setLoading(enableLoading));
       const response = await fetch(url, { method: "GET" });
       if (!response.ok) {
-        const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
+        const { hide } = cogoToast.info(`Próximamente`, {
           position: "top-center",
           onClick: () => {
             hide();
@@ -144,7 +144,7 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
     });
 
     if (!response.ok) {
-      const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
+      const { hide } = cogoToast.info(`Próximamente`, {
         position: "top-center",
         onClick: () => {
           hide();
@@ -194,7 +194,7 @@ export const fetchFilterAritcle = (value) => async (dispatch) => {
     const { data, message } = await response.json();
 
     if (!response.ok) {
-      const { hide } = cogoToast.info(`Sin resultados en la busqueda`, {
+      const { hide } = cogoToast.info(`Próximamente`, {
         position: "top-center",
         onClick: () => {
           hide();
