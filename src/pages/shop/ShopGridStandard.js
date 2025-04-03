@@ -57,7 +57,7 @@ const ShopGridStandard = () => {
     <Fragment>
       <SEO
         titleTemplate="Tienda en Línea"
-        description="Tienda en Línea de New Era"
+        description="Adidas, Nike, New balance, Jordan, Puma, Reebok."
       />
 
       <LayoutOne headerTop="visible">

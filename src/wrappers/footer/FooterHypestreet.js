@@ -63,12 +63,12 @@ const FooterHypestreet = ({
             </h5>
             <ul className="list-unstyled mt-4">
               <li>
-                <Link className="text-white text-hover-green-hs" to="/faq">
+                <Link className="text-white text-hover-green-hs" to="/preguntas-frecuentes">
                   {t("footer.faq")}
                 </Link>
               </li>
               <li>
-                <Link className="text-white text-hover-green-hs" to="/warranty">
+                <Link className="text-white text-hover-green-hs" to="/politicas-de-devolucion">
                   {t("footer.warranty")}
                 </Link>
               </li>
@@ -147,7 +147,7 @@ const FooterHypestreet = ({
               <li>
                 <Link
                   className="text-white text-hover-green-hs"
-                  to="/store-locations"
+                  to="/ubicaciones"
                 >
                   {t("footer.store_locations")}
                 </Link>
@@ -160,7 +160,7 @@ const FooterHypestreet = ({
               <li>
                 <Link
                   className="text-white text-hover-green-hs"
-                  to={storeInfo}
+                  to={storeInfo.whatsapp}
                 >
                   {t("whatsapp")}
                 </Link>

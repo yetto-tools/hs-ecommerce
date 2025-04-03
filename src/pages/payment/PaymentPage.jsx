@@ -46,7 +46,7 @@ const PaymentPage = () => {
     <Fragment>
       <SEO
         titleTemplate="Tienda en Línea"
-        description="Tienda en Línea de New Era"
+        description="Pagos con tarjeta de crédito"
       />
 
       <LayoutOne headerTop="visible">

@@ -22,11 +22,7 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
   // Ordena las imágenes numéricamente
   const sortedImages = images
     .filter(Boolean)
-    .sort((a, b) => {
-      const numA = parseInt(a.match(/\d+/)?.[0] || 0);
-      const numB = parseInt(b.match(/\d+/)?.[0] || 0);
-      return numA - numB;
-    });
+    ;
 
   const mainSettings = {
     asNavFor: nav2,

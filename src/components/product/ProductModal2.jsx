@@ -119,29 +119,8 @@ function ProductModal2({ show, onHide, currency }) {
   }, [articleDetail]);
 
 
-  const sortedImages = (selectedVariantImage || []).slice().sort((a, b) => {
-    const numA = parseInt(a.match(/\d+/)?.[0] || 0, 10);
-    const numB = parseInt(b.match(/\d+/)?.[0] || 0, 10);
-    return numA - numB;
-  });
-  
-  const sortedThumbs = (selectedVariantImage || []).slice().sort((a, b) => {
-    const numA = parseInt(a.match(/\d+/)?.[0] || 0, 10);
-    const numB = parseInt(b.match(/\d+/)?.[0] || 0, 10);
-    return numA - numB;
-  });
-  
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: 0, // 👈 Esto asegura que inicie en la primera imagen
-    // otros props que uses...
-  };
-  
+
 
   return (
     <Modal
