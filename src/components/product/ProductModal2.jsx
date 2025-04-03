@@ -14,6 +14,11 @@ import { ROOT_IMAGE } from "../../config";
 import { EffectFade, Thumbs } from "swiper";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import cogoToast from "cogo-toast";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import ProductImage from "./ProductImage";
+import ProductImageGallery from "./ProductImage";
 
 function ProductModal2({ show, onHide, currency }) {
   const dispatch = useDispatch();
@@ -79,6 +84,7 @@ function ProductModal2({ show, onHide, currency }) {
   const canAddToCart = productStock > 0 && quantityCount <= productStock;
   const gallerySwiperParams = {
     spaceBetween: 10,
+    initialSlide: 0,
     loop: true,
     effect: "fade",
     fadeEffect: {
@@ -92,6 +98,7 @@ function ProductModal2({ show, onHide, currency }) {
     onSwiper: setThumbsSwiper,
     spaceBetween: 10,
     slidesPerView: 4,
+    initialSlide: 0,
     touchRatio: 0.2,
     freeMode: true,
     loop: true,
@@ -111,6 +118,31 @@ function ProductModal2({ show, onHide, currency }) {
     }
   }, [articleDetail]);
 
+
+  const sortedImages = (selectedVariantImage || []).slice().sort((a, b) => {
+    const numA = parseInt(a.match(/\d+/)?.[0] || 0, 10);
+    const numB = parseInt(b.match(/\d+/)?.[0] || 0, 10);
+    return numA - numB;
+  });
+  
+  const sortedThumbs = (selectedVariantImage || []).slice().sort((a, b) => {
+    const numA = parseInt(a.match(/\d+/)?.[0] || 0, 10);
+    const numB = parseInt(b.match(/\d+/)?.[0] || 0, 10);
+    return numA - numB;
+  });
+  
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0, // 👈 Esto asegura que inicie en la primera imagen
+    // otros props que uses...
+  };
+  
+
   return (
     <Modal
       show={show}
@@ -123,7 +155,7 @@ function ProductModal2({ show, onHide, currency }) {
           <div className="row">
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-large-image-wrapper px-4">
-                <Swiper options={gallerySwiperParams}>
+                {/* <Swiper options={gallerySwiperParams}>
                   
                   {selectedVariantImage &&
                     selectedVariantImage.map((image, index) => (
@@ -148,10 +180,28 @@ function ProductModal2({ show, onHide, currency }) {
                         />
                       </SwiperSlide>
                     ))}
-                </Swiper>
+                </Swiper> */}
+                <ProductImageGallery images={selectedVariantImage} />
+                {/* <Slider {...settings}>
+                  {sortedImages && sortedImages.map((image, i) => (
+                    <div key={i} className="single-image">
+                      <img
+                        src={`${ROOT_IMAGE}${image}`}
+                        alt={`product-${i}`}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/default/no-image.jpg";
+                        }}
+                        className="img-fluid object-fit-cover"
+                        width={500}
+                        height={500}
+                      />
+                    </div>
+                  ))}
+                </Slider> */}
               </div>
               <div className="product-small-image-wrapper mt-40 d-sm-none d-md-block" id="thumbnail">
-                <Swiper options={thumbnailSwiperParams}>
+                {/* <Swiper options={thumbnailSwiperParams}>
                   {selectedVariantImage &&
                     selectedVariantImage.map((image, i) => {
                       return (
@@ -172,7 +222,7 @@ function ProductModal2({ show, onHide, currency }) {
                         </SwiperSlide>
                       );
                     })}
-                </Swiper>
+                </Swiper> */}
               </div>
             </div>
             <div className="col-md-7 col-sm-12 col-xs-12">

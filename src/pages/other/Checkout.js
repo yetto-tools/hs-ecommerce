@@ -32,6 +32,7 @@ import withReactContent from "sweetalert2-react-content";
 
 import { deleteAllFromCart } from "../../store/slices/cart-slice";
 import { fetchStock } from "../../hooks/use-FetchStock";
+import { dir } from "i18next";
 
 const Checkout = () => {
   const { t, i18n } = useTranslation();
@@ -186,16 +187,14 @@ const Checkout = () => {
 
 
     
-    if(address?.length === 0){
+    if(address?.length === 0 || !address){
+      setLoadingOrder(false);
       return ;
     }
-    console.log(address)
-
-
     
-    // const { address: defaultAddress } = address.find(
-    //   (street) => street.idAddress === Number(formValues.idDireccion)
-    // );
+    const { address: selectedAddress } = address.find(
+      (street) => street.idAddress === Number(formValues.idDireccion)
+    );
 
     let allItemsInStock = true;
     setReadyToCheckout(true);
@@ -231,27 +230,37 @@ const Checkout = () => {
       iva: 1.12,
       idAlmacen: 1,
     });
-
-
-
     let order = {};
-    order = adapterOrderCustomer(formValues);
-    order.idCliente = usuario.id;
-    order.idDireccion = formValues.idDireccion;
-    order.products = orderProducts;
-    order.correoCliente = usuario.email;
-    order.telefonoCliente = formValues.phone;
-    order.direccionCliente = "defaultAddress" ||  usuario.address[address.length - 1] || "";
-    order.comentarios = formValues.message || "";
-    order.impuesto = formValues.impuesto;
-    order.total = Number(cartTotalPrice.toFixed(2));
-    order.impuesto = Number(
-      new Decimal(cartTotalPrice - cartTotalPrice / 1.12).toFixed(2)
-    );
-    order.documentoLocal = generarCorrelativoFactura();
-    order.BAC_HASH = "1";
-    order.BAC_MONTO = Number(cartTotalPrice.toFixed(2));
-    order.IdUsuario_Direccion = formValues.idDireccion;
+    console.log(address)
+    // console.log(usuario.address.find((dir)=>{
+    //   dir.idAddress === formValues.idDireccion
+    // }));
+
+    try{
+      order = adapterOrderCustomer(formValues);
+      order.idCliente = usuario.id;
+      order.idDireccion = formValues.idDireccion;
+      order.products = orderProducts;
+      order.correoCliente = usuario.email;
+      order.telefonoCliente = formValues.phone;
+      order.direccionCliente = selectedAddress || " - ";
+      order.comentarios = formValues.message || "";
+      order.impuesto = formValues.impuesto;
+      order.total = Number(cartTotalPrice.toFixed(2));
+      order.impuesto = Number(
+        new Decimal(cartTotalPrice - cartTotalPrice / 1.12).toFixed(2)
+      );
+      order.documentoLocal = generarCorrelativoFactura();
+      order.BAC_HASH = "1";
+      order.BAC_MONTO = Number(cartTotalPrice.toFixed(2));
+      order.IdUsuario_Direccion = formValues.idDireccion;
+
+    }
+    catch(error){ 
+      console.error("Hubo un error durante la validación de datos "+ error);
+      cogoToast.error(`${error}`, { position: "bottom-center" });
+      setLoadingOrder(false);
+    }
     
 
     try {

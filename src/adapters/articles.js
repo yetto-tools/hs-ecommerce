@@ -27,12 +27,12 @@ export const adapterArticle = (ariticulos = {}, data = {}) => {
     stock: ariticulos?.Cantidad || 0,
     images:
       [
-        ariticulos.Imagen_1,
         ariticulos.Imagen_2,
+        ariticulos.Imagen_1,
         ariticulos.Imagen_3,
         ariticulos.Imagen_4,
         ariticulos.Imagen_5,
-      ].filter(Boolean) || [],
+      ].filter(Boolean)|| [],
     colors: adapterColors(data.colores) || [],
     brands: adapterBrands(data.marcas) || [],
     tags: adapterTags(data.etiquetas) || [],
@@ -102,7 +102,7 @@ export const adapterArticleDetail = (data) => {
     }));
   }
 
-  return {
+  return { 
     id: data.articulo.Sku || "",
     sku: data.articulo.Sku || "",
     name: data.articulo.Nombre_Comercial || "",
@@ -129,7 +129,11 @@ export const adapterArticleDetail = (data) => {
       data.articulo.Imagen_3,
       data.articulo.Imagen_4,
       data.articulo.Imagen_5,
-    ].filter(Boolean),
+    ].filter(Boolean) .sort((a, b) => {
+      const numA = parseInt(a.match(/\d+/)?.[0] || 0, 10);
+      const numB = parseInt(b.match(/\d+/)?.[0] || 0, 10);
+      return numA - numB;
+    }),
 
     sizes: adapterSizes(data.talla || []),
     colors: adapterColors(data.color || []),

@@ -27,6 +27,7 @@ const FooterHypestreet = ({
         TIKTOK: "tiktok",
         CORREO: "correo",
         CANALWHATSAPP: "whatsapp",
+        FOOTER: "footer",
       };
 
       const newStoreInfo = params.reduce((acc, param) => {
@@ -123,13 +124,14 @@ const FooterHypestreet = ({
               </Link>
             </div>
             <p className="mt-3 text-white text-hover-green-hs">
-              <Link
-                // to="/nosotros"
-                to="/"
-                className="text-xs font-semibold text-white text-hover-green-hs"
+              <p className="text-xs font-semibold text-white">
+              {t("about_us")}
+              </p>
+              <span
+                className="text-xs font-semibold text-white"
               >
-                {t("about_us")}
-              </Link>
+                {storeInfo && storeInfo["footer"]}
+              </span>
             </p>
             <p className="text-white text-xs font-semibold capitalize ">
               <small>&copy; 2025 Hype Street Guatemala</small>
@@ -158,7 +160,7 @@ const FooterHypestreet = ({
               <li>
                 <Link
                   className="text-white text-hover-green-hs"
-                  to={storeInfo?.whatsapp}
+                  to={storeInfo}
                 >
                   {t("whatsapp")}
                 </Link>

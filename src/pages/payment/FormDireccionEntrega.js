@@ -22,13 +22,17 @@ export const FormDireccionEntrega = ({
         idDireccion: address[address.length - 1].idAddress,
       }));
     }
+    
   }, [address]);
+  const handleDebug = () => {
+    console.log(address)
+  }
   return (
     <>
       <div className="col-lg-12 row ">
         <div className="col-lg-9 col-9">
           <div className="billing-info mb-20">
-            <label>{t("page_checkout.street_address")}</label>
+            <label onClick={handleDebug}>{t("page_checkout.street_address")}</label>
             <select
               name="idDireccion"
               onChange={handleChange}

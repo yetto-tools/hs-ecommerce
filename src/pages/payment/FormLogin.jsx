@@ -47,13 +47,15 @@ export const FormLogin = ({ setFormValues, style, inputRef }) => {
       }));
     }
   }, [usuario]);
-
+  const handleDebug = ()=>{
+    console.log(usuario);
+  }
   return (
     <form onSubmit={handleLoginSubmit} method="post">
       <div className="billing-info pb-4" id="login-section">
         {usuario ? (
           <div className="mb-5">
-            <h3>Usuario</h3>
+            <h3 onClick={handleDebug}>Usuario</h3>
             <hr />
             <div className="row">
               <div className="row">
