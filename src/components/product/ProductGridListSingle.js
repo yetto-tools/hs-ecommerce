@@ -13,7 +13,7 @@ import { CurrencyFormatter } from "../../helpers/currencyFormatter";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { View } from "lucide-react";
 import { fetchArticleDetail } from "../../hooks/use-FetchArticles";
-import { ROOT_IMAGE } from "../../config";
+
 import { setLoading } from "../../store/slices/menu-slice";
 
 const ProductGridListSingle = ({
@@ -27,7 +27,9 @@ const ProductGridListSingle = ({
   const dispatch = useDispatch();
   // const { article } = useSelector((state) => state.article);
   const { loading } = useSelector((state) => state.loader);
+    const { configParams } = useSelector((state) => state.paramsWeb);
   const { t, i18n } = useTranslation();
+  
 
   const [modalShow, setModalShow] = useState(false);
   const [loadingImage, setLoadingImage] = useState(true);
@@ -59,7 +61,7 @@ const ProductGridListSingle = ({
               <LazyLoadImage
                 className="default-img"
                 onLoad={() => setLoadingImage(false)}
-                src={ROOT_IMAGE + product.image[0]}
+                src={configParams.RUTAIMAGENESARTICULOS + product.image[0]}
                 alt=""
                 width={320}
                 height={320}
@@ -69,7 +71,7 @@ const ProductGridListSingle = ({
                   e.target.onerror = null;
                   e.target.src = "/default/no-image.jpg";
                 }}
-                data-src={ROOT_IMAGE + product.image[0]}
+                data-src={configParams.RUTAIMAGENESARTICULOS + product.image[0]}
               />
             </>
             {/* {product.image.length > 1 ? (

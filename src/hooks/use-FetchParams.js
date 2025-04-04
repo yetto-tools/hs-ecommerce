@@ -1,7 +1,7 @@
 import { API_URL } from "../config";
 import cogoToast from "cogo-toast";
 import { setLoading } from "../store/slices/articleDetail-slice";
-import { setCountry, setParamsWeb } from "../store/slices/paramsWeb-slice";
+import { setConfigParams, setCountry, setParamsWeb } from "../store/slices/paramsWeb-slice";
 import { adapterMessage } from "../adapters/message";
 
 export const fetchParamsWeb = () => async (dispatch, getState) => {
@@ -21,6 +21,14 @@ export const fetchParamsWeb = () => async (dispatch, getState) => {
     }
 
     dispatch(setParamsWeb(data.parametros));
+    
+  // Convertir array a objeto { RUTAIMAGENESARTICULOS: "valor", ... }
+  const configParamas = data.parametros.reduce((acc, curr) => {
+    acc[curr.Nombre] = curr.Valor;
+    return acc;
+  }, {});
+    dispatch(setConfigParams(configParamas));
+
   } catch (error) {
     cogoToast.warn(`${error.message}`, {
       position: "bottom-left",

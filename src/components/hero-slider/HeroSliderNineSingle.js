@@ -1,11 +1,14 @@
 import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { ROOT_BANNER } from "../../config";
+
 
 const HeroSliderNineSingle = ({ data, sliderClass }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { configParams } = useSelector((state) => state.paramsWeb);
   const sliderRef = useRef(null);
+
   const [imageSrc, setImageSrc] = useState("");
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,7 +32,7 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
     const updateImage = () => {
       const isMobile = window.innerWidth <= 1366;
       setImageSrc(
-        ROOT_BANNER + (isMobile ? data.mobileImage : data.image)
+        configParams.RUTAIMAGENESPRINCIPALES  + (isMobile ? data.mobileImage : data.image)
       );
     };
 
@@ -66,18 +69,18 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
           {/* Imagen para escritorio */}
           <source
             media="(min-width: 1367px)"
-            srcSet={ROOT_BANNER + data.image}
+            srcSet={configParams.RUTAIMAGENESPRINCIPALES + data.image}
             type="image/jpg"
           />
           {/* Imagen para móvil */}
           <source
             media="(max-width: 1366px)"
-            srcSet={ROOT_BANNER + data.mobileImage }
+            srcSet={configParams.RUTAIMAGENESPRINCIPALES + data.mobileImage }
             type="image/jpg"
           />
           {/* Fallback */}
           <img
-            src={ROOT_BANNER + data.image}
+            src={configParams.RUTAIMAGENESPRINCIPALES + data.image}
             alt={data?.title || "Slide"}
             className="hero-slide-img position-absolute w-100 h-100 object-fit-cover hs-img-slider-principal"
           />

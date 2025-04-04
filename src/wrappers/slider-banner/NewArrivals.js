@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import ProductModal from "../../components/product/ProductModal2";
+import ProductModal2  from  "../../components/product/ProductModal2";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { ROOT_IMAGE } from "../../config";
+
 import {
   fetchArticleDetail,
   fetchNewArticles,
@@ -19,6 +19,8 @@ SwiperCore.use([Navigation]);
 
 const ProductCard = ({ product, currency, openModal }) => {
   const { i18n } = useTranslation();
+  const { configParams } = useSelector((state) => state.paramsWeb);
+
   return (
     <div className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area"  onClick={openModal} style={{cursor: "pointer"}}>
       <Link to={product.url} className="">
@@ -27,7 +29,7 @@ const ProductCard = ({ product, currency, openModal }) => {
             <div className="pro-same-action pro-quickview">
               <button onClick={openModal} title="Quick View" className="btn">
                 <LazyLoadImage
-                  src={ROOT_IMAGE + product.images[0]}
+                  src={ configParams.RUTAIMAGENESARTICULOS + product.images[0]}
                   alt={product.name}
                   className="img"
                   width={192}
@@ -43,6 +45,7 @@ const ProductCard = ({ product, currency, openModal }) => {
                     transition: "transform 0.5s ease-in-out",
                     transformOrigin: "center center",
                   }}
+                  dataset-src={configParams.RUTAIMAGENESARTICULOS + product.images[0]}
                 />
               </button>
             </div>
@@ -163,7 +166,7 @@ const NewArrivals = ({ spaceLeftClass = "", spaceRightClass = "" }) => {
 
       {/* Product Modal */}
       {modalShow && (
-        <ProductModal
+        <ProductModal2
           show={!!modalShow}
           onHide={() => setModalShow(null)}
           product={modalShow}

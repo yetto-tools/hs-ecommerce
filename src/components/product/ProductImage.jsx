@@ -3,12 +3,15 @@ import Slider from "react-slick";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ROOT_IMAGE } from "../../config";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSelector } from "react-redux";
 
 
 
 const ProductImageGallery = ({ images = [], productName = "" }) => {
+
+  const { configParams } = useSelector((state) => state.paramsWeb);
+
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   const slider1 = useRef(null);
@@ -55,7 +58,8 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
         {sortedImages.map((image, i) => (
           <div key={i} className="single-image">
             <img
-              src={`${ROOT_IMAGE}${image}`}
+              
+              src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
               className="img-fluid object-fit-cover"
               alt={productName}
               onError={(e) => {
@@ -64,7 +68,7 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
               }}
               width={480}
               height={480}
-              loading="eager"
+              dataset-src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
             />
           </div>
         ))}
@@ -75,7 +79,7 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
           {sortedImages.map((image, i) => (
             <div key={i} className="single-image">
               <LazyLoadImage
-                src={`${ROOT_IMAGE}${image}`}
+                src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
                 className="img-fluid"
                 alt={productName}
                 onError={(e) => {
@@ -84,6 +88,7 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
                 }}
                 width={120}
                 height={120}
+                dataset-src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
               />
             </div>
           ))}

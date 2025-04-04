@@ -4,15 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { getDiscountPrice } from "../../../helpers/product";
 import { deleteFromCart } from "../../../store/slices/cart-slice";
 import { useTranslation } from "react-i18next";
-import { ROOT_IMAGE } from "../../../config";
+
 import ProductModal2 from "../../product/ProductModal2";
-import { fetchArticleDetail } from "../../../hooks/use-FetchArticles";
-import { setLoading } from "../../../store/slices/articleDetail-slice";
 
 const MenuCart = () => {
   const dispatch = useDispatch();
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
+  const { configParams } = useSelector((state) => state.paramsWeb);
   let cartTotalPrice = 0;
   const { t, i18n } = useTranslation();
   const [modalShow, setModalShow] = useState(false);
@@ -77,8 +76,8 @@ const MenuCart = () => {
                         <img
                           alt={item.name}
                           src={
-                            ROOT_IMAGE + item?.images[0] ||
-                            ROOT_IMAGE + item?.image
+                            configParams.RUTAIMAGENESARTICULOS + item?.images[0] ||
+                            configParams.RUTAIMAGENESARTICULOS + item?.image
                           }
                           width={70}
                           className="img-fluid ml-4"

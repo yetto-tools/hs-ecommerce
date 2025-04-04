@@ -14,10 +14,6 @@ const FAQ_MD_PATH= process.env.PUBLIC_URL +"docs/preguntas-frecuentes.md"
 const STORES_LOCATION_MD_PATH = process.env.PUBLIC_URL +  "docs/ubicaciones.md"
 
 
-
-
-
-
 const ROOT_IMAGE = "https://hypestreet.com.gt/" + "ftp_imagenes/articulos/";
 const ROOT_BANNER = "https://hypestreet.com.gt/" + "ftp_imagenes/BannerPrincipal/"
 const ROOT_MULTIBANNER = "https://hypestreet.com.gt/" + "ftp_imagenes/banners/"

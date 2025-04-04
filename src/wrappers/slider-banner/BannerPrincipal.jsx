@@ -1,21 +1,22 @@
 import clsx from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import React, { useState } from "react";
+import React, { lazy, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import ProductModal from "../../components/product/ProductModal2";
-import PropTypes from "prop-types";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { ROOT_IMAGE } from "../../config";
+
+import PropTypes from "prop-types";
+const  ProductModal = lazy(()=>import("../../components/product/ProductModal2"));
 
 SwiperCore.use([Navigation]);
 
 const ProductCard = ({ product, currency, openModal, index }) => {
   const { i18n } = useTranslation();
+  const { configParams } = useSelector((state) => state.paramsWeb);
+  
   return (
     <div className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area">
       <Link to={product.url}>
@@ -24,7 +25,7 @@ const ProductCard = ({ product, currency, openModal, index }) => {
             <div className="pro-same-action pro-quickview">
               <button onClick={openModal} title="Quick View" className="btn">
                 <LazyLoadImage
-                  src={ROOT_IMAGE + product.image[0]}
+                  src={`${configParams.RUTAIMAGENESPRINCIPALES}${product.image[0]}`}
                   alt={product.name}
                   className="img image-banner-principal"
                   width={192}

@@ -7,17 +7,10 @@ import { addToCart } from "../../store/slices/cart-slice";
 import { Modal } from "react-bootstrap";
 import { CurrencyFormatter } from "../../helpers/currencyFormatter";
 import { VariantSelector } from "./VariantSelector";
-
-import Swiper, { SwiperSlide } from "../../components/swiper";
-
-import { ROOT_IMAGE } from "../../config";
 import { EffectFade, Thumbs } from "swiper";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import cogoToast from "cogo-toast";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ProductImage from "./ProductImage";
 import ProductImageGallery from "./ProductImage";
 
 function ProductModal2({ show, onHide, currency }) {

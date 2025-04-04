@@ -10,15 +10,12 @@ import {
   decreaseQuantity,
   deleteFromCart,
   deleteAllFromCart,
-  updateCartItemQuantity,
   markItemAsSoldOut,
 } from "../../store/slices/cart-slice";
 import { cartItemStock } from "../../helpers/product";
 import { useTranslation } from "react-i18next";
-import { ROOT_IMAGE } from "../../config";
 import { fetchStock } from "../../hooks/use-FetchStock";
 import cogoToast from "cogo-toast";
-import { Button } from "react-bootstrap";
 import clsx from "clsx";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
@@ -35,6 +32,7 @@ const Cart = () => {
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
   const [readyToCheckout, setReadyToCheckout] = useState(false);
+  const { configParams } = useSelector((state) => state.paramsWeb);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -163,7 +161,7 @@ const Cart = () => {
                                   >
                                     <img
                                       className="img-fluid"
-                                      src={ROOT_IMAGE + cartItem.images[0]}
+                                      src={configParams.RUTAIMAGENESARTICULOS + cartItem.images[0]}
                                       alt=""
                                     />
                                   </Link>

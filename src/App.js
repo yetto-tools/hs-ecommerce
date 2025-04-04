@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProtectedRoute } from "./wrappers/ProtectedRoute";
 import { fetchMenu } from "./hooks/use-FetchMenu";
 import { fetchCountry, fetchParamsWeb } from "./hooks/use-FetchParams";
-import PageReturnPolicy from "./pages/other/PageReturnPolicy";
-import PagePreguntasFrecuentes from "./pages/other/PagePreguntasFrecuentes";
-import PageUbicaciones from "./pages/other/PageUbicaciones";
-import { ROOT_BANNER, ROOT_IMAGE, ROOT_MULTIBANNER } from "./config";
+const PageReturnPolicy = lazy(()=>("./pages/other/PageReturnPolicy"));
+const PagePreguntasFrecuentes = lazy(()=> ("./pages/other/PagePreguntasFrecuentes"));
+const PageUbicaciones = lazy(()=> import("./pages/other/PageUbicaciones")) ;
 
 const PageVersion = lazy(() => import("./pages/other/PageVersion"));
 
@@ -50,10 +49,6 @@ const App = () => {
     dispatch(fetchParamsWeb());
     dispatch(fetchCountry());
 
-  console.log("ROOT_IMAGE:", ROOT_IMAGE);
-  console.log("ROOT_BANNER:", ROOT_BANNER);
-  console.log("ROOT_MULTIBANNER:", ROOT_MULTIBANNER);
-  
   }, [dispatch]);
   const { loading } = useSelector((state) => state.loader);
 

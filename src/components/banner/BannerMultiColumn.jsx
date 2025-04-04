@@ -2,12 +2,10 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { ROOT_MULTIBANNER } from "../../config";
-
-
+import { useSelector } from "react-redux";
 
 const BannerMultiColumn = ({ data, sliderClass }) => {  
-  
+  const { configParams } = useSelector((state) => state.paramsWeb);
   return (
     <div className={`banner-multi-column ${sliderClass}`}>
       <div className="banner-wrapper">
@@ -16,7 +14,8 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
             key={index}
             className="banner-item"
             style={{
-              backgroundImage: `url(${ROOT_MULTIBANNER+image})`,
+              backgroundImage: `url(${configParams.RUTAIMAGENESBANNERS + image})`,
+              
               backgroundSize: "cover",
               objectFit: "cover",
               scale: "scaleX(-1)",

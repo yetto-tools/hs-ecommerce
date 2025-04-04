@@ -5,6 +5,7 @@ const paramsWebSlice = createSlice({
     initialState: {
         params: [],
         country: {},
+        configParams: {},
         loading: false,
         error: null
     },
@@ -15,6 +16,10 @@ const paramsWebSlice = createSlice({
         setCountry: (state, action) => {
             state.country = action.payload
         },
+        setConfigParams: (state, action) => {
+            state.configParams = action.payload
+        },
+
         setLoading(state, action) {
             state.loading = action.payload;
         },
@@ -24,5 +29,5 @@ const paramsWebSlice = createSlice({
     },
 });
 
-export const { setParamsWeb,setCountry, setLoading } = paramsWebSlice.actions;
+export const { setParamsWeb,setCountry, setConfigParams, setLoading } = paramsWebSlice.actions;
 export default paramsWebSlice.reducer;
