@@ -216,7 +216,8 @@
     "add_to_cart": "Añadir al Carrito",
     "view_cart": "Ver Carrito",
     "not_fount_silhouettes": "No disponible",
-    "not_items_to_cart": "No se han añadido artículos a la cesta"
+    "not_items_to_cart": "No se han añadido artículos a la cesta",
+    "stock_out": "Agotado"
   },
   "page_login_register": {
     "title": "Inicio de sesión",

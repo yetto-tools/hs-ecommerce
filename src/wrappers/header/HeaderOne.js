@@ -35,6 +35,29 @@ const HeaderOne = ({
   };
 
   return (
+    <>
+<div
+  style={{
+    position: "fixed",
+    zIndex: 9999,
+    bottom:0,
+    left: 0,
+    backgroundColor: "red",
+    color: "white",
+    padding: "16px 8px",
+    fontSize: "1.8rem",
+    fontWeight: "bold",
+    width: "100%",
+    textAlign: "center",
+    justifyContent: "center",
+    letterSpacing: "2px"
+
+  }}
+>
+  Entorno de Pruebas
+</div>
+
+
     <header
       className={clsx(
         "header-area clearfix bg-black text-white ",
@@ -85,7 +108,9 @@ const HeaderOne = ({
         {/* mobile menu */}
         <MobileMenu />
       </div>
+     
     </header>
+    </>
   );
 };
 

@@ -55,8 +55,18 @@ const ProductGridListSingle = ({
   return (
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
+        
+        
         <div className={clsx("product-img", loadingImage && "loading")}>
+        
           <div onClick={handleProductDetail}>
+          {product && product?.stock == 0 ? (
+            <div className="product-img-badges bg-secondary ">
+              <span className="text-white fw-bold p-2">{t("general_words.stock_out")}</span>  
+            </div>
+          ) : (
+            ""
+          )}
             <>
               <LazyLoadImage
                 className="default-img"

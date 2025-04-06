@@ -573,7 +573,7 @@
   position: relative;
   .product-img-badges {
     position: absolute;
-    z-index: 3;
+    z-index: 20;
     top: 20px;
     left: 20px;
     span {
@@ -586,7 +586,7 @@
       margin-bottom: 10px;
       padding: 3px 11px;
 
-      color: #fff;
+      color: #000;
       border-radius: 3px;
       &.pink {
         background-color: #e6deac;

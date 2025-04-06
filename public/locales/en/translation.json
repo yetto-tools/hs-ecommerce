@@ -213,7 +213,8 @@
     "view_cart": "view cart",
     "not_items_to_cart": "No se han añadido artículos a la cesta",
     "not_fount_silhouettes": "No silhouettes found",
-    "view_more_products": "VIEW MORE PRODUCTS"
+    "view_more_products": "VIEW MORE PRODUCTS",
+    "stock_out": "StocuOut"
   },
   "page_login_register": {
     "label_home": "Home",
