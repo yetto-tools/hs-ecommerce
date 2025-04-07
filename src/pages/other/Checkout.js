@@ -33,6 +33,7 @@ import withReactContent from "sweetalert2-react-content";
 import { deleteAllFromCart } from "../../store/slices/cart-slice";
 import { fetchStock } from "../../hooks/use-FetchStock";
 import { dir } from "i18next";
+import { ResumenCompra } from "./ResumenCompra";
 
 const Checkout = () => {
   const { t, i18n } = useTranslation();
@@ -107,7 +108,7 @@ const Checkout = () => {
       cogoToast.info("Debe Iniciar Sesión", { position: "top-center" });
       document.documentElement.scrollTo(0, 0);
       setShow(true);
-      
+
       return;
     }
 
@@ -140,7 +141,6 @@ const Checkout = () => {
     setLoadingOrder(true);
 
     if (!formValues.idCliente) {
-      
       cogoToast.error("Debe de Iniciar Sesión");
       scrollToElement("login-section");
       setLoadingOrder(false);
@@ -178,20 +178,17 @@ const Checkout = () => {
       return;
     }
 
-
     if (cartItems.length === 0) {
       cogoToast.error("Debe de Agregar Productos al Carrito");
       setLoadingOrder(false);
       return;
     }
 
-
-    
-    if(address?.length === 0 || !address){
+    if (address?.length === 0 || !address) {
       setLoadingOrder(false);
-      return ;
+      return;
     }
-    
+
     const { address: selectedAddress } = address.find(
       (street) => street.idAddress === Number(formValues.idDireccion)
     );
@@ -221,7 +218,6 @@ const Checkout = () => {
       return;
     }
 
-
     // Cliente
     // let orderCliente = adapterOrderCustomer(formValues);
     // console.log(orderCliente);
@@ -231,12 +227,12 @@ const Checkout = () => {
       idAlmacen: 1,
     });
     let order = {};
-    console.log(address)
+    console.log(address);
     // console.log(usuario.address.find((dir)=>{
     //   dir.idAddress === formValues.idDireccion
     // }));
 
-    try{
+    try {
       order = adapterOrderCustomer(formValues);
       order.idCliente = usuario.id;
       order.idDireccion = formValues.idDireccion;
@@ -254,14 +250,11 @@ const Checkout = () => {
       order.BAC_HASH = "1";
       order.BAC_MONTO = Number(cartTotalPrice.toFixed(2));
       order.IdUsuario_Direccion = formValues.idDireccion;
-
-    }
-    catch(error){ 
-      console.error("Hubo un error durante la validación de datos "+ error);
+    } catch (error) {
+      console.error("Hubo un error durante la validación de datos " + error);
       cogoToast.error(`${error}`, { position: "bottom-center" });
       setLoadingOrder(false);
     }
-    
 
     try {
       setLoadingOrder(true);
@@ -292,7 +285,6 @@ const Checkout = () => {
     } finally {
       setLoadingOrder(false);
     }
-    
   };
 
   const handleClose = () => setShow(false);
@@ -417,100 +409,14 @@ const Checkout = () => {
                 </div>
                 <div className="col-lg-1"></div>
                 <div className="col-lg-5 ">
-                  <div className="your-order-area sticky-column">
-                    <h3>{t("page_checkout.your_order")}</h3>
-                    <div className="your-order-wrap gray-bg-4">
-                      <div className="your-order-product-info">
-                        <div
-                          className="your-order-top"
-                          onClick={() => console.log(cartItems)}
-                        >
-                          <ul>
-                            <li className="fw-bold">
-                              {t("page_checkout.product")}
-                            </li>
-                            <li className="fw-bold">
-                              {t("page_checkout.quantity")}
-                            </li>
-                            <li className="fw-bold">Total</li>
-                          </ul>
-                        </div>
-                        <div className="your-order-middle">
-                          <ul>
-                            {cartItems.map((cartItem, key) => {
-                              const discountedPrice = getDiscountPrice(
-                                cartItem.price,
-                                cartItem.discount
-                              );
-                              const finalProductPrice = (
-                                cartItem.price * currency.currencyRate
-                              ).toFixed(2);
-                              const finalDiscountedPrice = (
-                                discountedPrice * currency.currencyRate
-                              ).toFixed(2);
-
-                              discountedPrice != null
-                                ? (cartTotalPrice +=
-                                    finalDiscountedPrice * cartItem.quantity)
-                                : (cartTotalPrice +=
-                                    finalProductPrice * cartItem.quantity);
-                              return (
-                                <li key={key}>
-                                  <span className="order-middle-left text-truncate">
-                                    {cartItem.name} - {cartItem.size}
-                                    <p className="text-xs fw-bold">
-                                      {new Intl.NumberFormat(i18n.language, {
-                                        style: "currency",
-                                        currency: currency.currencyName,
-                                      }).format(finalProductPrice)}
-                                    </p>
-                                  </span>
-                                  <strong> {cartItem.quantity} </strong>
-
-                                  <span className="order-price fw-bold">
-                                    {discountedPrice !== null
-                                      ? new Intl.NumberFormat(i18n.language, {
-                                          style: "currency",
-                                          currency: currency.currencyName,
-                                        }).format(
-                                          finalDiscountedPrice *
-                                            cartItem.quantity
-                                        )
-                                      : new Intl.NumberFormat(i18n.language, {
-                                          style: "currency",
-                                          currency: currency.currencyName,
-                                        }).format(
-                                          finalProductPrice * cartItem.quantity
-                                        )}
-                                  </span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                        <div className="your-order-bottom">
-                          <ul>
-                            <li className="your-order-shipping">
-                              {t("page_checkout.shipping")}
-                            </li>
-                            <li>{t("page_checkout.free_shipping")}</li>
-                          </ul>
-                        </div>
-                        <div className="your-order-total">
-                          <ul>
-                            <li className="order-total fw-bold">Total</li>
-                            <li>
-                              {new Intl.NumberFormat(i18n.language, {
-                                style: "currency",
-                                currency: currency.currencyName,
-                              }).format(cartTotalPrice)}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="payment-method"></div>
-                    </div>
-                  </div>
+                  <ResumenCompra
+                    cartItems={cartItems}
+                    cartTotalPrice={cartTotalPrice}
+                    currency={currency}
+                    getDiscountPrice={getDiscountPrice}
+                    t={t}
+                    i18n={i18n}
+                  />
                 </div>
               </div>
             ) : (

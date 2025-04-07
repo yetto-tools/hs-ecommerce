@@ -1,71 +1,56 @@
 import React, { useState } from "react";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
-import { dataPaymentForm } from "../../adapters/DataPaymentForm";
-import { EncriptarTransaccion } from "../../helpers/validator";
-
 import { CreditCard } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export const CreditCardForm = ({ handleSubmitPayment }) => {
+export const CreditCardForm = ({
+  handleSubmitPayment,
+  cardValues,
+  setCardValues,
+}) => {
   const { t } = useTranslation();
-  const [formValues, setFormValues] = useState(dataPaymentForm);
+
   const [focused, setFocused] = useState("");
   const handleInputFocus = (e) => {
     setFocused(e.target.name);
   };
 
   // Formato de la fecha de expiración para el componente de visualización
-  const formattedExpiry = `${formValues.expiryMonth.padStart(
+  const formattedExpiry = `${cardValues.expiryMonth.padStart(
     2,
     "0"
-  )}/${formValues.expiryYear.slice(-2)}`;
+  )}/${cardValues.expiryYear.slice(-2)}`;
 
   return (
-    <div className="checkout-area pt-95 pb-100 enable-selection">
+    <div className="checkout-area pt-4 pb-100 enable-selection">
       <div className="container">
         <div className="col-lg-12">
           <Cards
-            number={formValues.ccnumber}
-            name={`${formValues.first_name} ${formValues.last_name}`}
+            number={cardValues.ccnumber}
+            name={`${cardValues.name}`}
             expiry={formattedExpiry}
-            cvc={formValues.cvv}
+            cvc={cardValues.cvc}
             focused={focused}
           />
         </div>
         <div className="col-lg-12">
           <div className="col-lg-12">
             <div className="billing-info-wrap">
-              <form onSubmit={handleSubmitPayment}>
-                <div className="billing-info mb-20">
-                  <label className="fw-semibold mb-0" htmlFor="number">
-                    Número de tarjeta
-                  </label>
-                  <input
-                    type="tel"
-                    name="number"
-                    value={formValues.ccnumber}
-                    onChange={(e) =>
-                      setFormValues({ ...formValues, ccnumber: e.target.value })
-                    }
-                    onFocus={handleInputFocus}
-                    placeholder="Número de tarjeta"
-                    required
-                  />
-                </div>
+              <form onSubmit={handleSubmitPayment} autoComplete="off">
                 <div className="billing-info mb-20 row">
-                  <label className="fw-semibold mb-0" htmlFor="name">
-                    Nombre del titular
+                  <label className="fw-semibold mb-0 mt-4" htmlFor="name">
+                    Nombre del Titular
                   </label>
-                  <div className="col-lg-6 col-md-6 col-12">
+                  <div className="col-lg-12 col-md-12 col-12">
                     <input
                       type="text"
                       name="name"
-                      value={formValues.first_name}
+                      value={cardValues.name}
                       onChange={(e) =>
-                        setFormValues({
-                          ...formValues,
-                          first_name: e.target.value,
+                        setCardValues({
+                          ...cardValues,
+                          name: e.target.value,
                         })
                       }
                       onFocus={handleInputFocus}
@@ -73,89 +58,98 @@ export const CreditCardForm = ({ handleSubmitPayment }) => {
                       required
                     />
                   </div>
-                  <div className="col-lg-6 col-md-6 col-12">
-                    <input
-                      type="text"
-                      name="name"
-                      value={formValues.last_name}
-                      onChange={(e) =>
-                        setFormValues({
-                          ...formValues,
-                          last_name: e.target.value,
-                        })
-                      }
-                      onFocus={handleInputFocus}
-                      placeholder="Apellido"
-                      required
-                    />
-                  </div>
                 </div>
-                <div className="col-lg-12 col-md-12 d-flex flex-wrap justify-content-start align-items-center gap-1  mb-20">
-                  <div className="col-lg-12 col-md-12 col-12 billing-select mb-20">
-                    <label className="fw-semibold mb-0" htmlFor="expiryMonth">
-                      Mes
-                    </label>
-                    <select
-                      type="tel"
-                      name="expiryMonth"
-                      value={formValues.expiryMonth}
-                      onChange={(e) =>
-                        setFormValues({
-                          ...formValues,
-                          expiryMonth: e.target.value,
-                        })
-                      }
-                      onFocus={handleInputFocus}
-                      placeholder="Mes de vencimiento (MM)"
-                      maxLength="2"
-                      required
-                    >
-                      {Array.from({ length: 12 }, (_, index) => (
-                        <option
-                          name="expiryMonth"
-                          key={index + 1}
-                          value={index + 1}
-                        >
-                          {index + 1}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="col-lg-12 col-md-12 col-12 billing-info mb-20">
-                    <label className="fw-semibold mb-0" htmlFor="expiryYear">
-                      Año
-                    </label>
-                    <input
-                      type="tel"
-                      name="expiryYear"
-                      value={formValues.expiryYear}
-                      onChange={(e) =>
-                        setFormValues({
-                          ...formValues,
-                          expiryYear: e.target.value,
-                        })
-                      }
-                      onFocus={handleInputFocus}
-                      placeholder="Año de vencimiento (AA)"
-                      maxLength="4"
-                      required
-                    />
-                  </div>
-                  <div className="col-lg-12 col-md-12 col-12 billing-info mb-20">
-                    <label className="fw-semibold mb-0" htmlFor="cvv">
-                      cvv
-                    </label>
-                    <input
-                      type="tel"
-                      name="cvv"
-                      value={formValues.cvv}
-                      onChange={(e) =>
-                        setFormValues({ ...formValues, cvv: e.target.value })
-                      }
-                      onFocus={handleInputFocus}
-                      placeholder="cvv"
-                      required
-                    />
+                <div className="billing-info mb-20">
+                  <label className="fw-semibold mb-0" htmlFor="ccnumber">
+                    Número de tarjeta
+                  </label>
+                  <input
+                    type="tel"
+                    name="ccnumber"
+                    value={cardValues.ccnumber}
+                    onChange={(e) =>
+                      setCardValues({ ...cardValues, ccnumber: e.target.value })
+                    }
+                    onFocus={handleInputFocus}
+                    placeholder="Número de tarjeta"
+                    required
+                    autoComplete="off"
+                    autoCapitalize="on"
+                  />
+                </div>
+
+                <div className="billing-info mb-20 row">
+                  <div className="row mx-auto px-0">
+                    <div className="col-lg-4 col-md-4 col-4 billing-select mb-20">
+                      <label className="fw-semibold mb-0" htmlFor="expiryMonth">
+                        Mes
+                      </label>
+                      <select
+                        type="tel"
+                        name="expiryMonth"
+                        value={cardValues.expiryMonth}
+                        onChange={(e) =>
+                          setCardValues({
+                            ...cardValues,
+                            expiryMonth: e.target.value,
+                          })
+                        }
+                        onFocus={handleInputFocus}
+                        placeholder="Mes de vencimiento (MM)"
+                        maxLength="2"
+                        required
+                      >
+                        <option value="">Mes de vencimiento (MM)</option>
+                        {Array.from({ length: 12 }, (_, index) => (
+                          <option
+                            name="expiryMonth"
+                            key={index + 1}
+                            value={index + 1}
+                          >
+                            {(index + 1).toString().padStart(2, "0")}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="col-lg-4 col-md-4 col-4 billing-info mb-20">
+                      <label className="fw-semibold mb-0" htmlFor="expiryYear">
+                        Año
+                      </label>
+                      <input
+                        type="number"
+                        name="expiryYear"
+                        value={cardValues.expiryYear}
+                        onChange={(e) =>
+                          setCardValues({
+                            ...cardValues,
+                            expiryYear: e.target.value,
+                          })
+                        }
+                        onFocus={handleInputFocus}
+                        placeholder="Año de vencimiento (AA)"
+                        maxLength="2"
+                        max={99}
+                        required
+                      />
+                    </div>
+                    <div className="col-lg-4 col-md-4 col-4 billing-info mb-20">
+                      <label className="fw-semibold mb-0" htmlFor="cvc">
+                        CVV
+                      </label>
+                      <input
+                        type="number"
+                        name="cvc"
+                        value={cardValues.cvc}
+                        onChange={(e) =>
+                          setCardValues({ ...cardValues, cvc: e.target.value })
+                        }
+                        onFocus={handleInputFocus}
+                        placeholder="cvv"
+                        maxLength="4"
+                        max={9999}
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="col-12 place-order my-4 text-center">
@@ -169,34 +163,36 @@ export const CreditCardForm = ({ handleSubmitPayment }) => {
                 </div>
 
                 <div className="col-12 hidden">
-                  <input name="type" value={formValues.type} />
+                  <input name="type" value={cardValues.type} />
                   <input name="key_id" value="14482124" />
                   <input name="hash" id="hash" />
                   <input name="time" id="time" />
-                  <input name="amount" value={formValues.amount} />
-                  <input name="orderid" value={formValues.orderid} />
-                  <input name="ccnumber" value={formValues.ccnumber} />
-                  {/* <input name="ccexp" value={formValues.ccexp} /> */}
-                  <input name="cvv" value={formValues.cvv} />
-                  <input name="first_name" value={formValues.first_name} />
-                  <input name="last_name" value={formValues.last_name} />
-                  <input name="email" value={formValues.email} />
-                  <input name="phone" value={formValues.phone} />
+                  <input name="amount" value={cardValues.amount} />
+                  <input name="orderid" value={cardValues.orderid} />
+                  <input name="ccnumber" value={cardValues.ccnumber} />
+                  {/* <input name="ccexp" value={cardValues.ccexp} /> */}
+                  <input name="cvv" value={cardValues.cvv} />
+                  <input name="first_name" value={cardValues.first_name} />
+                  <input name="last_name" value={cardValues.last_name} />
+                  <input name="email" value={cardValues.email} />
+                  <input name="phone" value={cardValues.phone} />
 
                   <input
                     type="hidden"
                     name="redirect"
                     value="https://hypestreet.dssolutionsgt.com/respuesta.html"
                   />
-                  {EncriptarTransaccion(
-                    formValues,
-                    "Y4qNwKDv7yW858GdU96bSK7u43bvCytc"
-                  )}
                 </div>
               </form>
             </div>
           </div>
         </div>
+      </div>
+      <div className="mt-5 pt-95">
+        <hr />
+        <small className="text-muted fst-italic lh-base">
+          {t("page_checkout.policy_cookies")}
+        </small>
       </div>
     </div>
   );

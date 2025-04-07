@@ -15,6 +15,7 @@ export const dataPaymentForm = () => {
     email: "",
     ccnumber: "",
     ccexp: "",
+    cvc: "",
     cvv: "",
     avs: "",
     redirect: "https://hypestreet.dssolutionsgt.com/confirmacion-pago",
@@ -23,25 +24,28 @@ export const dataPaymentForm = () => {
   };
 };
 
-export const adapterPaymentForm = (data) => {
+export const adapterPaymentForm = (cliente, tarjeta, pago, redirect) => {
   // const ccexp = expiryMonth + expiryYear;
   return {
-    type: data.type || "auth",
-    key_id: data.key_id || "14482124",
-    hash: data.hash || "",
-    time: data.time || "",
-    amount: data.amount || "",
-    orderid: data.orderid || "",
-    ccnumber: data.ccnumber || "",
-    ccexp: data.ccexp || "",
-    cvv: data.cvv || "",
-    first_name: data.first_name || "",
-    last_name: data.last_name || "",
-    email: data.email || "",
-    phone: data.phone || "",
+    type: pago.type || "auth",
+    key_id: pago.key_id || "14482124",
+    hash: pago.hash || "",
+    time: pago.time || "",
+    amount: pago.amount || "",
+    orderid: pago.orderid || "",
+    ccnumber: tarjeta.ccnumber || "",
+    ccexp: tarjeta.ccexp || "",
+    cvc: tarjeta.cvc || "",
+    cvv: tarjeta.cvc || "",
+    name: cliente.name || "",
+    avs: cliente.address || "",
+    email: cliente.email || "",
+    phone: cliente.phone || "",
+
     redirect:
-      data.redirect || "https://hypestreet.dssolutionsgt.com/confirmacion-pago",
-    expiryYear: data.expiryYear || "",
-    expiryMonth: data.expiryMonth || "",
+      redirect || "https://hypestreet.dssolutionsgt.com/confirmacion-pago",
+
+    expiryYear: tarjeta.expiryYear || "",
+    expiryMonth: tarjeta.expiryMonth || "",
   };
 };

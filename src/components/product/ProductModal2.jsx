@@ -23,14 +23,15 @@ function ProductModal2({ show, onHide, currency }) {
   const [quantityCount, setQuantityCount] = useState(1);
   const { i18n } = useTranslation();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const {cartItems} = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.cart);
   const [selectedVariantImage, setSelectedVariantImage] = useState([]);
-  const cartItem = cartItems.find(item =>
-    item.id === selectedVariant?.id &&
-    item.selectedProductColor === selectedVariant?.selectedProductColor &&
-    item.selectedProductSize === selectedVariant?.selectedProductSize
+  const cartItem = cartItems.find(
+    (item) =>
+      item.id === selectedVariant?.id &&
+      item.selectedProductColor === selectedVariant?.selectedProductColor &&
+      item.selectedProductSize === selectedVariant?.selectedProductSize
   );
-  
+
   const cartQty = cartItem?.quantity || 0;
   const maxQtyDisponible = productStock - cartQty;
 
@@ -41,35 +42,33 @@ function ProductModal2({ show, onHide, currency }) {
   // };
   const handleAddToCart = () => {
     if (!selectedVariant || productStock === 0) return;
-  
-    const existingItem = cartItems.find(item =>
-      item.id === selectedVariant.id &&
-      item.selectedProductColor === selectedVariant.selectedProductColor &&
-      item.selectedProductSize === selectedVariant.selectedProductSize
+
+    const existingItem = cartItems.find(
+      (item) =>
+        item.id === selectedVariant.id &&
+        item.selectedProductColor === selectedVariant.selectedProductColor &&
+        item.selectedProductSize === selectedVariant.selectedProductSize
     );
-  
+
     const currentCartQty = existingItem?.quantity || 0;
     const newTotalQty = currentCartQty + quantityCount;
-  
+
     if (newTotalQty > productStock) {
       cogoToast.error("Cantidad excede el stock disponible", {
         position: "bottom-left",
       });
       return;
     }
-  
+
     dispatch(addToCart({ ...selectedVariant, quantity: quantityCount }));
   };
-  
 
-  const handleBuyNow = () => {   
-    const exist = cartItems.find(cart => cart.id === selectedVariant.id)    
+  const handleBuyNow = () => {
+    const exist = cartItems.find((cart) => cart.id === selectedVariant.id);
     if (selectedVariant && productStock > 0 && exist.length === 0) {
-      
       dispatch(addToCart({ ...selectedVariant, quantity: quantityCount }));
-      Navigate("/cart"); 
-    }
-    else{
+      Navigate("/cart");
+    } else {
       Navigate("/cart");
     }
   };
@@ -110,10 +109,6 @@ function ProductModal2({ show, onHide, currency }) {
       setSelectedVariantImage(articleDetail.variants[0].images);
     }
   }, [articleDetail]);
-
-
-
-
 
   return (
     <Modal
@@ -172,7 +167,10 @@ function ProductModal2({ show, onHide, currency }) {
                   ))}
                 </Slider> */}
               </div>
-              <div className="product-small-image-wrapper mt-40 d-sm-none d-md-block" id="thumbnail">
+              <div
+                className="product-small-image-wrapper mt-40 d-sm-none d-md-block"
+                id="thumbnail"
+              >
                 {/* <Swiper options={thumbnailSwiperParams}>
                   {selectedVariantImage &&
                     selectedVariantImage.map((image, i) => {
@@ -200,7 +198,7 @@ function ProductModal2({ show, onHide, currency }) {
             <div className="col-md-7 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
                 <h2>{articleDetail.name}</h2>
-                
+
                 <div className="product-details-price gap-4">
                   <span className="fs-4 fw-bold">
                     {CurrencyFormatter(
@@ -223,7 +221,7 @@ function ProductModal2({ show, onHide, currency }) {
                     )}
                   </span>
                 </div>
-                
+
                 <VariantSelector
                   articleDetail={articleDetail}
                   setSelectedVariant={setSelectedVariant}
@@ -231,8 +229,10 @@ function ProductModal2({ show, onHide, currency }) {
                   setQuantityCount={setQuantityCount}
                   setSelectedVariantImage={setSelectedVariantImage}
                 />
-                
-                <small><b>SKU:</b> {articleDetail.sku}</small>
+
+                <small>
+                  <b>SKU:</b> {articleDetail.sku}
+                </small>
 
                 <div
                   className="pro-details-quality"
@@ -248,28 +248,30 @@ function ProductModal2({ show, onHide, currency }) {
                       <>
                         <button
                           className="dec qtybutton text-black"
-                          disabled={quantityCount <= 1 }
+                          disabled={quantityCount <= 1}
                           onClick={() =>
                             setQuantityCount((count) => Math.max(1, count - 1))
                           }
                         >
                           -
                         </button>
-                        
+
                         <input
                           className="cart-plus-minus-box text-black text-center"
                           type="number"
                           value={quantityCount}
                           readOnly
                         />
-                          {console.log(quantityCount >= maxQtyDisponible)}
                         <button
                           className="inc qtybutton text-black"
                           onClick={() => {
                             if (quantityCount >= maxQtyDisponible) {
-                              cogoToast.error("Cantidad excede el stock disponible", {
-                                position: "bottom-left",
-                              });
+                              cogoToast.error(
+                                "Cantidad excede el stock disponible",
+                                {
+                                  position: "bottom-left",
+                                }
+                              );
                               return;
                             }
                             setQuantityCount((count) =>
@@ -307,7 +309,7 @@ function ProductModal2({ show, onHide, currency }) {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="pro-details-list container-md mt-4 max-h-25 overflow-y-scroll">
                   <details className="">
                     <summary>Descripción</summary>

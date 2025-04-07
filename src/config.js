@@ -7,19 +7,19 @@ const URL_INSTAGRAM =
   "https://www.instagram.com/esconhype?igsh=MXVyeWlxZnM3bnJxaw%3D%3D&utm_source=qr";
 const URL_FACEBOOK = "https://www.facebook.com/Hypestreetstoree/?locale=es_LA";
 const URL_TIKTOK = "https://www.tiktok.com/@esconhype?_t=ZM-8unNpa1carn&_r=1";
-const APP_VERSION = process.env.PUBLIC_URL;
-const TERMS_AND_CONDITIONS_MD_PATH= process.env.PUBLIC_URL+ "docs/terminos-condiciones.md"
-const RETURN_POLICY_MD_PATH= process.env.PUBLIC_URL+"docs/politicas-de-devolucion.md"
-const FAQ_MD_PATH= process.env.PUBLIC_URL +"docs/preguntas-frecuentes.md"
-const STORES_LOCATION_MD_PATH = process.env.PUBLIC_URL +  "docs/ubicaciones.md"
-
+const APP_VERSION = process.env.REACT_APP_VERSION;
+const TERMS_AND_CONDITIONS_MD_PATH =
+  process.env.PUBLIC_URL + "docs/terminos-condiciones.md";
+const RETURN_POLICY_MD_PATH =
+  process.env.PUBLIC_URL + "docs/politicas-de-devolucion.md";
+const FAQ_MD_PATH = process.env.PUBLIC_URL + "docs/preguntas-frecuentes.md";
+const STORES_LOCATION_MD_PATH = process.env.PUBLIC_URL + "docs/ubicaciones.md";
 
 const ROOT_IMAGE = "https://hypestreet.com.gt/" + "ftp_imagenes/articulos/";
-const ROOT_BANNER = "https://hypestreet.com.gt/" + "ftp_imagenes/BannerPrincipal/"
-const ROOT_MULTIBANNER = "https://hypestreet.com.gt/" + "ftp_imagenes/banners/"
-
-
-
+const ROOT_BANNER =
+  "https://hypestreet.com.gt/" + "ftp_imagenes/BannerPrincipal/";
+const ROOT_MULTIBANNER = "https://hypestreet.com.gt/" + "ftp_imagenes/banners/";
+const APP_ENV = process.env.NODE_ENV;
 export {
   API_URL,
   API_VERSION,
@@ -36,6 +36,6 @@ export {
   TERMS_AND_CONDITIONS_MD_PATH,
   RETURN_POLICY_MD_PATH,
   FAQ_MD_PATH,
-  STORES_LOCATION_MD_PATH
+  STORES_LOCATION_MD_PATH,
+  APP_ENV,
 };
-

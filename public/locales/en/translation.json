@@ -156,7 +156,15 @@
     "pay": "Pay",
     "select_address": "select address",
     "add_address": "add new address",
-    "save_address": "Save Address"
+    "save_address": "Save Address",
+    "amount": "Amount",
+    "tax": "Tax",
+    "name": "Name",
+    "phone": "Phone",
+    "ccnumber": "Card Number",
+    "ccexp": "Expired Date",
+    "policy_cookies": "Queremos aclarar que nuestro sitio no almacena ningún dato relacionado con tarjetas de crédito o información de pago mediante cookies. Los procesos de pago se gestionan de forma segura a través de plataformas externas certificadas, que cumplen con altos estándares de seguridad y privacidad.",
+    "select_address_yet": "--"
   },
   "footer": {
     "store_location": "Store Location",

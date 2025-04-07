@@ -5,9 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProtectedRoute } from "./wrappers/ProtectedRoute";
 import { fetchMenu } from "./hooks/use-FetchMenu";
 import { fetchCountry, fetchParamsWeb } from "./hooks/use-FetchParams";
-const PageReturnPolicy = lazy(()=>("./pages/other/PageReturnPolicy"));
-const PagePreguntasFrecuentes = lazy(()=> ("./pages/other/PagePreguntasFrecuentes"));
-const PageUbicaciones = lazy(()=> import("./pages/other/PageUbicaciones")) ;
+import { PageSuccessPayment } from "./pages/payment/PageSuccessPayment";
+import BacCheckout from "./pages/other/BacCheckout";
+
+const PageReturnPolicy = lazy(() => "./pages/other/PageReturnPolicy");
+const PagePreguntasFrecuentes = lazy(
+  () => "./pages/other/PagePreguntasFrecuentes"
+);
+const PageUbicaciones = lazy(() => import("./pages/other/PageUbicaciones"));
 
 const PageVersion = lazy(() => import("./pages/other/PageVersion"));
 
@@ -48,7 +53,6 @@ const App = () => {
     dispatch(fetchMenu());
     dispatch(fetchParamsWeb());
     dispatch(fetchCountry());
-
   }, [dispatch]);
   const { loading } = useSelector((state) => state.loader);
 
@@ -128,6 +132,10 @@ const App = () => {
             />
 
             <Route
+              path={process.env.PUBLIC_URL + "/checkout-bac"}
+              element={<BacCheckout />}
+            />
+            <Route
               path={process.env.PUBLIC_URL + "/terminos-y-condiciones"}
               element={<PageTerminosYCondiciones />}
             />
@@ -143,6 +151,9 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/ubicaciones"}
               element={<PageUbicaciones />}
             />
+            <Route path="/confirmar-pago" element={<PageSuccessPayment />} />
+            <Route path="/pago-exito" element={<PageSuccessPayment />} />
+
             <Route path="/version" element={<PageVersion />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

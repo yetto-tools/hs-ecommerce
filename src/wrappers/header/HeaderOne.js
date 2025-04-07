@@ -7,6 +7,7 @@ import IconGroup from "../../components/header/IconGroup";
 import MobileMenu from "../../components/header/MobileMenu";
 
 import MultiLevelDropdown from "../../data/menus/MultiLevelDropdown";
+import { APP_ENV, APP_VERSION } from "../../config";
 
 const HeaderOne = ({
   layout,
@@ -28,88 +29,89 @@ const HeaderOne = ({
     };
   }, []);
 
-  
-
   const handleScroll = () => {
     setScroll(window.scrollY);
   };
 
   return (
     <>
-<div
-  style={{
-    position: "fixed",
-    zIndex: 9999,
-    bottom:0,
-    left: 0,
-    backgroundColor: "red",
-    color: "white",
-    padding: "16px 8px",
-    fontSize: "1.8rem",
-    fontWeight: "bold",
-    width: "100%",
-    textAlign: "center",
-    justifyContent: "center",
-    letterSpacing: "2px"
-
-  }}
->
-  Entorno de Pruebas
-</div>
-
-
-    <header
-      className={clsx(
-        "header-area clearfix bg-black text-white ",
-        headerBgClass,
-        headerPositionClass
-      )}
-    >
-      <div
-        className={clsx(
-          "header-top-area",
-          headerPaddingClass,
-          top === "visible" ? "d-none d-lg-block" : "d-none",
-          borderStyle === "fluid-border" && "border-none"
-        )}
-      >
-        <div className={layout === "container-fluid" ? layout : "container"}>
-          {/* header top */}
-          {/* <HeaderTop borderStyle={borderStyle} /> */}
+      {APP_ENV === "development" ? (
+        <div
+          style={{
+            position: "fixed",
+            zIndex: 9999,
+            bottom: 0,
+            left: 0,
+            backgroundColor: "red",
+            color: "white",
+            padding: "16px 8px",
+            fontSize: "1.8rem",
+            fontWeight: "bold",
+            width: "100%",
+            textAlign: "center",
+            justifyContent: "center",
+            letterSpacing: "2px",
+          }}
+        >
+          Entorno de Pruebas - ({APP_VERSION})
         </div>
-      </div>
+      ) : (
+        ""
+      )}
 
-      <div
+      <header
         className={clsx(
-          headerPaddingClass,
-          "sticky-bar header-res-padding clearfix",
-          scroll > headerTop && "stick"
+          "header-area clearfix bg-black text-white ",
+          headerBgClass,
+          headerPositionClass
         )}
       >
         <div
-          className={layout === "container-fluid " ? layout : "container-fluid"}
+          className={clsx(
+            "header-top-area",
+            headerPaddingClass,
+            top === "visible" ? "d-none d-lg-block" : "d-none",
+            borderStyle === "fluid-border" && "border-none"
+          )}
         >
-          <div className={`row align-items-center justify-content-between`}>
-            <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-4">
-              <div className="d-flex justify-content-center align-items-center w-75">
-                {/* header logo */}
-                <Logo imageUrl="/logo-w-colors.png" />
-              </div>
-            </div>
-            <div className="col-xxl-6 col-xl-6 col-lg-5 col-md-5 d-none d-lg-block">
-              <MultiLevelDropdown sidebarMenu={false} />
-            </div>
-            <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-3 col-4 ">
-              {/* Icon group */}
-              <IconGroup />
-            </div>
+          <div className={layout === "container-fluid" ? layout : "container"}>
+            {/* header top */}
+            {/* <HeaderTop borderStyle={borderStyle} /> */}
           </div>
         </div>
-        {/* mobile menu */}
-        <MobileMenu />
-      </div>
-     
-    </header>
+
+        <div
+          className={clsx(
+            headerPaddingClass,
+            "sticky-bar header-res-padding clearfix",
+            scroll > headerTop && "stick"
+          )}
+        >
+          <div
+            className={
+              layout === "container-fluid " ? layout : "container-fluid"
+            }
+          >
+            <div className={`row align-items-center justify-content-between`}>
+              <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-4">
+                <div className="d-flex justify-content-center align-items-center w-75">
+                  {/* header logo */}
+                  <Logo imageUrl="/logo-w-colors.png" />
+                </div>
+              </div>
+              <div className="col-xxl-6 col-xl-6 col-lg-5 col-md-5 d-none d-lg-block">
+                <MultiLevelDropdown sidebarMenu={false} />
+              </div>
+              <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-3 col-4 ">
+                {/* Icon group */}
+                <IconGroup />
+              </div>
+            </div>
+          </div>
+          {/* mobile menu */}
+          <MobileMenu />
+        </div>
+      </header>
     </>
   );
 };

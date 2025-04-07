@@ -54,7 +54,7 @@ const PaymentPage = () => {
         <Breadcrumb
           pages={[
             { label: "Inicio", path: process.env.PUBLIC_URL + "/" },
-            { label: "Tienda", path: process.env.PUBLIC_URL + pathname },
+            { label: "Pagos", path: process.env.PUBLIC_URL + pathname },
           ]}
         />
 

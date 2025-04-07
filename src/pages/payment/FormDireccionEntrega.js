@@ -2,7 +2,7 @@ import { MapPinPlus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import FormNuevaDireccion from "../../components/address/FormNuevaDireccion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const FormDireccionEntrega = ({
   country,
@@ -12,9 +12,11 @@ export const FormDireccionEntrega = ({
   errorsValidate,
   setShowAddressNew,
   showAddressNew,
+  addressSelected,
 }) => {
   const { t } = useTranslation();
   const { address } = useSelector((state) => state.usuario);
+
   useEffect(() => {
     if (address.length > 0) {
       setFormValues((prevValues) => ({
@@ -22,17 +24,18 @@ export const FormDireccionEntrega = ({
         idDireccion: address[address.length - 1].idAddress,
       }));
     }
-    
   }, [address]);
   const handleDebug = () => {
-    console.log(address)
-  }
+    console.log(address);
+  };
   return (
     <>
       <div className="col-lg-12 row ">
         <div className="col-lg-9 col-9">
           <div className="billing-info mb-20">
-            <label onClick={handleDebug}>{t("page_checkout.street_address")}</label>
+            <label onClick={handleDebug}>
+              {t("page_checkout.street_address")}
+            </label>
             <select
               name="idDireccion"
               onChange={handleChange}
@@ -55,7 +58,7 @@ export const FormDireccionEntrega = ({
             </select>
           </div>
         </div>
-        <div className="col-lg-2 col-2">
+        <div className="col-lg-2 col-md-2 col-2">
           <label></label>
           <button
             type="button"
@@ -69,6 +72,21 @@ export const FormDireccionEntrega = ({
             <MapPinPlus />
           </button>
         </div>
+      </div>
+      <div className="col-lg-12 col-md-12 col-12 py-2 mb-4 billing-info">
+        {addressSelected ? (
+          <div className="billing-info px-2 p-2 read-only-input">
+            <span className="fw-bold px-2 text-xs">
+              {addressSelected?.address}
+            </span>
+          </div>
+        ) : (
+          <div className="billing-info px-2 p-2 read-only-input">
+            <span className="col-12 fw-bold px-2 text-xs">
+              {t("page_checkout.select_address_yet")}
+            </span>
+          </div>
+        )}
       </div>
 
       {showAddressNew && (

@@ -106,3 +106,20 @@ export const generarCorrelativoFactura = () => {
 
   return correlativo; // Máx. 37 caracteres
 };
+
+export function generarHash(orderid, amount, time, key) {
+  // Construir la cadena con el formato "orderid|amount|time|key"
+  const cadena = `${orderid}|${amount}|${time}|${key}`;
+  // Calcular el hash MD5 en formato hexadecimal usando CryptoJS
+  const hash = CryptoJS.MD5(cadena).toString();
+  return hash;
+}
+
+export function validarHash(orderid, amount, time, key, hashRecibido) {
+  // Construir la cadena en el formato "orderid|amount|time|key"
+  const cadena = `${orderid}|${amount}|${time}|${key}`;
+  // Calcular el hash MD5 de la cadena en formato hexadecimal usando CryptoJS
+  const hashCalculado = CryptoJS.MD5(cadena).toString();
+  // Comparar el hash calculado con el hash recibido
+  return hashCalculado === hashRecibido;
+}

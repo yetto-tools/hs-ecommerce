@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const BannerMultiColumn = ({ data, sliderClass }) => {  
+const BannerMultiColumn = ({ data, sliderClass }) => {
   const { configParams } = useSelector((state) => state.paramsWeb);
   return (
     <div className={`banner-multi-column ${sliderClass}`}>
@@ -14,8 +14,10 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
             key={index}
             className="banner-item"
             style={{
-              backgroundImage: `url(${configParams.RUTAIMAGENESBANNERS + image})`,
-              
+              backgroundImage: `url(${
+                configParams.RUTAIMAGENESBANNERS + image
+              })`,
+
               backgroundSize: "cover",
               objectFit: "cover",
               scale: "scaleX(-1)",
@@ -157,7 +159,7 @@ const styleCustom = `
 .banner-item .content {
   text-align: center;
   color: white;
-  height: 96dvh;
+  height: 48dvh;
   width: 100%;
   display: flex;
 }

@@ -1,4 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import storageSession from "redux-persist/lib/storage/session"; // sessionStorage
 import {
   persistStore,
   persistReducer,
@@ -9,7 +11,6 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 import currencyReducer from "./slices/currency-slice";
 import cartReducer from "./slices/cart-slice";
@@ -38,10 +39,29 @@ const persistConfig = {
     "wishlist",
     "menu",
     "articles",
+    "usuario",
     "validarNit",
     "urlParams",
     "sendEamil",
+    "address",
+    "newArrivals",
   ],
+};
+
+// Configuración específica para el reducer del usuario (usa sessionStorage)
+const usuarioPersistConfig = {
+  key: "usuario",
+  storage: storageSession,
+};
+
+// Configuración específica para el reducer de address (usa sessionStorage)
+const addressPersistConfig = {
+  key: "address",
+  storage: storageSession,
+};
+const newArrivalsPersistConfig = {
+  key: "newArrivals",
+  storage: storageSession,
 };
 
 const rootReducer = combineReducers({
@@ -54,9 +74,9 @@ const rootReducer = combineReducers({
   articleDetail: articleDetailReducer,
   loader: loadingReducer,
   filters: filtersReducer,
-  newArrivals: newArrivalsReducer,
-  usuario: usuarioReducer,
-  address: usuarioReducer,
+  newArrivals: persistReducer(newArrivalsPersistConfig, newArrivalsReducer),
+  usuario: persistReducer(usuarioPersistConfig, usuarioReducer),
+  address: persistReducer(addressPersistConfig, usuarioReducer),
   token: usuarioReducer,
   validarNit: validaNitReducer,
   urlParams: urlParamsReducer,
