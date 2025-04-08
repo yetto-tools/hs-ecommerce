@@ -127,9 +127,7 @@ const ProductGridSingle = ({
         </div>
         <div className="product-content text-center">
           <h3>
-            <Link to={process.env.PUBLIC_URL + "/producto/" + product.id}>
               {product.name}
-            </Link>
           </h3>
           {product.rating && product.rating > 0 ? (
             <div className="product-rating">

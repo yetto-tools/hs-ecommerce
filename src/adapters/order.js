@@ -53,9 +53,11 @@ export const adapterOrderCustomer = (formValues) => {
   };
 };
 
+
 export const adapterOrderProducts = (
   cartItems,
-  { iva = 1.12, idAlmacen = 1 }
+  { iva = 1.12, idAlmacen = 1 },
+  pathImage = ""
 ) => {
   return cartItems.map((cartItem) => ({
     itemCode: cartItem.sku || "",
@@ -81,6 +83,7 @@ export const adapterOrderProducts = (
       ).toFixed(2) || new Decimal(0).toFixed(2)
     ), // Si hay descuentos en monto
     idAlmacen: idAlmacen, // Ajustar si se tiene almacenes distintos
+    urlImage: pathImage + cartItem.images[0] || "",
   }));
 };
 

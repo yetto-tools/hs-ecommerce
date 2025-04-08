@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const BannerMultiColumn = ({ data, sliderClass }) => {
+  const version = Date.now();
   const { configParams } = useSelector((state) => state.paramsWeb);
   return (
     <div className={`banner-multi-column ${sliderClass}`}>
@@ -15,7 +16,7 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
             className="banner-item"
             style={{
               backgroundImage: `url(${
-                configParams.RUTAIMAGENESBANNERS + image
+                configParams.RUTAIMAGENESBANNERS + image + `?v=${version}`
               })`,
 
               backgroundSize: "cover",

@@ -31,8 +31,9 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const {validacionNit,loading, error } = useSelector((state) => state.validarNit);
   const [formValues, setFormValues] = useState({ nitCliente: "", nameCliente: "", firstName: "", lastName: "" });
-
+  const { configParams } = useSelector((state) => state.paramsWeb);
   const [errorValidateEmail, setErrorValidateEmail] = useState(false);
+
 
   const style = {
     fontWeight: "500",
@@ -131,7 +132,7 @@ const Checkout = () => {
     const orderCliente =  adapterOrderCustomer(formValues)
     
     // Productos
-    const orderProducts = adapterOrderProducts(cartItems, {iva: 1.12, idAlmacen: 1})
+    const orderProducts = adapterOrderProducts(cartItems, {iva: 1.12, idAlmacen: 1}, configParams.RUTAIMAGENESARTICULOS )
     
     // Construcción del JSON final
     const order = {orderCliente, products:orderProducts}

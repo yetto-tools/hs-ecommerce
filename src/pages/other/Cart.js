@@ -37,6 +37,7 @@ const Cart = () => {
 
   useEffect(() => {
     verifyStockAndSetReady();
+   
   }, [cartItems]);
 
   const verifyStockAndSetReady = async () => {
@@ -60,6 +61,8 @@ const Cart = () => {
       }
     }
     setReadyToCheckout(allItemsAvailable);
+     
+     console.log(cartItems);
   };
 
   const handleCheckout = () => {

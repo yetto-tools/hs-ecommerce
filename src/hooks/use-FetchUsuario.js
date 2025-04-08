@@ -48,7 +48,7 @@ export const fetchLogin =
       });
     } catch (error) {
       cogoToast.warn(`${error.message}`, {
-        position: "bottom-left",
+        position: "top-center",
       });
     } finally {
       dispatch(setLoading(false));
@@ -90,7 +90,7 @@ export const fetchRegister =
       });
     } catch (error) {
       cogoToast.warn(`${error.message}`, {
-        position: "bottom-left",
+        position: "top-left",
       });
     } finally {
       dispatch(setLoading(false));
@@ -101,7 +101,7 @@ export const fetchResetPassword = (userData) => {
   return async (dispatch) => {
     if (!userData || Object.keys(userData).length === 0) {
       cogoToast.warn("Los datos del usuario son requeridos", {
-        position: "bottom-left",
+        position: "top-left",
       });
       return;
     }

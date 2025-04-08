@@ -43,7 +43,8 @@ const Checkout = () => {
 
   const { country } = useSelector((state) => state.paramsWeb);
   const { usuario, address } = useSelector((state) => state.usuario);
-  const { params } = useSelector((state) => state.paramsWeb);
+  
+  const { configParams } = useSelector((state) => state.paramsWeb);
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
   const [loadingOrder, setLoadingOrder] = useState(false);
@@ -225,7 +226,9 @@ const Checkout = () => {
     const orderProducts = adapterOrderProducts(cartItems, {
       iva: 1.12,
       idAlmacen: 1,
-    });
+    },
+    configParams.RUTAIMAGENESARTICULOS
+    );
     let order = {};
     console.log(address);
     // console.log(usuario.address.find((dir)=>{
@@ -256,6 +259,8 @@ const Checkout = () => {
       setLoadingOrder(false);
     }
 
+    console.log(order);
+
     try {
       setLoadingOrder(true);
       const url = `${API_URL}/api/v1/invoices`;
@@ -285,6 +290,7 @@ const Checkout = () => {
     } finally {
       setLoadingOrder(false);
     }
+    setLoadingOrder(false);
   };
 
   const handleClose = () => setShow(false);

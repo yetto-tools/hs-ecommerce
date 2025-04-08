@@ -6,6 +6,10 @@ import { ProtectedRoute } from "./wrappers/ProtectedRoute";
 import { fetchMenu } from "./hooks/use-FetchMenu";
 import { fetchCountry, fetchParamsWeb } from "./hooks/use-FetchParams";
 import { PageSuccessPayment } from "./pages/payment/PageSuccessPayment";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import BacCheckout from "./pages/other/BacCheckout";
 
 const PageReturnPolicy = lazy(() => "./pages/other/PageReturnPolicy");

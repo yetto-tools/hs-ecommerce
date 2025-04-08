@@ -299,15 +299,17 @@ function ProductModal2({ show, onHide, currency }) {
                       >
                         Añadir al carrito{" "}
                       </button>
-                      <button
+                      {/* <button
                         className="px-4 py-3 button-active-hs btn-black"
                         onClick={handleBuyNow}
                         disabled={!canAddToCart}
                       >
                         Comprar Ahora{" "}
                       </button>
+                       */}
+
+                      </div>                  
                     </div>
-                  </div>
                 </div>
 
                 <div className="pro-details-list container-md mt-4 max-h-25 overflow-y-scroll">

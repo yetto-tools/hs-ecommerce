@@ -24,6 +24,7 @@ import {
 export function useBacCheckoutLogic() {
   // Estados locales
   const [cardValues, setCardValues] = useState(dataPaymentForm);
+  const { configParams } = useSelector((state) => state.paramsWeb);
   const [loadingOrder, setLoadingOrder] = useState(false);
   const [readyToCheckout, setReadyToCheckout] = useState(false);
   const [formValues, setFormValues] = useState({
@@ -135,7 +136,9 @@ export function useBacCheckoutLogic() {
     const orderProducts = adapterOrderProducts(cartItems, {
       iva: 1.12,
       idAlmacen: 1,
-    });
+    },
+    configParams.RUTAIMAGENESARTICULOS
+  );
     let order = {};
     try {
       order = adapterOrderCustomer(formValues);

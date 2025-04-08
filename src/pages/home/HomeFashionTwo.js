@@ -11,6 +11,7 @@ import BannerMultiColumnImage from "../../components/banner/BannerMultiColumnIma
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNewArticles } from "../../hooks/use-FetchArticles";
 import brand from "../../data/BannerPrincipal.json";
+
 const HomeFashionTwo = () => {
   const [data, setData] = useState(null);
 

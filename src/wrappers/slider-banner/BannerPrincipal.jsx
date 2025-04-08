@@ -16,6 +16,7 @@ SwiperCore.use([Navigation]);
 const ProductCard = ({ product, currency, openModal, index }) => {
   const { i18n } = useTranslation();
   const { configParams } = useSelector((state) => state.paramsWeb);
+  const varsion = Date.now();
   
   return (
     <div className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area">
@@ -25,7 +26,7 @@ const ProductCard = ({ product, currency, openModal, index }) => {
             <div className="pro-same-action pro-quickview">
               <button onClick={openModal} title="Quick View" className="btn">
                 <LazyLoadImage
-                  src={`${configParams.RUTAIMAGENESPRINCIPALES}${product.image[0]}`}
+                  src={`${configParams.RUTAIMAGENESPRINCIPALES}${product.image[0]}?v=${varsion}`}
                   alt={product.name}
                   className="img image-banner-principal"
                   width={192}

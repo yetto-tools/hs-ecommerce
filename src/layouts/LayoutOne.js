@@ -4,6 +4,8 @@ import HeaderOne from "../wrappers/header/HeaderOne";
 
 import ScrollToTop from "../components/scroll-to-top";
 import FooterHypestreet from "../wrappers/footer/FooterHypestreet";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const LayoutOne = ({
   children,
