@@ -20,7 +20,7 @@ const ProductGridList = ({ products, spaceBottomClass }) => {
           products?.map((product) => {
             return (
               <div
-                className="col-xl-4 col-sm-6"
+                className="col-xl-3 col-sm-6"
                 key={product.sku}
                 name="product-grid-list"
               >

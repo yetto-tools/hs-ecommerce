@@ -35,8 +35,6 @@ const ShopGridStandard = () => {
   // Obtener la categoría desde la URL
 
   const busqueda = searchParams.get("busqueda");
-  
-  
 
   const { pathname } = location;
 
@@ -48,7 +46,6 @@ const ShopGridStandard = () => {
     if (!busqueda) {
       dispatch(fetchArticles(n1 || 0, n2 || 0, n3 || 0));
     } else {
-      
       dispatch(fetchSearchArticles(busqueda));
     }
   }, [dispatch, searchParams, params]);
@@ -72,12 +69,12 @@ const ShopGridStandard = () => {
         <div className="shop-area pt-95 pb-100">
           <div className="container-fluid">
             <div className="row col-lg-11 mx-auto">
-              <div className="col-lg-3 order-2 order-lg-1">
+              <div className="col-lg-3 order-2 order-lg-1 hidden" hidden>
                 {/* shop sidebar */}
 
                 <ShopSidebarFilters filters={filters} sideSpaceClass="" />
               </div>
-              <div className="col-lg-9 order-1 order-lg-2">
+              <div className="col-lg-11 order-1 order-lg-2 mx-auto">
                 {/* shop topbar */}
                 {/* <ShopTopbar
                   getLayout={getLayout}

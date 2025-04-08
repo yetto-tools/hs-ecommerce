@@ -16,14 +16,10 @@ import { scrollToElement } from "../helpers/scroll-top";
 import { fetchStock } from "./use-FetchStock";
 import { deleteAllFromCart } from "../store/slices/cart-slice";
 import { setError } from "../store/slices/menu-slice";
-import {
-  adapterPaymentForm,
-  dataPaymentForm,
-} from "../adapters/DataPaymentForm";
 
-export function useBacCheckoutLogic() {
+export function useCheckoutLogic() {
   // Estados locales
-  const [cardValues, setCardValues] = useState(dataPaymentForm);
+
   const { configParams } = useSelector((state) => state.paramsWeb);
   const [loadingOrder, setLoadingOrder] = useState(false);
   const [readyToCheckout, setReadyToCheckout] = useState(false);
@@ -144,6 +140,10 @@ export function useBacCheckoutLogic() {
     let order = {};
     try {
       order = adapterOrderCustomer(formValues);
+      // order.products = adapterOrderProducts(cartItems, {
+      //   iva: 1.12,
+      //   idAlmacen: 1,
+      // });
       order.idCliente = usuario.id;
       order.idDireccion = formValues.idDireccion;
       order.products = orderProducts;
@@ -152,8 +152,8 @@ export function useBacCheckoutLogic() {
       order.direccionCliente = selectedAddress || " - ";
       order.comentarios = formValues.message || "";
       // Aquí se calculan total e impuesto (asegúrate de definir cartTotalPrice y otros cálculos)
-      order.total = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
-      order.impuesto = Number(new Decimal(0).toFixed(2));
+      order.total = cartTotalPrice; //Number(cartTotalPrice.toFixed(2));
+      order.impuesto = totalTaxes; // Number(new Decimal(totalTaxes).toFixed(2));
       order.documentoLocal = generarCorrelativoFactura();
       order.BAC_HASH = "1";
       order.BAC_MONTO = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
@@ -164,7 +164,8 @@ export function useBacCheckoutLogic() {
       setLoadingOrder(false);
     }
 
-    // Envío de la orden
+    console.log(order);
+    // // Envío de la orden
     try {
       const url = `${API_URL}/api/v1/invoices`;
       const response = await fetch(url, {
@@ -219,41 +220,6 @@ export function useBacCheckoutLogic() {
   };
 
   // Lógica para el pago (puedes completar según sea necesario)
-  const handleBacPayment = (e) => {
-    e.preventDefault();
-    validarDatosFormulario(e);
-
-    const time = Math.floor(Date.now() / 1000);
-    const hashMD5 = generarHash(cartItems.id, cartTotalPrice, time, "14482124");
-
-    const { address: selectedAddress } = address.find(
-      (street) => street.idAddress === Number(formValues.idDireccion)
-    );
-
-    // Implementa la lógica del pago aquí
-    console.log("Pago realizado con BAC");
-    console.log(formValues);
-    const pago = {
-      type: "auth",
-      key_id: "14482124",
-      hash: hashMD5,
-      time: time,
-      amount: cartTotalPrice || "0.00",
-      tax: totalTaxes || "0.00",
-      orderid: generarCorrelativoFactura() || "0",
-      processor_id: "",
-      "first_name, last_name": cardValues.name,
-      phone: formValues.phone,
-      email: usuario.email,
-      ccnumber: cardValues.ccnumber || "",
-      ccexp: `${cardValues.expiryMonth}${cardValues.expiryYear}`,
-      cvc: cardValues.cvc || "",
-      avs: selectedAddress || "",
-      redirect: "https://hypestreet.dssolutionsgt.com/confirmacion-pago",
-    };
-
-    console.log(pago);
-  };
 
   const validarDatosFormulario = (e) => {
     e.preventDefault();
@@ -296,31 +262,7 @@ export function useBacCheckoutLogic() {
       setLoadingOrder(false);
       return;
     }
-    if (!cardValues.name) {
-      cogoToast.error("Falta el Nombre del Titular de la Tarjeta");
-      setLoadingOrder(false);
-      return;
-    }
-    if (!cardValues.ccnumber) {
-      cogoToast.error("Falta el Número de Tarjeta");
-      setLoadingOrder(false);
-      return;
-    }
-    if (!cardValues.expiryMonth) {
-      cogoToast.error("Falta el Mes de Expiración");
-      setLoadingOrder(false);
-      return;
-    }
-    if (!cardValues.expiryYear) {
-      cogoToast.error("Falta el Año de Expiración");
-      setLoadingOrder(false);
-      return;
-    }
-    if (!cardValues.cvc) {
-      cogoToast.error("Falta el código de verificación de tarjeta");
-      setLoadingOrder(false);
-      return;
-    }
+
     setLoadingOrder(false);
   };
 
@@ -332,8 +274,6 @@ export function useBacCheckoutLogic() {
   const totalTaxes = (cartTotalPrice * 0.12).toFixed(2);
 
   return {
-    cardValues,
-    setCardValues,
     formValues,
     setFormValues,
     errorsValidate,
@@ -346,7 +286,6 @@ export function useBacCheckoutLogic() {
     handleChange,
     handleCheckNit,
     handleInvoces,
-    handleBacPayment,
     loadingOrder,
     loadingNit: loading,
     addressSelected,

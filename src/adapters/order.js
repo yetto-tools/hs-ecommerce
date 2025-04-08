@@ -53,7 +53,6 @@ export const adapterOrderCustomer = (formValues) => {
   };
 };
 
-
 export const adapterOrderProducts = (
   cartItems,
   { iva = 1.12, idAlmacen = 1 },
@@ -66,22 +65,20 @@ export const adapterOrderProducts = (
     codigoInterno: cartItem.code || "",
     descripcion: cartItem.code || "",
     precioUnitario: Number(
-      new Decimal(cartItem.price).toFixed(2) || new Decimal(0).toFixed(2)
-    ),
+      new Decimal(cartItem.price) || new Decimal(0)
+    ).toFixed(2),
     total: Number(
-      new Decimal(cartItem.price * cartItem.quantity).toFixed(2) ||
-        new Decimal(0).toFixed(2)
-    ),
+      new Decimal(cartItem.price * cartItem.quantity) || new Decimal(0)
+    ).toFixed(2),
     impuestoMonto: Number(
-      new Decimal(cartItem.price - cartItem.price / iva).toFixed(2) ||
-        new Decimal(0).toFixed(2)
-    ), // Si tienes impuestos, agrégalo aquí
+      new Decimal(cartItem.price - cartItem.price / iva) || new Decimal(0)
+    ).toFixed(2), // Si tienes impuestos, agrégalo aquí
     descuentoPorcentaje: cartItem.discount || 0,
     descuentoMonto: Number(
       new Decimal(
         (cartItem.price * cartItem.quantity * cartItem.discount) / 100
-      ).toFixed(2) || new Decimal(0).toFixed(2)
-    ), // Si hay descuentos en monto
+      ) || new Decimal(0)
+    ).toFixed(2), // Si hay descuentos en monto
     idAlmacen: idAlmacen, // Ajustar si se tiene almacenes distintos
     urlImage: pathImage + cartItem.images[0] || "",
   }));
