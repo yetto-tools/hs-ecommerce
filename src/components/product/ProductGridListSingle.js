@@ -27,9 +27,8 @@ const ProductGridListSingle = ({
   const dispatch = useDispatch();
   // const { article } = useSelector((state) => state.article);
   const { loading } = useSelector((state) => state.loader);
-    const { configParams } = useSelector((state) => state.paramsWeb);
+  const { configParams } = useSelector((state) => state.paramsWeb);
   const { t, i18n } = useTranslation();
-  
 
   const [modalShow, setModalShow] = useState(false);
   const [loadingImage, setLoadingImage] = useState(true);
@@ -55,18 +54,17 @@ const ProductGridListSingle = ({
   return (
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
-        
-        
         <div className={clsx("product-img", loadingImage && "loading")}>
-        
           <div onClick={handleProductDetail}>
-          {product && product?.stock == 0 ? (
-            <div className="product-img-badges bg-secondary ">
-              <span className="text-white fw-bold p-2">{t("general_words.stock_out")}</span>  
-            </div>
-          ) : (
-            ""
-          )}
+            {product && product?.stock == 0 ? (
+              <div className="product-img-badges bg-secondary pill-62">
+                <span className="text-white fw-bold p-2">
+                  {t("general_words.stock_out")}
+                </span>
+              </div>
+            ) : (
+              ""
+            )}
             <>
               <LazyLoadImage
                 className="default-img"
@@ -126,11 +124,7 @@ const ProductGridListSingle = ({
           </div>
         </div>
         <div className="product-content text-center">
-          <h3>
-            
-              {product.name}
-            
-          </h3>
+          <h3>{product.name}</h3>
           {product.rating && product.rating > 0 ? (
             <div className="product-rating">
               <Rating ratingValue={product.rating} />
