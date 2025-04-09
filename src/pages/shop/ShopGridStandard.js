@@ -3,15 +3,13 @@
 // vista de productos con filtros
 
 import { Fragment, useState, useEffect, lazy } from "react";
-import Paginator from "react-hooks-paginator";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import { getIdsFromUrl, getSortedProducts } from "../../helpers/product";
+import { useLocation, useSearchParams } from "react-router-dom";
+
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import ShopSidebar from "../../wrappers/product/ShopSidebar";
-import ShopTopbar from "../../wrappers/product/ShopTopbar";
 
 import {
   fetchArticles,
@@ -19,13 +17,11 @@ import {
 } from "../../hooks/use-FetchArticles";
 
 const ShopProducts = lazy(() => import("../../wrappers/product/ShopProducts"));
-const ShopSidebarFilters = lazy(() => import("../shop/ShopSidebarFilters"));
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
 
   const { articles } = useSelector((state) => state.articles);
-  const { filters } = useSelector((state) => state.filters);
 
   const { params } = useSelector((state) => state.urlParams);
 
@@ -68,13 +64,13 @@ const ShopGridStandard = () => {
 
         <div className="shop-area pt-95 pb-100">
           <div className="container-fluid">
-            <div className="row col-lg-11 mx-auto">
+            <div className="row col-lg-12 mx-auto">
               <div className="col-lg-3 order-2 order-lg-1 hidden" hidden>
                 {/* shop sidebar */}
 
-                <ShopSidebarFilters filters={filters} sideSpaceClass="" />
+                {/* <ShopSidebarFilters filters={filters} sideSpaceClass="" /> */}
               </div>
-              <div className="col-lg-11 order-1 order-lg-2 mx-auto">
+              <div className="col-lg-12 order-1 order-lg-2 mx-auto">
                 {/* shop topbar */}
                 {/* <ShopTopbar
                   getLayout={getLayout}
