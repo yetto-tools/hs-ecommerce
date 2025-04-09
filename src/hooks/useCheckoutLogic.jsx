@@ -167,6 +167,7 @@ export function useCheckoutLogic() {
     console.log(order);
     // // Envío de la orden
     try {
+      setLoadingOrder(true);
       const url = `${API_URL}/api/v1/invoices`;
       const response = await fetch(url, {
         method: "POST",
