@@ -63,12 +63,18 @@ const FooterHypestreet = ({
             </h5>
             <ul className="list-unstyled mt-4">
               <li>
-                <Link className="text-white text-hover-green-hs" to="/preguntas-frecuentes">
+                <Link
+                  className="text-white text-hover-green-hs"
+                  to="/preguntas-frecuentes"
+                >
                   {t("footer.faq")}
                 </Link>
               </li>
               <li>
-                <Link className="text-white text-hover-green-hs" to="/politicas-de-devolucion">
+                <Link
+                  className="text-white text-hover-green-hs"
+                  to="/politicas-de-devolucion"
+                >
                   {t("footer.warranty")}
                 </Link>
               </li>
@@ -86,50 +92,45 @@ const FooterHypestreet = ({
 
           {/* Columna de redes sociales */}
           <div className="col-md-4 col-sm-8 mx-auto my-5 text-center  uppercase">
-            <div className="d-flex justify-content-center align-items-center">
-              <img
-                src="/logo-white-footer.png"
-                alt="HS logo"
-                className="mb-3 w-64px object-cover"
-              />
-              <div className="vertical-line"></div>
-
-              <img
-                src="/Logo Es Con Hype By. Rayan.png"
-                alt="HS logo"
-                className="mb-3 w-64px object-contain"
-              />
-            </div>
-            <div className="d-flex justify-content-center">
-              <Link
-                to={URL_FACEBOOK}
-                className="m-2 bg-white rounded-circle text-hover-green-hs"
-                target="_blank"
-              >
-                <FaFacebookF className="text-black m-1 text-hover-green-hs" />
-              </Link>
-              <Link
-                to={URL_INSTAGRAM}
-                className="m-2 bg-white rounded-circle text-hover-green-hs"
-                target="_blank"
-              >
-                <FaInstagram className="text-black m-1 text-hover-green-hs" />
-              </Link>
-              <Link
-                to={URL_TIKTOK}
-                className="m-2 bg-white rounded-circle text-hover-green-hs"
-                target="_blank"
-              >
-                <FaTiktok className="text-black m-1 text-hover-green-hs" />
-              </Link>
+            <div className="container d-flex flex-column justify-content-center align-items-center">
+              <div className="col">
+                <img
+                  src="/logos_hype-white.png"
+                  alt="HS logo"
+                  className="mb-3 w-75 object-contain"
+                />
+              </div>
+              <div className="col">
+                <div className="d-flex justify-content-center">
+                  <Link
+                    to={URL_FACEBOOK}
+                    className="m-2 bg-white rounded-circle text-hover-green-hs"
+                    target="_blank"
+                  >
+                    <FaFacebookF className="text-black m-1 text-hover-green-hs" />
+                  </Link>
+                  <Link
+                    to={URL_INSTAGRAM}
+                    className="m-2 bg-white rounded-circle text-hover-green-hs"
+                    target="_blank"
+                  >
+                    <FaInstagram className="text-black m-1 text-hover-green-hs" />
+                  </Link>
+                  <Link
+                    to={URL_TIKTOK}
+                    className="m-2 bg-white rounded-circle text-hover-green-hs"
+                    target="_blank"
+                  >
+                    <FaTiktok className="text-black m-1 text-hover-green-hs" />
+                  </Link>
+                </div>
+              </div>
             </div>
             <p className="mt-3 text-white text-hover-green-hs">
               <p className="text-xs font-semibold text-white">
-              {t("about_us")}
+                {t("about_us")}
               </p>
-              <span
-                className="text-xs font-semibold text-white"
-              >
+              <span className="text-xs font-semibold text-white">
                 {storeInfo && storeInfo["footer"]}
               </span>
             </p>
