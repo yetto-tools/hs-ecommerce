@@ -24,7 +24,7 @@ export const adapterMenu = (result) => {
         title: row.N1_Nombre,
         slug: slugify(row.N1_Nombre),
         subitems: [],
-        nivel: `${row.N1}/${row.N2||0}/${row.N3||0}`,// IDs de nivel 1, 2 y 3
+        nivel: `${row.N1}/${0}/${0}`,// IDs de nivel 1, 2 y 3
       });
     }
 

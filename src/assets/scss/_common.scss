@@ -2521,5 +2521,17 @@ button.border-black:hover {
 // }
 
 .pill-62 {
-  border-radius: 62px 62px !important;
+  border-radius: 100% !important;
+  width: 62px !important;
+  height: 62px !important;
+  font-size: 10px !important;
+  display: flex !important;
+  justify-content: center;
+  align-self: center !important;
+  align-content: center;
+  align-items: center;
+}
+
+.product-wrap .product-img-badges span:last-child, .product-list-image-wrap .product-img-badges span:last-child {
+  font-size: 10px !important;
 }
