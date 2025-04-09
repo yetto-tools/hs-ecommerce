@@ -12,9 +12,9 @@ export const PageSuccessPayment = () => {
 
   return (
     <PageContentBlank>
-      <div className="container">
+      <div className="container mt-0">
         {/* Título */}
-        <div className="row text-center my-4">
+        <div className="row text-center mb-4 ">
           <div className="col">
             <h1>Respuesta de la Transacción</h1>
           </div>
@@ -23,19 +23,23 @@ export const PageSuccessPayment = () => {
           {/* Formulario que incluye los campos visibles y ocultos */}
           <form>
             {/* Campos visibles para el usuario */}
-            <div className="row">
-              <div className="col-lg-3 col-sm-6 mb-4">
-                <div className="billing-info">
+            <div className="row justify-content-center align-items-center">
+              <div className="col-lg-5 col-sm-6 mb-4">
+                <div className="billing-info ">
                   <label className="fw-bold pb-2">Respuesta:</label>
                   <input
                     type="text"
-                    className="form-control"
+                    className={`form-control fw-bold relative ${
+                      paymentData.responsetext === "SUCCESS"
+                        ? "text-success"
+                        : "text-danger"
+                    }`}
                     readOnly
                     value={paymentData.responsetext || ""}
                   />
                 </div>
               </div>
-              <div className="col-lg-3 col-sm-6 mb-4">
+              <div className="col-lg-5 col-sm-6 mb-4">
                 <div className="billing-info">
                   <label className="fw-bold pb-2">
                     Código de Autorización:
@@ -48,7 +52,7 @@ export const PageSuccessPayment = () => {
                   />
                 </div>
               </div>
-              <div className="col-lg-3 col-sm-6 mb-4">
+              <div className="col-lg-5 col-sm-6 mb-4">
                 <div className="billing-info">
                   <label className="fw-bold pb-2">Transacción ID:</label>
                   <input
@@ -59,9 +63,9 @@ export const PageSuccessPayment = () => {
                   />
                 </div>
               </div>
-              <div className="col-lg-3 col-sm-6 mb-4">
+              <div className="col-lg-5 col-sm-6 mb-4">
                 <div className="billing-info">
-                  <label className="fw-bold pb-2">Order ID:</label>
+                  <label className="fw-bold pb-2">Orden ID:</label>
                   <input
                     type="text"
                     className="form-control"
@@ -72,7 +76,7 @@ export const PageSuccessPayment = () => {
               </div>
             </div>
 
-            <div className="row">
+            <div className="row justify-content-center align-items-center">
               <div className="col-lg-3 col-sm-6 mb-4  d-none">
                 <div className="billing-info">
                   <label className="fw-bold pb-2">3DS Version:</label>
@@ -84,18 +88,18 @@ export const PageSuccessPayment = () => {
                   />
                 </div>
               </div>
-              <div className="col-lg-3 col-sm-6 mb-4">
+              <div className="col-lg-5 col-sm-6 mb-4">
                 <div className="billing-info">
-                  <label className="fw-bold pb-2">Amount:</label>
+                  <label className="fw-bold pb-2">Total Q.:</label>
                   <input
                     type="text"
-                    className="form-control re"
+                    className="form-control fw-bold"
                     readOnly
                     value={paymentData.amount || ""}
                   />
                 </div>
               </div>
-              <div className="col-lg-3 col-sm-6 mb-4">
+              <div className="col-lg-5 col-sm-6 mb-4">
                 <div className="billing-info">
                   <label className="fw-bold pb-2">Hash:</label>
                   <input
