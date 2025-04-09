@@ -1,166 +1,159 @@
-import { useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import PageContentBlank from "../other/PageContentBlank";
-import { useTranslation } from "react-i18next";
-import { paymentForm } from "../../adapters/payment";
-import { Loader2, CreditCard } from "lucide-react";
-import { generarHash } from "../../helpers/validator";
-
-export const FormPayment = () => {
-  const { t } = useTranslation();
-  const formRef = useRef({});
-  const [formValues, setFormValues] = useState(paymentForm);
-
-  const handleChangeFormPaymen = (e) => {
-    const { name, value } = e.target;
-
-    // Actualizamos el estado utilizando la función callback para obtener el estado previo.
-    setFormValues((prev) => {
-      // Creamos una nueva versión de los valores del formulario con el campo actualizado.
-      const nuevosValores = { ...prev, [name]: value };
-
-      // Calculamos el hash MD5 usando los valores actualizados.
-      const hashMD5 = generarHash(
-        nuevosValores.orderid.trim(),
-        nuevosValores.amount,
-        nuevosValores.time,
-        nuevosValores.key_id
-      );
-
-      // Retornamos el nuevo estado incluyendo el hash.
-      return { ...nuevosValores, hash: hashMD5 };
-    });
-  };
-
-  const handleSubmitFormPaymen = (e) => {
-    e.preventDefault();
-    console.log(formValues);
-
-    console.log(
-      generarHash(
-        "test",
-        "1.00",
-        "1279302634",
-        "23232332222222222222222222222222"
-      )
-    );
-
-    const hashMD5 = generarHash(
-      formValues.orderid,
-      formValues.amount,
-      formValues.time,
-      formValues.key_id
-    );
-    console.log({
-      orderid: formValues.orderid,
-      amount: formValues.amount,
-      time: formValues.time,
-      key: formValues.key_id,
-    });
-    console.log(hashMD5);
-  };
-
-  return (
-    <>
-      <section className="billing-info-wrap mb-30">
-        <form
-          className="form-control"
-          ref={formRef}
-          onChange={handleChangeFormPaymen}
-          onSubmit={handleSubmitFormPaymen}
-          name="CredomaticPost"
-          method="post"
-          action="https://credomatic.compassmerchantsolutions.com/api/transact.php"
-          autoComplete="off"
-          autoFocus={true}
-        >
-          <div className="billing-info pb-4"></div>
-
-          <label htmlFor="type">{t("page_checkout.type")}</label>
-          <input type="text" name="type" value={formValues.type} />
-
-          <label htmlFor="key_id">{t("page_checkout.key_id")}</label>
-          <input type="text" name="key_id" value={formValues.key_id} />
-
-          <label htmlFor="hash">{t("page_checkout.hash")}</label>
-          <input type="text" name="hash" value={formValues.hash} />
-
-          <label htmlFor="time">{t("page_checkout.time")}</label>
-          <input type="text" name="time" value={formValues.time} />
-
-          <label htmlFor="amount">{t("page_checkout.amount")}</label>
-          <input
-            type="text"
-            name="amount"
-            value={formValues.amount}
-            placeholder="0.00"
-          />
-          <label htmlFor="tax">{t("page_checkout.tax")}</label>
-          <input
-            type="text"
-            name="tax"
-            value={formValues.tax}
-            placeholder="0.00"
-          />
-          <label htmlFor="orderid">{t("page_checkout.orderid")}</label>
-          <input type="text" name="orderid" value={formValues.orderid} />
-          <label htmlFor="processor_id">
-            {t("page_checkout.processor_id")}
-          </label>
-          <input
-            type="text"
-            name="processor_id"
-            value={formValues.processor_id}
-          />
-          <label htmlFor="name">{t("page_checkout.name")}</label>
-          <input
-            type="text"
-            name="first_name, last_name"
-            id="name"
-            value={formValues.name}
-            placeholder={t("page_checkout.name")}
-          />
-          <label htmlFor="phone">{t("page_checkout.phone")}</label>
-          <input type="text" name="phone" value={formValues.phone} />
-          <label htmlFor="email">{t("page_checkout.email")}</label>
-          <input
-            type="text"
-            name="email"
-            value={formValues.email}
-            placeholder={t("page_checkout.email")}
-          />
-          <label htmlFor="ccnumber">{t("page_checkout.ccnumber")}</label>
-          <input
-            type="text"
-            name="ccnumber"
-            value={formValues.ccnumber}
-            placeholder="0000 0000 0000 0000"
-          />
-          <label htmlFor="ccexp">{t("page_checkout.ccexp")}</label>
-          <input type="text" name="ccexp" value={formValues.ccexp} />
-          <label htmlFor="cvv">{t("page_checkout.cvv")}</label>
-          <input type="text" name="cvv" value={formValues.cvv} />
-          <label htmlFor="avs">{t("page_checkout.avs")}</label>
-          <input type="text" name="avs" value={formValues.avs} />
-          <label htmlFor="redirect">{t("page_checkout.redirect")}</label>
-          <input type="text" name="redirect" value={formValues.redirect} />
-          <button
-            type="submit"
-            className="button-active-hs btn-black w-100 d-flex justify-content-center align-items-center gap-2 py-2"
-          >
-            Confimar Pago
-            <CreditCard />
-          </button>
-        </form>
-      </section>
-    </>
-  );
-};
+import usePaymentData from "./usePaymentData";
+import useSendPaymentData from "./useSendPaymentData";
 
 export const PageSuccessPayment = () => {
+  // Extrae la data de la URL
+  const paymentData = usePaymentData();
+
+  // Envia los datos a tu endpoint
+  useSendPaymentData(paymentData);
+
   return (
     <PageContentBlank>
-      <h1>Success Payment</h1>
-      <FormPayment />
+      <div className="container">
+        {/* Título */}
+        <div className="row text-center my-4">
+          <div className="col">
+            <h1>Respuesta de la Transacción</h1>
+          </div>
+        </div>
+        <fieldset disabled>
+          {/* Formulario que incluye los campos visibles y ocultos */}
+          <form>
+            {/* Campos visibles para el usuario */}
+            <div className="row">
+              <div className="col-lg-3 col-sm-6 mb-4">
+                <div className="billing-info">
+                  <label className="fw-bold pb-2">Respuesta:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly
+                    value={paymentData.responsetext || ""}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-6 mb-4">
+                <div className="billing-info">
+                  <label className="fw-bold pb-2">
+                    Código de Autorización:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly
+                    value={paymentData.authcode || ""}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-6 mb-4">
+                <div className="billing-info">
+                  <label className="fw-bold pb-2">Transacción ID:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly
+                    value={paymentData.transactionid || ""}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-6 mb-4">
+                <div className="billing-info">
+                  <label className="fw-bold pb-2">Order ID:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly
+                    value={paymentData.orderid || ""}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg-3 col-sm-6 mb-4  d-none">
+                <div className="billing-info">
+                  <label className="fw-bold pb-2">3DS Version:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly
+                    value={paymentData.three_ds_version || ""}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-6 mb-4">
+                <div className="billing-info">
+                  <label className="fw-bold pb-2">Amount:</label>
+                  <input
+                    type="text"
+                    className="form-control re"
+                    readOnly
+                    value={paymentData.amount || ""}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-6 mb-4">
+                <div className="billing-info">
+                  <label className="fw-bold pb-2">Hash:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly
+                    value={paymentData.hash || ""}
+                  />
+                </div>
+              </div>
+              {/* Puedes agregar otros campos visibles según lo requieras */}
+            </div>
+
+            {/* Campos ocultos requeridos */}
+            <div style={{ display: "none" }}>
+              <input
+                type="hidden"
+                name="response"
+                value={paymentData.response || ""}
+              />
+              <input
+                type="hidden"
+                name="avsresponse"
+                value={paymentData.avsresponse || ""}
+              />
+              <input
+                type="hidden"
+                name="cvvresponse"
+                value={paymentData.cvvresponse || ""}
+              />
+              <input type="hidden" name="type" value={paymentData.type || ""} />
+              <input
+                type="hidden"
+                name="response_code"
+                value={paymentData.response_code || ""}
+              />
+              <input
+                type="hidden"
+                name="website"
+                value={paymentData.website || ""}
+              />
+              <input
+                type="hidden"
+                name="ipaddress"
+                value={paymentData.ipaddress || ""}
+              />
+              <input type="hidden" name="eci" value={paymentData.eci || ""} />
+              <input type="hidden" name="cavv" value={paymentData.cavv || ""} />
+              <input
+                type="hidden"
+                name="username"
+                value={paymentData.username || ""}
+              />
+              <input type="hidden" name="time" value={paymentData.time || ""} />
+            </div>
+          </form>
+        </fieldset>
+      </div>
     </PageContentBlank>
   );
 };
