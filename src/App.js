@@ -12,9 +12,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 import BacCheckout from "./pages/other/BacCheckout";
 
-const PageReturnPolicy = lazy(() => "./pages/other/PageReturnPolicy");
-const PagePreguntasFrecuentes = lazy(
-  () => "./pages/other/PagePreguntasFrecuentes"
+const PageReturnPolicy = lazy(() => import("./pages/other/PageReturnPolicy"));
+const PagePreguntasFrecuentes = lazy(() =>
+  import("./pages/other/PagePreguntasFrecuentes")
 );
 const PageUbicaciones = lazy(() => import("./pages/other/PageUbicaciones"));
 
