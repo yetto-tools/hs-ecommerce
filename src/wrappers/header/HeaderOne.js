@@ -39,7 +39,7 @@ const HeaderOne = ({
         <div
           style={{
             position: "fixed",
-            zIndex: 9999,
+            zIndex: 10,
             bottom: 0,
             left: 0,
             backgroundColor: "red",
