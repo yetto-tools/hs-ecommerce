@@ -39,6 +39,11 @@
   position: relative;
 }
 
+.dropdown-menu.show > li > a.parent-menu:focus,
+.dropdown-menu.show > li > a.parent-menu:active {
+  background: transparent;
+}
+
 .dropdown-menu.show > li > a {
   color: white;
   padding: 1rem 2rem;

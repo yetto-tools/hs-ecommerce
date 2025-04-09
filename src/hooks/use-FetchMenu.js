@@ -5,9 +5,8 @@ import { adapterMenu } from "../adapters/menu";
 import cogoToast from "cogo-toast";
 
 export const fetchMenu = () => async (dispatch, getState) => {
-
   const { menu } = getState(); // Ajusta esto si tu estado es diferente
-    
+
   if (menu?.menu?.length > 0) {
     return; // Ya tienes los datos del artículo
   }
