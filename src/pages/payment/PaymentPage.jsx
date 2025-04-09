@@ -60,7 +60,7 @@ const PaymentPage = () => {
 
         <div className="shop-area pt-95 pb-100">
           <div className="container-fluid">
-            <div className="row col-lg-11 mx-auto">
+            <div className="row col-lg-12 mx-auto">
               <div className="col-lg-6 order-2 order-lg-1">
                 <div>
                   <h2>Realizar Pago</h2>
