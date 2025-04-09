@@ -15,24 +15,17 @@ const RETURN_POLICY_MD_PATH =
 const FAQ_MD_PATH = process.env.PUBLIC_URL + "docs/preguntas-frecuentes.md";
 const STORES_LOCATION_MD_PATH = process.env.PUBLIC_URL + "docs/ubicaciones.md";
 
-const ROOT_IMAGE = "https://hypestreet.com.gt/" + "ftp_imagenes/articulos/";
-const ROOT_BANNER =
-  "https://hypestreet.com.gt/" + "ftp_imagenes/BannerPrincipal/";
-const ROOT_MULTIBANNER = "https://hypestreet.com.gt/" + "ftp_imagenes/banners/";
-const APP_ENV = process.env.NODE_ENV;
+const APP_ENV = "development" || process.env.NODE_ENV;
 export {
   API_URL,
   API_VERSION,
   API_KEY,
   API_TOKEN,
-  ROOT_IMAGE,
   API_NIT,
   URL_INSTAGRAM,
   URL_TIKTOK,
   URL_FACEBOOK,
   APP_VERSION,
-  ROOT_BANNER,
-  ROOT_MULTIBANNER,
   TERMS_AND_CONDITIONS_MD_PATH,
   RETURN_POLICY_MD_PATH,
   FAQ_MD_PATH,
