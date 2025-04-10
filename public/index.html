@@ -48,6 +48,15 @@
     -->
     <link rel="manifest" href="/manifest.json" />
     <link rel="json" href="/config.json" />
+    <script>
+      (function () {
+        var script = document.createElement("script");
+        var uniqueParam = new Date().getTime(); // Puedes usar Date.now() o Math.random()
+        script.src = "/mesajes.js?v=" + uniqueParam;
+        document.head.appendChild(script);
+      })();
+    </script>
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

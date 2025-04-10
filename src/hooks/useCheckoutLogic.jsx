@@ -140,10 +140,7 @@ export function useCheckoutLogic() {
     let order = {};
     try {
       order = adapterOrderCustomer(formValues);
-      // order.products = adapterOrderProducts(cartItems, {
-      //   iva: 1.12,
-      //   idAlmacen: 1,
-      // });
+
       order.idCliente = usuario.id;
       order.idDireccion = formValues.idDireccion;
       order.products = orderProducts;
