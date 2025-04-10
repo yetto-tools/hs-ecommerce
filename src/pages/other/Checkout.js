@@ -1,5 +1,5 @@
 // BacCheckout.jsx
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -23,7 +23,7 @@ const BacCheckout = () => {
   const { pathname } = useLocation();
   const { cartItems } = useSelector((state) => state.cart);
   const currency = useSelector((state) => state.currency);
-
+  const [disabledSendButton, setDisabledSendButton] = useState(false);
   // Desestructuramos los métodos y estados del hook
   const {
     formValues,
@@ -42,6 +42,23 @@ const BacCheckout = () => {
   } = useCheckoutLogic();
 
   let cartTotalPrice = 0; // Calcula o asigna el valor total según tu lógica
+
+
+
+  const handleSubmitInvoces = async (e) => {
+    e.preventDefault();
+    try{
+      setDisabledSendButton(true);
+      await handleInvoces(e);
+    }
+    catch(error){
+      setDisabledSendButton(false);
+    }
+    finally{
+      setDisabledSendButton(false);
+    }
+    
+  };
 
   return (
     <Fragment>
@@ -136,12 +153,12 @@ const BacCheckout = () => {
                         <button
                           type="submit"
                           className="button-active-hs btn-black w-100 d-flex justify-content-center align-items-center gap-2 py-2"
-                          disabled={loadingOrder}
-                          onClick={handleInvoces}
+                          disabled={disabledSendButton}
+                          onClick={handleSubmitInvoces}
                         >
                           <span>{t("send_message")}</span>
 
-                          {loadingOrder ? (
+                          {disabledSendButton ? (
                             <Loader2 className="animate-spin" />
                           ) : (
                             <Send className="position-relative" />

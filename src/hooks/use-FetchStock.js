@@ -1,8 +1,9 @@
 import cogoToast from "cogo-toast";
 import { API_URL } from "../config";
 
-export const fetchStock = async (code) => {
+export const fetchStock = async (code, stateLoading) => {
   const value = encodeURIComponent(code);
+  
   try {
     const response = await fetch(
       `${API_URL}/api/v1/items/stock?value=${value}`
