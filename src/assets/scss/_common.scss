@@ -2535,3 +2535,18 @@ button.border-black:hover {
 .product-wrap .product-img-badges span:last-child, .product-list-image-wrap .product-img-badges span:last-child {
   font-size: 10px !important;
 }
+
+.product-img-details {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.product-img-details.loaded {
+  opacity: 1;
+}
+
+.object-fit-cover {
+  object-fit: scale-down;
+  width: 100%;
+  height: auto;
+}

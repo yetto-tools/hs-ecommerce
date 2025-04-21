@@ -3,10 +3,11 @@ import Slider from "react-slick";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { useSelector } from "react-redux";
 
 const ProductImageGallery = ({ images = [], productName = "" }) => {
+  const [loadedImages, setLoadedImages] = useState({});
   const { configParams } = useSelector((state) => state.paramsWeb);
 
   const [nav1, setNav1] = useState(null);
@@ -69,6 +70,11 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
       <Slider {...mainSettings}>
         {sortedImages.map((image, i) => (
           <div key={i + image} className="single-image">
+            {!loadedImages[i] && (
+              <div className="img-placeholder">
+                <Loader2 className="animate-spin" />
+              </div>
+            )}
             <img
               src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
               className="img-fluid object-fit-cover"
@@ -77,6 +83,9 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
                 e.target.onerror = null;
                 e.target.src = "/default/no-image.jpg";
               }}
+              onLoad={() =>
+                setLoadedImages((prev) => ({ ...prev, [i]: true }))
+              }
               width={"480px"}
               height={"480px"}
               dataset-src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
@@ -89,6 +98,13 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
         <Slider {...thumbSettings}>
           {sortedImages.map((image, i) => (
             <div key={i + image} className="single-image">
+
+            {!loadedImages[i] && (
+              <div className="img-placeholder-loading-thumbnail">
+                <Loader2 className="animate-spin" />
+              </div>
+            )}
+
               <LazyLoadImage
                 src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
                 className="img-fluid"
