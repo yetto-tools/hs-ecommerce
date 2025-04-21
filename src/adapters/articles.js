@@ -55,34 +55,45 @@ export const adapterArticleDetail = (data) => {
       image: [item.Imagen_1, item.Imagen_2].filter(Boolean),
     }));
   }
-
   function adapterVariants(variants) {
-    // Ensure this function is properly defined to handle related products
-    return variants.map((item) => ({
-      id: item.IdArticulo,
-      sku: item.Sku,
-      name: item.Nombre_Comercial,
-      description: item.Descripcion_p,
-      code: item.CodigoInterno,
-      price: parseFloat(item.Precio_SD),
-      discount: parseFloat(item.Descuento_Porcentaje),
-      discountedPrice: parseFloat(item.Precio_CD),
-      image: [item.Imagen_1, item.Imagen_2].filter(Boolean),
-      color: item.Color,
-      idcolor: item.idColor,
-      size: item.Talla,
-      idSize: item.idTalla,
-      images: [
-        item.Imagen_1,
-        item.Imagen_2,
-        item.Imagen_3,
-        item.Imagen_4,
-        item.Imagen_5,
-      ].filter(Boolean),
-      stock: item.Cantidad,
-    }));
+    // Mapeo de orden de tallas según el backend
+    const tallaOrderMap = (data.talla || []).reduce((acc, talla, index) => {
+      acc[talla.idTalla] = index;
+      return acc;
+    }, {});
+  
+    // Adaptar y ordenar
+    return variants
+      .map((item) => ({
+        id: item.IdArticulo,
+        sku: item.Sku,
+        name: item.Nombre_Comercial,
+        description: item.Descripcion_p,
+        code: item.CodigoInterno,
+        price: parseFloat(item.Precio_SD),
+        discount: parseFloat(item.Descuento_Porcentaje),
+        discountedPrice: parseFloat(item.Precio_CD),
+        image: [item.Imagen_1, item.Imagen_2].filter(Boolean),
+        color: item.Color,
+        idcolor: item.idColor,
+        size: item.Talla,
+        idSize: item.idTalla,
+        images: [
+          item.Imagen_1,
+          item.Imagen_2,
+          item.Imagen_3,
+          item.Imagen_4,
+          item.Imagen_5,
+        ].filter(Boolean),
+        stock: item.Cantidad,
+      }))
+      .sort((a, b) => {
+        const indexA = tallaOrderMap[a.idSize] ?? Infinity;
+        const indexB = tallaOrderMap[b.idSize] ?? Infinity;
+        return indexA - indexB;
+      });
   }
-
+  
   function adapterSizes(sizes) {
     // Ensure this function is properly defined to handle related products
     return sizes.map((item) => ({
