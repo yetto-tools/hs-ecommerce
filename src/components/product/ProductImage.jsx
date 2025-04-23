@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { useSelector } from "react-redux";
+import clsx from "clsx";
 
 const ProductImageGallery = ({ images = [], productName = "" }) => {
   const [loadedImages, setLoadedImages] = useState({});
@@ -20,19 +21,6 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
     setNav2(slider2.current);
   }, []);
 
-  // Ordena las imágenes numéricamente
-  const cleanedImages = images.filter(Boolean);
-
-  let sortedImages = [];
-
-  if (cleanedImages.length === 0) {
-    sortedImages = [];
-  } else if (cleanedImages.length === 1) {
-    sortedImages = [cleanedImages[0], cleanedImages[0], cleanedImages[0]];
-  } else {
-    sortedImages = cleanedImages;
-  }
-
   const mainSettings = {
     asNavFor: nav2,
     ref: slider1,
@@ -41,18 +29,21 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
     arrows: true,
     fade: true,
     initialSlide: 0,
+    infinite: images.length >= 2 ? true : false,
   };
 
   const thumbSettings = {
     asNavFor: nav1,
     ref: slider2,
-    slidesToShow: Math.max(1, Math.min(sortedImages.length, 4)), //sortedImages.length >= 4 ? 4 : sortedImages.length > 0 ? sortedImages.length : 1,
+    slidesToShow: images.length >= 2 ? images.length : 1,
     swipeToSlide: true,
     focusOnSelect: true,
+    centerPadding: "4px",
     arrows: true,
     dots: false,
     centerMode: false,
     initialSlide: 0,
+    infinite: images.length >= 2 ? true : false,
     prevArrow: (
       <button className="custom-prev">
         <ChevronLeft size={32} color="#000" />
@@ -65,10 +56,12 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
     ),
   };
 
+  const RenderImagesThumbnail = () => {};
+
   return (
     <div>
       <Slider {...mainSettings}>
-        {sortedImages.map((image, i) => (
+        {images.map((image, i) => (
           <div key={i + image} className="single-image">
             {!loadedImages[i] && (
               <div className="img-placeholder">
@@ -78,14 +71,13 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
             <img
               src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
               className="img-fluid object-fit-cover"
-              alt={productName}
+              alt={image}
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "/default/no-image.jpg";
               }}
-              onLoad={() =>
-                setLoadedImages((prev) => ({ ...prev, [i]: true }))
-              }
+              dataset-index={`${i}`}
+              onLoad={() => setLoadedImages((prev) => ({ ...prev, [i]: true }))}
               width={"480px"}
               height={"480px"}
               dataset-src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
@@ -96,23 +88,26 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
 
       <div className="product-small-image-wrapper mt-15">
         <Slider {...thumbSettings}>
-          {sortedImages.map((image, i) => (
-            <div key={i + image} className="single-image">
-
-            {!loadedImages[i] && (
-              <div className="img-placeholder-loading-thumbnail">
-                <Loader2 className="animate-spin" />
-              </div>
-            )}
+          {images.map((image, i) => (
+            <div
+              key={i + image}
+              className={clsx("flex flex-row justify-center items-center", "")}
+            >
+              {!loadedImages[i] && (
+                <div className="img-placeholder-loading-thumbnail">
+                  <Loader2 className="animate-spin" />
+                </div>
+              )}
 
               <LazyLoadImage
                 src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
-                className="img-fluid"
-                alt={productName}
+                className="aspect-square object-contain"
+                alt={image}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = "/default/no-image.jpg";
                 }}
+                dataset-index={`${i}`}
                 width={"120px"}
                 height={"120px"}
                 dataset-src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
