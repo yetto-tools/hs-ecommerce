@@ -35,7 +35,7 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
   const thumbSettings = {
     asNavFor: nav1,
     ref: slider2,
-    slidesToShow: images.length >= 2 ? images.length : 1,
+    slidesToShow: images.length >= 3 ? 3 : images.length === 2 ? 2 : 1,
     swipeToSlide: true,
     focusOnSelect: true,
     centerPadding: "4px",
