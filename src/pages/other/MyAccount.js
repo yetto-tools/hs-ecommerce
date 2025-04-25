@@ -7,8 +7,9 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsuario } from "../../store/slices/usuario-slice";
-import cogoToast from "cogo-toast";
+
 import { fetchResetPassword } from "../../hooks/use-FetchUsuario";
+import { showToast } from "../../toast/toastManager";
 
 const MyAccount = () => {
   const { t } = useTranslation();
@@ -27,12 +28,8 @@ const MyAccount = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
-      const { hide } = cogoToast.warn("Necesita iniciar Sessión ", {
-        position: "bottom-left",
-        onClick: () => {
-          hide();
-        },
-      });
+      showToast("Necesita iniciar Sessión", "info", "bottom-left", 10000);
+      return;
     }
   }, [isLoggedIn]);
 

@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import cogoToast from "cogo-toast";
 import Decimal from "decimal.js";
 
 import Swal from "sweetalert2";
@@ -16,6 +15,7 @@ import { scrollToElement } from "../helpers/scroll-top";
 import { fetchStock } from "./use-FetchStock";
 import { deleteAllFromCart } from "../store/slices/cart-slice";
 import { setError } from "../store/slices/menu-slice";
+import { showToast } from "../toast/toastManager";
 
 export function useCheckoutLogic() {
   // Estados locales
@@ -66,7 +66,7 @@ export function useCheckoutLogic() {
   // Auto completar el formulario al recibir la validación
   useEffect(() => {
     if (!usuario) {
-      cogoToast.info("Debe Iniciar Sesión", { position: "top-center" });
+      showToast("Debe Iniciar Sesión", "top-center");
       document.documentElement.scrollTo(0, 0);
       setShow(true);
       return;
@@ -157,7 +157,8 @@ export function useCheckoutLogic() {
       order.IdUsuario_Direccion = formValues.idDireccion;
     } catch (error) {
       console.error("Error durante la validación de datos: " + error);
-      cogoToast.error(`${error}`, { position: "bottom-center" });
+
+      showToast(`${error.message}`, "error", "bottom-left");
       setLoadingOrder(false);
     }
 
@@ -184,7 +185,8 @@ export function useCheckoutLogic() {
       }
     } catch (error) {
       console.error("Error al enviar la orden: " + error);
-      cogoToast.error(`${error}`, { position: "bottom-center" });
+
+      showToast(`${error.message}`, "error", "bottom-left");
     } finally {
       setLoadingOrder(false);
     }
@@ -223,20 +225,20 @@ export function useCheckoutLogic() {
     e.preventDefault();
     // Validaciones básicas
     if (!formValues.idCliente) {
-      cogoToast.error("Debe de Iniciar Sesión");
+      showToast("Debe de Iniciar Sesión", "info", "top-center");
       scrollToElement("login-section");
       setLoadingOrder(false);
       return;
     }
     if (!formValues.nitCliente) {
-      cogoToast.error("Debe de Agregar nit / dpi");
+      showToast("Debe de Agregar nit / dpi", "info", "top-center");
       scrollToElement("nit-section");
       document.querySelector("#nit-section > button")?.click();
       setLoadingOrder(false);
       return;
     }
     if (!formValues.nameCliente) {
-      cogoToast.error("Debe de Agregar nit / dpi para Validar");
+      showToast("Debe de Agregar nit / dpi para Validar", "info", "top-center");
       scrollToElement("nit-section");
       document.querySelector("#nit-section > button")?.click();
       setLoadingOrder(false);
@@ -246,17 +248,17 @@ export function useCheckoutLogic() {
       !formValues.idDireccion ||
       formValues.idDireccion === "Elegir dirección"
     ) {
-      cogoToast.error("Debe de Agregar una dirección");
+      showToast("Falta la direccion", "info", "top-center");
       setLoadingOrder(false);
       return;
     }
     if (cartItems.length === 0) {
-      cogoToast.error("Debe de Agregar Productos al Carrito");
+      showToast("Falta agregar productos", "info", "top-center");
       setLoadingOrder(false);
       return;
     }
     if (!address || address.length === 0) {
-      cogoToast.error("Falta la dirección");
+      showToast("Falta la direccion", "info", "top-center");
       setLoadingOrder(false);
       return;
     }

@@ -14,9 +14,9 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { fetchCorreo } from "../../hooks/use-fetchCorreo";
-import cogoToast from "cogo-toast";
-import { Loader2, Send } from "lucide-react";
 
+import { Loader2, Send } from "lucide-react";
+import { showToast } from "../../toast/toastManager";
 
 const Contact = () => {
   let { pathname } = useLocation();
@@ -27,10 +27,10 @@ const Contact = () => {
   const { params } = useSelector((state) => state.paramsWeb);
   const [storeInfo, setStoreInfo] = useState({});
   const [formValues, setFormValues] = useState({
-    'name': "",
-    'email': "",
-    'subject': '',
-    'message': "",
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   useEffect(() => {
@@ -58,9 +58,8 @@ const Contact = () => {
     }
   }, [params]);
 
-
   const handleFormChange = (e) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
     setFormValues({
       ...formValues,
       [name]: value,
@@ -70,18 +69,18 @@ const Contact = () => {
   const handleSendMail = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try{
+    try {
+      const res = await dispatch(
+        fetchCorreo({
+          tipo: "contacto",
+          datos: formValues,
+          loading: false,
+        })
+      );
 
-      const res = await dispatch(fetchCorreo({
-        tipo: 'contacto',
-        datos: formValues,
-        loading: false
-      }));
-    
       if (res) {
-        cogoToast.success(res, { position: "bottom-center" });
-    
-        // Limpiar el formulario 
+        showToast(res, "success", "bottom-center");
+        // Limpiar el formulario
         setFormValues({
           name: "",
           email: "",
@@ -89,17 +88,12 @@ const Contact = () => {
           message: "",
         });
       }
-    }
-    catch(error){
-        console.log(error)
-    }
-    finally
-    {
+    } catch (error) {
+      console.log(error);
+    } finally {
       setLoading(false);
     }
   };
-  
-
 
   return (
     <Fragment>
@@ -236,7 +230,10 @@ const Contact = () => {
                   <div className="contact-title">
                     <h2>{t("contact_us")}</h2>
                   </div>
-                  <form className="contact-form-style" onSubmit={handleSendMail}>
+                  <form
+                    className="contact-form-style"
+                    onSubmit={handleSendMail}
+                  >
                     <div className="row">
                       <div className="col-lg-6">
                         <input
@@ -275,20 +272,18 @@ const Contact = () => {
                           value={formValues.message}
                         />
                         <div className="row col-12 mx-auto">
-                        <button
+                          <button
                             type="submit"
                             className="button-active-hs btn-black d-flex justify-content-center align-items-center gap-4 "
                             disabled={loading}
-                        >
-                          <span className="mr-4">
-                            {t("send_message")}
-                            </span>
-                          {loading ? (
-                            <Loader2 className="animate-spin" />
-                          ) : (
-                            <Send className="postion-fixed" />
-                          )}
-                        </button>
+                          >
+                            <span className="mr-4">{t("send_message")}</span>
+                            {loading ? (
+                              <Loader2 className="animate-spin" />
+                            ) : (
+                              <Send className="postion-fixed" />
+                            )}
+                          </button>
                         </div>
                       </div>
                     </div>

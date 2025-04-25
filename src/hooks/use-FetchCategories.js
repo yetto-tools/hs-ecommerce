@@ -1,6 +1,5 @@
 import { setProducts } from "../store/slices/products-slices";
-import cogoToast from "cogo-toast";
-
+import { showToast } from "../toast/toastManager";
 
 const API_URL = "https://apihs.yettotools.com";
 export const fetchProducts =
@@ -11,15 +10,12 @@ export const fetchProducts =
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        cogoToast.error(`Error: ${response.status}`, {
-          position: "bottom-left",
-        });
         throw new Error(`${response.status}`);
       }
       const data = await response.json();
       dispatch(setProducts(data.data.articulos)); // Aquí actualizas el estado global
     } catch (error) {
-      cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
+      showToast(`${error.message}`, "error", "bottom-left");
     }
   };
 

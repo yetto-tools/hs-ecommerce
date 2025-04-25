@@ -1,8 +1,13 @@
 import { API_URL } from "../config";
-import cogoToast from "cogo-toast";
+
 import { setLoading } from "../store/slices/articleDetail-slice";
-import { setConfigParams, setCountry, setParamsWeb } from "../store/slices/paramsWeb-slice";
+import {
+  setConfigParams,
+  setCountry,
+  setParamsWeb,
+} from "../store/slices/paramsWeb-slice";
 import { adapterMessage } from "../adapters/message";
+import { showToast } from "../toast/toastManager";
 
 export const fetchParamsWeb = () => async (dispatch, getState) => {
   const url = `${API_URL}/api/v1/configurations/system-parameters`;
@@ -21,18 +26,15 @@ export const fetchParamsWeb = () => async (dispatch, getState) => {
     }
 
     dispatch(setParamsWeb(data.parametros));
-    
-  // Convertir array a objeto { RUTAIMAGENESARTICULOS: "valor", ... }
-  const configParamas = data.parametros.reduce((acc, curr) => {
-    acc[curr.Nombre] = curr.Valor;
-    return acc;
-  }, {});
-    dispatch(setConfigParams(configParamas));
 
+    // Convertir array a objeto { RUTAIMAGENESARTICULOS: "valor", ... }
+    const configParamas = data.parametros.reduce((acc, curr) => {
+      acc[curr.Nombre] = curr.Valor;
+      return acc;
+    }, {});
+    dispatch(setConfigParams(configParamas));
   } catch (error) {
-    cogoToast.warn(`${error.message}`, {
-      position: "bottom-left",
-    });
+    showToast(`${error.message}`, "error", "bottom-left");
   } finally {
     dispatch(setLoading(false));
   }
@@ -56,9 +58,7 @@ export const fetchCountry = () => async (dispatch) => {
 
     dispatch(setCountry(data));
   } catch (error) {
-    cogoToast.warn(`${error.message}`, {
-      position: "top-center",
-    });
+    showToast(`${error.message}`, "error", "bottom-left");
   } finally {
     dispatch(setLoading(false));
   }

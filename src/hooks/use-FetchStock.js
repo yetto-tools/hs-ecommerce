@@ -1,9 +1,9 @@
-import cogoToast from "cogo-toast";
 import { API_URL } from "../config";
+import { showToast } from "../toast/toastManager";
 
 export const fetchStock = async (code, stateLoading) => {
   const value = encodeURIComponent(code);
-  
+
   try {
     const response = await fetch(
       `${API_URL}/api/v1/items/stock?value=${value}`
@@ -23,7 +23,8 @@ export const fetchStock = async (code, stateLoading) => {
     return jsonResponse.data.stock; // Acceder directamente al stock dentro de data
   } catch (error) {
     console.error("Fallo en la búsqueda de existencias", error);
-    cogoToast.error(`${error.message}`, { position: "bottom-left" });
+
+    showToast(`${error.message}`, "error", "bottom-left");
     return 0; // Considerar el stock como 0 si la llamada falla
   }
 };

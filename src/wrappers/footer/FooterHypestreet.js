@@ -126,10 +126,10 @@ const FooterHypestreet = ({
                 </div>
               </div>
             </div>
-            <p className="mt-3 text-white text-hover-green-hs">
-              <p className="text-xs font-semibold text-white">
+            <p className="mt-3 text-white text-hover-green-hs d-flex flex-column gap-2">
+              <span className="text-xs font-semibold text-white">
                 {t("about_us")}
-              </p>
+              </span>
               <span className="text-xs font-semibold text-white">
                 {storeInfo && storeInfo["footer"]}
               </span>

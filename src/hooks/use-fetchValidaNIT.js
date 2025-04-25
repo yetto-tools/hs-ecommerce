@@ -1,10 +1,11 @@
 import { API_NIT } from "../config";
-import cogoToast from "cogo-toast";
+
 import {
   setLoading,
   setValidacionNit,
   setError,
 } from "../store/slices/validaNit-slice";
+import { showToast } from "../toast/toastManager";
 
 export const fetchValidaNIT = (nit) => async (dispatch) => {
   const url = `${
@@ -58,18 +59,12 @@ export const fetchValidaNIT = (nit) => async (dispatch) => {
       dispatch(setValidacionNit(Detalle));
     }
 
-    cogoToast.success(Encabezado.Descripcion, {
-      position: "top-center",
-    });
+    showToast(Encabezado.Descripcion, "success", "top-center");
     dispatch(setError(false));
   } catch (error) {
     dispatch(setError(true));
-    const { hide } = cogoToast.warn(`${"El NIT o DPI no es Valido"}`, {
-      position: "top-center",
-      onClick: () => {
-        hide();
-      },
-    });
+
+    showToast(`${error.message}`, "error", "top-center");
   } finally {
     dispatch(setLoading(false));
   }

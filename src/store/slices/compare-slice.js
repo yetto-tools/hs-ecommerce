@@ -1,21 +1,26 @@
-import cogoToast from 'cogo-toast';
-const { createSlice } = require('@reduxjs/toolkit');
+import { showToast } from "../../toast/toastManager";
+
+const { createSlice } = require("@reduxjs/toolkit");
 
 const compareSlice = createSlice({
-    name: "compare",
-    initialState: {
-        compareItems: []
+  name: "compare",
+  initialState: {
+    compareItems: [],
+  },
+  reducers: {
+    addToCompare(state, action) {
+      state.compareItems.push(action.payload);
+
+      showToast("Agregado a comparar", "success", "bottom-left");
     },
-    reducers: {
-        addToCompare(state, action) {
-            state.compareItems.push(action.payload);
-            cogoToast.success("Added To compare", {position: "bottom-left"});
-        },
-        deleteFromCompare(state, action){
-            state.compareItems = state.compareItems.filter(item => item.id !== action.payload);
-            cogoToast.error("Removed From Compare", {position: "bottom-left"});
-        }
+    deleteFromCompare(state, action) {
+      state.compareItems = state.compareItems.filter(
+        (item) => item.id !== action.payload
+      );
+
+      showToast("Eliminado de comparar", "success", "bottom-left");
     },
+  },
 });
 
 export const { addToCompare, deleteFromCompare } = compareSlice.actions;

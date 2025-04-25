@@ -2,7 +2,7 @@ import { API_URL } from "../config";
 import { setMenu, setError } from "../store/slices/menu-slice";
 import { setLoading } from "../store/slices/loading-slice";
 import { adapterMenu } from "../adapters/menu";
-import cogoToast from "cogo-toast";
+import { showToast } from "../toast/toastManager";
 
 export const fetchMenu = () => async (dispatch, getState) => {
   const { menu } = getState(); // Ajusta esto si tu estado es diferente
@@ -26,7 +26,8 @@ export const fetchMenu = () => async (dispatch, getState) => {
     dispatch(setMenu(menu));
   } catch (error) {
     dispatch(setError(error.message));
-    cogoToast.error(`Error: ${error.message}`, { position: "bottom-left" });
+
+    showToast(`Error: ${error.message}`, "error", "bottom-left");
   } finally {
     dispatch(setLoading(false));
   }

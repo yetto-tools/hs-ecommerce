@@ -8,10 +8,11 @@ import { Modal } from "react-bootstrap";
 import { CurrencyFormatter } from "../../helpers/currencyFormatter";
 import { VariantSelector } from "./VariantSelector";
 import { EffectFade, Thumbs } from "swiper";
-import cogoToast from "cogo-toast";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductImageGallery from "./ProductImage";
+import { showToast } from "../../toast/toastManager";
 
 function ProductModal2({ show, onHide, currency }) {
   const dispatch = useDispatch();
@@ -54,9 +55,7 @@ function ProductModal2({ show, onHide, currency }) {
     const newTotalQty = currentCartQty + quantityCount;
 
     if (newTotalQty > productStock) {
-      cogoToast.error("Cantidad excede el stock disponible", {
-        position: "bottom-left",
-      });
+      showToast("Cantidad excede el stock disponible", "warn", "top-center");
       return;
     }
 
@@ -74,29 +73,7 @@ function ProductModal2({ show, onHide, currency }) {
   };
 
   const canAddToCart = productStock > 0 && quantityCount <= productStock;
-  const gallerySwiperParams = {
-    spaceBetween: 10,
-    initialSlide: 0,
-    loop: true,
-    effect: "fade",
-    fadeEffect: {
-      crossFade: true,
-    },
-    thumbs: { swiper: thumbsSwiper },
-    modules: [EffectFade, Thumbs],
-  };
 
-  const thumbnailSwiperParams = {
-    onSwiper: setThumbsSwiper,
-    spaceBetween: 10,
-    slidesPerView: 4,
-    initialSlide: 0,
-    touchRatio: 0.2,
-    freeMode: true,
-    loop: true,
-    slideToClickedSlide: true,
-    navigation: true,
-  };
   const onCloseModal = () => {
     setThumbsSwiper(null);
     onHide();
@@ -122,77 +99,7 @@ function ProductModal2({ show, onHide, currency }) {
           <div className="row">
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-large-image-wrapper px-4">
-                {/* <Swiper options={gallerySwiperParams}>
-                  
-                  {selectedVariantImage &&
-                    selectedVariantImage.map((image, index) => (
-                      <SwiperSlide key={index}>
-                        <LazyLoadImage
-                          src={`${ROOT_IMAGE}${image}`}
-                          alt={articleDetail.name}
-                          className="img-fluid"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = "/default/no-image.jpg";
-                          }}
-                          loading="lazy"
-                          style={
-                            {
-                              minHeight:"360px",
-                              aspectRatio: "10/16",
-                              objectFit: "contain",
-                              objectPosition: "center top",
-                            }
-                          }
-                        />
-                      </SwiperSlide>
-                    ))}
-                </Swiper> */}
                 <ProductImageGallery images={selectedVariantImage} />
-                {/* <Slider {...settings}>
-                  {sortedImages && sortedImages.map((image, i) => (
-                    <div key={i} className="single-image">
-                      <img
-                        src={`${ROOT_IMAGE}${image}`}
-                        alt={`product-${i}`}
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = "/default/no-image.jpg";
-                        }}
-                        className="img-fluid object-fit-cover"
-                        width={500}
-                        height={500}
-                      />
-                    </div>
-                  ))}
-                </Slider> */}
-              </div>
-              <div
-                className="product-small-image-wrapper mt-40 d-sm-none d-md-block"
-                id="thumbnail"
-              >
-                {/* <Swiper options={thumbnailSwiperParams}>
-                  {selectedVariantImage &&
-                    selectedVariantImage.map((image, i) => {
-                      return (
-                        <SwiperSlide key={i} className="svg-slider-arrow-black">
-                          <div className="single-image">
-                            <img
-                              src={ROOT_IMAGE + image}
-                              className="img-fluid object-fit-cover"
-                              alt={articleDetail.name}
-                              onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = "/default/no-image.jpg";
-                              }}
-                              data-src={ROOT_IMAGE + image}
-                              loading="lazy"
-                            />
-                          </div>
-                        </SwiperSlide>
-                      );
-                    })}
-                </Swiper> */}
               </div>
             </div>
             <div className="col-md-7 col-sm-12 col-xs-12">
@@ -266,11 +173,11 @@ function ProductModal2({ show, onHide, currency }) {
                           className="inc qtybutton text-black"
                           onClick={() => {
                             if (quantityCount >= maxQtyDisponible) {
-                              cogoToast.error(
-                                "Cantidad excede el stock disponible",
-                                {
-                                  position: "bottom-left",
-                                }
+                              showToast(
+                                `Cantidad excede el stock, 
+                                Disponible ${quantityCount} unidades`,
+                                "warn",
+                                "top-center"
                               );
                               return;
                             }
@@ -307,9 +214,8 @@ function ProductModal2({ show, onHide, currency }) {
                         Comprar Ahora{" "}
                       </button>
                        */}
-
-                      </div>                  
                     </div>
+                  </div>
                 </div>
 
                 <div className="pro-details-list container-md mt-4 max-h-25 overflow-y-scroll">

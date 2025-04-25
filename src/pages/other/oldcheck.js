@@ -19,8 +19,6 @@ import { FormDatosCliente } from "../payment/FormDatosCliente";
 import { FormDireccionEntrega } from "../payment/FormDireccionEntrega";
 import { FormLogin } from "../payment/FormLogin";
 
-import cogoToast from "cogo-toast";
-
 import { scrollToElement } from "../../helpers/scroll-top";
 import { Loader2, Send } from "lucide-react";
 import { API_URL } from "../../config";
@@ -34,6 +32,7 @@ import { deleteAllFromCart } from "../../store/slices/cart-slice";
 import { fetchStock } from "../../hooks/use-FetchStock";
 import { dir } from "i18next";
 import { ResumenCompra } from "./ResumenCompra";
+import { showToast } from "../../toast/toastManager";
 
 const Checkout = () => {
   const { t, i18n } = useTranslation();
@@ -106,7 +105,7 @@ const Checkout = () => {
   // 🟢 Auto completar formulario cuando se reciba la respuesta de validación
   useEffect(() => {
     if (!usuario) {
-      cogoToast.info("Debe Iniciar Sesión", { position: "top-center" });
+      showToast("Debe Iniciar Sesión", "info", "top-center");
       document.documentElement.scrollTo(0, 0);
       setShow(true);
 
@@ -142,21 +141,21 @@ const Checkout = () => {
     setLoadingOrder(true);
 
     if (!formValues.idCliente) {
-      cogoToast.error("Debe de Iniciar Sesión");
+      showToast("Debe Iniciar Sesión", "info", "top-center");
       scrollToElement("login-section");
       setLoadingOrder(false);
       return;
     }
 
     if (!formValues.nitCliente) {
-      cogoToast.error("Debe de Agregar nit / dpi");
+      showToast("Debe Agregar nit / dpi", "info", "top-center");
       scrollToElement("nit-section");
       document.querySelector("#nit-section > button").click();
       setLoadingOrder(false);
       return;
     }
     if (!formValues.nameCliente) {
-      cogoToast.error("Debe de Agregar nit / dpi para Validar");
+      showToast("Debe Agregar nit / dpi para Validar", "info", "top-center");
       scrollToElement("nit-section");
       document.querySelector("#nit-section > button").click();
       setLoadingOrder(false);
@@ -168,19 +167,19 @@ const Checkout = () => {
       formValues.idDireccion === null ||
       formValues.idDireccion === undefined
     ) {
-      cogoToast.error("Debe de Agregar una dirección");
+      showToast("Debe de Agregar una direccion", "info", "top-center");
       setLoadingOrder(false);
       return;
     }
 
     if (cartItems.length === 0) {
-      cogoToast.error("Debe de Agregar Productos al Carrito");
+      showToast("Debe de Agregar Productos al Carrito", "info", "top-center");
       setLoadingOrder(false);
       return;
     }
 
     if (cartItems.length === 0) {
-      cogoToast.error("Debe de Agregar Productos al Carrito");
+      showToast("Debe de Agregar Productos al Carrito", "info", "top-center");
       setLoadingOrder(false);
       return;
     }
@@ -209,12 +208,12 @@ const Checkout = () => {
     }
 
     if (!allItemsInStock) {
-      // cogoToast.error(
-      //   "Ajuste las cantidades de los productos según el stock disponible antes de proceder."
-      // );
-      // handleAlertSaleOut(
-      //   `No hay suficiente stock para ${item.name}. Disponible: ${stock}`
-      // );
+      showToast(
+        "Ajuste las cantidades de los productos según el stock disponible antes de proceder.",
+        "info",
+        "top-center"
+      );
+
       setLoadingOrder(false);
       return;
     }
@@ -257,7 +256,12 @@ const Checkout = () => {
       order.IdUsuario_Direccion = formValues.idDireccion;
     } catch (error) {
       console.error("Hubo un error durante la validación de datos " + error);
-      cogoToast.error(`${error}`, { position: "bottom-center" });
+
+      showToast(
+        "Hubo un error durante la validación de datos",
+        "warn",
+        "top-center"
+      );
       setLoadingOrder(false);
     }
 
@@ -288,7 +292,11 @@ const Checkout = () => {
       }
     } catch (error) {
       console.error("Hubo un error durante la validación de datos");
-      cogoToast.error(`${error}`, { position: "bottom-center" });
+      showToast(
+        "Hubo un error durante la validación de datos",
+        "warn",
+        "top-center"
+      );
     } finally {
       setLoadingOrder(false);
     }

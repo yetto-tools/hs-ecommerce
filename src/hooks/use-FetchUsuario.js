@@ -6,7 +6,7 @@ import {
   userAddress,
   userToken,
 } from "../store/slices/usuario-slice";
-import cogoToast from "cogo-toast";
+
 import {
   adapterAddressesUser,
   adapterLoginUser,
@@ -15,6 +15,7 @@ import {
   adapterUsuario,
 } from "../adapters/usuario";
 import { adapterMessage } from "../adapters/message";
+import { showToast } from "../toast/toastManager";
 
 export const fetchLogin =
   (userData, enableLoading = true) =>
@@ -43,13 +44,10 @@ export const fetchLogin =
       dispatch(login(usuario));
       dispatch(userAddress(direcciones));
       dispatch(userToken(token));
-      cogoToast.success("Bienvenido: " + usuario.name, {
-        position: "top-center",
-      });
+
+      showToast("Bienvenido: " + usuario.name, "success", "top-center");
     } catch (error) {
-      cogoToast.warn(`${error.message}`, {
-        position: "top-center",
-      });
+      showToast(`${error.message}`, "error", "top-center");
     } finally {
       dispatch(setLoading(false));
     }
@@ -82,16 +80,9 @@ export const fetchRegister =
       dispatch(login(usuario));
       dispatch(userAddress(direcciones));
       dispatch(userToken(token));
-      const hide = cogoToast.success("Bienvenido: " + usuario.name, {
-        position: "top-center",
-        onClick: () => {
-          hide();
-        },
-      });
+      showToast("Bienvenido: " + usuario.name, "success", "top-center");
     } catch (error) {
-      cogoToast.warn(`${error.message}`, {
-        position: "top-left",
-      });
+      showToast(`${error.message}`, "error", "top-center");
     } finally {
       dispatch(setLoading(false));
     }
@@ -100,9 +91,7 @@ export const fetchRegister =
 export const fetchResetPassword = (userData) => {
   return async (dispatch) => {
     if (!userData || Object.keys(userData).length === 0) {
-      cogoToast.warn("Los datos del usuario son requeridos", {
-        position: "top-left",
-      });
+      showToast("Los datos del usuario son requeridos", "warn", "top-left");
       return;
     }
 
@@ -130,15 +119,13 @@ export const fetchResetPassword = (userData) => {
         throw new Error("La respuesta del servidor no es un JSON válido.");
       }
 
-      cogoToast.success(
+      showToast(
         `Bienvenido: ${data?.respuesta?.Respuesta || "Usuario"}`,
-        {
-          position: "top-center",
-          onClick: (toast) => toast.hide(),
-        }
+        "success",
+        "top-center"
       );
     } catch (error) {
-      cogoToast.warn(error.message, { position: "bottom-left" });
+      showToast(`${error.message}`, "error", "bottom-left");
     } finally {
       dispatch(setLoading(false));
     }
@@ -154,9 +141,7 @@ export const fetchNewAdressUser = (
     dispatch(setLoading(enableLoading));
     let isSuccess = false;
     if (!idUser) {
-      cogoToast.warn("Los datos del usuario son requeridos", {
-        position: "bottom-left",
-      });
+      showToast("Los datos del usuario son requeridos", "warn", "top-left");
       return;
     }
 
@@ -182,10 +167,11 @@ export const fetchNewAdressUser = (
       const addresses = adapterNewAdressesUser(direcciones);
       dispatch(userAddress(addresses));
       console.log(addresses);
-      cogoToast.success("Dirección guardada correctamente");
+
+      showToast("Dirección guardada correctamente", "success", "top-center");
       isSuccess = true;
     } catch (error) {
-      cogoToast.warn(error.message, { position: "bottom-left" });
+      showToast(`${error.message}`, "error", "bottom-left");
     } finally {
       dispatch(setLoading(false));
       return isSuccess;
@@ -198,9 +184,7 @@ export const fetchAdressUser = (usuario, enableLoading = false) => {
     dispatch(setLoading(enableLoading));
 
     if (!usuario?.id) {
-      cogoToast.warn("Los datos del usuario son requeridos", {
-        position: "bottom-left",
-      });
+      showToast("Los datos del usuario son requeridos", "warn", "bottom-left");
       return;
     }
 
@@ -222,15 +206,9 @@ export const fetchAdressUser = (usuario, enableLoading = false) => {
       responseJson.data = adapterAddressesUser(responseJson.data);
       dispatch(userAddress(responseJson.data));
 
-      cogoToast.success(
-        `Bienvenido: ${data?.respuesta?.Respuesta || "Usuario"}`,
-        {
-          position: "top-center",
-          onClick: (toast) => toast.hide(),
-        }
-      );
+      showToast("Direcciones cargadas correctamente", "success", "top-center");
     } catch (error) {
-      cogoToast.warn(error.message, { position: "bottom-left" });
+      showToast(`${error.message}`, "error", "bottom-left");
     } finally {
       dispatch(setLoading(false));
     }

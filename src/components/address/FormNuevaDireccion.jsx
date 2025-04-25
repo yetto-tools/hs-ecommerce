@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import cogoToast from "cogo-toast";
 import { useTranslation } from "react-i18next";
 import { Loader2, Send } from "lucide-react";
 import { fetchNewAdressUser } from "../../hooks/use-FetchUsuario";
+import { showToast } from "../../toast/toastManager";
 
 const FormNuevaDireccion = ({ setShowAddressNew }) => {
   const dispatch = useDispatch();
@@ -52,9 +52,12 @@ const FormNuevaDireccion = ({ setShowAddressNew }) => {
     e.preventDefault();
 
     if (!usuario?.id) {
-      return cogoToast.error(
-        "Debe iniciar sesión para registrar una dirección."
+      showToast(
+        "Debe iniciar sesión para registrar una dirección",
+        "warn",
+        "top-center"
       );
+      return;
     }
 
     const nuevaDireccion = {
@@ -85,7 +88,7 @@ const FormNuevaDireccion = ({ setShowAddressNew }) => {
         setShowAddressNew((prevState) => !prevState);
       }
     } catch (error) {
-      cogoToast.error("Error al guardar la dirección");
+      showToast("Error al guardar la direccion", "error", "top-center");
     } finally {
       setLoading(false);
     }

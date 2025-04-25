@@ -15,10 +15,11 @@ import {
 import { cartItemStock } from "../../helpers/product";
 import { useTranslation } from "react-i18next";
 import { fetchStock } from "../../hooks/use-FetchStock";
-import cogoToast from "cogo-toast";
+
 import clsx from "clsx";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import { showToast } from "../../toast/toastManager";
 
 const Cart = () => {
   const { t, i18n } = useTranslation();
@@ -37,7 +38,6 @@ const Cart = () => {
 
   useEffect(() => {
     verifyStockAndSetReady();
-   
   }, [cartItems]);
 
   const verifyStockAndSetReady = async () => {
@@ -61,8 +61,8 @@ const Cart = () => {
       }
     }
     setReadyToCheckout(allItemsAvailable);
-     
-     console.log(cartItems);
+
+    console.log(cartItems);
   };
 
   const handleCheckout = () => {
@@ -164,7 +164,10 @@ const Cart = () => {
                                   >
                                     <img
                                       className="img-fluid"
-                                      src={configParams.RUTAIMAGENESARTICULOS + cartItem.images[0]}
+                                      src={
+                                        configParams.RUTAIMAGENESARTICULOS +
+                                        cartItem.images[0]
+                                      }
                                       alt=""
                                     />
                                   </Link>
@@ -264,9 +267,8 @@ const Cart = () => {
                                     <button
                                       className="inc qtybutton"
                                       onClick={() => {
-                                        if(
+                                        if (
                                           cartItem.isSoldOut ||
-                                        
                                           (cartItem !== undefined &&
                                             cartItem.quantity &&
                                             cartItem.quantity >=
@@ -276,20 +278,20 @@ const Cart = () => {
                                                 cartItem.selectedProductSize
                                               ))
                                         ) {
-                                            cogoToast.error("Cantidad excede el stock disponible", {
-                                                                          position: "bottom-left",
-                                                                        });
-                                                                        return;
-                                        } 
+                                          showToast(
+                                            `Cantidad excede el stock, Disponible ${quantityCount} unidades.`,
+                                            "warn",
+                                            "top-center"
+                                          );
+                                          return;
+                                        }
                                         dispatch(
                                           addToCart({
                                             ...cartItem,
                                             quantity: quantityCount,
                                           })
-                                        )
-                                      }
-                                      }
-                                      
+                                        );
+                                      }}
                                     >
                                       +
                                     </button>

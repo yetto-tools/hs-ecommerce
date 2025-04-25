@@ -1,5 +1,5 @@
-import cogoToast from "cogo-toast";
 import { adapterArticleDetail } from "../adapters/articles";
+import { showToast } from "../toast/toastManager";
 
 export const fetchProductById = async (idProduct) => {
   const host = "https://apihs.yettotools.com";
@@ -14,7 +14,6 @@ export const fetchProductById = async (idProduct) => {
   try {
     const response = await fetch(url, requestOptions);
     if (!response.ok) {
-      cogoToast.error(`Error: ${response.status}`, { position: "bottom-left" });
       throw new Error(`Error: ${response.status}`);
     }
     const { data } = await response.json();
@@ -25,7 +24,8 @@ export const fetchProductById = async (idProduct) => {
 
     return processedData;
   } catch (error) {
-    cogoToast.error(`Error: ${error}`);
+    showToast(`Error: ${error}`, "error", "bottom-left");
+
     throw error;
   }
 };
@@ -57,65 +57,3 @@ export const fetchProductsByGroupAndGenre =
       dispatch({ type: "PRODUCTS_FETCH_ERROR", error: error.message });
     }
   };
-
-// export const fetchProducts = async (pageNumber = 1, pageSize = 5) => {
-//   const host = "https://apihs.yettotools.com";
-//   const version = "v1";
-//   console.log(host);
-//   const url = `${host}/api/${version}/products`;
-//   const requestOptions = {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ pPageNumber: pageNumber, pPageSize: pageSize }),
-//   };
-
-//   try {
-//     const response = await fetch(url, requestOptions);
-//     if (!response.ok) {
-//       cogoToast.error(`Error: ${response.status}`, { position: "bottom-left" });
-//       throw new Error(`Error: ${response.status}`);
-//     }
-//     const data = await response.json();
-
-//     // Convertir y procesar los datos
-//     const processedData = data.DataResult.map((product) => {
-//       product.variation = product.variation
-//         ? JSON.parse(product.variation)
-//         : null;
-//       product.category = product.category ? JSON.parse(product.category) : null;
-//       product.tag = product.tag ? JSON.parse(product.tag) : null;
-//       product.image = product.image ? JSON.parse(product.image) : null;
-//       return product;
-//     });
-
-//     return processedData;
-//   } catch (error) {
-//     cogoToast.error(`Error: ${error}`);
-//     throw error;
-//   }
-// };
-
-// import cogoToast from "cogo-toast";
-
-// export const fetchProducts = async () => {
-//   const url = `${window.origin}/api/Product/list.json`; // URL del JSON estático
-
-//   try {
-//     const response = await fetch(url);
-//     if (!response.ok) {
-//       cogoToast.error(`Error: ${response.status}`, { position: "bottom-left" });
-//       throw new Error(`Error: ${response.status}`);
-//     }
-//     const data = await response.json();
-
-
-
-//     // Convertir y procesar los datos
-//     const processedData = data;
-
-//     return processedData;
-//   } catch (error) {
-//     cogoToast.error(`Error: ${error}`, { position: "bottom-left" });
-//     throw error;
-//   }
-// };

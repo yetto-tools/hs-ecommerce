@@ -9,6 +9,8 @@ import MobileMenu from "../../components/header/MobileMenu";
 import MultiLevelDropdown from "../../data/menus/MultiLevelDropdown";
 import { APP_ENV, APP_VERSION } from "../../config";
 
+import { showToast } from "../../toast/toastManager";
+
 const HeaderOne = ({
   layout,
   top,
@@ -33,6 +35,30 @@ const HeaderOne = ({
     setScroll(window.scrollY);
   };
 
+  const handleOnclick = () => {
+    // console.log("Intentando mostrar toast...");
+    // showToast(
+    //   "Probando Toast, Intentando mostrar toast...",
+    //   "success",
+    //   "top-center"
+    // );
+    // showToast(
+    //   "Probando Toast, Intentando mostrar toast...",
+    //   "info",
+    //   "left-center"
+    // );
+    // showToast(
+    //   "Probando Toast, Intentando mostrar toast...",
+    //   "warn",
+    //   "right-center"
+    // );
+    // showToast(
+    //   "Probando Toast, Intentando mostrar toast...",
+    //   "error",
+    //   "bottom-center"
+    // );
+    // console.log("Finalizando de mostrar toast...");
+  };
   return (
     <>
       {APP_ENV === "development" ? (
@@ -52,6 +78,7 @@ const HeaderOne = ({
             justifyContent: "center",
             letterSpacing: "2px",
           }}
+          onClick={handleOnclick}
         >
           Entorno de Pruebas - ({APP_VERSION})
         </div>
