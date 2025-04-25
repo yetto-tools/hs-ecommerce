@@ -35,30 +35,7 @@ const HeaderOne = ({
     setScroll(window.scrollY);
   };
 
-  const handleOnclick = () => {
-    // console.log("Intentando mostrar toast...");
-    // showToast(
-    //   "Probando Toast, Intentando mostrar toast...",
-    //   "success",
-    //   "top-center"
-    // );
-    // showToast(
-    //   "Probando Toast, Intentando mostrar toast...",
-    //   "info",
-    //   "left-center"
-    // );
-    // showToast(
-    //   "Probando Toast, Intentando mostrar toast...",
-    //   "warn",
-    //   "right-center"
-    // );
-    // showToast(
-    //   "Probando Toast, Intentando mostrar toast...",
-    //   "error",
-    //   "bottom-center"
-    // );
-    // console.log("Finalizando de mostrar toast...");
-  };
+  const handleOnclick = () => {};
   return (
     <>
       {APP_ENV === "development" ? (

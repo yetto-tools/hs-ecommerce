@@ -126,6 +126,7 @@ const FormNuevaDireccion = ({ setShowAddressNew }) => {
           onChange={handleChange}
           className="form-select"
           required
+          defaultValue={1}
         >
           <option value="">Seleccione un país</option>
           {country?.paises?.map((pais) => (

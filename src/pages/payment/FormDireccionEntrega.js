@@ -40,6 +40,7 @@ export const FormDireccionEntrega = ({
               name="idDireccion"
               onChange={handleChange}
               className="form-select"
+              value={formValues.idDireccion || ""} // ← añadimos esto
             >
               <option>{t("page_checkout.select_address")}</option>
               {address &&
@@ -47,10 +48,10 @@ export const FormDireccionEntrega = ({
                   <option
                     key={`${direccion.idAddress}-${direccion.name}`}
                     value={direccion.idAddress}
-                    selected={
-                      address[address.length - 1].idAddress ===
-                      direccion.idAddress
-                    }
+                    // selected={
+                    //   address[address.length - 1].idAddress ===
+                    //   direccion.idAddress
+                    // }
                   >
                     {direccion.name}
                   </option>
