@@ -17,7 +17,6 @@ const IconGroup = ({ iconWhiteClass }) => {
   const userRef = useRef(null);
 
   const handleClick = (e) => {
-    console.log(e?.currentTarget?.nextSibling?.classList);
     if (!userRef.current.contains(e.target)) {
       e?.currentTarget?.nextSibling?.classList?.toggle("active");
     }
