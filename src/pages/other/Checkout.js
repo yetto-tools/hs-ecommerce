@@ -214,7 +214,7 @@ const BacCheckout = () => {
                         </div>
                       </div>
                     </div>{" "}
-                    {!formIsValid && (
+                    {!formIsValid && usuario && (
                       <p className="text-danger mt-2">
                         {t("page_checkout.complete_all_fields")}
                       </p>
