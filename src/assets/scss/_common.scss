@@ -2416,24 +2416,32 @@ button:disabled {
   --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b4e600' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
   display: block;
   width: 100%;
-  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #000;
+  min-height: 45px;
+
   appearance: none;
   background-color: #fff; /* Nuevo color de fondo */
   background-image: var(--bs-form-select-bg-img), none;
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 1px solid #dee2e6;
+  border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: 0.001rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-select:focus {
   border-color: rgb(184, 219, 21, 254);
+  box-shadow: 0 0 0 0.25rem rgba(184, 219, 21, 0.302);
+}
+
+.form-control:active,
+.form-control:focus {
+  border: var(--bs-border-width) solid rgb(184, 219, 21, 254) !important;
   box-shadow: 0 0 0 0.25rem rgba(184, 219, 21, 0.302);
 }
 
@@ -2532,7 +2540,8 @@ button.border-black:hover {
   align-items: center;
 }
 
-.product-wrap .product-img-badges span:last-child, .product-list-image-wrap .product-img-badges span:last-child {
+.product-wrap .product-img-badges span:last-child,
+.product-list-image-wrap .product-img-badges span:last-child {
   font-size: 10px !important;
 }
 
@@ -2549,4 +2558,9 @@ button.border-black:hover {
   object-fit: scale-down;
   width: 100%;
   height: auto;
+}
+
+.py-2\.5 {
+  padding-top: 0.625rem !important;
+  padding-bottom: 0.625rem !important;
 }

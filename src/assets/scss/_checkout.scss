@@ -115,12 +115,18 @@
       textarea {
         font-size: 14px;
 
-        height: 138px;
+        height: 96px;
         padding: 17px 20px;
 
         color: #333;
         border: 1px solid #e6e6e6;
         background: transparent none repeat scroll 0 0;
+      }
+      textarea:active,
+      textarea:focus {
+        border: var(--bs-border-width) solid rgb(184, 219, 21, 254) !important;
+        box-shadow: 0 0 0 0.25rem rgba(184, 219, 21, 0.302);
+        outline: var(--bs-border-width) solid rgb(184, 219, 21, 254) !important;
       }
     }
   }
@@ -309,4 +315,10 @@
 
 .read-only-input {
   background-color: oklch(0.97 0.001 106.424) !important;
+}
+
+.nit-input:active,
+.nit-input:focus {
+  border: var(--bs-border-width) solid rgb(184, 219, 21, 254) !important;
+  box-shadow: 0 0 0 0.25rem rgba(184, 219, 21, 0.302);
 }
