@@ -6,7 +6,11 @@ import { Loader2, Send } from "lucide-react";
 import { fetchNewAdressUser } from "../../hooks/use-FetchUsuario";
 import { showToast } from "../../toast/toastManager";
 
-const FormNuevaDireccion = ({ setShowAddressNew }) => {
+const FormNuevaDireccion = ({
+  setShowAddressNew,
+  title = "Agregar Nueva Dirección",
+  onCloseModal,
+}) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { usuario, address } = useSelector((state) => state.usuario);
@@ -44,7 +48,7 @@ const FormNuevaDireccion = ({ setShowAddressNew }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: typeof value === "string" ? value.trim() : value,
     }));
   };
 
@@ -86,6 +90,7 @@ const FormNuevaDireccion = ({ setShowAddressNew }) => {
           estado: 1,
         });
         setShowAddressNew((prevState) => !prevState);
+        onCloseModal();
       }
     } catch (error) {
       showToast("Error al guardar la direccion", "error", "top-center");
@@ -94,18 +99,18 @@ const FormNuevaDireccion = ({ setShowAddressNew }) => {
     }
   };
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-4 border rounded shadow-sm mt-4"
-    >
-      <h4
-        className="mb-3 font-semibold"
-        onClick={() => {
-          console.log(address);
-        }}
-      >
-        Agregar Nueva Dirección
-      </h4>
+    <form onSubmit={handleSubmit} className="bg-white">
+      {title !== "" && (
+        <h4
+          className="mb-3 font-semibold"
+          onClick={() => {
+            console.log(address);
+          }}
+        >
+          {title}
+        </h4>
+      )}
+
       <div className="mb-3">
         <label className="form-label">Nombre Direccion</label>
         <input
@@ -115,78 +120,81 @@ const FormNuevaDireccion = ({ setShowAddressNew }) => {
           onChange={handleChange}
           className="form-control"
           required
+          autoComplete="off"
         />
       </div>
+      <div className="row">
+        <div className="mb-3 col-md-6">
+          <label className="form-label">País</label>
+          <select
+            name="idPais"
+            onChange={handleChange}
+            className="form-select rounded py-2"
+            required
+            defaultValue={1}
+          >
+            <option value="">Seleccione un país</option>
+            {country?.paises?.map((pais) => (
+              <option key={pais.IdPais} value={pais.IdPais}>
+                {pais.Nombre}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="mb-3">
-        <label className="form-label">País</label>
-        <select
-          name="idPais"
-          value={formData.idPais}
-          onChange={handleChange}
-          className="form-select"
-          required
-          defaultValue={1}
-        >
-          <option value="">Seleccione un país</option>
-          {country?.paises?.map((pais) => (
-            <option key={pais.IdPais} value={pais.IdPais}>
-              {pais.Nombre}
-            </option>
-          ))}
-        </select>
+        <div className="mb-3 col-md-6">
+          <label className="form-label">Departamento</label>
+          <select
+            name="idDepartamento"
+            value={formData.idDepartamento}
+            onChange={handleChange}
+            className="form-select rounded py-2"
+            required
+          >
+            <option value="">Seleccione un Departamento</option>
+            {country?.departamentos?.map((depto) => (
+              <option key={depto.IdDepartamento} value={depto.IdDepartamento}>
+                {depto.Nombre}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <div className="mb-3">
-        <label className="form-label">Departamento</label>
-        <select
-          name="idDepartamento"
-          value={formData.idDepartamento}
-          onChange={handleChange}
-          className="form-select"
-          required
-        >
-          <option value="">Seleccione un Departamento</option>
-          {country?.departamentos?.map((depto) => (
-            <option key={depto.IdDepartamento} value={depto.IdDepartamento}>
-              {depto.Nombre}
-            </option>
-          ))}
-        </select>
+      <div className="row">
+        <div className="mb-3 col-md-6">
+          <label className="form-label">Municipio</label>
+
+          <select
+            name="idMunicipio"
+            value={formData.idMunicipio}
+            onChange={handleChange}
+            className="form-select rounded py-2"
+            required
+            disabled={!municipiosFiltrados.length}
+          >
+            <option value="">Seleccione un municipio</option>
+            {municipiosFiltrados.map((mun) => (
+              <option key={mun.IdMunicipio} value={mun.IdMunicipio}>
+                {mun.Nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-3 col-md-6">
+          <label className="form-label">Teléfono</label>
+          <input
+            type="text"
+            name="telefono"
+            value={formData.telefono}
+            onChange={handleChange}
+            className="form-control"
+            required
+            autoComplete="off"
+          />
+        </div>
       </div>
-
-      <div className="mb-3">
-        <label className="form-label">Municipio</label>
-
-        <select
-          name="idMunicipio"
-          value={formData.idMunicipio}
-          onChange={handleChange}
-          className="form-select"
-          required
-          disabled={!municipiosFiltrados.length}
-        >
-          <option value="">Seleccione un municipio</option>
-          {municipiosFiltrados.map((mun) => (
-            <option key={mun.IdMunicipio} value={mun.IdMunicipio}>
-              {mun.Nombre}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label">Teléfono</label>
-        <input
-          type="text"
-          name="telefono"
-          value={formData.telefono}
-          onChange={handleChange}
-          className="form-control"
-          required
-        />
-      </div>
-
       <div className="mb-3">
         <label className="form-label">Dirección</label>
         <textarea
