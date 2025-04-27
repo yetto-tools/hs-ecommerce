@@ -189,7 +189,12 @@
     "ccnumber": "Numero de Tarjeta",
     "ccexp": "Fecha Expiracion",
     "policy_cookies": "Queremos aclarar que nuestro sitio no almacena ningún dato relacionado con tarjetas de crédito o información de pago mediante cookies. Los procesos de pago se gestionan de forma segura a través de plataformas externas certificadas, que cumplen con altos estándares de seguridad y privacidad.",
-    "select_address_yet": "--"
+    "select_address_yet": "--",
+    "new_address": "Nueva Direccion",
+    "add_new_address": "Añadir una Dirección",
+    "change_address": "Nueva Dirección",
+    "complete_all_fields": "Completar todos los Campos",
+    "complete_fields": "Completar  Formulario"
   },
   "general_words": {
     "new": "Nuevo",
