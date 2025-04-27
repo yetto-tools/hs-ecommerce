@@ -76,7 +76,6 @@ export function useCheckoutLogic() {
   useEffect(() => {
     if (!usuario) {
       showToast("Debe Iniciar Sesión", "top-center");
-      document.documentElement.scrollTo(0, 0);
       setShow(true);
       return;
     }

@@ -1,11 +1,12 @@
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import { Fragment, useEffect, useState, useRef } from "react";
+import { Fragment, useEffect, useState, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Loader2 } from "lucide-react";
 
 const BannerMultiColumn = ({ data, sliderClass }) => {
-  const version = Date.now();
+  const version = useMemo(() => Date.now(), []);
   const { configParams } = useSelector((state) => state.paramsWeb);
   const [visibleIndexes, setVisibleIndexes] = useState([]);
   const [loadedIndexes, setLoadedIndexes] = useState([]);
@@ -67,27 +68,29 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
                 justifyContent: "center",
               }}
             >
-              {/* Fondo Blur mientras carga */}
-              <div
-                className="banner-blur-background"
-                style={{
-                  backgroundColor: "#f0f0f0",
-                  filter: isLoaded ? "none" : "blur(20px)",
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: index === 0 ? "right" : "left",
-                  backgroundImage: isVisible ? `url(${fullImageUrl})` : "none",
-                  transition: "filter 0.5s ease",
-                  width: "100%",
-                  height: "100%",
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  zIndex: 1,
-                }}
-              ></div>
+              {/* Fondo Blur Fijo */}
+              {isVisible && (
+                <div
+                  className="banner-blur-background"
+                  style={{
+                    backgroundColor: "#f5f5f5",
+                    backgroundImage: `url(${fullImageUrl})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: index === 0 ? "right" : "left",
+                    filter: isLoaded ? "none" : "blur(20px)",
+                    transition: "filter 0.8s ease",
+                    width: "100%",
+                    height: "100%",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: 1,
+                  }}
+                ></div>
+              )}
 
-              {/* Imagen Real con Fade */}
+              {/* Imagen Real con FadeIn */}
               {isVisible && (
                 <img
                   src={fullImageUrl}
@@ -96,9 +99,9 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
+                    objectFit: "cover", // 🔥 Mejor usar "cover" para banners, no "scale-down"
                     objectPosition: index === 0 ? "right" : "left",
-                    transform: "scaleX(-1)", // Respetamos tu inversión horizontal
+                    transform: "scaleX(-1)",
                     opacity: isLoaded ? 1 : 0,
                     transition: "opacity 0.8s ease",
                     position: "absolute",
