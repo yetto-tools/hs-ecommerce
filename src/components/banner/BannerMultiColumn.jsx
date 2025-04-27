@@ -1,96 +1,180 @@
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const BannerMultiColumn = ({ data, sliderClass }) => {
   const version = Date.now();
   const { configParams } = useSelector((state) => state.paramsWeb);
-  return (
-    <div className={`banner-multi-column ${sliderClass}`}>
-      <div className="banner-wrapper">
-        {data.mobileImages.map((image, index) => (
-          <div
-            key={index}
-            className="banner-item"
-            style={{
-              backgroundImage: `url(${
-                configParams.RUTAIMAGENESBANNERS + image + `?v=${version}`
-              })`,
+  const [visibleIndexes, setVisibleIndexes] = useState([]);
+  const [loadedIndexes, setLoadedIndexes] = useState([]);
+  const itemRefs = useRef([]);
 
-              backgroundSize: "cover",
-              objectFit: "cover",
-              scale: "scaleX(-1)",
-              backgroundRepeat: "no-repeat",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundPosition: index === 0 ? "right" : "left",
-            }}
-          >
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = Number(entry.target.dataset.index);
+          if (entry.isIntersecting) {
+            setVisibleIndexes((prev) => [...new Set([...prev, index])]);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.2,
+      }
+    );
+
+    itemRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      itemRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
+
+  const handleImageLoad = (index) => {
+    setLoadedIndexes((prev) => [...new Set([...prev, index])]);
+  };
+
+  return (
+    <div className={clsx("banner-multi-column", sliderClass)}>
+      <div className="banner-wrapper">
+        {data.mobileImages.map((image, index) => {
+          const isVisible = visibleIndexes.includes(index);
+          const isLoaded = loadedIndexes.includes(index);
+          const fullImageUrl = `${configParams.RUTAIMAGENESBANNERS}${image}?v=${version}`;
+
+          return (
             <div
-              className={clsx(
-                "content",
-                index === 0 ? "justify-content-start" : "justify-content-end"
-              )}
+              key={index}
+              ref={(el) => (itemRefs.current[index] = el)}
+              data-index={index}
+              className="banner-item"
+              style={{
+                flex: 1,
+                minHeight: "96dvh",
+                position: "relative",
+                overflow: "hidden",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              <article
+              {/* Fondo Blur mientras carga */}
+              <div
+                className="banner-blur-background"
+                style={{
+                  backgroundColor: "#f0f0f0",
+                  filter: isLoaded ? "none" : "blur(20px)",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: index === 0 ? "right" : "left",
+                  backgroundImage: isVisible ? `url(${fullImageUrl})` : "none",
+                  transition: "filter 0.5s ease",
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  zIndex: 1,
+                }}
+              ></div>
+
+              {/* Imagen Real con Fade */}
+              {isVisible && (
+                <img
+                  src={fullImageUrl}
+                  onLoad={() => handleImageLoad(index)}
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: index === 0 ? "right" : "left",
+                    transform: "scaleX(-1)", // Respetamos tu inversión horizontal
+                    opacity: isLoaded ? 1 : 0,
+                    transition: "opacity 0.8s ease",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: 2,
+                  }}
+                />
+              )}
+
+              {/* Contenido (h2, botones) */}
+              <div
                 className={clsx(
-                  "container-fluid d-flex align-items-center mx-5 ",
+                  "content",
                   index === 0 ? "justify-content-start" : "justify-content-end"
                 )}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  position: "relative",
+                  zIndex: 3,
+                }}
               >
-                <div
+                <article
                   className={clsx(
-                    "d-flex flex-column align-items-center",
-                    index === 0 ? "text-left" : "text-right"
+                    "container-fluid d-flex align-items-center mx-5",
+                    index === 0
+                      ? "justify-content-start"
+                      : "justify-content-end"
                   )}
                 >
-                  <div className="col-12 col-md-12">
-                    <h2
-                      className={clsx(
-                        index === 0 ? "text-left" : "text-right",
-                        "title text-white"
-                      )}
-                    >
-                      {data?.buttons[index]?.label &&
-                        data?.buttons[index]?.label
-                          .split(" ")
-                          .map((word, index) => (
-                            <Fragment key={index}>
-                              <span
-                                key={index}
-                                style={{ fontSize: "2.8rem" }}
-                              >{`${word} `}</span>
-                              <br />
-                            </Fragment>
-                          ))}
-                    </h2>
-                  </div>
-                  <div className="col-12 col-md-12 my-2">
-                    <div className="slider-btn btn-hover rounded">
-                      <Link
-                        className="banner-button animated text-black"
-                        style={{ borderRadius: "0.5rem" }}
-                        to={data?.buttons[index].url}
+                  <div
+                    className={clsx(
+                      "d-flex flex-column align-items-center",
+                      index === 0 ? "text-left" : "text-right"
+                    )}
+                  >
+                    <div className="col-12 col-md-12">
+                      <h2
+                        className={clsx(
+                          index === 0 ? "text-left" : "text-right",
+                          "title text-white"
+                        )}
                       >
-                        {data.buttons[index].text}
-                      </Link>
+                        {data?.buttons[index]?.label &&
+                          data?.buttons[index]?.label
+                            .split(" ")
+                            .map((word, idx) => (
+                              <Fragment key={idx}>
+                                <span style={{ fontSize: "2.8rem" }}>
+                                  {`${word} `}
+                                </span>
+                                <br />
+                              </Fragment>
+                            ))}
+                      </h2>
                     </div>
-
-                    {/* <Link
-                      className="button uppercase "
-                      to={process.env.PUBLIC_URL + data.buttons[index].url}
-                    >
-                      {data.buttons[index].text}
-                    </Link> */}
+                    <div className="col-12 col-md-12 my-2">
+                      <div className="slider-btn btn-hover rounded">
+                        <Link
+                          className="banner-button animated text-black"
+                          style={{ borderRadius: "0.5rem" }}
+                          to={data?.buttons[index]?.url}
+                        >
+                          {data?.buttons[index]?.text}
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
