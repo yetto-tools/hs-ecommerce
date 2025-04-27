@@ -20,6 +20,7 @@ import clsx from "clsx";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { showToast } from "../../toast/toastManager";
+import { Loader2 } from "lucide-react";
 
 const Cart = () => {
   const { t, i18n } = useTranslation();
@@ -35,12 +36,14 @@ const Cart = () => {
   const [readyToCheckout, setReadyToCheckout] = useState(false);
   const { configParams } = useSelector((state) => state.paramsWeb);
   const navigate = useNavigate();
+  const [isVerifyingStock, setIsVerifyingStock] = useState(false);
 
   useEffect(() => {
     verifyStockAndSetReady();
   }, [cartItems]);
 
   const verifyStockAndSetReady = async () => {
+    setIsVerifyingStock(true);
     let allItemsAvailable = true;
     for (const item of cartItems) {
       const stock = await fetchStock(item.code);
@@ -61,7 +64,7 @@ const Cart = () => {
       }
     }
     setReadyToCheckout(allItemsAvailable);
-
+    setIsVerifyingStock(false);
     console.log(cartItems);
   };
 
@@ -281,7 +284,8 @@ const Cart = () => {
                                           showToast(
                                             `Cantidad excede el stock, Disponible ${quantityCount} unidades.`,
                                             "warn",
-                                            "top-center"
+                                            "top-center",
+                                            20000
                                           );
                                           return;
                                         }
@@ -356,104 +360,58 @@ const Cart = () => {
                 </div>
 
                 <div className="row">
-                  <div className="col-lg-4 col-md-6">
-                    <div className="cart-tax" hidden>
+                  <div className="col-lg-6 col-md-12"></div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="grand-totall">
                       <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gray">
-                          Estimación de gastos de envío e impuestos
+                        <h4 className="cart-bottom-title section-bg-gary-cart">
+                          {""}
                         </h4>
                       </div>
-                      <div className="tax-wrapper">
-                        <p>
-                          Enter your destination to get a shipping estimate.
-                        </p>
-                        <div className="tax-select-wrapper">
-                          <div className="tax-select">
-                            <label>* Country</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Region / State</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Zip/Postal Code</label>
-                            <input type="text" />
-                          </div>
-                          <button className="cart-btn-2" type="submit">
-                            Get A Quote
-                          </button>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <h4 className="cart-bottom-title section-bg-gary-cart fw-bold ">
+                            {"Monto Total"}
+                          </h4>
+                        </div>
+                        <div className="col-md-6">
+                          <h4 className="grand-totall-title mb-5">
+                            <span className="mb-4">
+                              {new Intl.NumberFormat(i18n.language, {
+                                style: "currency",
+                                currency: currency.currencyName,
+                              }).format(cartTotalPrice)}
+                            </span>
+                          </h4>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <div className="col-lg-4 col-md-6">
-                    <div className="discount-code-wrapper" hidden>
-                      <div className="title-wrap" hidden>
-                        <h4 className="cart-bottom-title section-bg-gray">
-                          Use Coupon Code
-                        </h4>
+                  <div>
+                    <div className="row">
+                      <div className="col-lg-6"></div>
+                      <div className="col-lg-6 text-center mx-auto">
+                        <button
+                          className={clsx(
+                            "button-active-hs btn-black fw-bold w-75",
+                            {
+                              "btn-disabled":
+                                !readyToCheckout || isVerifyingStock,
+                            }
+                          )}
+                          onClick={handleCheckout}
+                          disabled={!readyToCheckout || isVerifyingStock}
+                        >
+                          {isVerifyingStock ? (
+                            <>
+                              Verificando Stock{" "}
+                              <Loader2 className="animate-spin w-5 h-5 mx-auto" />
+                            </>
+                          ) : (
+                            "Comprar Ahora"
+                          )}
+                        </button>
                       </div>
-                      <div className="discount-code" hidden>
-                        <p>Enter your coupon code if you have one.</p>
-                        <form>
-                          <input type="text" required name="name" />
-                          <button className="cart-btn-2" type="submit">
-                            Apply Coupon
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-4 col-md-12">
-                    <div className="grand-totall">
-                      {/* <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gary-cart">
-                          Total
-                        </h4>
-                      </div>
-                      <h5>
-                        
-                        <span>
-                          
-                          {new Intl.NumberFormat(i18n.language, {
-                            style: "currency",
-                            currency: currency.currencyName,
-                          }).format(cartTotalPrice)}
-                        </span>
-                      </h5> */}
-
-                      <h4 className="grand-totall-title mb-5">
-                        <span className="mb-4">
-                          {new Intl.NumberFormat(i18n.language, {
-                            style: "currency",
-                            currency: currency.currencyName,
-                          }).format(cartTotalPrice)}
-                        </span>
-                      </h4>
-                      <button
-                        className={clsx(
-                          "button-active-hs btn-black fw-bold",
-                          { "btn-disabled": !readyToCheckout } // Esto es solo un ejemplo
-                        )}
-                        onClick={handleCheckout}
-                      >
-                        Comprar Ahora
-                      </button>
                     </div>
                   </div>
                 </div>

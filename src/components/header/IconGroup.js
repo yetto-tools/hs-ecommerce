@@ -6,7 +6,7 @@ import MenuCart from "./sub-components/MenuCart";
 import { useTranslation } from "react-i18next";
 import { ShoppingCart } from "lucide-react";
 import { fetchSearchArticles } from "../../hooks/use-FetchArticles";
-import { use, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { logout } from "../../store/slices/usuario-slice";
 
 const IconGroup = ({ iconWhiteClass }) => {
@@ -68,6 +68,7 @@ const IconGroup = ({ iconWhiteClass }) => {
               handleSearch(e);
             }
           }}
+          autoComplete="off"
         />
       </div>
       <div className="same-style header-compare d-none d-lg-block ms-2">

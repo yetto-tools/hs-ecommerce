@@ -3,15 +3,14 @@ import { useTranslation } from "react-i18next";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 
 const CustomForm = ({ status, message, onValidated }) => {
-
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   let email;
   const submit = () => {
     email &&
       email.value.indexOf("@") > -1 &&
       onValidated({
-        EMAIL: email.value
+        EMAIL: email.value,
       });
 
     let emailInput = document.getElementById("mc-form-email");
@@ -25,9 +24,10 @@ const CustomForm = ({ status, message, onValidated }) => {
           <input
             id="mc-form-email"
             className="email"
-            ref={node => (email = node)}
+            ref={(node) => (email = node)}
             type="email"
             placeholder={t("footer.text_placeholder")}
+            autoComplete="off"
           />
         </div>
         <div className="clear">
@@ -65,7 +65,7 @@ const SubscribeEmail = ({ mailchimpUrl }) => {
           <CustomForm
             status={status}
             message={message}
-            onValidated={formData => subscribe(formData)}
+            onValidated={(formData) => subscribe(formData)}
           />
         )}
       />
@@ -74,7 +74,7 @@ const SubscribeEmail = ({ mailchimpUrl }) => {
 };
 
 SubscribeEmail.propTypes = {
-  mailchimpUrl: PropTypes.string
+  mailchimpUrl: PropTypes.string,
 };
 
 export default SubscribeEmail;
