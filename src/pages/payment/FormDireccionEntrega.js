@@ -1,8 +1,9 @@
-import { MapPinPlus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import FormNuevaDireccion from "../../components/address/FormNuevaDireccion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { Modal } from "react-bootstrap";
+import { Plus } from "lucide-react";
 
 export const FormDireccionEntrega = ({
   country,
@@ -28,10 +29,14 @@ export const FormDireccionEntrega = ({
   const handleDebug = () => {
     console.log(address);
   };
+
+  const onCloseModal = () => {
+    setShowAddressNew(false);
+  };
   return (
     <>
       <div className="col-lg-12 row ">
-        <div className="col-lg-9 col-9">
+        <div className="col-lg-7 col-7">
           <div className="billing-info mb-20">
             <label onClick={handleDebug}>
               {t("page_checkout.street_address")}
@@ -48,10 +53,6 @@ export const FormDireccionEntrega = ({
                   <option
                     key={`${direccion.idAddress}-${direccion.name}`}
                     value={direccion.idAddress}
-                    // selected={
-                    //   address[address.length - 1].idAddress ===
-                    //   direccion.idAddress
-                    // }
                   >
                     {direccion.name}
                   </option>
@@ -59,21 +60,72 @@ export const FormDireccionEntrega = ({
             </select>
           </div>
         </div>
-        <div className="col-lg-2 col-md-2 col-2">
+        <div className="col-lg-5 col-md-5 col-5">
           <label></label>
-          <button
-            type="button"
-            className="button-active-hs btn-black fw-bold mt-1 px-4 py-2"
-            onClick={() => {
-              showAddressNew
-                ? setShowAddressNew(false)
-                : setShowAddressNew(true);
-            }}
-          >
-            <MapPinPlus />
-          </button>
+          <div className="text-sm w-100 mt-1">
+            <button
+              type="button"
+              className="button-active-hs btn-black fw-bold mt-1 px-4 py-2.5 row"
+              style={{ fontSize: "0.820rem" }}
+              onClick={() => {
+                showAddressNew
+                  ? setShowAddressNew(false)
+                  : setShowAddressNew(true);
+              }}
+            >
+              {address.length > 0
+                ? t("page_checkout.change_address")
+                : t("page_checkout.add_new_address")}
+            </button>
+          </div>
         </div>
       </div>
+
+      <Modal
+        show={showAddressNew}
+        onHide={onCloseModal}
+        className="product-quickview-modal-wrapper"
+      >
+        <Modal.Header closeButton>
+          <div className="row col-md-12 text-center">
+            <h3 className="modal-title fw-semibold">
+              {address.length > 0
+                ? t("page_checkout.change_address")
+                : t("page_checkout.add_new_address")}
+            </h3>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <section className="modal-body py-0">
+            <div className="row">
+              <div className="col-md-8 col-sm-12 col-xs-12 mx-auto">
+                <FormNuevaDireccion
+                  country={country}
+                  formValues={formValues}
+                  handleChange={handleChange}
+                  errorsValidate={errorsValidate}
+                  setShowAddressNew={setShowAddressNew}
+                  title=""
+                  onCloseModal={onCloseModal}
+                />
+              </div>
+            </div>
+          </section>
+        </Modal.Body>
+      </Modal>
+
+      {/* {showAddressNew && (
+        <div className="col-lg-12 col-md-12 mt-2">
+          <FormNuevaDireccion
+            country={country}
+            formValues={formValues}
+            handleChange={handleChange}
+            errorsValidate={errorsValidate}
+            setShowAddressNew={setShowAddressNew}
+          />
+        </div>
+      )} */}
+
       <div className="col-lg-12 col-md-12 col-12 py-2 mb-4 billing-info">
         {addressSelected ? (
           <div className="billing-info px-2 p-2 read-only-input">
@@ -90,18 +142,6 @@ export const FormDireccionEntrega = ({
         )}
       </div>
 
-      {showAddressNew && (
-        <div className="col-lg-12 col-md-12 mt-2">
-          <FormNuevaDireccion
-            country={country}
-            formValues={formValues}
-            handleChange={handleChange}
-            errorsValidate={errorsValidate}
-            setShowAddressNew={setShowAddressNew}
-          />
-        </div>
-      )}
-
       <div className="col-lg-12 col-md-12 mt-2">
         <div className="additional-info-wrap">
           <h4>{t("page_checkout.additional_information")}</h4>
@@ -111,6 +151,8 @@ export const FormDireccionEntrega = ({
               name="message"
               value={formValues.message}
               onChange={handleChange}
+              rows={3}
+              cols={50}
             />
           </div>
         </div>
