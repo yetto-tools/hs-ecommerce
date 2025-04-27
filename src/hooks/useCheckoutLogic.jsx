@@ -47,7 +47,15 @@ export function useCheckoutLogic() {
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
+
+    const cleanedValue =
+      typeof value === "string"
+        ? value.trim()
+        : name === "nitCliente"
+        ? value.trim().replace(/-/g, "")
+        : value;
+
+    setFormValues((prev) => ({ ...prev, [name]: cleanedValue }));
     dispatch(setError(false));
   };
 
@@ -55,6 +63,7 @@ export function useCheckoutLogic() {
   const handleCheckNit = (e) => {
     e.preventDefault();
     const { nitCliente } = formValues;
+
     if (!nitCliente.trim()) {
       alert("El campo NIT/DPI no puede estar vacío.");
       document.querySelector("#nitCliente")?.click();
