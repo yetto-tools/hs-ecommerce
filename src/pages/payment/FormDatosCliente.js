@@ -33,7 +33,11 @@ export const FormDatosCliente = ({
             onChange={handleChange}
             disabled={loading}
             required={true}
-            className={clsx(error && "border-danger text-danger fw-bold")}
+            className={clsx(
+              "nit-input",
+              error && "border-danger text-danger fw-bold"
+            )}
+            autoComplete="off"
           />
           <button
             type="submit"
