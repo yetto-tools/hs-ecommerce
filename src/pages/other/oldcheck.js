@@ -19,7 +19,6 @@ import { FormDatosCliente } from "../payment/FormDatosCliente";
 import { FormDireccionEntrega } from "../payment/FormDireccionEntrega";
 import { FormLogin } from "../payment/FormLogin";
 
-import { scrollToElement } from "../../helpers/scroll-top";
 import { Loader2, Send } from "lucide-react";
 import { API_URL } from "../../config";
 import { generarCorrelativoFactura } from "../../helpers/validator";
@@ -30,7 +29,7 @@ import withReactContent from "sweetalert2-react-content";
 
 import { deleteAllFromCart } from "../../store/slices/cart-slice";
 import { fetchStock } from "../../hooks/use-FetchStock";
-import { dir } from "i18next";
+
 import { ResumenCompra } from "./ResumenCompra";
 import { showToast } from "../../toast/toastManager";
 
@@ -106,7 +105,7 @@ const Checkout = () => {
   useEffect(() => {
     if (!usuario) {
       showToast("Debe Iniciar Sesión", "info", "top-center");
-      document.documentElement.scrollTo(0, 0);
+
       setShow(true);
 
       return;
@@ -142,21 +141,20 @@ const Checkout = () => {
 
     if (!formValues.idCliente) {
       showToast("Debe Iniciar Sesión", "info", "top-center");
-      scrollToElement("login-section");
+
       setLoadingOrder(false);
       return;
     }
 
     if (!formValues.nitCliente) {
       showToast("Debe Agregar nit / dpi", "info", "top-center");
-      scrollToElement("nit-section");
+
       document.querySelector("#nit-section > button").click();
       setLoadingOrder(false);
       return;
     }
     if (!formValues.nameCliente) {
       showToast("Debe Agregar nit / dpi para Validar", "info", "top-center");
-      scrollToElement("nit-section");
       document.querySelector("#nit-section > button").click();
       setLoadingOrder(false);
       return;

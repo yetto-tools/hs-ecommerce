@@ -91,7 +91,7 @@ const BacCheckout = () => {
           ]}
         />
         <div className="checkout-area pt-95 pb-100">
-          <div className="container">
+          <div className="container-xl">
             {cartItems && cartItems.length >= 1 ? (
               <div className="row">
                 <div className="col-lg-6">

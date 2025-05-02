@@ -109,7 +109,7 @@ const Cart = () => {
           ]}
         />
         <div className="cart-main-area pt-90 pb-100">
-          <div className="container">
+          <div className="container-xxl px-5">
             {cartItems && cartItems.length >= 1 ? (
               <Fragment>
                 <h3 className="cart-page-title">
@@ -118,26 +118,56 @@ const Cart = () => {
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th style={{ width: "10rem" }}>&nbsp;</th>
-                            <th>&nbsp;</th>
-                            <th style={{ textTransform: "capitalize" }}>
-                              {t("page_cart.th_unit_price")}
-                            </th>
-                            <th style={{ textTransform: "capitalize" }}>
-                              {t("page_cart.th_qty")}
-                            </th>
-                            <th style={{ textTransform: "capitalize" }}>
-                              {t("page_cart.th_subtotal")}
-                            </th>
-                            <th style={{ textTransform: "capitalize" }}>
-                              {t("page_cart.th_action")}
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
+                      <section className="container-xxl mx-auto">
+                        <div className="col-lg-12 col-md-12">
+                          <div className="row col-lg-12 col-md-12 mx-auto mb-3">
+                            <div className="header-title-cart">
+                              <div
+                                className="title-preview"
+                                style={{ textTransform: "capitalize" }}
+                              >
+                                <span className="title-column"></span>
+                              </div>
+                              <div
+                                className="title-detials"
+                                style={{ textTransform: "capitalize" }}
+                              >
+                                <span className="title-column"></span>
+                              </div>
+                              <div
+                                className="title-price"
+                                style={{ textTransform: "capitalize" }}
+                              >
+                                <span className="text-medium title-column">
+                                  {t("page_cart.price")}
+                                </span>
+                              </div>
+                              <div
+                                className="title-quantity"
+                                style={{ textTransform: "capitalize" }}
+                              >
+                                <span className="title-column">
+                                  {t("page_cart.div_quantity")}
+                                </span>
+                              </div>
+                              <div
+                                className="title-total"
+                                style={{ textTransform: "capitalize" }}
+                              >
+                                <span className="title-column">
+                                  {t("page_cart.div_subtotal")}
+                                </span>
+                              </div>
+                              <div
+                                className="title-action"
+                                style={{ textTransform: "capitalize" }}
+                              >
+                                <span className="title-column">Acción</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <main className="col-lg-12 col-md-12">
                           {cartItems.map((cartItem, key) => {
                             const discountedPrice = getDiscountPrice(
                               cartItem.price,
@@ -157,182 +187,201 @@ const Cart = () => {
                               : (cartTotalPrice +=
                                   finalProductPrice * cartItem.quantity);
                             return (
-                              <tr
+                              <section
                                 key={key}
-                                className={cartItem.isSoldOut ? "sold-out" : ""}
+                                className={clsx(
+                                  "product-line",
+                                  cartItem.isSoldOut ? "sold-out" : ""
+                                )}
                               >
-                                <td className="product-thumbnail">
-                                  <Link
-                                    to={"/productos?busqueda=" + cartItem.sku}
-                                  >
-                                    <img
-                                      className="img-fluid"
-                                      src={
-                                        configParams.RUTAIMAGENESARTICULOS +
-                                        cartItem.images[0]
+                                <article className="product-item">
+                                  <div className="product-thumbnail">
+                                    <Link
+                                      to={"/productos?busqueda=" + cartItem.sku}
+                                    >
+                                      <img
+                                        name="image"
+                                        className="product-image"
+                                        src={
+                                          configParams.RUTAIMAGENESARTICULOS +
+                                          cartItem.images[0]
+                                        }
+                                        alt=""
+                                        width={128}
+                                        height={128}
+                                      />
+                                    </Link>
+                                  </div>
+                                  <div className="product-info">
+                                    <Link
+                                      to={
+                                        process.env.PUBLIC_URL +
+                                        "/productos?busqueda=" +
+                                        cartItem.sku
                                       }
-                                      alt=""
-                                    />
-                                  </Link>
-                                </td>
-
-                                <td className="product-name">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/productos?busqueda=" +
-                                      cartItem.sku
-                                    }
-                                  >
-                                    <span className="product-title fw-semibold">
-                                      {cartItem.name}
-                                    </span>
-                                  </Link>
-                                  {cartItem.color && cartItem.size ? (
-                                    <div className="cart-item-variation">
-                                      <span className="">
-                                        {t("page_cart.cart_color")}:{" "}
-                                        <small className="fw-semibold">
-                                          {cartItem.color}
-                                        </small>
+                                    >
+                                      <span className="product-title fw-semibold">
+                                        {cartItem.name}
                                       </span>
-                                      <span className="">
-                                        {t("page_cart.cart_size")}:{" "}
-                                        <small className="fw-semibold">
-                                          {cartItem.size}
-                                        </small>
-                                      </span>
-                                      <span className="text-xs">
-                                        {cartItem.code}
-                                      </span>
-                                    </div>
-                                  ) : (
-                                    ""
-                                  )}
-                                </td>
-
-                                <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
-                                    <Fragment>
-                                      <span className="amount old">
+                                    </Link>
+                                    {cartItem.color && cartItem.size ? (
+                                      <div className="cart-item-variation">
+                                        <span className="">
+                                          {t("page_cart.cart_color")}:{" "}
+                                          <small className="fw-semibold">
+                                            {cartItem.color}
+                                          </small>
+                                        </span>
+                                        <span className="">
+                                          {t("page_cart.cart_size")}:{" "}
+                                          <small className="fw-semibold">
+                                            {cartItem.size}
+                                          </small>
+                                        </span>
+                                        <span className="code">
+                                          {cartItem.code}
+                                        </span>
+                                      </div>
+                                    ) : (
+                                      ""
+                                    )}
+                                  </div>
+                                  <div className="product-price-cart">
+                                    {discountedPrice !== null ? (
+                                      <Fragment>
+                                        <span className="amount old">
+                                          {new Intl.NumberFormat(
+                                            i18n.language,
+                                            {
+                                              style: "currency",
+                                              currency: currency.currencyName,
+                                            }
+                                          ).format(finalProductPrice)}
+                                        </span>
+                                        <span className="amount">
+                                          {new Intl.NumberFormat(
+                                            i18n.language,
+                                            {
+                                              style: "currency",
+                                              currency: currency.currencyName,
+                                            }
+                                          ).format(finalDiscountedPrice)}
+                                        </span>
+                                      </Fragment>
+                                    ) : (
+                                      <span className="amount">
                                         {new Intl.NumberFormat(i18n.language, {
                                           style: "currency",
                                           currency: currency.currencyName,
                                         }).format(finalProductPrice)}
                                       </span>
-                                      <span className="amount">
-                                        {new Intl.NumberFormat(i18n.language, {
-                                          style: "currency",
-                                          currency: currency.currencyName,
-                                        }).format(finalDiscountedPrice)}
-                                      </span>
-                                    </Fragment>
-                                  ) : (
-                                    <span className="amount">
-                                      {new Intl.NumberFormat(i18n.language, {
-                                        style: "currency",
-                                        currency: currency.currencyName,
-                                      }).format(finalProductPrice)}
-                                    </span>
-                                  )}
-                                </td>
-
-                                <td className="product-quantity">
-                                  <div className="cart-plus-minus">
-                                    <button
-                                      className="dec qtybutton"
-                                      onClick={() =>
-                                        dispatch(decreaseQuantity(cartItem))
-                                      }
-                                    >
-                                      -
-                                    </button>
-                                    {!cartItem.isSoldOut ? (
-                                      <input
-                                        className="cart-plus-minus-box"
-                                        type="text"
-                                        value={cartItem.quantity}
-                                        readOnly
-                                      />
-                                    ) : (
-                                      <>
+                                    )}
+                                  </div>
+                                  <div className="product-quantity">
+                                    <div className="cart-plus-minus">
+                                      <button
+                                        className="dec qtybutton"
+                                        onClick={() =>
+                                          dispatch(decreaseQuantity(cartItem))
+                                        }
+                                      >
+                                        -
+                                      </button>
+                                      {!cartItem.isSoldOut ? (
                                         <input
-                                          className="cart-plus-minus-box border-danger text-danger fw-semibold"
+                                          className="cart-plus-minus-box"
                                           type="text"
-                                          value={0}
+                                          value={cartItem.quantity}
                                           readOnly
                                         />
-                                        <small className="text-danger fw-semibold">
-                                          {t("page_cart.cart_out_of_stock")}
-                                        </small>
-                                      </>
-                                    )}
-                                    <button
-                                      className="inc qtybutton"
-                                      onClick={() => {
-                                        if (
-                                          cartItem.isSoldOut ||
-                                          (cartItem !== undefined &&
-                                            cartItem.quantity &&
-                                            cartItem.quantity >=
-                                              cartItemStock(
-                                                cartItem,
-                                                cartItem.selectedProductColor,
-                                                cartItem.selectedProductSize
-                                              ))
-                                        ) {
-                                          showToast(
-                                            `Cantidad excede el stock, Disponible ${quantityCount} unidades.`,
-                                            "warn",
-                                            "top-center",
-                                            20000
+                                      ) : (
+                                        <>
+                                          <input
+                                            className="cart-plus-minus-box border-danger text-danger fw-semibold"
+                                            type="text"
+                                            value={0}
+                                            readOnly
+                                          />
+                                          <small className="text-danger fw-semibold">
+                                            {t("page_cart.cart_out_of_stock")}
+                                          </small>
+                                        </>
+                                      )}
+                                      <button
+                                        className="inc qtybutton"
+                                        onClick={() => {
+                                          if (
+                                            cartItem.isSoldOut ||
+                                            (cartItem !== undefined &&
+                                              cartItem.quantity &&
+                                              cartItem.quantity >=
+                                                cartItemStock(
+                                                  cartItem,
+                                                  cartItem.selectedProductColor,
+                                                  cartItem.selectedProductSize
+                                                ))
+                                          ) {
+                                            showToast(
+                                              `Cantidad excede el stock, Disponible ${quantityCount} unidades.`,
+                                              "warn",
+                                              "top-center",
+                                              20000
+                                            );
+                                            return;
+                                          }
+                                          dispatch(
+                                            addToCart({
+                                              ...cartItem,
+                                              quantity: quantityCount,
+                                            })
                                           );
-                                          return;
-                                        }
+                                        }}
+                                      >
+                                        +
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div className="product-subtotal">
+                                    <span>
+                                      {discountedPrice !== null
+                                        ? new Intl.NumberFormat(i18n.language, {
+                                            style: "currency",
+                                            currency: currency.currencyName,
+                                          }).format(
+                                            finalDiscountedPrice *
+                                              cartItem.quantity
+                                          )
+                                        : new Intl.NumberFormat(i18n.language, {
+                                            style: "currency",
+                                            currency: currency.currencyName,
+                                          }).format(
+                                            finalProductPrice *
+                                              cartItem.quantity
+                                          )}
+                                    </span>
+                                  </div>
+                                </article>
+                                <aside className="product-remove">
+                                  <div className="button-remove">
+                                    <button
+                                      onClick={() =>
                                         dispatch(
-                                          addToCart({
-                                            ...cartItem,
-                                            quantity: quantityCount,
-                                          })
-                                        );
-                                      }}
+                                          deleteFromCart(cartItem.cartItemId)
+                                        )
+                                      }
                                     >
-                                      +
+                                      <i
+                                        className="fa fa-times"
+                                        style={{ fontSize: "1.5rem" }}
+                                      ></i>
                                     </button>
                                   </div>
-                                </td>
-                                <td className="product-subtotal">
-                                  {discountedPrice !== null
-                                    ? new Intl.NumberFormat(i18n.language, {
-                                        style: "currency",
-                                        currency: currency.currencyName,
-                                      }).format(
-                                        finalDiscountedPrice * cartItem.quantity
-                                      )
-                                    : new Intl.NumberFormat(i18n.language, {
-                                        style: "currency",
-                                        currency: currency.currencyName,
-                                      }).format(
-                                        finalProductPrice * cartItem.quantity
-                                      )}
-                                </td>
-
-                                <td className="product-remove">
-                                  <button
-                                    onClick={() =>
-                                      dispatch(
-                                        deleteFromCart(cartItem.cartItemId)
-                                      )
-                                    }
-                                  >
-                                    <i className="fa fa-times"></i>
-                                  </button>
-                                </td>
-                              </tr>
+                                </aside>
+                              </section>
                             );
                           })}
-                        </tbody>
-                      </table>
+                        </main>
+                      </section>
                     </div>
                   </div>
                 </div>

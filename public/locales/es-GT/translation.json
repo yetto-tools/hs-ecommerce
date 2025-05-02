@@ -146,7 +146,14 @@
     "cart_size": "Talla",
     "continue_shopping": "Continuar Comprando",
     "clear_shopping_cart": "Limpiar Carrito",
-    "cart_out_of_stock": "Sin Existencias"
+    "cart_out_of_stock": "Sin Existencias",
+    "div_unit_price": "Precio",
+    "div_qty": "Cantidad",
+    "div_subtotal": "Subtotal",
+    "div_action": "Quitar",
+    "details": "Detalles",
+    "price": "Precio",
+    "div_quantity": "Cantidad"
   },
   "page_checkout": {
     "titleTemplate": "Confirma Compra",
