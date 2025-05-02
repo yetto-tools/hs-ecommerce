@@ -22,7 +22,7 @@ const messages = {
 
     success: {
       estilo: "success",
-      texto: "Sin resultado, articulos sin existencia",
+      texto: "Resultados de la busqueda",
       posicion: "top-center",
       visilbe: true,
     },
@@ -75,7 +75,7 @@ const messages = {
     },
     success: {
       estilo: "success",
-      texto: "Sin resultado, articulos sin existencia",
+      texto: "Nuevos Ingresos",
       posicion: "top-center",
       visilbe: true,
     },
@@ -127,7 +127,7 @@ const messages = {
     },
     success: {
       estilo: "success",
-      texto: "Sin resultado, articulos sin existencia",
+      texto: "Resultados de la busqueda",
       posicion: "top-center",
       visilbe: true,
     },

@@ -11,7 +11,7 @@ import { fetchValidaNIT } from "./use-fetchValidaNIT";
 import { API_URL } from "../config";
 import { generarCorrelativoFactura, generarHash } from "../helpers/validator";
 import { adapterOrderCustomer, adapterOrderProducts } from "../adapters/order";
-import { scrollToElement } from "../helpers/scroll-top";
+
 import { fetchStock } from "./use-FetchStock";
 import { deleteAllFromCart } from "../store/slices/cart-slice";
 import { setError } from "../store/slices/menu-slice";
@@ -48,12 +48,19 @@ export function useCheckoutLogic() {
     e.preventDefault();
     const { name, value } = e.target;
 
-    const cleanedValue =
-      typeof value === "string"
-        ? value.trim()
-        : name === "nitCliente"
-        ? value.trim().replace(/-/g, "")
-        : value;
+    let cleanedValue;
+    if (typeof value === "string" && name === "nitCliente") {
+      cleanedValue = value.trim().replace(/-/g, "");
+    } else if (
+      typeof value === "string" &&
+      name !== "message" &&
+      name !== "observaciones" &&
+      name !== "direccion"
+    ) {
+      cleanedValue = value.trimStart().replace(/\s+/g, " ");
+    } else {
+      cleanedValue = value;
+    }
 
     setFormValues((prev) => ({ ...prev, [name]: cleanedValue }));
     dispatch(setError(false));
@@ -95,8 +102,6 @@ export function useCheckoutLogic() {
         lastNameCliente: lastName,
       }));
     }
-
-    inputRef.current?.focus();
   }, [usuario, validacionNit, error]);
 
   useEffect(() => {
@@ -234,20 +239,20 @@ export function useCheckoutLogic() {
     // Validaciones básicas
     if (!formValues.idCliente) {
       showToast("Debe de Iniciar Sesión", "info", "top-center");
-      scrollToElement("login-section");
+
       setLoadingOrder(false);
       return;
     }
     if (!formValues.nitCliente) {
       showToast("Debe de Agregar nit / dpi", "info", "top-center");
-      scrollToElement("nit-section");
+
       document.querySelector("#nit-section > button")?.click();
       setLoadingOrder(false);
       return;
     }
     if (!formValues.nameCliente) {
       showToast("Debe de Agregar nit / dpi para Validar", "info", "top-center");
-      scrollToElement("nit-section");
+
       document.querySelector("#nit-section > button")?.click();
       setLoadingOrder(false);
       return;

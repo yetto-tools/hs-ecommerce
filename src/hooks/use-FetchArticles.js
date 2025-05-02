@@ -122,11 +122,19 @@ export const fetchNewArticles = () => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
-
+const activeSearches = new Set();
 export const fetchSearchArticles = (value) => async (dispatch) => {
   const code = encodeURIComponent(value.split("/")[0]);
   const url = `${API_URL}/api/${API_VERSION}/items/search?value=${code}`;
   const msgSeachArticulos = window.messages.sp_Busqueda;
+
+  // 🚀 No hacer fetch si ya está buscando este value
+  if (activeSearches.has(code)) {
+    console.log("Ya hay una búsqueda activa para:", code);
+    return;
+  }
+
+  activeSearches.add(code); // Marcar como en búsqueda
 
   try {
     dispatch(setLoading(true));
@@ -170,6 +178,7 @@ export const fetchSearchArticles = (value) => async (dispatch) => {
       );
     }
   } finally {
+    activeSearches.delete(code); // 🔥 Siempre liberar la búsqueda
     dispatch(setLoading(false));
   }
 };

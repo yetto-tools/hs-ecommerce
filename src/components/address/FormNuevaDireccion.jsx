@@ -46,9 +46,23 @@ const FormNuevaDireccion = ({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let cleanedValue;
+    if (typeof value === "string" && name === "nitCliente") {
+      cleanedValue = value.trim().replace(/-/g, "");
+    } else if (
+      typeof value === "string" &&
+      name !== "message" &&
+      name !== "observaciones" &&
+      name !== "direccion"
+    ) {
+      cleanedValue = value.trimStart().replace(/\s+/g, " ");
+    } else {
+      cleanedValue = value;
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: typeof value === "string" ? value.trim() : value,
+      [name]: cleanedValue,
     }));
   };
 

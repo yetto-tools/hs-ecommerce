@@ -8,6 +8,7 @@ import { ShoppingCart } from "lucide-react";
 import { fetchSearchArticles } from "../../hooks/use-FetchArticles";
 import { useRef, useState } from "react";
 import { logout } from "../../store/slices/usuario-slice";
+import { setLoading } from "../../store/slices/articleDetail-slice";
 
 const IconGroup = ({ iconWhiteClass }) => {
   const { t } = useTranslation();
@@ -35,16 +36,57 @@ const IconGroup = ({ iconWhiteClass }) => {
   const isLoggedIn = useSelector((state) => state.usuario.isLoggedIn);
 
   const [value, setValue] = useState("");
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    navigate("/productos?busqueda=" + value.trim());
-    await dispatch(fetchSearchArticles(value.trim()));
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [lastSearch, setLastSearch] = useState("");
+  const isSearchingRef = useRef(false); // Nuevo: para bloquear Enter de verdad
+  const debounceRef = useRef(null);
 
   const handleLogout = () => {
     dispatch(logout()); // Disparar la acción de logout
     navigate("/inicio");
+  };
+
+  const handleKeyUp = (e) => {
+    try {
+      if (e.key === "Enter" && !isLoading) {
+        setIsLoading(true);
+        e.preventDefault();
+
+        const cleanedValue = value.trim().toLowerCase();
+
+        // 🚫 No permitir si ya estoy buscando
+        if (isSearchingRef.current) {
+          console.log("Ya estoy buscando, ignoro el Enter");
+          return;
+        }
+
+        // 🚫 No permitir buscar si el valor no cambió
+        if (cleanedValue === "" || cleanedValue === lastSearch) {
+          console.log("Búsqueda vacía o repetida");
+          return;
+        }
+
+        if (debounceRef.current) {
+          clearTimeout(debounceRef.current);
+        }
+
+        isSearchingRef.current = true; // 🔥 Bloqueo Enter apenas arranco
+
+        debounceRef.current = setTimeout(() => {
+          navigate("/productos?busqueda=" + cleanedValue);
+          setLastSearch(cleanedValue);
+
+          // 🔥 Después de 1 segundo (o puedes esperar respuesta del API), liberamos el bloqueo
+          setTimeout(() => {
+            isSearchingRef.current = false;
+          }, 1200); // da un pequeño colchón para evitar spam
+        }, 300); // puedes ajustar el tiempo de debounce si quieres
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -63,11 +105,7 @@ const IconGroup = ({ iconWhiteClass }) => {
           }}
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSearch(e);
-            }
-          }}
+          onKeyUp={handleKeyUp}
           autoComplete="off"
         />
       </div>

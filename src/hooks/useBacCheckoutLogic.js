@@ -11,7 +11,7 @@ import { fetchValidaNIT } from "./use-fetchValidaNIT";
 import { API_URL } from "../config";
 import { generarCorrelativoFactura, generarHash } from "../helpers/validator";
 import { adapterOrderCustomer, adapterOrderProducts } from "../adapters/order";
-import { scrollToElement } from "../helpers/scroll-top";
+
 import { fetchStock } from "./use-FetchStock";
 import { deleteAllFromCart } from "../store/slices/cart-slice";
 import { setError } from "../store/slices/menu-slice";
@@ -71,7 +71,7 @@ export function useBacCheckoutLogic() {
   useEffect(() => {
     if (!usuario) {
       showToast("Debe Iniciar Sesión", "info", "top-center");
-      document.documentElement.scrollTo(0, 0);
+
       setShow(true);
       return;
     }
@@ -264,20 +264,20 @@ export function useBacCheckoutLogic() {
     // Validaciones básicas
     if (!formValues.idCliente) {
       showToast("Debe de Iniciar Sesión", "info", "top-center");
-      scrollToElement("login-section");
+
       setLoadingOrder(false);
       return;
     }
     if (!formValues.nitCliente) {
       showToast("Debe de Agregar nit / dpi", "info", "top-center");
-      scrollToElement("nit-section");
+
       document.querySelector("#nit-section > button")?.click();
       setLoadingOrder(false);
       return;
     }
     if (!formValues.nameCliente) {
       showToast("Debe de Agregar nit / dpi para Validar", "info", "top-center");
-      scrollToElement("nit-section");
+
       document.querySelector("#nit-section > button")?.click();
       setLoadingOrder(false);
       return;

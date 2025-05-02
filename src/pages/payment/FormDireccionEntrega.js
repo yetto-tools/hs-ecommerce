@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import FormNuevaDireccion from "../../components/address/FormNuevaDireccion";
 import { useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import { Plus } from "lucide-react";
 
 export const FormDireccionEntrega = ({
   country,
@@ -35,48 +34,50 @@ export const FormDireccionEntrega = ({
   };
   return (
     <>
-      <div className="col-lg-12 row ">
-        <div className="col-lg-7 col-7">
-          <div className="billing-info mb-20">
-            <label onClick={handleDebug}>
-              {t("page_checkout.street_address")}
-            </label>
-            <select
-              name="idDireccion"
-              onChange={handleChange}
-              className="form-select"
-              value={formValues.idDireccion || ""} // ← añadimos esto
-            >
-              <option>{t("page_checkout.select_address")}</option>
-              {address &&
-                address.map((direccion) => (
-                  <option
-                    key={`${direccion.idAddress}-${direccion.name}`}
-                    value={direccion.idAddress}
-                  >
-                    {direccion.name}
-                  </option>
-                ))}
-            </select>
+      <div className="col-lg-12">
+        <div className="row ">
+          <div className="col-lg-7 col-md-7 col-7">
+            <div className="billing-info mb-20">
+              <label onClick={handleDebug}>
+                {t("page_checkout.street_address")}
+              </label>
+              <select
+                name="idDireccion"
+                onChange={handleChange}
+                className="form-select"
+                value={formValues.idDireccion || ""} // ← añadimos esto
+              >
+                <option>{t("page_checkout.select_address")}</option>
+                {address &&
+                  address.map((direccion) => (
+                    <option
+                      key={`${direccion.idAddress}-${direccion.name}`}
+                      value={direccion.idAddress}
+                    >
+                      {direccion.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="col-lg-5 col-md-5 col-5">
-          <label></label>
-          <div className="text-sm w-100 mt-1">
-            <button
-              type="button"
-              className="button-active-hs btn-black fw-bold mt-1 px-4 py-2.5 row"
-              style={{ fontSize: "0.820rem" }}
-              onClick={() => {
-                showAddressNew
-                  ? setShowAddressNew(false)
-                  : setShowAddressNew(true);
-              }}
-            >
-              {address.length > 0
-                ? t("page_checkout.change_address")
-                : t("page_checkout.add_new_address")}
-            </button>
+          <div className="col-lg-4 col-md-4 col-4">
+            <label></label>
+            <div className="text-sm w-100 mt-1">
+              <button
+                type="button"
+                className="button-active-hs btn-black fw-bold mt-1 px-4 py-2.5 row"
+                style={{ fontSize: "0.720rem", textWrap: "nowrap" }}
+                onClick={() => {
+                  showAddressNew
+                    ? setShowAddressNew(false)
+                    : setShowAddressNew(true);
+                }}
+              >
+                {address.length > 0
+                  ? t("page_checkout.change_address")
+                  : t("page_checkout.add_new_address")}
+              </button>
+            </div>
           </div>
         </div>
       </div>
