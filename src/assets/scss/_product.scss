@@ -258,7 +258,7 @@
       position: absolute;
       top: 12px;
       right: 12px;
-      z-index: 10;
+      z-index: 5;
       span {
         font-size: 13px;
         font-weight: 500;
@@ -4025,4 +4025,12 @@
 .slick-prev,
 .slick-next {
   top: 25% !important;
+}
+
+.product-large-image-wrapper {
+  position: relative;
+  width: 28rem;
+}
+
+.single-image {
 }

@@ -84,7 +84,7 @@ const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (item) => item.cartItemId !== action.payload
       );
-      showToast("Eliminado del Carrito", "success", "top-left");
+      showToast("Eliminado del Carrito", "info", "top-left");
     },
     decreaseQuantity(state, action) {
       const product = action.payload;
@@ -93,7 +93,7 @@ const cartSlice = createSlice({
           (item) => item.cartItemId !== product.cartItemId
         );
 
-        showToast("Eliminado del Carrito", "success", "top-left");
+        showToast("Eliminado del Carrito", "info", "top-left");
       } else {
         state.cartItems = state.cartItems.map((item) =>
           item.cartItemId === product.cartItemId
@@ -101,7 +101,7 @@ const cartSlice = createSlice({
             : item
         );
 
-        showToast("Eliminado del Carrito", "success", "top-left");
+        showToast("Eliminado del Carrito", "info", "top-left");
       }
     },
     deleteAllFromCart(state) {

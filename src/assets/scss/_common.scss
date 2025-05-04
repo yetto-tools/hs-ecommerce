@@ -2538,6 +2538,7 @@ button.border-black:hover {
   align-self: center !important;
   align-content: center;
   align-items: center;
+  isolation: isolate;
 }
 
 .product-wrap .product-img-badges span:last-child,

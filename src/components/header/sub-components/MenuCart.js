@@ -73,15 +73,25 @@ const MenuCart = () => {
                         type="button"
                         onClick={(e) => handleProductQuickView(e, item)}
                       >
-                        <img
+                        <CartItemThumbnail
+                          item={item}
+                          configParams={configParams}
+                        />
+
+                        {/* <img
                           alt={item.name}
                           src={
-                            configParams.RUTAIMAGENESARTICULOS + item?.images[0] ||
+                            configParams.RUTAIMAGENESARTICULOS +
+                              item?.images[0] ||
                             configParams.RUTAIMAGENESARTICULOS + item?.image
                           }
                           width={70}
                           className="img-fluid ml-4"
-                        />
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/default/no-image-thumbnial.avif";
+                          }}
+                        /> */}
                       </button>
                     </div>
                     <div className="shopping-cart-title">
@@ -185,6 +195,40 @@ const MenuCart = () => {
         currency={currency}
       />
     </Fragment>
+  );
+};
+
+export const CartItemThumbnail = ({ item, configParams }) => {
+  const [thumbnailSrc, setThumbnailSrc] = useState("");
+
+  useEffect(() => {
+    const baseImage = item?.images?.[0] || item?.image;
+    const smImage = `${configParams.RUTAIMAGENESARTICULOS}sm_${baseImage}`;
+
+    fetch(smImage, { method: "HEAD" })
+      .then((res) => {
+        if (res.ok) {
+          setThumbnailSrc(smImage);
+        } else {
+          setThumbnailSrc("/default/no-image-thumbnail.avif");
+        }
+      })
+      .catch(() => {
+        setThumbnailSrc("/default/no-image-thumbnail.avif");
+      });
+  }, [item]);
+
+  return (
+    <picture>
+      <source srcSet={thumbnailSrc} />
+      <img
+        alt={item.name}
+        src={thumbnailSrc}
+        width={70}
+        className="img-fluid ml-4"
+        loading="lazy"
+      />
+    </picture>
   );
 };
 

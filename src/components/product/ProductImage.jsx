@@ -63,18 +63,13 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
       <Slider {...mainSettings}>
         {images.map((image, i) => (
           <div key={i + image} className="single-image">
-            {!loadedImages[i] && (
-              <div className="img-placeholder">
-                <Loader2 className="animate-spin" />
-              </div>
-            )}
             <img
               src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
               className="img-fluid object-fit-cover"
               alt={image}
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "/default/no-image.jpg";
+                e.target.src = "/default/no-image.avif";
               }}
               dataset-index={`${i}`}
               onLoad={() => setLoadedImages((prev) => ({ ...prev, [i]: true }))}
@@ -93,19 +88,13 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
               key={i + image}
               className={clsx("flex flex-row justify-center items-center", "")}
             >
-              {!loadedImages[i] && (
-                <div className="img-placeholder-loading-thumbnail">
-                  <Loader2 className="animate-spin" />
-                </div>
-              )}
-
               <LazyLoadImage
                 src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
                 className="aspect-square object-contain"
                 alt={image}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "/default/no-image.jpg";
+                  e.target.src = "/default/no-image.avif";
                 }}
                 dataset-index={`${i}`}
                 width={"120px"}

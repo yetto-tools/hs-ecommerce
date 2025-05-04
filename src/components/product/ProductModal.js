@@ -45,8 +45,6 @@ function ProductModal({
     product.variation ? product.variation[0].size[0].stock : product.stock
   );
 
-  
-
   const [quantityCount, setQuantityCount] = useState(1);
   const productCartQty = getProductCartQuantity(
     cartItems,
@@ -88,13 +86,12 @@ function ProductModal({
     const numB = parseInt(b.match(/\d+/)?.[0] || 0, 10);
     return numA - numB;
   });
-  
+
   const sortedThumbs = (product.image || []).slice().sort((a, b) => {
     const numA = parseInt(a.match(/\d+/)?.[0] || 0, 10);
     const numB = parseInt(b.match(/\d+/)?.[0] || 0, 10);
     return numA - numB;
   });
-  
 
   return (
     <Modal
@@ -108,25 +105,25 @@ function ProductModal({
         <div className="row">
           <div className="col-md-5 col-sm-12 col-xs-12">
             <div className="product-large-image-wrapper">
-            <Swiper options={gallerySwiperParams}>
-              {sortedImages.map((image, i) => (
-                <SwiperSlide key={i}>
-                  <div className="single-image">
-                    <LazyLoadImage
-                      src={process.env.PUBLIC_URL + image}
-                      className="img-fluid object-fit-cover"
-                      alt={product.name}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "/default/no-image.jpg";
-                      }}
-                      width={500}
-                      height={500}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+              <Swiper options={gallerySwiperParams}>
+                {sortedImages.map((image, i) => (
+                  <SwiperSlide key={i}>
+                    <div className="single-image">
+                      <LazyLoadImage
+                        src={process.env.PUBLIC_URL + image}
+                        className="img-fluid object-fit-cover"
+                        alt={product.name}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/default/no-image.avif";
+                        }}
+                        width={500}
+                        height={500}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
 
               {/* <Swiper options={gallerySwiperParams}>
                 {product.images &&
@@ -140,7 +137,7 @@ function ProductModal({
                             alt={product.name}
                             onError={(e) => {
                               e.target.onerror = null;
-                              e.target.src ="/default/no-image.jpg";
+                              e.target.src ="/default/no-image.avif";
                             }}
                             width={500}
                             height={500}
@@ -164,7 +161,7 @@ function ProductModal({
                             alt={product.name}
                             onError={(e) => {
                               e.target.onerror = null;
-                              e.target.src ="/default/no-image.jpg";
+                              e.target.src ="/default/no-image.avif";
                             }}
                           />
                         </div>

@@ -20,9 +20,7 @@ const ShopProducts = lazy(() => import("../../wrappers/product/ShopProducts"));
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
-
   const { articles } = useSelector((state) => state.articles);
-
   const { params } = useSelector((state) => state.urlParams);
 
   const location = useLocation();

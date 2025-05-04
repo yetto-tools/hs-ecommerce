@@ -51,6 +51,21 @@ const ProductGridListSingle = ({
     }
   };
 
+  const [smImageExists, setSmImageExists] = useState(true);
+
+  useEffect(() => {
+    const smImage = `${configParams.RUTAIMAGENESARTICULOS}sm_${product.image[0]}`;
+
+    // Verifica si la imagen sm_ existe
+    fetch(smImage, { method: "HEAD" })
+      .then((res) => {
+        if (!res.ok) {
+          setSmImageExists(false); // No existe, fallback
+        }
+      })
+      .catch(() => setSmImageExists(false)); // Error de red o CORS
+  }, [product?.image[0]]);
+
   return (
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
@@ -66,7 +81,34 @@ const ProductGridListSingle = ({
               ""
             )}
             <>
-              <LazyLoadImage
+              <picture>
+                {smImageExists && (
+                  <source
+                    srcSet={`${configParams.RUTAIMAGENESARTICULOS}sm_${product.image[0]}`}
+                    type="image/webp"
+                  />
+                )}
+                <img
+                  onLoad={() => setLoadingImage(false)}
+                  className="default-img"
+                  src={
+                    product.image[0]
+                      ? `${configParams.RUTAIMAGENESARTICULOS}${product.image[0]}`
+                      : "/default/no-image.avif"
+                  }
+                  aspect="4/3"
+                  alt={product.name}
+                  width={320}
+                  height={320}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/default/no-image.avif";
+                  }}
+                />
+              </picture>
+
+              {/* <LazyLoadImage
                 className="default-img"
                 onLoad={() => setLoadingImage(false)}
                 src={configParams.RUTAIMAGENESARTICULOS + product.image[0]}
@@ -77,24 +119,11 @@ const ProductGridListSingle = ({
                 lazy="loaded"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "/default/no-image.jpg";
+                  e.target.src = "/default/no-image.avif";
                 }}
                 data-src={configParams.RUTAIMAGENESARTICULOS + product.image[0]}
-              />
+              /> */}
             </>
-            {/* {product.image.length > 1 ? (
-              <LazyLoadImage
-                className="hover-img object-fit-cover"
-                onLoad={() => setLoadingImage(false)}
-                src={ROOT_IMAGE + product.image[1]}
-                alt=""
-                lazy="loaded"
-                width={320}
-                height={320}
-              />
-            ) : (
-              ""
-            )} */}
           </div>
           {product.discount || product.new ? (
             <div className="product-img-badges">

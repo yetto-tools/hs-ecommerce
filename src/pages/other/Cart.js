@@ -20,7 +20,7 @@ import clsx from "clsx";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { showToast } from "../../toast/toastManager";
-import { Loader2 } from "lucide-react";
+import { Loader2, Trash } from "lucide-react";
 
 const Cart = () => {
   const { t, i18n } = useTranslation();
@@ -109,10 +109,10 @@ const Cart = () => {
           ]}
         />
         <div className="cart-main-area pt-90 pb-100">
-          <div className="container-xxl px-5">
+          <div className="container-xxl list-product-cart">
             {cartItems && cartItems.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">
+                <h3 className="cart-page-title px-3">
                   {t("page_cart.cart_page_title")}
                 </h3>
                 <div className="row">
@@ -120,50 +120,19 @@ const Cart = () => {
                     <div className="table-content table-responsive cart-table-content">
                       <section className="container-xxl mx-auto">
                         <div className="col-lg-12 col-md-12">
-                          <div className="row col-lg-12 col-md-12 mx-auto mb-3">
-                            <div className="header-title-cart">
-                              <div
-                                className="title-preview"
-                                style={{ textTransform: "capitalize" }}
-                              >
-                                <span className="title-column"></span>
-                              </div>
-                              <div
-                                className="title-detials"
-                                style={{ textTransform: "capitalize" }}
-                              >
-                                <span className="title-column"></span>
-                              </div>
-                              <div
-                                className="title-price"
-                                style={{ textTransform: "capitalize" }}
-                              >
-                                <span className="text-medium title-column">
-                                  {t("page_cart.price")}
-                                </span>
-                              </div>
-                              <div
-                                className="title-quantity"
-                                style={{ textTransform: "capitalize" }}
-                              >
-                                <span className="title-column">
-                                  {t("page_cart.div_quantity")}
-                                </span>
-                              </div>
-                              <div
-                                className="title-total"
-                                style={{ textTransform: "capitalize" }}
-                              >
-                                <span className="title-column">
-                                  {t("page_cart.div_subtotal")}
-                                </span>
-                              </div>
-                              <div
-                                className="title-action"
-                                style={{ textTransform: "capitalize" }}
-                              >
-                                <span className="title-column">Acción</span>
-                              </div>
+                          <div className="product-line-title">
+                            <div className="col-lg-6 col-md-6"></div>
+                            <div className="col-gl-6 col-md-6 d-flex justify-content-between align-items-center gap-2 fw-semibold gap-2">
+                              <span className="title-column capitalize">
+                                {t("page_cart.div_quantity")}
+                              </span>
+
+                              <span className="title-column capitalize">
+                                {t("page_cart.div_subtotal")}
+                              </span>
+                              <span className=" capitalize">
+                                <Trash size={20} />
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -191,174 +160,214 @@ const Cart = () => {
                                 key={key}
                                 className={clsx(
                                   "product-line",
-                                  cartItem.isSoldOut ? "sold-out" : ""
+                                  cartItem.isSoldOut ? "sold-out" : "instock"
                                 )}
                               >
                                 <article className="product-item">
-                                  <div className="product-thumbnail">
-                                    <Link
-                                      to={"/productos?busqueda=" + cartItem.sku}
-                                    >
-                                      <img
-                                        name="image"
-                                        className="product-image"
-                                        src={
-                                          configParams.RUTAIMAGENESARTICULOS +
-                                          cartItem.images[0]
-                                        }
-                                        alt=""
-                                        width={128}
-                                        height={128}
-                                      />
-                                    </Link>
-                                  </div>
-                                  <div className="product-info">
-                                    <Link
-                                      to={
-                                        process.env.PUBLIC_URL +
-                                        "/productos?busqueda=" +
-                                        cartItem.sku
-                                      }
-                                    >
-                                      <span className="product-title fw-semibold">
-                                        {cartItem.name}
-                                      </span>
-                                    </Link>
-                                    {cartItem.color && cartItem.size ? (
-                                      <div className="cart-item-variation">
-                                        <span className="">
-                                          {t("page_cart.cart_color")}:{" "}
-                                          <small className="fw-semibold">
-                                            {cartItem.color}
-                                          </small>
-                                        </span>
-                                        <span className="">
-                                          {t("page_cart.cart_size")}:{" "}
-                                          <small className="fw-semibold">
-                                            {cartItem.size}
-                                          </small>
-                                        </span>
-                                        <span className="code">
-                                          {cartItem.code}
-                                        </span>
-                                      </div>
-                                    ) : (
-                                      ""
-                                    )}
-                                  </div>
-                                  <div className="product-price-cart">
-                                    {discountedPrice !== null ? (
-                                      <Fragment>
-                                        <span className="amount old">
-                                          {new Intl.NumberFormat(
-                                            i18n.language,
-                                            {
-                                              style: "currency",
-                                              currency: currency.currencyName,
-                                            }
-                                          ).format(finalProductPrice)}
-                                        </span>
-                                        <span className="amount">
-                                          {new Intl.NumberFormat(
-                                            i18n.language,
-                                            {
-                                              style: "currency",
-                                              currency: currency.currencyName,
-                                            }
-                                          ).format(finalDiscountedPrice)}
-                                        </span>
-                                      </Fragment>
-                                    ) : (
-                                      <span className="amount">
-                                        {new Intl.NumberFormat(i18n.language, {
-                                          style: "currency",
-                                          currency: currency.currencyName,
-                                        }).format(finalProductPrice)}
-                                      </span>
-                                    )}
-                                  </div>
-                                  <div className="product-quantity">
-                                    <div className="cart-plus-minus">
-                                      <button
-                                        className="dec qtybutton"
-                                        onClick={() =>
-                                          dispatch(decreaseQuantity(cartItem))
+                                  <div className="product-item-info">
+                                    <div className="product-thumbnail">
+                                      <Link
+                                        to={
+                                          "/productos?busqueda=" + cartItem.sku
                                         }
                                       >
-                                        -
-                                      </button>
-                                      {!cartItem.isSoldOut ? (
-                                        <input
-                                          className="cart-plus-minus-box"
-                                          type="text"
-                                          value={cartItem.quantity}
-                                          readOnly
-                                        />
-                                      ) : (
-                                        <>
-                                          <input
-                                            className="cart-plus-minus-box border-danger text-danger fw-semibold"
-                                            type="text"
-                                            value={0}
-                                            readOnly
-                                          />
-                                          <small className="text-danger fw-semibold">
-                                            {t("page_cart.cart_out_of_stock")}
-                                          </small>
-                                        </>
-                                      )}
-                                      <button
-                                        className="inc qtybutton"
-                                        onClick={() => {
-                                          if (
-                                            cartItem.isSoldOut ||
-                                            (cartItem !== undefined &&
-                                              cartItem.quantity &&
-                                              cartItem.quantity >=
-                                                cartItemStock(
-                                                  cartItem,
-                                                  cartItem.selectedProductColor,
-                                                  cartItem.selectedProductSize
-                                                ))
-                                          ) {
-                                            showToast(
-                                              `Cantidad excede el stock, Disponible ${quantityCount} unidades.`,
-                                              "warn",
-                                              "top-center",
-                                              20000
-                                            );
-                                            return;
+                                        <img
+                                          name="image"
+                                          className="product-image"
+                                          src={
+                                            configParams.RUTAIMAGENESARTICULOS +
+                                            cartItem.images[0]
                                           }
-                                          dispatch(
-                                            addToCart({
-                                              ...cartItem,
-                                              quantity: quantityCount,
-                                            })
-                                          );
-                                        }}
+                                          alt=""
+                                          aspectRatio="16/10"
+                                          width={128}
+                                          height={128}
+                                          onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src =
+                                              "/default/no-image-thumbnail.avif";
+                                          }}
+                                        />
+                                      </Link>
+                                    </div>
+                                    <div className="product-info">
+                                      <Link
+                                        to={
+                                          process.env.PUBLIC_URL +
+                                          "/productos?busqueda=" +
+                                          cartItem.sku
+                                        }
                                       >
-                                        +
+                                        <span className="product-title fw-semibold">
+                                          {cartItem.name}
+                                        </span>
+                                      </Link>
+                                      <div className="product-price">
+                                        {discountedPrice !== null ? (
+                                          <Fragment>
+                                            <span className="amount old">
+                                              {new Intl.NumberFormat(
+                                                i18n.language,
+                                                {
+                                                  style: "currency",
+                                                  currency:
+                                                    currency.currencyName,
+                                                }
+                                              ).format(finalProductPrice)}
+                                            </span>
+                                            <span className="amount">
+                                              {new Intl.NumberFormat(
+                                                i18n.language,
+                                                {
+                                                  style: "currency",
+                                                  currency:
+                                                    currency.currencyName,
+                                                }
+                                              ).format(finalDiscountedPrice)}
+                                            </span>
+                                          </Fragment>
+                                        ) : (
+                                          <span className="amount">
+                                            {new Intl.NumberFormat(
+                                              i18n.language,
+                                              {
+                                                style: "currency",
+                                                currency: currency.currencyName,
+                                              }
+                                            ).format(finalProductPrice)}
+                                          </span>
+                                        )}
+                                      </div>
+                                      {cartItem.color && cartItem.size ? (
+                                        <div className="cart-item-variation">
+                                          <span className="">
+                                            {t("page_cart.cart_color")}:{" "}
+                                            <small className="fw-semibold">
+                                              {cartItem.color}
+                                            </small>
+                                          </span>
+                                          <span className="">
+                                            {t("page_cart.cart_size")}:{" "}
+                                            <small className="fw-semibold">
+                                              {cartItem.size}
+                                            </small>
+                                          </span>
+                                          <span className="code">
+                                            {cartItem.code}
+                                          </span>
+                                        </div>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </div>
+                                    <div className="product-lg-remove">
+                                      <button
+                                        onClick={() =>
+                                          dispatch(
+                                            deleteFromCart(cartItem.cartItemId)
+                                          )
+                                        }
+                                      >
+                                        <i
+                                          className="fa fa-times"
+                                          style={{ fontSize: "1.5rem" }}
+                                        ></i>
                                       </button>
                                     </div>
                                   </div>
-                                  <div className="product-subtotal">
-                                    <span>
-                                      {discountedPrice !== null
-                                        ? new Intl.NumberFormat(i18n.language, {
-                                            style: "currency",
-                                            currency: currency.currencyName,
-                                          }).format(
-                                            finalDiscountedPrice *
-                                              cartItem.quantity
-                                          )
-                                        : new Intl.NumberFormat(i18n.language, {
-                                            style: "currency",
-                                            currency: currency.currencyName,
-                                          }).format(
-                                            finalProductPrice *
-                                              cartItem.quantity
-                                          )}
-                                    </span>
+                                  <div className="product-item-price">
+                                    <div className="product-quantity">
+                                      <div className="cart-plus-minus text-center">
+                                        <button
+                                          className="dec qtybutton"
+                                          onClick={() =>
+                                            dispatch(decreaseQuantity(cartItem))
+                                          }
+                                        >
+                                          -
+                                        </button>
+                                        {!cartItem.isSoldOut ? (
+                                          <input
+                                            className="cart-plus-minus-box"
+                                            type="text"
+                                            value={cartItem.quantity}
+                                            readOnly
+                                          />
+                                        ) : (
+                                          <>
+                                            <input
+                                              className="cart-plus-minus-box border-danger text-danger fw-semibold"
+                                              type="text"
+                                              value={0}
+                                              readOnly
+                                            />
+                                            <small className="text-danger fw-semibold">
+                                              {t("page_cart.cart_out_of_stock")}
+                                            </small>
+                                          </>
+                                        )}
+                                        <button
+                                          className="inc qtybutton"
+                                          onClick={() => {
+                                            if (
+                                              cartItem.isSoldOut ||
+                                              (cartItem !== undefined &&
+                                                cartItem.quantity &&
+                                                cartItem.quantity >=
+                                                  cartItemStock(
+                                                    cartItem,
+                                                    cartItem.selectedProductColor,
+                                                    cartItem.selectedProductSize
+                                                  ))
+                                            ) {
+                                              showToast(
+                                                `Cantidad excede el stock, Disponible ${quantityCount} unidades.`,
+                                                "warn",
+                                                "top-center",
+                                                20000
+                                              );
+                                              return;
+                                            }
+                                            dispatch(
+                                              addToCart({
+                                                ...cartItem,
+                                                quantity: quantityCount,
+                                              })
+                                            );
+                                          }}
+                                        >
+                                          +
+                                        </button>
+                                      </div>
+                                    </div>
+                                    <div className="product-subtotal">
+                                      <span className="label-amount">
+                                        Subtotal:
+                                      </span>
+                                      <span>
+                                        {discountedPrice !== null
+                                          ? new Intl.NumberFormat(
+                                              i18n.language,
+                                              {
+                                                style: "currency",
+                                                currency: currency.currencyName,
+                                              }
+                                            ).format(
+                                              finalDiscountedPrice *
+                                                cartItem.quantity
+                                            )
+                                          : new Intl.NumberFormat(
+                                              i18n.language,
+                                              {
+                                                style: "currency",
+                                                currency: currency.currencyName,
+                                              }
+                                            ).format(
+                                              finalProductPrice *
+                                                cartItem.quantity
+                                            )}
+                                      </span>
+                                    </div>
                                   </div>
                                 </article>
                                 <aside className="product-remove">
