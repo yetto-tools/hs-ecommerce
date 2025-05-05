@@ -6,6 +6,8 @@ import { deleteFromCart } from "../../../store/slices/cart-slice";
 import { useTranslation } from "react-i18next";
 
 import ProductModal2 from "../../product/ProductModal2";
+import { Lazy } from "swiper";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const MenuCart = () => {
   const dispatch = useDispatch();
@@ -73,12 +75,12 @@ const MenuCart = () => {
                         type="button"
                         onClick={(e) => handleProductQuickView(e, item)}
                       >
-                        <CartItemThumbnail
+                        {/* <CartItemThumbnail
                           item={item}
                           configParams={configParams}
-                        />
+                        /> */}
 
-                        {/* <img
+                        <LazyLoadImage
                           alt={item.name}
                           src={
                             configParams.RUTAIMAGENESARTICULOS +
@@ -91,7 +93,7 @@ const MenuCart = () => {
                             e.target.onerror = null;
                             e.target.src = "/default/no-image-thumbnial.avif";
                           }}
-                        /> */}
+                        />
                       </button>
                     </div>
                     <div className="shopping-cart-title">
@@ -198,38 +200,48 @@ const MenuCart = () => {
   );
 };
 
-export const CartItemThumbnail = ({ item, configParams }) => {
-  const [thumbnailSrc, setThumbnailSrc] = useState("");
+// export const CartItemThumbnail = ({ item, configParams }) => {
+//   const [thumbnailSrc, setThumbnailSrc] = useState("");
 
-  useEffect(() => {
-    const baseImage = item?.images?.[0] || item?.image;
-    const smImage = `${configParams.RUTAIMAGENESARTICULOS}sm_${baseImage}`;
+//   useEffect(() => {
+//     const baseImage = item?.images?.[0] || item?.image;
+//     const smImage = `${configParams.RUTAIMAGENESARTICULOS}sm_${baseImage}`;
+//     const Image = `${configParams.RUTAIMAGENESARTICULOS}${baseImage}`;
 
-    fetch(smImage, { method: "HEAD" })
-      .then((res) => {
-        if (res.ok) {
-          setThumbnailSrc(smImage);
-        } else {
-          setThumbnailSrc("/default/no-image-thumbnail.avif");
-        }
-      })
-      .catch(() => {
-        setThumbnailSrc("/default/no-image-thumbnail.avif");
-      });
-  }, [item]);
+//     fetch(smImage, { method: "HEAD" })
+//       .then((res) => {
+//         if (res.ok) {
+//           setThumbnailSrc(smImage);
+//         }
+//       })
+//       .catch(() => {
+//         fetch(Image, { method: "HEAD" })
+//           .then((res) => {
+//             if (res.ok) {
+//               setThumbnailSrc(Image);
+//               console.log(Image);
+//             } else {
+//               setThumbnailSrc("/default/no-image-thumbnail.avif");
+//             }
+//           })
+//           .catch(() => {
+//             setThumbnailSrc("/default/no-image-thumbnail.avif");
+//           });
+//       });
+//   }, [item]);
 
-  return (
-    <picture>
-      <source srcSet={thumbnailSrc} />
-      <img
-        alt={item.name}
-        src={thumbnailSrc}
-        width={70}
-        className="img-fluid ml-4"
-        loading="lazy"
-      />
-    </picture>
-  );
-};
+//   return (
+//     <picture>
+//       <source srcSet={thumbnailSrc} />
+//       <img
+//         alt={item.name}
+//         src={thumbnailSrc}
+//         width={70}
+//         className="img-fluid ml-4"
+//         loading="lazy"
+//       />
+//     </picture>
+//   );
+// };
 
 export default MenuCart;
