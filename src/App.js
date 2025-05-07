@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import BacCheckout from "./pages/other/BacCheckout";
+import ShopGridMarcas from "./pages/shop/ShopGridMarcas";
 
 const PageReturnPolicy = lazy(() => import("./pages/other/PageReturnPolicy"));
 const PagePreguntasFrecuentes = lazy(() =>
@@ -87,6 +88,11 @@ const App = () => {
             <Route
               path={process.env.PUBLIC_URL + "/productos"}
               element={<ShopGridStandard />}
+            />
+
+            <Route
+              path={process.env.PUBLIC_URL + "/marca/:slug"}
+              element={<ShopGridMarcas />}
             />
 
             {/* <Route

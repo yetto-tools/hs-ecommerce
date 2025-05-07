@@ -9,6 +9,7 @@ import BannerMultiColumnImage from "../../components/banner/BannerMultiColumnIma
 
 const HomeFashionTwo = () => {
   const [brand, setBrand] = useState(null);
+
   useEffect(() => {
     const getBrands = async () => {
       try {
