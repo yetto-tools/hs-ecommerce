@@ -2,16 +2,18 @@ import clsx from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useRef, useState, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./_CustomSlider.scss";
+
 const CustomSlider = ({ slides }) => {
   const sliderRef = useRef(null);
+
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(slides.length);
   const [visibleSlides, setVisibleSlides] = useState(5);
   const infiniteSlides = [...slides, ...slides, ...slides];
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-  
 
   // Detecta el tamaño de la pantalla y ajusta las imágenes visibles
   useEffect(() => {
@@ -88,6 +90,14 @@ const CustomSlider = ({ slides }) => {
     if (touchStartX.current - touchEndX.current < -50) prevSlide();
   };
 
+  const handleSlideClick = async (slide) => {
+    try {
+      navigate(`/marca/${encodeURIComponent(slide.name)}`);
+    } catch (err) {
+      console.error("Error al aplicar filtro por marca:", err);
+    }
+  };
+
   return (
     <section
       className="container-fluid row mx-auto sm:px-6 lg:px-8"
@@ -129,8 +139,10 @@ const CustomSlider = ({ slides }) => {
               >
                 {infiniteSlides.map((slide, index) => (
                   <div key={index} className="slide">
-                    <Link
-                      to={process.env.PUBLIC_URL + `/productos?busqueda=${encodeURI(slide.name)}`}
+                    <div
+                      role="button"
+                      onClick={() => handleSlideClick(slide)}
+                      className="cursor-pointer"
                     >
                       <LazyLoadImage
                         src={slide.image}
@@ -146,7 +158,7 @@ const CustomSlider = ({ slides }) => {
                           />
                         </div>
                       )}
-                    </Link>
+                    </div>
                   </div>
                 ))}
               </div>
