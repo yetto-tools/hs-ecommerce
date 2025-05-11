@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "image": "/api/Image/new-arrivals/1.jpg",
+    "subtitle": "",
+    "title": "",
+    "tag": "",
+    "link": "/productos"
+  },
+  {
+    "id": "2",
+    "image": "/api/Image/new-arrivals/2.jpg",
+    "subtitle": "",
+    "title": "",
+    "tag": "",
+    "link": "/productos"
+  },
+  {
+    "id": "3",
+    "image": "/api/Image/new-arrivals/3.jpg",
+    "subtitle": "",
+    "title": "",
+    "tag": "",
+    "link": "/productos"
+  },
+  {
+    "id": "4",
+    "image": "/api/Image/new-arrivals/4.jpg",
+    "subtitle": "",
+    "title": "",
+    "tag": "",
+    "link": "/productos"
+  },
+  {
+    "id": "5",
+    "image": "/api/Image/new-arrivals/5.jpg",
+    "subtitle": "",
+    "title": "",
+    "tag": "",
+    "link": "/productos"
+  },
+  {
+    "id": "6",
+    "image": "/api/Image/new-arrivals/6.jpg",
+    "subtitle": "",
+    "title": "",
+    "tag": "",
+    "link": "/productos"
+  }
+]

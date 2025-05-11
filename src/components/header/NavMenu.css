@@ -1,0 +1,173 @@
+/* Estilos generales del menú */
+.main-menu,
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  position: relative;
+}
+
+.main-menu > li,
+.sidebar-menu > li {
+  position: relative;
+}
+
+/* Enlace principal */
+.main-menu a,
+.sidebar-menu a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px 20px;
+  display: block;
+  font-weight: 600;
+}
+
+.main-menu a:hover,
+.sidebar-menu a:hover {
+  background-color: #f4f4f4;
+}
+
+/* Iconos de los chevrons */
+.chevron-icon {
+  margin-left: 5px;
+}
+
+/* Estilo para los submenús */
+.submenu,
+.submenu-sub,
+.submenu-sub-sub {
+  display: none;
+  list-style: none;
+  padding-left: 20px;
+  background-color: #f8f8f8;
+}
+
+/* Mostrar submenú cuando el estado de apertura es activo */
+.submenu.open,
+.submenu-sub.open,
+.submenu-sub-sub.open {
+  display: block;
+}
+
+/* Submenú de primer nivel (MARCAS) */
+.submenu > li {
+  padding: 5px 0;
+}
+
+.submenu-sub > li {
+  padding: 5px 0;
+}
+
+.submenu-sub-sub > li {
+  padding: 5px 0;
+}
+
+/* Dropdown en el primer nivel */
+.main-menu > li > .submenu,
+.sidebar-menu > li > .submenu {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  display: none;
+  min-width: 200px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hacer que el submenú se despliegue al hacer hover o click */
+.main-menu > li:hover > .submenu,
+.sidebar-menu > li:hover > .submenu,
+.main-menu > li.open > .submenu,
+.sidebar-menu > li.open > .submenu {
+  display: block;
+}
+
+/* Transiciones para suavizar la animación */
+.submenu,
+.submenu-sub,
+.submenu-sub-sub {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.submenu.open,
+.submenu-sub.open,
+.submenu-sub-sub.open {
+  opacity: 1;
+}
+
+/* Estilo del enlace dentro del submenú */
+.submenu a,
+.submenu-sub a,
+.submenu-sub-sub a {
+  color: #555;
+  padding: 10px;
+  background-color: #f8f8f8;
+  display: block;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.submenu a:hover,
+.submenu-sub a:hover,
+.submenu-sub-sub a:hover {
+  background-color: #ddd;
+}
+
+/* Estilos del tercer nivel de submenú */
+.submenu-sub-sub {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  display: none;
+  min-width: 200px;
+  background-color: #f8f8f8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-menu li > .submenu-sub-sub,
+.sidebar-menu li > .submenu-sub-sub {
+  display: none;
+}
+
+.main-menu li.open > .submenu-sub-sub,
+.sidebar-menu li.open > .submenu-sub-sub {
+  display: block;
+}
+
+/* Estilos para chevrons */
+.chevron-icon {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.submenu > li.open .chevron-icon,
+.submenu-sub > li.open .chevron-icon,
+.submenu-sub-sub > li.open .chevron-icon {
+  transform: rotate(90deg);
+}
+
+/* Añadir animación al hover del chevron */
+.chevron-down,
+.chevron-right {
+  transition: transform 0.3s ease;
+}
+
+.chevron-down.open {
+  transform: rotate(180deg);
+}
+
+.chevron-right.open {
+  transform: rotate(90deg);
+}
+
+/* Submenú de tercer nivel */
+.submenu-sub-sub li {
+  padding-left: 20px;
+  background-color: #f4f4f4;
+}
+
+.submenu-sub-sub a:hover {
+  background-color: #ccc;
+}

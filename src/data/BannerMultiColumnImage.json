@@ -1,0 +1,26 @@
+{
+    "id": 1,
+    "title": "",
+    "subtitle": "",
+    "desktop": "banner2.png",
+    "mobileImages": [
+      "banner2.1-movil.png",
+      "banner2.2-movil.png"
+    ],
+    "buttons": [
+      {
+        "label": "LOOK BOOK",
+        "url": "/productos",
+        "text": "Proximamente",
+        "color": "primary"
+      },
+      {
+        "label": "SNEA KERS",
+        "url": "/productos?categoria=sneakers",
+        "text": "Ver colección",
+        "color": "primary"
+      }
+    ],
+    "image":"banner2-movil.png",
+    "url": "/productos?categoria=sneakers"
+  }

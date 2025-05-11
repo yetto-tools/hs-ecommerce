@@ -1,0 +1,136 @@
+// BacCheckout.jsx
+import { Fragment, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { Loader2, Send } from "lucide-react";
+
+import SEO from "../../../components/seo";
+import { ResumenCompra } from "../ResumenCompra";
+import { Breadcrumb } from "react-bootstrap";
+import LayoutOne from "../../../layouts/LayoutOne";
+import { getDiscountPrice } from "../../../helpers/product";
+import FormDeliveryAddress from "./FormAddress";
+
+const CheckoutWithoutLogin = () => {
+  const { t, i18n } = useTranslation();
+  const { pathname } = useLocation();
+  const { cartItems } = useSelector((state) => state.cart);
+  const currency = useSelector((state) => state.currency);
+  const [disabledSendButton, setDisabledSendButton] = useState(false);
+  const { usuario, address } = useSelector((state) => state.usuario);
+  const [formIsValid, setFormIsValid] = useState(false);
+
+  const handleSubmitInvoces = ()=>{
+    console.log('submit');
+  }
+  let cartTotalPrice = 0;
+  
+  return (
+    <Fragment>
+      <SEO
+        titleTemplate="Confirmación"
+        description="Confirmación de compra, HypeStreet Guatemala"
+      />
+      <LayoutOne headerTop="visible">
+        <Breadcrumb
+          pages={[
+            { label: "Inicio", path: process.env.PUBLIC_URL + "/" },
+            { label: "Confirmación", path: process.env.PUBLIC_URL + pathname },
+          ]}
+        />
+        <div className="checkout-area pt-95 pb-100">
+          <div className="container-xl">
+            {cartItems && cartItems.length >= 1 ? (
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="billing-info-wrap mb-30">
+                    <div className="row">
+                      <div className="border-bottom p-4 rounded mt-5">
+                       <FormDeliveryAddress />
+                      </div>
+                    </div>
+                  </div>
+
+            
+                  <br />
+                  <div className="row">
+                    <div className="mt-5">
+                      <h3
+>
+                        Confirmar Orden de Compra
+                      </h3>
+                      <hr />
+                      <div
+                        className="row"
+                        style={{
+                          opacity: !formIsValid ? 0.3 : 1,
+                          pointerEvents: !formIsValid ? "none" : "auto",
+                        }}
+                      >
+                        <div className="col-lg-12">
+                          <button
+                            type="submit"
+                            className="button-active-hs btn-black w-100 d-flex justify-content-center align-items-center gap-2 py-2"
+                            disabled={!formIsValid || disabledSendButton}
+                            onClick={handleSubmitInvoces}
+                          >
+                            <span>
+                              {formIsValid
+                                ? t("send_message")
+                                : t("page_checkout.complete_fields")}
+                            </span>
+
+                            {disabledSendButton ? (
+                              <Loader2 className="animate-spin" />
+                            ) : (
+                              <Send className="position-relative" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>{" "}
+                    {!formIsValid && usuario && (
+                      <p className="text-danger mt-2">
+                        {t("page_checkout.complete_all_fields")}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="col-lg-1"></div>
+
+                <div className="col-lg-5">
+                  <ResumenCompra
+                    cartItems={cartItems}
+                    cartTotalPrice={cartTotalPrice}
+                    currency={currency}
+                    getDiscountPrice={getDiscountPrice}
+                    t={t}
+                    i18n={i18n}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="item-empty-area text-center">
+                    <div className="item-empty-area__icon mb-30">
+                      <i className="pe-7s-cash"></i>
+                    </div>
+                    <div className="item-empty-area__text">
+                      <Link to={process.env.PUBLIC_URL + "/"}>Ir a Inicio</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </LayoutOne>
+    </Fragment>
+  );
+};
+
+export default CheckoutWithoutLogin;

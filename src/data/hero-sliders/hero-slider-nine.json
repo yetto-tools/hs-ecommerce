@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "NUEVOS INGRESOS",
+    "subtitle": "",
+    "button": "VER AHORA",
+    "image": "banner1.jpg",
+    "mobileImage": "banner1-movil.jpg",
+    "url": "/nuevos-ingresos"
+  },
+  {
+    "id": 2,
+    "title": "",
+    "subtitle": "",
+    "button": "",
+    "image": "banner2.jpg",
+    "mobileImage": "banner2-movil.jpg",
+    "url": "/nuevos-ingresos"
+  },
+  {
+    "id": 3,
+    "title": "",
+    "subtitle": "NUEVOS INGRESOS",
+    "button": "VER AHORA",
+    "image": "banner3.jpg",
+    "mobileImage": "banner3-movil.jpg",
+    "url": "/nuevos-ingresos"
+  }
+]

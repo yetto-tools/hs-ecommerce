@@ -1,0 +1,139 @@
+.slider-container {
+  position: relative;
+  width: 96%;
+  margin: auto;
+  overflow: hidden;
+  background: black;
+  display: flex;
+  align-items: center;
+}
+
+.slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+  margin-inline: 3.5rem;
+  cursor: grab;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+  width: fit-content;
+}
+
+.slide {
+  position: relative;
+  padding: 0px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+.slide img {
+  width: 100%;
+  display: block;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.slide:hover img {
+  opacity: 0.4; /* se oscurece */
+  filter: brightness(0.7);
+  transform: scale(1.02); /* leve zoom opcional */
+}
+
+.slide:hover img {
+  transform: scale(1.01);
+}
+
+.logo-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: auto;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+.logo-overlay img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.slide:hover .logo-overlay {
+  transform: translate(-50%, -50%) scale(1.1); /* resaltado */
+}
+
+/* Responsive para cantidad de imágenes */
+@media (min-width: 1200px) {
+  .slide {
+    min-width: 20%;
+  } /* 5 imágenes */
+}
+
+@media (max-width: 1200px) {
+  .slide {
+    min-width: 25%;
+  } /* 4 imágenes */
+}
+
+@media (max-width: 992px) {
+  .slide {
+    min-width: 33.33%;
+  } /* 3 imágenes */
+}
+
+@media (max-width: 768px) {
+  .slide {
+    min-width: 50%;
+  } /* 2 imágenes */
+}
+
+@media (max-width: 575px) {
+  .slide {
+    min-width: 100%;
+  } /* 1 imágenes */
+}
+.prev,
+.next {
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.prev {
+  left: 1px;
+}
+.next {
+  right: 1px;
+}
+
+
+
+// .product-small-image-wrapper .slick-prev,
+// .product-small-image-wrapper .slick-next {
+//   top: 35%;
+//   z-index: 10;
+//   background: rgba(255, 255, 255, 0);
+//   border-radius: 50%;
+//   width: 25px;
+//   height: 25px;
+// }
+
+// .product-small-image-wrapper .slick-prev:before,
+// .product-small-image-wrapper .slick-next:before {
+//   color: #000;
+//   font-size: 18px;
+// }
+
+
+.product-small-image-wrapper .slick-prev,
+.product-small-image-wrapper .slick-next { 
+  top:20%
+
+}

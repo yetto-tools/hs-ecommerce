@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "title": "",
+    "subtitle": "",
+    "desktop":"/assets/img/banner/banner2.png",
+    "mobileImages": ["/assets/img/banner/banner2.1.png", "/assets/img/banner/banner2.2.png"],
+    "buttons": [
+      {
+        "label": "Ver colección",
+        "url": "/productos",
+        "text": "ver colección",
+        "color": "primary"
+      },
+      {
+        "label": "SNEA KERS",
+        "url": "/productos",
+        "text": "ver colección",
+        "color": "primary"
+      }
+    ],
+    "image": "/assets/img/banner/banner2.png",
+    "url": "/productos"
+  }
+]

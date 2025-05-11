@@ -1,0 +1,35 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+./2025-02-18
+2025-02-18/
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+HS FASE 1.zip
+2025-02-18.zip
+
+45webp.zip
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+_gsdata_
+API/
+*.rar
+*.zip
+.vscode/
+.nvmrc
+public/ftp_imagenes
+yarn.lock
