@@ -2610,3 +2610,9 @@ button.border-black:hover {
   transition: transform 0.5s ease-in-out;
   transform-origin: center center;
 }
+
+.logo-responsive {
+  width: clamp(72px, 128px, 20dvw) !important;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}

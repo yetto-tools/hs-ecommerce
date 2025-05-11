@@ -7,7 +7,8 @@ const Logo = ({ imageUrl, logoClass }) => {
     <Link to={process.env.PUBLIC_URL + "/"}>
       <div className={clsx(logoClass)}>
         <img
-          alt=""
+          className="logo-responsive"
+          alt="logo"
           src={process.env.PUBLIC_URL + imageUrl}
           width={128}
           height={80}
