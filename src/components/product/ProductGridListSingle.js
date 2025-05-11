@@ -303,43 +303,24 @@ const SmartImage = ({
   ...props
 }) => {
   const [src, setSrc] = useState(null);
-  const fallbacks = [
-    `${basePath}sm_${imageName}`,
-    `${basePath}${imageName}`,
-    `/default/no-image.avif`,
-  ];
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    let isMounted = true;
-    let index = 0;
-
-    const tryLoad = () => {
-      if (index >= fallbacks.length) {
-        onLoadEnd(); // no se pudo cargar ninguna
-        return;
-      }
-
-      const img = new Image();
-      img.src = fallbacks[index];
-      img.onload = () => {
-        if (isMounted) {
-          setSrc(fallbacks[index]);
-          onLoadEnd(); // imagen cargada
-        }
-      };
-      img.onerror = () => {
-        index++;
-        tryLoad(); // intenta siguiente
-      };
+    const img = new Image();
+    img.src = `${basePath}${imageName}`;
+    img.onload = () => {
+      setSrc(img.src);
+      setLoaded(true);
+      onLoadEnd();
     };
-
-    tryLoad();
-    return () => {
-      isMounted = false;
+    img.onerror = () => {
+      setSrc("/default/no-image.avif");
+      setLoaded(true);
+      onLoadEnd();
     };
   }, [imageName, basePath]);
 
-  if (!src) {
+  if (!loaded) {
     return (
       <div
         className="d-flex justify-content-center align-items-center bg-white"
@@ -351,15 +332,27 @@ const SmartImage = ({
   }
 
   return (
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      loading="lazy"
-      className="img-fluid"
-      {...props}
-    />
+    <picture>
+      {/* Imagen para pantallas pequeñas */}
+      <source
+        srcSet={`${basePath}sm_${imageName}`}
+        media="(max-width: 799px)"
+      />
+      {/* Imagen principal (desktop o fallback) */}
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        className="img-fluid object-fit-cover"
+        {...props}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = "/default/no-image.avif";
+        }}
+      />
+    </picture>
   );
 };
 

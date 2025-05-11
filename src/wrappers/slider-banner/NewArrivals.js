@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import ProductModal2  from  "../../components/product/ProductModal2";
+import ProductModal2 from "../../components/product/ProductModal2";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import {
@@ -22,30 +22,25 @@ const ProductCard = ({ product, currency, openModal }) => {
   const { configParams } = useSelector((state) => state.paramsWeb);
 
   return (
-    <div className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area"  onClick={openModal} style={{cursor: "pointer"}}>
+    <div
+      className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area"
+      onClick={openModal}
+      style={{ cursor: "pointer" }}
+    >
       <Link to={product.url} className="">
         <div className="container row product-card mx-auto">
           <div className="d-flex align-items-center justify-content-center align-content-around">
             <div className="pro-same-action pro-quickview">
               <button onClick={openModal} title="Quick View" className="btn">
                 <LazyLoadImage
-                  src={ configParams.RUTAIMAGENESARTICULOS + product.images[0]}
+                  src={configParams.RUTAIMAGENESARTICULOS + product.images[0]}
                   alt={product.name}
-                  className="img"
+                  className="image-new-arrivals"
                   width={192}
                   height={192}
-                  style={{
-                    objectFit: "cover",
-                    backgroundColor: "transparent",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    aspectRatio: "8/7",
-                    transform: "scaleX(-1)",
-                    transition: "transform 0.5s ease-in-out",
-                    transformOrigin: "center center",
-                  }}
-                  dataset-src={configParams.RUTAIMAGENESARTICULOS + product.images[0]}
+                  dataset-src={
+                    configParams.RUTAIMAGENESARTICULOS + product.images[0]
+                  }
                 />
               </button>
             </div>
@@ -59,7 +54,11 @@ const ProductCard = ({ product, currency, openModal }) => {
               <span className="text-lg">
                 <button
                   className="price border px-4 font-semibold button-active-hs btn-white border-black"
-                  style={{ paddingBlock: "0.3rem" , color: "black", borderRadius: "8px", }}
+                  style={{
+                    paddingBlock: "0.3rem",
+                    color: "black",
+                    borderRadius: "8px",
+                  }}
                 >
                   {Intl.NumberFormat(i18n.language, {
                     style: "currency",
@@ -98,7 +97,6 @@ const NewArrivals = ({ spaceLeftClass = "", spaceRightClass = "" }) => {
   }, [dispatch]);
 
   const handleClickProductModal = (product) => {
-    
     dispatch(fetchArticleDetail(product.sku));
     if (loading === false) {
       setModalShow(product);

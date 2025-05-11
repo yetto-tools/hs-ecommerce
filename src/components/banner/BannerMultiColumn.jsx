@@ -101,7 +101,6 @@ const BannerMultiColumn = ({ data, sliderClass }) => {
                     height: "100%",
                     objectFit: "cover", // 🔥 Mejor usar "cover" para banners, no "scale-down"
                     objectPosition: index === 0 ? "right" : "left",
-                    transform: "scaleX(-1)",
                     opacity: isLoaded ? 1 : 0,
                     transition: "opacity 0.8s ease",
                     position: "absolute",

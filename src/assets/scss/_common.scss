@@ -2595,3 +2595,18 @@ button.border-black:hover {
     color: #8b0000;
   }
 }
+
+// new arrivals images
+
+.image-new-arrivals {
+  object-fit: cover;
+  background-color: transparent;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  aspect-ratio: 8/7 !important;
+  overflow: hidden;
+  transform: scale(1.1);
+  transition: transform 0.5s ease-in-out;
+  transform-origin: center center;
+}
