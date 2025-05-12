@@ -24,7 +24,7 @@ export const useCheckoutWithoutLogin = () => {
   });
 
   const usuario = {
-    id: 0,
+    id: 999999,
     name: "",
     email: "",
     phone: "",
