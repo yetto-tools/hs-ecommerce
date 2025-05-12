@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CustomerAnonymous } from "../../../adapters/users";
 
-export const useDeliveryAddressForm = (initialValues) => {
-  const [formData, setFormData] = useState(initialValues);
+export const useDeliveryAddressForm = () => {
+  const [formData, setFormData] = useState(CustomerAnonymous);
 
   const [isValid, setIsValid] = useState({
     nombre: true,
@@ -9,21 +10,27 @@ export const useDeliveryAddressForm = (initialValues) => {
     direccion: true,
   });
 
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    const requiredFields = ["nombre", "telefono", "direccion"];
+    const allFilled = requiredFields.every(
+      (key) =>
+        typeof formData[key] === "string" && formData[key].trim().length > 0
+    );
+    setIsFormValid(allFilled); // Asegúrate que esto se llama correctamente
+  }, [formData]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    let cleanedValue;
+    let cleanedValue = value;
 
-    if (typeof value === "string" && name === "nitCliente") {
-      cleanedValue = value.trim().replace(/-/g, "");
-    } else if (
-      typeof value === "string" &&
-      name !== "message" &&
-      name !== "observaciones" &&
-      name !== "direccion"
-    ) {
-      cleanedValue = value.trimStart().replace(/\s+/g, " ");
-    } else {
-      cleanedValue = value;
+    if (typeof value === "string") {
+      if (name === "nitCliente") {
+        cleanedValue = value.trim().replace(/-/g, "");
+      } else if (!["message", "observaciones", "direccion"].includes(name)) {
+        cleanedValue = value.trimStart().replace(/\s+/g, " ");
+      }
     }
 
     setFormData((prev) => ({
@@ -33,9 +40,11 @@ export const useDeliveryAddressForm = (initialValues) => {
 
     // Validar campos obligatorios
     if (["nombre", "telefono", "direccion"].includes(name)) {
+      const isFieldValid =
+        typeof cleanedValue === "string" && cleanedValue.trim().length > 0;
       setIsValid((prev) => ({
         ...prev,
-        [name]: cleanedValue.length > 0,
+        [name]: isFieldValid,
       }));
     }
   };
@@ -43,8 +52,10 @@ export const useDeliveryAddressForm = (initialValues) => {
   return {
     formData,
     isValid,
+    isFormValid,
     handleChange,
     setFormData,
     setIsValid,
+    setIsFormValid,
   };
 };
