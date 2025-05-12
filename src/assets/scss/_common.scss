@@ -2591,8 +2591,9 @@ button.border-black:hover {
     top: 10px;
     left: 100%;
     margin-left: -25px;
-    content: "✖";
-    color: #8b0000;
+    //content: "✖";
+    content: "";
+    outline: #ff0000;
   }
 }
 
