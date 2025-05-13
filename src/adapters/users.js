@@ -27,11 +27,15 @@ export const adapterUserRegister = (user) => {
 };
 
 export const CustomerAnonymous = {
-  idUsuario: 1,
+  idUsuario: "999999",
   nombre: "",
-  idPais: 1,
-  idDepartamento: 7,
-  idMunicipio: 45,
+  correo: "",
+  nitInput: "",
+  nitCliente: "",
+  nameCliente: "",
+  idPais: "",
+  idDepartamento: "",
+  idMunicipio: "",
   telefono: "",
   direccion: "",
   observaciones: "",
@@ -40,11 +44,11 @@ export const CustomerAnonymous = {
 export const adapterUserAnonymous = (user = null) => {
   if (!user)
     return {
-      idUsuario: 1,
+      idUsuario: "999999",
       nombre: "",
-      idPais: 1,
-      idDepartamento: 7,
-      idMunicipio: 45,
+      idPais: "",
+      idDepartamento: "",
+      idMunicipio: "",
       telefono: "",
       direccion: "",
       observaciones: "",

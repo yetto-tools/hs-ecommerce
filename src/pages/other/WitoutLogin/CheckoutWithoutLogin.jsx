@@ -14,24 +14,59 @@ import { getDiscountPrice } from "../../../helpers/product";
 import FormDeliveryAddress from "./FormAddress";
 import { useDeliveryAddressForm } from "./useDeliveryAddressForm";
 import { useCheckoutWithoutLogin } from "./useCheckoutWithoutLogin";
+import { addressJsonToXml } from "../../../helpers/validator";
 
 const CheckoutWithoutLogin = () => {
   const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
   const { cartItems } = useSelector((state) => state.cart);
   const currency = useSelector((state) => state.currency);
-  const [disabledSendButton, setDisabledSendButton] = useState(false);
-  const { usuario, address } = useSelector((state) => state.usuario);
-  const [formIsValid, setFormIsValid] = useState(false);
 
-  const { formData, isValid, isFormValid, handleChange } =
-    useDeliveryAddressForm();
+  const {
+    formData,
+    country,
+    paisesFiltrados,
+    deptosFiltrados,
+    municipiosFiltrados,
+    isValid,
+    isFormValid,
+    handleChange,
+    setFormData,
+  } = useDeliveryAddressForm();
 
   const { cartTotalPrice, handleSendOrder, loadingOrder } =
     useCheckoutWithoutLogin();
 
   const handleSubmitInvoces = (e) => {
-    handleSendOrder(e);
+    const {
+      nombre,
+      nameCliente,
+      nitCliente,
+      correo,
+      direccion,
+      idPais,
+      idDepartamento,
+      idMunicipio,
+      observaciones,
+    } = formData;
+
+    const clienteDireccion = addressJsonToXml(
+      {
+        nombre,
+        nameCliente,
+        nitCliente,
+        correo,
+        direccion,
+        idPais,
+        idDepartamento,
+        idMunicipio,
+        observaciones,
+      },
+      "clienteDireccion"
+    );
+    console.log(clienteDireccion);
+
+    handleSendOrder(e, formData, clienteDireccion);
   };
   const handleDEBUG = () => {
     console.log(isValid);
@@ -54,13 +89,18 @@ const CheckoutWithoutLogin = () => {
           <div className="container-xl">
             {cartItems && cartItems.length >= 1 ? (
               <div className="row">
-                <div className="col-lg-6">
+                <div className="col-lg-6 border-end border-end-lg-0">
                   <div className="billing-info-wrap mb-5">
                     <div className="row">
                       <div className="col-lg-10">
                         <div className="border-bottom p-4 rounded mt-0">
                           <FormDeliveryAddress
                             formData={formData}
+                            setFormData={setFormData}
+                            country={country}
+                            paisesFiltrados={paisesFiltrados}
+                            deptosFiltrados={deptosFiltrados}
+                            municipiosFiltrados={municipiosFiltrados}
                             isValid={isValid}
                             handleChange={handleChange}
                           />

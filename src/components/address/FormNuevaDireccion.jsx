@@ -20,7 +20,7 @@ const FormNuevaDireccion = ({
   const [formData, setFormData] = useState({
     idUsuario: "",
     nombre: "",
-    idPais: 1,
+    idPais: "",
     idDepartamento: "",
     idMunicipio: "",
     telefono: "",
@@ -94,7 +94,7 @@ const FormNuevaDireccion = ({
       if (isSuccess) {
         setFormData({
           nombre: "",
-          idPais: 1,
+          idPais: "",
           idDepartamento: "",
           idMunicipio: "",
           telefono: "",

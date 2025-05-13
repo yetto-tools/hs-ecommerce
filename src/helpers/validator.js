@@ -123,3 +123,27 @@ export function validarHash(orderid, amount, time, key, hashRecibido) {
   // Comparar el hash calculado con el hash recibido
   return hashCalculado === hashRecibido;
 }
+
+export function addressJsonToXml(obj, rootName = "root") {
+  let xml = `<${rootName}>`;
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+
+      if (typeof value === "object" && value !== null) {
+        xml += addressJsonToXml(value, key);
+      } else {
+        xml += `<${key}>${String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&apos;")}</${key}>`;
+      }
+    }
+  }
+
+  xml += `</${rootName}>`;
+  return xml;
+}

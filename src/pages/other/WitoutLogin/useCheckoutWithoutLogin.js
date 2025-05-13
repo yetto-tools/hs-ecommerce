@@ -15,22 +15,6 @@ export const useCheckoutWithoutLogin = () => {
   const [readyToCheckout, setReadyToCheckout] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
   const { configParams } = useSelector((state) => state.paramsWeb);
-  const [formValues, setFormValues] = useState({
-    nitCliente: "",
-    nameCliente: "",
-    firstName: "",
-    lastName: "",
-    // Agrega aquí otros campos necesarios (ej. idCliente, idDireccion, phone, etc.)
-  });
-
-  const usuario = {
-    id: 0,
-    name: "",
-    email: "",
-    phone: "",
-    nit: "",
-    direccionCliente: "",
-  };
 
   const calculateTotalCart = (items) => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -72,7 +56,7 @@ export const useCheckoutWithoutLogin = () => {
     });
   };
 
-  const handleSendOrder = async (e) => {
+  const handleSendOrder = async (e, formValues, xmlData) => {
     e.preventDefault();
     setLoadingOrder(true);
 
@@ -106,20 +90,24 @@ export const useCheckoutWithoutLogin = () => {
     try {
       order = adapterOrderCustomer(formValues);
 
-      order.idCliente = usuario.id;
-      order.idDireccion = formValues.idDireccion;
+      order.idCliente = formValues.id;
+      order.idDireccion = formValues.idDireccion ?? formValues.idDireccion;
       order.products = orderProducts;
-      order.correoCliente = usuario.email;
-      order.telefonoCliente = formValues.phone;
-      order.direccionCliente = usuario.direccionCliente || " - ";
-      order.comentarios = formValues.message || "";
+      order.correoCliente = formValues.correo;
+      order.telefonoCliente = formValues.telefono;
+      order.direccionCliente = formValues.direccion; //formValues.direccionCliente || " - ";
+      order.comentarios = xmlData || "-";
       // Aquí se calculan total e impuesto (asegúrate de definir cartTotalPrice y otros cálculos)
       order.total = cartTotalPrice; //Number(cartTotalPrice.toFixed(2));
       order.impuesto = totalTaxes; // Number(new Decimal(totalTaxes).toFixed(2));
       order.documentoLocal = generarCorrelativoFactura();
       order.BAC_HASH = "1";
       order.BAC_MONTO = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
-      order.IdUsuario_Direccion = formValues.idDireccion;
+      order.IdUsuario_Direccion =
+        formValues.idDireccion ?? formValues.idDireccion;
+
+      console.log("order", order);
+      setLoadingOrder(false);
     } catch (error) {
       console.error("Error durante la validación de datos: " + error);
 
