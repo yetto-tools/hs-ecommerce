@@ -2,10 +2,10 @@
 // 2023-12-02
 // vista de productos con filtros
 
-import { Fragment, useState, useEffect, lazy } from "react";
+import { Fragment, useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -14,7 +14,6 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import {
   fetchArticles,
   fetchFilterAritcle,
-  fetchSearchArticles,
 } from "../../hooks/use-FetchArticles";
 import { jsonToXml } from "../../helpers/validator";
 
@@ -23,10 +22,6 @@ import ShopProducts from "../../wrappers/product/ShopProducts";
 const ShopGridMarcas = () => {
   const [layout, setLayout] = useState("grid three-column");
   const { articles } = useSelector((state) => state.articles);
-  const { params } = useSelector((state) => state.urlParams);
-
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
 
   // Obtener la categoría desde la URL
 

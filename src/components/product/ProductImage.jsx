@@ -7,7 +7,11 @@ import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 
-const ProductImageGallery = ({ images = [], productName = "" }) => {
+const ProductImageGallery = ({
+  images = [],
+  aspectRate = "16:9",
+  productName = "",
+}) => {
   const [loadedImages, setLoadedImages] = useState({});
   const { configParams } = useSelector((state) => state.paramsWeb);
 
@@ -65,7 +69,12 @@ const ProductImageGallery = ({ images = [], productName = "" }) => {
           <div key={i + image} className="single-image">
             <img
               src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
-              className="img-fluid object-fit-cover"
+              className={clsx(
+                "img-fluid object-fit-cover",
+                !aspectRate === "16:9" && "w-100"
+                  ? "aspect-ratio-16/9"
+                  : "aspect-ratio-4/3"
+              )}
               alt={image}
               onError={(e) => {
                 e.target.onerror = null;

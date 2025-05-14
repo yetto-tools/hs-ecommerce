@@ -12,10 +12,10 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 const MenuCart = () => {
   const dispatch = useDispatch();
   const currency = useSelector((state) => state.currency);
+  const { t, i18n } = useTranslation();
   const { cartItems } = useSelector((state) => state.cart);
   const { configParams } = useSelector((state) => state.paramsWeb);
   let cartTotalPrice = 0;
-  const { t, i18n } = useTranslation();
   const [modalShow, setModalShow] = useState(false);
   const cartRef = useRef(null);
   const navigate = useNavigate();

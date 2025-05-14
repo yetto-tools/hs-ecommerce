@@ -14,6 +14,7 @@ import BacCheckout from "./pages/other/BacCheckout";
 import ShopGridMarcas from "./pages/shop/ShopGridMarcas";
 import CheckoutWithoutLogin from "./pages/other/WitoutLogin/CheckoutWithoutLogin";
 
+import Product from "./pages/shop-product/Product";
 
 const PageReturnPolicy = lazy(() => import("./pages/other/PageReturnPolicy"));
 const PagePreguntasFrecuentes = lazy(() =>
@@ -82,11 +83,10 @@ const App = () => {
 
             {/* Shop pages */}
             {/* <Route
-              path={process.env.PUBLIC_URL + "/productos"}
-              element={<ShopGridStandard />}
+              path={process.env.PUBLIC_URL + "/producto/:slug"}
+              element={<Product />}
             /> */}
 
-            {/* Shop pages */}
             <Route
               path={process.env.PUBLIC_URL + "/productos"}
               element={<ShopGridStandard />}
@@ -96,11 +96,6 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/marca/:slug"}
               element={<ShopGridMarcas />}
             />
-
-            {/* <Route
-              path={process.env.PUBLIC_URL + "/producto/:sku"}
-              element={<ProductDetail />}
-            /> */}
 
             {/* Other pages */}
             <Route
