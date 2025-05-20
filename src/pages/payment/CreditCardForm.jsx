@@ -141,14 +141,19 @@ export const CreditCardForm = ({
                         name="cvc"
                         value={cardValues.cvc}
                         onChange={(e) =>
-                          setCardValues({ ...cardValues, cvc: e.target.value })
+                          setCardValues({
+                            ...cardValues,
+                            cvc: e.target.value,
+                            cvv: e.target.value,
+                          })
                         }
                         onFocus={handleInputFocus}
                         placeholder="cvv"
-                        maxLength="4"
-                        max={9999}
+                        maxLength="3"
+                        max={999}
                         required
                       />
+                      <input type="hidden" name="cvv" value={cardValues.cvc} />
                     </div>
                   </div>
                 </div>

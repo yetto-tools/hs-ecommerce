@@ -158,7 +158,7 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/ubicaciones"}
               element={<PageUbicaciones />}
             />
-            <Route path="/confirmar-pago" element={<PageSuccessPayment />} />
+            <Route path="/pago" element={<PageSuccessPayment />} />
             <Route path="/pago-exito" element={<PageSuccessPayment />} />
 
             <Route path="/version" element={<PageVersion />} />

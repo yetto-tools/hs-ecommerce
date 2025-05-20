@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { fetchStock } from "../../../hooks/use-FetchStock";
@@ -9,13 +9,15 @@ import {
 } from "../../../adapters/order";
 import { generarCorrelativoFactura } from "../../../helpers/validator";
 import { showToast } from "../../../toast/toastManager";
+import { API_URL } from "../../../config";
+import { deleteAllFromCart } from "../../../store/slices/cart-slice";
 
 export const useCheckoutWithoutLogin = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
   const [readyToCheckout, setReadyToCheckout] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
   const { configParams } = useSelector((state) => state.paramsWeb);
-
+  const dispatch = useDispatch;
   const calculateTotalCart = (items) => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
@@ -50,6 +52,19 @@ export const useCheckoutWithoutLogin = () => {
       title,
       showConfirmButton: true,
       timer: 7000,
+      customClass: {
+        confirmButton: "button-active-hs btn-black fw-bold mt-1 px-4 py-2",
+      },
+    });
+  };
+
+  const handleAlert = () => {
+    MySwal.fire({
+      position: "center",
+      icon: "success",
+      title: "Su Pedido ha sido enviado, nos pondremos en contacto con usted",
+      showConfirmButton: true,
+      timer: 2500,
       customClass: {
         confirmButton: "button-active-hs btn-black fw-bold mt-1 px-4 py-2",
       },
@@ -103,8 +118,8 @@ export const useCheckoutWithoutLogin = () => {
       order.documentoLocal = generarCorrelativoFactura();
       order.BAC_HASH = "1";
       order.BAC_MONTO = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
-      order.IdUsuario_Direccion =
-        formValues.idDireccion ?? formValues.idDireccion;
+      order.IdUsuario_Direccion = 999999;
+      //formValues.idDireccion ?? formValues.idDireccion;
 
       console.log("order", order);
       setLoadingOrder(false);
@@ -112,6 +127,34 @@ export const useCheckoutWithoutLogin = () => {
       console.error("Error durante la validación de datos: " + error);
 
       showToast(`${error.message}`, "error", "bottom-left");
+      setLoadingOrder(false);
+    }
+
+    try {
+      setLoadingOrder(true);
+      const url = `${API_URL}/api/v1/invoices`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+      });
+      const jsonResponse = await response.json();
+      if (!response.ok) {
+        const { message } = jsonResponse;
+        throw new Error(message || `HTTP error!`);
+      }
+      const { message } = jsonResponse;
+      if (message === "success") {
+        handleAlert();
+        // Limpiar el carrito solo en productivo
+        // dispatch(deleteAllFromCart());
+        return;
+      }
+    } catch (error) {
+      console.error("Error al enviar la orden: " + error);
+
+      showToast(`${error.message}`, "error", "bottom-left");
+    } finally {
       setLoadingOrder(false);
     }
   };

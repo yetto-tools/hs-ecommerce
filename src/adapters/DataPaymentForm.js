@@ -18,7 +18,7 @@ export const dataPaymentForm = () => {
     cvc: "",
     cvv: "",
     avs: "",
-    redirect: "https://hypestreet.dssolutionsgt.com/confirmacion-pago",
+    redirect: "https://hypestreet.dssolutionsgt.com/pago-exito",
     expiryYear: "",
     expiryMonth: "",
   };
@@ -42,8 +42,7 @@ export const adapterPaymentForm = (cliente, tarjeta, pago, redirect) => {
     email: cliente.email || "",
     phone: cliente.phone || "",
 
-    redirect:
-      redirect || "https://hypestreet.dssolutionsgt.com/confirmacion-pago",
+    redirect: redirect || "https://hypestreet.dssolutionsgt.com/pago-exito",
 
     expiryYear: tarjeta.expiryYear || "",
     expiryMonth: tarjeta.expiryMonth || "",
