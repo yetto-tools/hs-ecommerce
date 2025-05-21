@@ -21,6 +21,7 @@ export const dataPaymentForm = () => {
     redirect: "https://hypestreet.dssolutionsgt.com/pago-exito",
     expiryYear: "",
     expiryMonth: "",
+    "first_name,last_name": "",
   };
 };
 
@@ -46,5 +47,30 @@ export const adapterPaymentForm = (cliente, tarjeta, pago, redirect) => {
 
     expiryYear: tarjeta.expiryYear || "",
     expiryMonth: tarjeta.expiryMonth || "",
+  };
+};
+
+
+export const adapterFormBAC = (key_id, redirect) => {
+  // const ccexp = expiryMonth + expiryYear;
+  return {
+
+    type:"auth",
+    key_id: key_id ?? "14482124",
+    hash: "",
+    time:"",
+    amount:"",
+    tax:"",
+    orderid:"",
+    processor_id:"",
+    "first_name,last_name": "",
+    phone:"",
+    email:"",
+    ccnumber:"",
+    ccexp:"",
+    cvv:"",
+    avs:"",
+    redirect:redirect ?? "https://hypestreet.dssolutionsgt.com/pago-exito",
+
   };
 };

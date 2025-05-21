@@ -6,6 +6,9 @@ export const ResumenCompra = ({
   t,
   i18n,
 }) => {
+
+  const Total = cartTotalPrice.toFixed(2);
+
   return (
     <div className="your-order-area sticky-column">
       <h3>{t("page_checkout.your_order")}</h3>
@@ -82,7 +85,7 @@ export const ResumenCompra = ({
                 {new Intl.NumberFormat(i18n.language, {
                   style: "currency",
                   currency: currency.currencyName,
-                }).format(cartTotalPrice)}
+                }).format(Total)}
               </li>
             </ul>
           </div>

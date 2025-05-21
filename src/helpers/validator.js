@@ -102,7 +102,7 @@ export const generarCorrelativoFactura = () => {
     .toString()
     .padStart(4, "0"); // 4 dígitos aleatorios
 
-  const correlativo = `${year}${month}${day}${hour}${minute}${second}${millis}-${random}`;
+  const correlativo = `${year}${month}${day}${hour}${minute}${second}${millis}FAC${random}`;
 
   return correlativo; // Máx. 37 caracteres
 };
@@ -147,3 +147,11 @@ export function addressJsonToXml(obj, rootName = "root") {
   xml += `</${rootName}>`;
   return xml;
 }
+
+
+export function calcularIVAIncluido(precioConIVA) {
+  const precioSinIVA = +(precioConIVA / 1.12).toFixed(2);
+  const iva = +(precioConIVA - precioSinIVA).toFixed(2);
+  return { precioSinIVA, iva };
+}
+

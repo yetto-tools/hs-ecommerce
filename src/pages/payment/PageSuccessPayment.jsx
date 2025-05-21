@@ -8,7 +8,7 @@ export const PageSuccessPayment = () => {
   const paymentData = usePaymentData();
 
   // Envia los datos a tu endpoint
-  useSendPaymentData(paymentData);
+  // useSendPaymentData(paymentData);
 
   return (
     <PageContentBlank>

@@ -77,7 +77,7 @@ const FormDeliveryAddress = ({
         <label className="form-label mb-0">Correo *</label>
         <div className="validation">
           <input
-            type="text"
+            type="email"
             name="correo"
             value={formData.correo}
             onChange={handleChange}
@@ -85,6 +85,8 @@ const FormDeliveryAddress = ({
             placeholder="Correo"
             required
             autoComplete="off"
+            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+            title="Ingrese un correo electrónico válido (ej: usuario@dominio.com)"
           />
           <span className="validity"></span>
         </div>

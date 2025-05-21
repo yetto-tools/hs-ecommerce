@@ -159,6 +159,31 @@ export const useCheckoutWithoutLogin = () => {
     }
   };
 
+ const postToCredomatic = (data) => {
+  // Crea el formulario
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "https://credomatic.compassmerchantsolutions.com/api/transact.php";
+
+  // Por seguridad
+  form.style.display = "none";
+
+  // Llena el formulario con inputs hidden
+  for (const [key, value] of Object.entries(data)) {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = key;
+    input.value = value;
+    form.appendChild(input);
+  }
+
+  // Añadir al DOM y enviar
+  document.body.appendChild(form);
+  form.submit();
+};
+
+
+
   return {
     cartTotalPrice,
     calculateTotalCart,
@@ -167,5 +192,6 @@ export const useCheckoutWithoutLogin = () => {
     handleAlertSaleOut,
     loadingOrder,
     setLoadingOrder,
+    postToCredomatic
   };
 };

@@ -14,15 +14,19 @@ import { getDiscountPrice } from "../../../helpers/product";
 import FormDeliveryAddress from "./FormAddress";
 import { useDeliveryAddressForm } from "./useDeliveryAddressForm";
 import { useCheckoutWithoutLogin } from "./useCheckoutWithoutLogin";
-import { addressJsonToXml } from "../../../helpers/validator";
+import { addressJsonToXml, calcularIVAIncluido } from "../../../helpers/validator";
 import { CreditCardForm } from "../../payment/CreditCardForm";
-import { dataPaymentForm } from "../../../adapters/DataPaymentForm";
+import { adapterFormBAC, dataPaymentForm } from "../../../adapters/DataPaymentForm";
+import { generarCorrelativoFactura, generarHash } from "../../../helpers/validator";
+
+
 
 const CheckoutWithoutLogin = () => {
   const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
   const { cartItems } = useSelector((state) => state.cart);
   const currency = useSelector((state) => state.currency);
+  const [formBAC, setFormBAC ] = useState(adapterFormBAC);
 
   const {
     formData,
@@ -34,10 +38,12 @@ const CheckoutWithoutLogin = () => {
     isFormValid,
     handleChange,
     setFormData,
+
   } = useDeliveryAddressForm();
 
-  const { cartTotalPrice, handleSendOrder, loadingOrder } =
+  const { cartTotalPrice, handleSendOrder, loadingOrder, postToCredomatic } =
     useCheckoutWithoutLogin();
+
 
   const handleSubmitInvoces = (e) => {
     const {
@@ -79,6 +85,50 @@ const CheckoutWithoutLogin = () => {
   const handleCardDebug = () => {
     console.log(cardValues);
   };
+
+
+
+
+  const handleSubmitPayment = async (e) => {
+  e.preventDefault();
+
+  const orderId = generarCorrelativoFactura();
+  const time = Math.floor(Date.now() / 1000);
+  const hash = generarHash(orderId, amount, time, "14482124");
+
+  const amount = cartTotalPrice.toFixed(2);
+  const taxDetail = calcularIVAIncluido(amount);
+
+  const expiryMonth = cardValues.expiryMonth?.padStart(2, "0") ?? "";
+  const expiryYear = cardValues.expiryYear?.slice(-2) ?? "";
+  const ccexp = `${expiryMonth}${expiryYear}`;
+
+  const finalFormBAC = {
+    type: "auth",
+    key_id: "14482124",
+    hash,
+    time,
+    amount,
+    tax: taxDetail.iva,
+    orderid: orderId,
+    processor_id: cardValues.processor_id ?? "",
+    "first_name,last_name": formData.nombre ?? "",
+    phone: formData.telefono ?? "",
+    email: formData.correo ?? "",
+    ccnumber: cardValues.ccnumber ?? "",
+    ccexp,
+    cvv: cardValues.cvc ?? "",
+    avs: `${formData.direccion ?? ""}`,
+    redirect: "https://hypestreet.dssolutionsgt.com/pago-exito",
+  };
+
+  await setFormBAC(finalFormBAC); // si lo necesitas para estado
+  console.log("📦 FINAL formBAC", finalFormBAC);
+
+  // Aquí puede usar finalFormBAC directamente para submit
+   postToCredomatic(finalFormBAC);
+};
+
 
   return (
     <Fragment>
@@ -128,7 +178,7 @@ const CheckoutWithoutLogin = () => {
                           </h3>
 
                           <CreditCardForm
-                            //handleSubmitPayment={handleBacPayment}
+                            handleSubmitPayment={handleSubmitPayment}
                             cardValues={cardValues}
                             setCardValues={setCardValues}
                           />
