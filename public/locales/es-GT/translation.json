@@ -201,7 +201,8 @@
     "add_new_address": "Añadir una Dirección",
     "change_address": "Nueva Dirección",
     "complete_all_fields": "Completar todos los Campos",
-    "complete_fields": "Completar  Formulario"
+    "complete_fields": "Completar  Formulario",
+    "complete_form": "primero completar datos"
   },
   "general_words": {
     "new": "Nuevo",

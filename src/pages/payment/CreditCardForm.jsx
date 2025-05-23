@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import { CreditCard } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Loader2 } from "lucide-react";
 
 export const CreditCardForm = ({
   handleSubmitPayment,
   cardValues,
   setCardValues,
+  setDisableButton,
+  disableButton
 }) => {
   const { t } = useTranslation();
 
@@ -21,6 +24,8 @@ export const CreditCardForm = ({
     2,
     "0"
   )}/${cardValues.expiryYear.slice(-2)}`;
+
+
 
   return (
     <div className="checkout-area pt-4 pb-100 enable-selection">
@@ -159,12 +164,21 @@ export const CreditCardForm = ({
                 </div>
                 <div className="col-12 place-order my-4 text-center">
                   <label htmlFor=""></label>
-                  <button
-                    type="submit"
-                    className="button-active-hs btn-black fw-bold w-75 mt-2 py-3 fs-5"
-                  >
-                    {t("page_checkout.pay")} <CreditCard />
-                  </button>
+                  {
+                      disableButton ? (
+                        <span className="button-active-hs btn-black fw-bold w-75 mt-2 py-3 fs-5 opacity-50" style={{ cursor: "not-allowed", pointerEvents: "none" }}>
+                          {t("page_checkout.pay")}  <Loader2 className="animate-spin" /> 
+                        </span>
+                      )  : (
+                        <button  type="submit" className="button-active-hs btn-black fw-bold w-75 mt-2 py-3 fs-5" >
+                          {t("page_checkout.pay")} <CreditCard />
+                        </button>
+                      )
+
+                      
+                  }
+                  
+                  
                 </div>
 
                 <div className="col-12 hidden">

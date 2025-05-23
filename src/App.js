@@ -81,11 +81,12 @@ const App = () => {
               element={<HomeFashionTwo />}
             />
 
-            {/* Shop pages */}
-            {/* <Route
+            {/*Shop pages */}
+            
+            <Route
               path={process.env.PUBLIC_URL + "/producto/:slug"}
               element={<Product />}
-            /> */}
+            />
 
             <Route
               path={process.env.PUBLIC_URL + "/productos"}

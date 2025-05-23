@@ -19,7 +19,7 @@ const PageContentBlank = ({ children }) => {
 
   return (
     <Fragment>
-      <SEO titleTemplate="Contact" description="Página de contacto de Flone." />
+      <SEO titleTemplate="Contact" description="Proceso de forma de Pago" />
       <LayoutOne headerTop="visible">
         {/* Breadcrumb */}
         <Breadcrumb

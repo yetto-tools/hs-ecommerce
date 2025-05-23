@@ -28,6 +28,7 @@ import urlParamsReducer from "./slices/urlParams-slice";
 import paramsWebReducer from "./slices/paramsWeb-slice";
 import orderReducer from "./slices/order-slice";
 import sendEmailReducer from "./slices/emailSend-slice";
+import cartOrderReducer from "./slices/cartOrder-slice";
 
 const persistConfig = {
   key: "flone",
@@ -44,7 +45,7 @@ const persistConfig = {
     "urlParams",
     "sendEamil",
     "address",
-    "newArrivals",
+    "newArrivals"    
   ],
 };
 
@@ -61,6 +62,11 @@ const addressPersistConfig = {
 };
 const newArrivalsPersistConfig = {
   key: "newArrivals",
+  storage: storageSession,
+};
+
+const cartOrderPersistConfig = {
+  key: "cartOrder",
   storage: storageSession,
 };
 
@@ -83,6 +89,7 @@ const rootReducer = combineReducers({
   paramsWeb: paramsWebReducer,
   order: orderReducer,
   sendEmail: sendEmailReducer,
+  cartOrder: persistReducer(cartOrderPersistConfig, cartOrderReducer),
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

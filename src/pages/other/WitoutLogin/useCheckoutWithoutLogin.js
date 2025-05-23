@@ -9,8 +9,9 @@ import {
 } from "../../../adapters/order";
 import { generarCorrelativoFactura } from "../../../helpers/validator";
 import { showToast } from "../../../toast/toastManager";
-import { API_URL } from "../../../config";
+import { API_URL, API_URL_BAC, DB_ENV } from "../../../config";
 import { deleteAllFromCart } from "../../../store/slices/cart-slice";
+
 
 export const useCheckoutWithoutLogin = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
@@ -29,15 +30,24 @@ export const useCheckoutWithoutLogin = () => {
 
   const validarDatosFormulario = (formValues) => {
     if (!formValues.nombre) {
-      showToast("warn", "Ingresar un nombre");
+      showToast("Ingresar un nombre"  , "warn");
       return false;
     }
-    if (!formValues.telefono) {
-      showToast("warn", "Ingresar un telefono");
+    if (!formValues.correo) {
+      showToast("Ingresar un correo", "warn",);
+      return false;
+    }
+    if (!formValues.nitCliente) {
+      showToast("Ingresar un nit", "warn");
+      return false;
+    }
+    
+    if (!formValues.telefonoCliente && formValues.telefonoCliente?.length <= 7) {
+      showToast("Ingresar un telefono", "warn");
       return false;
     }
     if (!formValues.direccion) {
-      showToast("warn", "Ingresar una direccion");
+      showToast("Ingresar una direccion", "warn" );
       return false;
     }
 
@@ -116,7 +126,7 @@ export const useCheckoutWithoutLogin = () => {
       order.total = cartTotalPrice; //Number(cartTotalPrice.toFixed(2));
       order.impuesto = totalTaxes; // Number(new Decimal(totalTaxes).toFixed(2));
       order.documentoLocal = generarCorrelativoFactura();
-      order.BAC_HASH = "1";
+      order.BAC_HASH = null;
       order.BAC_MONTO = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
       order.IdUsuario_Direccion = 999999;
       //formValues.idDireccion ?? formValues.idDireccion;
@@ -159,17 +169,131 @@ export const useCheckoutWithoutLogin = () => {
     }
   };
 
- const postToCredomatic = (data) => {
-  // Crea el formulario
+  const handleSaveCartToOrder = async (e, formValues, xmlData) => {
+    e.preventDefault();
+    setLoadingOrder(true);
+    const isValid = validarDatosFormulario(formValues)
+    if (!isValid) {
+      setLoadingOrder(false);
+      return;
+    }
+    // Validar stock
+    let allItemsInStock = true;
+    setReadyToCheckout(true);
+    for (const item of cartItems) {
+      const stock = await fetchStock(item.code);
+      if (item.quantity > stock) {
+        handleAlertSaleOut(
+          `No hay suficiente stock para ${item.name} - ${item.size} - ${item.color}.`
+        );
+        allItemsInStock = false;
+        setReadyToCheckout(false);
+      }
+    }
+    if (!allItemsInStock) {
+      setLoadingOrder(false);
+      return;
+    }
+    // Armar la orden
+    const orderProducts = adapterOrderProducts(
+      cartItems,
+      {
+        iva: 1.12,
+        idAlmacen: 1,
+      },
+      configParams.RUTAIMAGENESARTICULOS
+    );
+    let order = {};
+    try {
+      const documentoLocal = generarCorrelativoFactura();
+      order = adapterOrderCustomer(formValues);
+
+      order.idCliente = formValues.id ?? 999999;
+      order.idDireccion = formValues.idDireccion ?? formValues.idDireccion ?? 999999;
+      order.products = orderProducts;
+      order.correoCliente = formValues.correo;
+      order.telefonoCliente = formValues.telefono;
+      order.direccionCliente = formValues.direccion; //formValues.direccionCliente || " - ";
+      order.comentarios = formValues.comentarios || "-";
+      // Aquí se calculan total e impuesto (asegúrate de definir cartTotalPrice y otros cálculos)
+      order.total = cartTotalPrice; //Number(cartTotalPrice.toFixed(2));
+      order.impuesto = totalTaxes; // Number(new Decimal(totalTaxes).toFixed(2));
+      order.documentoLocal = documentoLocal;
+      order.BACOrderId = documentoLocal;
+      order.BAC_HASH = null;
+      order.BAC_MONTO = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
+      order.IdUsuario_Direccion = 999999;
+      //formValues.idDireccion ?? formValues.idDireccion;
+      order.xmlData = xmlData ?? ""; 
+      setLoadingOrder(false);
+    } catch (error) {
+      console.error("Error durante la validación de datos: " + error);
+
+      showToast(`${error.message}`, "error", "bottom-left");
+      setLoadingOrder(false);
+    }
+    
+    return {order};
+  };
+
+
+
+ const postToCredomatic = async (UIdCarrito, cardValues) => {
+  
+    // Crea el formulario https://d0krpbqk-40856.use2.devtunnels.ms
+    const url = `${API_URL_BAC}/api/Payment/${UIdCarrito}?env=${DB_ENV}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log(response);
+    const {meta, data} = await response.json();
+
+    if (meta.resultado === 0 ) 
+    {
+      const { mensaje } = meta;
+      console.log(mensaje)
+      return     
+    }
+
+
+
+    let dataFormBac =  {
+        type:data.type,
+        key_id:data.key_id,
+        hash:data.hash,
+        time: data.time,
+        amount:data.amount,
+        tax:data.tax,
+        orderid:data.orderid,
+        ccnumber:cardValues.ccnumber,
+        ccexp:`${cardValues.expiryMonth}${cardValues.expiryYear}`,
+        cvv:cardValues.cvv,
+        "first_name,last_name":cardValues.name,
+        email:cardValues.email,
+        phone:cardValues.phone,
+        redirect:data.redirect,
+        action:data.action,
+        avs:data.avs,
+    
+    }
+
+    
+
+
+
   const form = document.createElement("form");
   form.method = "POST";
-  form.action = "https://credomatic.compassmerchantsolutions.com/api/transact.php";
+  form.action = data.action;
 
   // Por seguridad
   form.style.display = "none";
 
   // Llena el formulario con inputs hidden
-  for (const [key, value] of Object.entries(data)) {
+  for (const [key, value] of Object.entries(dataFormBac)) {
     const input = document.createElement("input");
     input.type = "hidden";
     input.name = key;
@@ -180,7 +304,22 @@ export const useCheckoutWithoutLogin = () => {
   // Añadir al DOM y enviar
   document.body.appendChild(form);
   form.submit();
+  console.log(dataFormBac)
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -190,6 +329,7 @@ export const useCheckoutWithoutLogin = () => {
     validarDatosFormulario,
     handleSendOrder,
     handleAlertSaleOut,
+    handleSaveCartToOrder,
     loadingOrder,
     setLoadingOrder,
     postToCredomatic

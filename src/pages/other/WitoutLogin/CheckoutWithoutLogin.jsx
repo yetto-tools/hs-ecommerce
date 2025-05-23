@@ -2,7 +2,7 @@
 import { Fragment, use, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Loader2, Send } from "lucide-react";
 
@@ -17,7 +17,11 @@ import { useCheckoutWithoutLogin } from "./useCheckoutWithoutLogin";
 import { addressJsonToXml, calcularIVAIncluido } from "../../../helpers/validator";
 import { CreditCardForm } from "../../payment/CreditCardForm";
 import { adapterFormBAC, dataPaymentForm } from "../../../adapters/DataPaymentForm";
-import { generarCorrelativoFactura, generarHash } from "../../../helpers/validator";
+import { fetchCartOrder } from "../../../hooks/useFetchCartOrder";
+import { showToast } from "../../../toast/toastManager";
+
+
+
 
 
 
@@ -26,7 +30,10 @@ const CheckoutWithoutLogin = () => {
   const { pathname } = useLocation();
   const { cartItems } = useSelector((state) => state.cart);
   const currency = useSelector((state) => state.currency);
+  const dispatch = useDispatch();
+  const {cartOrder} = useSelector((state) => state.cartOrder);
   const [formBAC, setFormBAC ] = useState(adapterFormBAC);
+  const [disableButton, setDisableButton] = useState(false);
 
   const {
     formData,
@@ -41,11 +48,12 @@ const CheckoutWithoutLogin = () => {
 
   } = useDeliveryAddressForm();
 
-  const { cartTotalPrice, handleSendOrder, loadingOrder, postToCredomatic } =
+  const { cartTotalPrice, handleSendOrder, loadingOrder,handleSaveCartToOrder, postToCredomatic } =
     useCheckoutWithoutLogin();
 
 
   const handleSubmitInvoces = (e) => {
+    e.preventDefault();
     const {
       nombre,
       nameCliente,
@@ -90,43 +98,106 @@ const CheckoutWithoutLogin = () => {
 
 
   const handleSubmitPayment = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    e.stopPropagation();
+    setDisableButton(true);
+    console.log({formData, cardValues});
 
-  const orderId = generarCorrelativoFactura();
-  const time = Math.floor(Date.now() / 1000);
-  const hash = generarHash(orderId, amount, time, "14482124");
+   if(formData.nombre === "" || formData?.nombre?.length === 0){
+      document.getElementById('nombre')?.focus();
+      showToast("Falta el NOMBRE del cliente", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
 
-  const amount = cartTotalPrice.toFixed(2);
-  const taxDetail = calcularIVAIncluido(amount);
+    if(formData.correo === "" || formData?.correo?.length === 0){
+      document.getElementById('correo')?.focus();
+      showToast("Falta el CORREO electronico del cliente", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
+    if(formData.telefono === "" || formData?.telefono?.length === 0 || formData?.telefono?.length < 7 || isNaN(formData?.telefono?.toString()) || formData?.telefono?.toString()?.length >= 12){
+      document.getElementById('telefono')?.focus();
+      showToast("Falta el TELEFONO del cliente, debe ser de 8 digitos: ejeplo: 32323232", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
+    if(formData.idPais === "" || formData?.idPais?.length === 0){
+      document.getElementById('idPais')?.focus();
+      showToast("falta el PAIS ", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
+    if(formData.idDepartamento === "" || formData?.idDepartamento?.length === 0){
+      document.getElementById('idDepartamento')?.focus();
+      showToast("falta el DEPARTAMENTO ", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
+    if(formData.idMunicipio === "" || formData?.idMunicipio?.length === 0){
+      document.getElementById('idMunicipio')?.focus();
+      showToast("falta el MUNICIPIO ", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
+ 
+    if(formData.direccion === "" || formData?.direccion?.length === 0){
+      document.getElementById('direccion')?.focus();
+      showToast("Falta la DIRECCION del cliente", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
+    
+    if(formData.nitInput === "" || formData?.nitInput?.length === 0){
+      document.getElementById('nitInput')?.focus();
+      showToast("falta el NIT", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
+    else{
+      document.getElementById('btn-validar-nit')?.click();
+    }
+    if(formData.nitCliente === "" || formData?.nitCliente?.length === 0 || formData?.nitCliente?.toString()?.length >= 15){
+      document.getElementById('nitInput')?.focus();
+      showToast("falta el Validar el NIT ingresado", "warn",'top-center');
+      setDisableButton(false);
+      return
+    }
+    
 
-  const expiryMonth = cardValues.expiryMonth?.padStart(2, "0") ?? "";
-  const expiryYear = cardValues.expiryYear?.slice(-2) ?? "";
-  const ccexp = `${expiryMonth}${expiryYear}`;
+    await setTimeout(async () => {
+      setDisableButton(false);
+    },5000)
 
-  const finalFormBAC = {
-    type: "auth",
-    key_id: "14482124",
-    hash,
-    time,
-    amount,
-    tax: taxDetail.iva,
-    orderid: orderId,
-    processor_id: cardValues.processor_id ?? "",
-    "first_name,last_name": formData.nombre ?? "",
-    phone: formData.telefono ?? "",
-    email: formData.correo ?? "",
-    ccnumber: cardValues.ccnumber ?? "",
-    ccexp,
-    cvv: cardValues.cvc ?? "",
-    avs: `${formData.direccion ?? ""}`,
-    redirect: "https://hypestreet.dssolutionsgt.com/pago-exito",
-  };
+    
+    
+    // 1. verificar stock y formatear datos de la orden y pago
+    const  Order = await handleSaveCartToOrder(e, formData, formBAC.clienteDireccion);
+    
+    // 2. Crear el carrito y esperar la respuesta
+    const cartOrderData = await dispatch(fetchCartOrder(Order));
 
-  await setFormBAC(finalFormBAC); // si lo necesitas para estado
-  console.log("📦 FINAL formBAC", finalFormBAC);
+    if (!cartOrderData || cartOrderData.length === 0) {
+      showToast("No se pudo generar el carrito", "error");
+      return;
+    }
 
-  // Aquí puede usar finalFormBAC directamente para submit
-   postToCredomatic(finalFormBAC);
+    // 3. Extraer el UIdCarrito y continuar con el proceso de pago
+    const { UIdCarrito } = cartOrderData;
+    if (!UIdCarrito) {
+      showToast("No se pudo recuperar el UIdCarrito", "error");
+      return;
+    }
+
+    if (cartOrderData ) {
+      await postToCredomatic(UIdCarrito, cardValues);
+    }
+
+
+
+
+
+  
 };
 
 
@@ -181,6 +252,8 @@ const CheckoutWithoutLogin = () => {
                             handleSubmitPayment={handleSubmitPayment}
                             cardValues={cardValues}
                             setCardValues={setCardValues}
+                            setDisableButton={setDisableButton}
+                            disableButton={disableButton}
                           />
                         </div>
                       </div>
@@ -188,55 +261,7 @@ const CheckoutWithoutLogin = () => {
                   </div>
                   <hr />
                   <br />
-                  <div className="billing-info-wrap mb-5">
-                    <div className="row">
-                      <div className="col-lg-10">
-                        <div className="border-bottom p-4 rounded mt-0">
-                          <h3 onClick={() => handleDEBUG()}>
-                            Confirmar Orden de Compra
-                          </h3>
-                          <hr />
-                          <div
-                            className="row"
-                            style={{
-                              opacity: !isFormValid ? 0.3 : 1,
-                              pointerEvents: !isFormValid ? "none" : "auto",
-                            }}
-                          >
-                            <div className="col-lg-10 mx-auto">
-                              <div className="row col-lg-12 mx-auto">
-                                <button
-                                  type="submit"
-                                  className="button-active-hs btn-black w-100 d-flex justify-content-center align-items-center gap-2 py-2"
-                                  disabled={!isFormValid || loadingOrder}
-                                  onClick={handleSubmitInvoces}
-                                >
-                                  <span>
-                                    {isFormValid
-                                      ? t("send_message")
-                                      : t("page_checkout.complete_fields")}
-                                  </span>
-
-                                  {loadingOrder ? (
-                                    <Loader2 className="animate-spin" />
-                                  ) : (
-                                    <Send className="position-relative" />
-                                  )}
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="row col-lg-12 mx-auto">
-                            {!isFormValid && (
-                              <p className="text-danger text-center mt-2">
-                                {t("page_checkout.complete_all_fields")}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+       
                 </div>
 
                 <div className="col-lg-1"></div>

@@ -39,6 +39,7 @@ export const FormNIT = forwardRef(
               autoComplete="off"
             />
             <button
+              id="btn-validar-nit"
               type="submit"
               className="btn-hover-green text-center"
               style={style}

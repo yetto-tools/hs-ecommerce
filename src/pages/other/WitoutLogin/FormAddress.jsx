@@ -60,6 +60,7 @@ const FormDeliveryAddress = ({
         <label className="form-label mb-0">Nombre *</label>
         <div className="validation">
           <input
+            id="nombre"
             type="text"
             name="nombre"
             value={formData.nombre}
@@ -78,6 +79,7 @@ const FormDeliveryAddress = ({
         <div className="validation">
           <input
             type="email"
+            id="correo"
             name="correo"
             value={formData.correo}
             onChange={handleChange}
@@ -104,6 +106,7 @@ const FormDeliveryAddress = ({
           <div className="validation">
             <input
               type="text"
+              id="telefono"
               name="telefono"
               value={formData.telefono}
               onChange={handleChange}
@@ -126,43 +129,19 @@ const FormDeliveryAddress = ({
         >
           <div className="row">
             <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-              <label className="form-label mb-0">País *</label>
-              <div className="validation">
-                <select
-                  name="idPais"
-                  value={formData.idPais} // Vinculado al estado
-                  onChange={handleChange}
-                  className={clsx(
-                    "form-select rounded py-2",
-                    !isValid.idPais && "is-invalid"
-                  )}
-                  required
-                >
-                  <option value="">Seleccione un país</option>
-                  {country?.paises?.map((pais) => (
-                    <option key={pais.IdPais} value={pais.IdPais}>
-                      {pais.Nombre}
-                    </option>
-                  ))}
-                </select>
-                {!isValid.idPais && (
-                  <small className="text-danger">Campo requerido</small>
-                )}
-              </div>
             </div>
             <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
               <label className="form-label mb-0">Departamento *</label>
               <div className="validation">
                 <select
+                  id="idDepartamento"
                   name="idDepartamento"
                   value={formData.idDepartamento}
                   onChange={handleChange}
                   className={clsx(
-                    "form-select rounded py-2",
-                    !isValid.idDepartamento && "is-invalid"
+                    "form-select rounded py-2"
                   )}
                   required
-                  disabled={!deptosFiltrados.length}
                 >
                   <option value="">Seleccione un Departamento</option>
                   {deptosFiltrados.map((depto) => (
@@ -183,6 +162,7 @@ const FormDeliveryAddress = ({
               <label className="form-label mb-0">Municipio *</label>
               <div className="validation">
                 <select
+                  id="idMunicipio"
                   name="idMunicipio"
                   value={formData.idMunicipio}
                   onChange={handleChange}
@@ -215,6 +195,7 @@ const FormDeliveryAddress = ({
         <label className="form-label mb-0">Dirección *</label>
         <div className="validation">
           <textarea
+            id="direccion"
             name="direccion"
             value={formData.direccion}
             onChange={handleChange}

@@ -3,6 +3,8 @@ const API_VERSION = process.env.REACT_APP_API_VERSION;
 const API_KEY = process.env.REACT_APP_API_KEY;
 const API_TOKEN = process.env.REACT_APP_API_TOKEN;
 const API_NIT = process.env.REACT_APP_API_NIT;
+const DB_ENV = "dev";
+const API_URL_BAC = "https://test-apihs.yettotools.com";///process.env.REACT_APP_API_URL_BAC;
 const URL_INSTAGRAM =
   "https://www.instagram.com/esconhype?igsh=MXVyeWlxZnM3bnJxaw%3D%3D&utm_source=qr";
 const URL_FACEBOOK = "https://www.facebook.com/Hypestreetstoree/?locale=es_LA";
@@ -19,6 +21,7 @@ const APP_ENV = "development" || process.env.NODE_ENV;
 export {
   API_URL,
   API_VERSION,
+  API_URL_BAC,
   API_KEY,
   API_TOKEN,
   API_NIT,
@@ -31,4 +34,5 @@ export {
   FAQ_MD_PATH,
   STORES_LOCATION_MD_PATH,
   APP_ENV,
+  DB_ENV,
 };
