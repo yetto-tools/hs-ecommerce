@@ -124,8 +124,8 @@ const FormDeliveryAddress = ({
         >
           <div className="row">
             <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-              <label className="form-label mb-0">País *</label>
-              <div className="validation">
+              <label className="form-label mb-0 hidden">País *</label>
+              <div className="validation hidden">
                 <select
                   name="idPais"
                   value={formData.idPais} // Vinculado al estado

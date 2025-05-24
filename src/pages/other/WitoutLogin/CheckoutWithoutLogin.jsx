@@ -119,23 +119,7 @@ const CheckoutWithoutLogin = () => {
 
                   <br />
 
-                  <div className="billing-info-wrap mb-5">
-                    <div className="row">
-                      <div className="col-lg-10">
-                        <div className="border-bottom p-4 rounded mt-0">
-                          <h3 onClick={() => handleCardDebug()}>
-                            Confirmar Orden de Compra
-                          </h3>
-
-                          <CreditCardForm
-                            //handleSubmitPayment={handleBacPayment}
-                            cardValues={cardValues}
-                            setCardValues={setCardValues}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  
                   <hr />
                   <br />
                   <div className="billing-info-wrap mb-5">

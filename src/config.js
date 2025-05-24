@@ -15,7 +15,7 @@ const RETURN_POLICY_MD_PATH =
 const FAQ_MD_PATH = process.env.PUBLIC_URL + "docs/preguntas-frecuentes.md";
 const STORES_LOCATION_MD_PATH = process.env.PUBLIC_URL + "docs/ubicaciones.md";
 
-const APP_ENV = "development" || process.env.NODE_ENV;
+const APP_ENV = "production" || process.env.NODE_ENV;
 export {
   API_URL,
   API_VERSION,

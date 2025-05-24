@@ -33,7 +33,7 @@ export const CustomerAnonymous = {
   nitInput: "",
   nitCliente: "",
   nameCliente: "",
-  idPais: "",
+  idPais: "1",
   idDepartamento: "",
   idMunicipio: "",
   telefono: "",
