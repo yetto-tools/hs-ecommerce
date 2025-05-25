@@ -80,8 +80,7 @@ const CheckoutWithoutLogin = () => {
       },
       "clienteDireccion"
     );
-    console.log(clienteDireccion);
-
+    
     handleSendOrder(e, formData, clienteDireccion);
   };
   const handleDEBUG = () => {
@@ -169,7 +168,8 @@ const CheckoutWithoutLogin = () => {
       setDisableButton(false);
     },5000)
 
-    
+
+
     
     // 1. verificar stock y formatear datos de la orden y pago
     const  Order = await handleSaveCartToOrder(e, formData, formBAC.clienteDireccion);

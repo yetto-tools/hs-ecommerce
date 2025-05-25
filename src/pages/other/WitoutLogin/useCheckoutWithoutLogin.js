@@ -7,7 +7,7 @@ import {
   adapterOrderCustomer,
   adapterOrderProducts,
 } from "../../../adapters/order";
-import { generarCorrelativoFactura } from "../../../helpers/validator";
+import { addressJsonToXml, generarCorrelativoFactura } from "../../../helpers/validator";
 import { showToast } from "../../../toast/toastManager";
 import { API_URL, API_URL_BAC, DB_ENV } from "../../../config";
 import { deleteAllFromCart } from "../../../store/slices/cart-slice";
@@ -121,7 +121,7 @@ export const useCheckoutWithoutLogin = () => {
       order.correoCliente = formValues.correo;
       order.telefonoCliente = formValues.telefono;
       order.direccionCliente = formValues.direccion; //formValues.direccionCliente || " - ";
-      order.comentarios = xmlData || "-";
+      order.comentarios = formValues.comentarios;
       // Aquí se calculan total e impuesto (asegúrate de definir cartTotalPrice y otros cálculos)
       order.total = cartTotalPrice; //Number(cartTotalPrice.toFixed(2));
       order.impuesto = totalTaxes; // Number(new Decimal(totalTaxes).toFixed(2));
@@ -130,6 +130,7 @@ export const useCheckoutWithoutLogin = () => {
       order.BAC_MONTO = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
       order.IdUsuario_Direccion = 999999;
       //formValues.idDireccion ?? formValues.idDireccion;
+      order.xmlData = xmlData;
 
       console.log("order", order);
       setLoadingOrder(false);
@@ -170,6 +171,7 @@ export const useCheckoutWithoutLogin = () => {
   };
 
   const handleSaveCartToOrder = async (e, formValues, xmlData) => {
+    console.log(xmlData)
     e.preventDefault();
     setLoadingOrder(true);
     const isValid = validarDatosFormulario(formValues)
@@ -204,6 +206,23 @@ export const useCheckoutWithoutLogin = () => {
       configParams.RUTAIMAGENESARTICULOS
     );
     let order = {};
+
+    const XmlclienteDireccion = addressJsonToXml(
+      {
+        nombre:formValues.nombre,
+        nameCliente:formValues?.nameCliente,
+        nitCliente:formValues.nitCliente,
+        correo:formValues?.correo,
+        direccion:formValues?.direccion,
+        idPais:formValues?.idPais,
+        idDepartamento:formValues?.idDepartamento,
+        idMunicipio:formValues?.idMunicipio,
+        observaciones:formValues.observaciones,
+      },
+      "clienteDireccion"
+    );
+    console.log(XmlclienteDireccion);
+
     try {
       const documentoLocal = generarCorrelativoFactura();
       order = adapterOrderCustomer(formValues);
@@ -214,7 +233,7 @@ export const useCheckoutWithoutLogin = () => {
       order.correoCliente = formValues.correo;
       order.telefonoCliente = formValues.telefono;
       order.direccionCliente = formValues.direccion; //formValues.direccionCliente || " - ";
-      order.comentarios = formValues.comentarios || "-";
+      order.comentarios = formValues.observaciones || "-";
       // Aquí se calculan total e impuesto (asegúrate de definir cartTotalPrice y otros cálculos)
       order.total = cartTotalPrice; //Number(cartTotalPrice.toFixed(2));
       order.impuesto = totalTaxes; // Number(new Decimal(totalTaxes).toFixed(2));
@@ -224,8 +243,10 @@ export const useCheckoutWithoutLogin = () => {
       order.BAC_MONTO = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
       order.IdUsuario_Direccion = 999999;
       //formValues.idDireccion ?? formValues.idDireccion;
-      order.xmlData = xmlData ?? ""; 
+      order.XmlData= XmlclienteDireccion ?? ""; 
       setLoadingOrder(false);
+      
+      console.log("order", order);
     } catch (error) {
       console.error("Error durante la validación de datos: " + error);
 

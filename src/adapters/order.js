@@ -50,6 +50,7 @@ export const adapterOrderCustomer = (formValues) => {
     BACOrderId: "", // Si tienes un ID de orden de BAC
     BACResponse: "",
     BACTransactionID: "",
+    XmlData:""
   };
 };
 
