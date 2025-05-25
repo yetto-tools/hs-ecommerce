@@ -108,8 +108,8 @@ export const CreditCardForm = ({
                         {Array.from({ length: 12 }, (_, index) => (
                           <option
                             name="expiryMonth"
-                            key={index + 1}
-                            value={index + 1}
+                            key={(index + 1).toString().padStart(2, "0")}
+                            value={(index + 1).toString().padStart(2, "0")}
                           >
                             {(index + 1).toString().padStart(2, "0")}
                           </option>

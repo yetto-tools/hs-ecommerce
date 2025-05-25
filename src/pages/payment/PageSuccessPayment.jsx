@@ -1,33 +1,47 @@
 import { useSearchParams } from "react-router-dom";
 import PageContentBlank from "../other/PageContentBlank";
 import usePaymentData from "./usePaymentData";
-import useFetchSendPaymentData from "./useSendPaymentData";
+import useSendPaymentData from "./useSendPaymentData";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { showToast } from "../../toast/toastManager";
+import LayoutPago from "../../layouts/LayoutPago";
 
 export const PageSuccessPayment = () => {
   const [searchParams] = useSearchParams();
   const paymentData = usePaymentData();
   const { cartOrder } = useSelector((state) => state.cartOrder);
+ 
+  const sendPaymentData = useSendPaymentData();
+  const [sent, setSent] = useState(false);
 
-  const data = {
-    UIdCarrito: cartOrder?.UIdCarrito,
-    documentoLocal: cartOrder?.DocumentoLocal,
-    BAC_HASH: paymentData.hash || "",
-    BACOrderId: paymentData.orderid || "",
-    BACResponse: paymentData.responsetext || "",
-    BACTransactionID: paymentData.transactionid || "",
-    BACAuthCode: paymentData.authcode || "",
-  };
+  useEffect(() => {
+    const isReady =
+      cartOrder?.UIdCarrito &&
+      cartOrder?.DocumentoLocal &&
+      paymentData?.hash &&
+      paymentData?.orderid;
 
+    if (isReady && !sent) {
+      const data = {
+        UIdCarrito: cartOrder.UIdCarrito,
+        documentoLocal: cartOrder.DocumentoLocal,
+        BAC_HASH: paymentData.hash,
+        BACOrderId: paymentData.orderid,
+        BACResponse: paymentData.responsetext,
+        BACTransactionID: paymentData.transactionid,
+        BACAuthCode: paymentData.authcode,
+      };
 
-  // Envia los datos a tu endpoint
-   useFetchSendPaymentData(data);
+      sendPaymentData(data);
+      setSent(true);
+    }
+  }, [cartOrder, paymentData, sent]);
+
+  
 
   return (
-    <PageContentBlank>
+    <LayoutPago>
       <div className="container mt-0">
         {/* Título */}
         <div className="row text-center mb-4 ">
@@ -102,6 +116,6 @@ export const PageSuccessPayment = () => {
           </form>
         </fieldset>
       </div>
-    </PageContentBlank>
+    </LayoutPago>
   );
 };
