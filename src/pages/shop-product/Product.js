@@ -40,6 +40,12 @@ const Product = () => {
             ? articleDetail.shortDescription
             : "Articulo no disponible" + id
         }
+        image={
+          articleDetail?.images?.[0]
+            ? `${process.env.REACT_APP_IMAGE_ROOT}${articleDetail.images[0]}`
+            : null
+        }
+        url={`${process.env.REACT_APP_URL}${pathname}`}
       />
 
       <LayoutOne headerTop="visible">

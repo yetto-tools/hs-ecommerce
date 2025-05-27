@@ -49,6 +49,7 @@ const ShopGridStandard = () => {
       <SEO
         titleTemplate="Tienda en Línea"
         description="Adidas, Nike, New balance, Jordan, Puma, Reebok."
+        image={`${process.env.REACT_APP_IMAGE_ROOT}/logo-w-colors.png`}
       />
 
       <LayoutOne headerTop="visible">

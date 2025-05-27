@@ -7,6 +7,7 @@ import CustomSlider from "../../wrappers/slider-banner/CustomSlider";
 
 import BannerMultiColumnImage from "../../components/banner/BannerMultiColumnImage";
 
+
 const HomeFashionTwo = () => {
   const [brand, setBrand] = useState(null);
 
@@ -35,6 +36,7 @@ const HomeFashionTwo = () => {
       <SEO
         titleTemplate="Las Mejores Marcas"
         shortDescription="¡Hypeate! ⚡️ las mejores marcas."
+        image={`${process.env.REACT_APP_IMAGE_ROOT}/logo-w-colors.png`}
       />
       <LayoutOne
         headerContainerClass="container-fluid"
