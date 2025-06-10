@@ -5,6 +5,7 @@ import { showToast } from "../../toast/toastManager";
 import ProductImageGallery from "./ProductImage";
 import { VariantSelector } from "./VariantSelector";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const ProductDetailRender = ({ articleDetail }) => {
   const currency = useSelector((state) => state.currency);
@@ -35,8 +36,9 @@ export const ProductDetailRender = ({ articleDetail }) => {
           </div>
           <div className="co-lg-7 col-md-6 col-sm-6 col-xs-12">
             <div className="product-details-content quickview-content">
-              <h2>{articleDetail.name}</h2>
-
+              <Link to={`/producto/${articleDetail.sku}`}>
+                <h2>{articleDetail.name}</h2>
+              </Link>
               <div className="product-details-price gap-4">
                 <span className="fs-4 fw-bold">
                   {CurrencyFormatter(

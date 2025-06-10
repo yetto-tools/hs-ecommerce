@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addToCart } from "../../store/slices/cart-slice";
 import { Modal } from "react-bootstrap";
 import { CurrencyFormatter } from "../../helpers/currencyFormatter";
@@ -104,8 +104,9 @@ function ProductModal2({ show, onHide, currency }) {
             </div>
             <div className="co-lg-7 col-md-6 col-sm-6 col-xs-12">
               <div className="product-details-content quickview-content">
-                <h2>{articleDetail.name}</h2>
-
+                <Link to={`/producto/${articleDetail.sku}`}>
+                  <h2>{articleDetail.name}</h2>
+                </Link>
                 <div className="product-details-price gap-4">
                   <span className="fs-4 fw-bold">
                     {CurrencyFormatter(

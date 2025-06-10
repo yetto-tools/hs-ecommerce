@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -26,6 +26,7 @@ const ProductCard = ({ product, currency, openModal }) => {
       className="container-fluid col-lg-9 col-md-12 col-sm-12 col-12 mx-auto my-5 slider-area"
       onClick={openModal}
       style={{ cursor: "pointer" }}
+      data-sku={product.sku}
     >
       <Link to={product.url} className="">
         <div className="container row product-card mx-auto">
@@ -47,9 +48,11 @@ const ProductCard = ({ product, currency, openModal }) => {
           </div>
           <div className="container-fluid d-flex flex-column justify-content-center flex-wrap mt-">
             <div className="row col-10 text-center mx-auto w-100 mt-1">
-              <h5 className="text-md text-ellipsis mt-1">
-                {product && product.name}
-              </h5>
+              <Link to={`/producto/${product.sku}`}>
+                <h5 className="text-md text-ellipsis mt-1">
+                  {product && product.name}
+                </h5>
+              </Link>
 
               <span className="text-lg">
                 <button
@@ -91,6 +94,8 @@ const NewArrivals = ({ spaceLeftClass = "", spaceRightClass = "" }) => {
   const dispatch = useDispatch();
   const { newArrivals } = useSelector((state) => state.newArrivals);
   const { loading } = useSelector((state) => state.articleDetail);
+
+  const nagivateTo = useNavigate();
 
   useEffect(() => {
     dispatch(fetchNewArticles());
@@ -144,7 +149,8 @@ const NewArrivals = ({ spaceLeftClass = "", spaceRightClass = "" }) => {
                     product={product}
                     currency={currency}
                     openModal={() => {
-                      handleClickProductModal(product);
+                      //handleClickProductModal(product);
+                      nagivateTo(`/producto/${product.sku}`);
                     }}
                   />
                 </SwiperSlide>

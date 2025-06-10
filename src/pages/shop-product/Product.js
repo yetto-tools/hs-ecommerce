@@ -61,7 +61,7 @@ const Product = () => {
             <div className="col-lg-12">
               {articleDetail?.images?.length > 0 ? (
                 <div className="product-large-image-wrapper">
-                  <div className="container">
+                  <div className="container-lg">
                     <ProductDetailRender articleDetail={articleDetail} />
                   </div>
                 </div>
