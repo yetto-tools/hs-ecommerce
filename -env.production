@@ -3,6 +3,6 @@ REACT_APP_API_URL=https://test-apihs.yettotools.com;
 REACT_APP_API_VERSION=v1;
 REACT_APP_PORT=3000;
 REACT_APP_API_NIT=https://api.hypestreet.dssolutionsgt.com;
-REACT_APP_VERSION=1.24.3;
+REACT_APP_VERSION=1.24.4;
 REACT_APP_NAME=HypeStreet";
 REACT_APP_ENV=development || production;
