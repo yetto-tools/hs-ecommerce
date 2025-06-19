@@ -1,6 +1,6 @@
 export const paymentForm = () => {
   return {
-    type: "auth",
+    type: "sale",
     key_id: "49338953",
     hash: "",
     time: "",
@@ -21,7 +21,7 @@ export const paymentForm = () => {
 
 export const adapterPaymentForm = (data) => {
   return {
-    type: data.type || "auth",
+    type: data.type || "sale",
     key_id: data.key_id || "49338953",
     hash: data.hash || "",
     time: data.time || "",

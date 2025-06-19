@@ -1,7 +1,7 @@
 export const dataPaymentForm = () => {
   // const ccexp = expiryMonth + expiryYear;
   return {
-    type: "auth",
+    type: "sale",
     key_id: "14482124",
     hash: "",
     time: "",
@@ -28,7 +28,7 @@ export const dataPaymentForm = () => {
 export const adapterPaymentForm = (cliente, tarjeta, pago, redirect) => {
   // const ccexp = expiryMonth + expiryYear;
   return {
-    type: pago.type || "auth",
+    type: pago.type || "sale",
     key_id: pago.key_id || "14482124",
     hash: pago.hash || "",
     time: pago.time || "",
@@ -50,27 +50,24 @@ export const adapterPaymentForm = (cliente, tarjeta, pago, redirect) => {
   };
 };
 
-
 export const adapterFormBAC = (key_id, redirect) => {
   // const ccexp = expiryMonth + expiryYear;
   return {
-
-    type:"auth",
+    type: "sale",
     key_id: key_id ?? "14482124",
     hash: "",
-    time:"",
-    amount:"",
-    tax:"",
-    orderid:"",
-    processor_id:"",
+    time: "",
+    amount: "",
+    tax: "",
+    orderid: "",
+    processor_id: "",
     "first_name,last_name": "",
-    phone:"",
-    email:"",
-    ccnumber:"",
-    ccexp:"",
-    cvv:"",
-    avs:"",
-    redirect:redirect ?? "https://hypestreet.dssolutionsgt.com/pago-exito",
-
+    phone: "",
+    email: "",
+    ccnumber: "",
+    ccexp: "",
+    cvv: "",
+    avs: "",
+    redirect: redirect ?? "https://hypestreet.dssolutionsgt.com/pago-exito",
   };
 };

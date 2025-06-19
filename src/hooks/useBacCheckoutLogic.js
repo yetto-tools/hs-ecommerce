@@ -238,7 +238,7 @@ export function useBacCheckoutLogic() {
     console.log("Pago realizado con BAC");
     console.log(formValues);
     const pago = {
-      type: "auth",
+      type: "sale",
       key_id: "14482124",
       hash: hashMD5,
       time: time,
