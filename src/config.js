@@ -3,8 +3,8 @@ const API_VERSION = process.env.REACT_APP_API_VERSION;
 const API_KEY = process.env.REACT_APP_API_KEY;
 const API_TOKEN = process.env.REACT_APP_API_TOKEN;
 const API_NIT = process.env.REACT_APP_API_NIT;
-const APP_ENV =  process.env.NODE_ENV || "development" ;
-const DB_ENV = process.env.NODE_ENV == "development" ? "dev" : "pro";
+const APP_ENV = process.env.NODE_ENV || "development";
+const DB_ENV = process.env.NODE_ENV === "development" ? "dev" : "pro";
 const API_URL_BAC = process.env.REACT_APP_API_URL_BAC;
 const URL_INSTAGRAM =
   "https://www.instagram.com/esconhype?igsh=MXVyeWlxZnM3bnJxaw%3D%3D&utm_source=qr";
@@ -17,7 +17,6 @@ const RETURN_POLICY_MD_PATH =
   process.env.PUBLIC_URL + "docs/politicas-de-devolucion.md";
 const FAQ_MD_PATH = process.env.PUBLIC_URL + "docs/preguntas-frecuentes.md";
 const STORES_LOCATION_MD_PATH = process.env.PUBLIC_URL + "docs/ubicaciones.md";
-
 
 export {
   API_URL,
