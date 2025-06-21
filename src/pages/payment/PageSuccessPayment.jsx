@@ -11,10 +11,10 @@ export const PageSuccessPayment = () => {
   const [searchParams] = useSearchParams();
   const paymentData = usePaymentData();
   const { cartOrder } = useSelector((state) => state.cartOrder);
- 
+
   const sendPaymentData = useSendPaymentData();
   const [sent, setSent] = useState(false);
-
+  const params = new URLSearchParams(window.location.search);
   useEffect(() => {
     const isReady =
       cartOrder?.UIdCarrito &&
@@ -31,14 +31,13 @@ export const PageSuccessPayment = () => {
         BACResponse: paymentData.responsetext,
         BACTransactionID: paymentData.transactionid,
         BACAuthCode: paymentData.authcode,
+        CodeResponse: params.get("response"),
       };
 
       sendPaymentData(data);
       setSent(true);
     }
   }, [cartOrder, paymentData, sent]);
-
-  
 
   return (
     <LayoutPago>
@@ -48,28 +47,28 @@ export const PageSuccessPayment = () => {
           <div className="col">
             <h1 className="fw-bold">Forma de Pago Procesada</h1>
           </div>
-            <div className="cart-main-area pt-90 pb-100">
-              <div className="container-xxl list-product-cart">
-                <div className="row">
-                  <div className="col-lg-12">
+          <div className="cart-main-area pt-90 pb-100">
+            <div className="container-xxl list-product-cart">
+              <div className="row">
+                <div className="col-lg-12">
                   <div className="item-empty-area text-center">
-                    <div className="item-empty-area__icon mb-30"><i className="pe-7s-cart"></i></div>
-                      <div className="item-empty-area__text">
-                        Seguir Comprando <br /> 
-                        <a href="/">Comprar Ahora</a>
-                      </div>
+                    <div className="item-empty-area__icon mb-30">
+                      <i className="pe-7s-cart"></i>
+                    </div>
+                    <div className="item-empty-area__text">
+                      Seguir Comprando <br />
+                      <a href="/">Comprar Ahora</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
         <fieldset disabled>
           {/* Formulario que incluye los campos visibles y ocultos */}
           <form>
             {/* Campos visibles para el usuario */}
-           
-
 
             {/* Campos ocultos requeridos */}
             <div style={{ display: "none" }}>

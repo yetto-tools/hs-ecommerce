@@ -10,35 +10,22 @@ import { API_URL_BAC, DB_ENV } from "../../config";
 
 const MySwal = withReactContent(Swal);
 
-const traducirMensaje = (mensajeOriginal) => {
-  const mapa = {
-    // ÉXITO
-    APPROVED: "Transacción aprobada",
-    SUCCESS: "Transacción aprobada",
-    "TRANSACCIÓN APROBADA": "Transacción aprobada",
-
-    // ERRORES / DENEGADOS
-    "DENIED BY RULES 3DS": "Transacción denegada, Denegado Por Normas 3ds",
-    "INVALID SECURITY CODE":
-      "Transacción denegada, Código de seguridad inválido",
-    "INVALID CARD": "Transacción denegada, Tarjeta inválida",
-    "EXPIRED CARD": "Transacción denegada, Tarjeta expirada",
-    "INVALID DATA": "Transacción denegada, Datos inválidos",
-    "INSUFFICIENT FUNDS": "Transacción denegada, Fondos insuficientes",
-    "INVALID TRANSACTION": "Transacción inválida",
-    "INVALID AMOUNT": "Monto inválido",
-    "REJECTED BY BANK": "Rechazado por el banco",
-    "SYSTEM ERROR": "Error del sistema",
-  };
-
-  const cleanMsg = mensajeOriginal?.replace(/\+/g, " ").trim().toUpperCase();
-
-  return mapa[cleanMsg] || mensajeOriginal;
-};
-
 const useSendPaymentData = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const buildHtml = (mensaje, detalleMensaje = "") => {
+    return `
+      <div style="text-align: left;">
+        <p>${mensaje}</p>
+        ${
+          detalleMensaje
+            ? `<p><strong>Detalle:</strong> ${detalleMensaje}</p>`
+            : ""
+        }
+      </div>
+    `;
+  };
 
   const sendPaymentData = async (data) => {
     if (!data?.UIdCarrito || !data?.documentoLocal) return;
@@ -65,8 +52,8 @@ const useSendPaymentData = () => {
       const mensaje =
         resData?.meta?.[0]?.Mensaje ?? resData?.Mensaje ?? "Error desconocido";
       const detalle = resData?.Detalle || resData?.detalle;
-      let detalleMensaje = "";
 
+      let detalleMensaje = "";
       if (detalle) {
         try {
           const parsed =
@@ -77,42 +64,64 @@ const useSendPaymentData = () => {
         }
       }
 
-      if (res.ok && resultado === 1) {
-        const mensajeTraducido = traducirMensaje(mensaje);
+      const bacResponse = data.BACResponse?.replaceAll("+", " ") ?? "";
+
+      const showErrorAndRedirect = (title, msgHtml, icon = "error") => {
         return MySwal.fire({
-          title: "✅ Pago procesado",
-          text:
-            mensajeTraducido ||
-            "La orden fue enviada correctamente a facturación.",
-          icon: "success",
-          confirmButtonText: "Aceptar",
-        }).then(() => {
-          dispatch(cleanCartOrder());
-          dispatch(deleteAllFromCart());
-          sessionStorage.removeItem("cartOrder");
-        });
-      } else {
-        // ⚠️ Denegado o error (2 o 3)
-        const mensajeTraducido = traducirMensaje(mensaje);
-        return MySwal.fire({
-          title: resultado === 2 ? "⚠ Pago denegado" : `❌ Error ${res.status}`,
-          html: `<p>${mensajeTraducido}</p>${
-            detalleMensaje ? `<p><b>Detalle:</b> ${detalleMensaje}</p>` : ""
-          }`,
-          icon: resultado === 2 ? "info" : "error",
+          title,
+          html: msgHtml,
+          icon,
           confirmButtonText: "Volver al checkout",
         }).then(() => {
-          navigate("/checkout");
+          window.location.href = "/checkout";
         });
+      };
+
+      // Casos especiales de rechazo
+      if (Number(data.CodeResponse) === 2) {
+        return showErrorAndRedirect(
+          `❌ Transacción Denegada: ${bacResponse}`,
+          buildHtml(mensaje, detalleMensaje)
+        );
       }
+
+      if (Number(data.CodeResponse) === 3) {
+        return showErrorAndRedirect(
+          `❌ Error en datos de la transacción o error del sistema: ${bacResponse}`,
+          buildHtml(mensaje, detalleMensaje)
+        );
+      }
+
+      // Errores generales
+      if (!res.ok || resultado > 1) {
+        return showErrorAndRedirect(
+          resultado === 2 ? "⚠ Pago duplicado" : `❌ Error ${res.status}`,
+          buildHtml(mensaje, detalleMensaje),
+          resultado === 2 ? "info" : "error"
+        );
+      }
+
+      // Éxito
+      return MySwal.fire({
+        title: `✅ Orden enviada: ${bacResponse}`,
+        text: "La orden fue enviada correctamente a facturación.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      }).then(() => {
+        dispatch(cleanCartOrder());
+        dispatch(deleteAllFromCart());
+        sessionStorage.removeItem("cartOrder");
+      });
     } catch (err) {
       console.error("❌ Error al enviar pago:", err);
-      MySwal.fire({
-        title: "❌ Error de conexión",
+      return MySwal.fire({
+        title: `❌ ${data.BACResponse?.replaceAll("+", " ") ?? ""}`,
         text: "No se pudo conectar con el servidor.",
         icon: "error",
         confirmButtonText: "Volver al checkout",
-      }).then(() => navigate("/checkout"));
+      }).then(() => {
+        window.location.href = "/checkout";
+      });
     } finally {
       dispatch(setLoading(false));
     }
