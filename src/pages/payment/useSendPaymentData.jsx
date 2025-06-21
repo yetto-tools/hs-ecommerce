@@ -10,6 +10,32 @@ import { API_URL_BAC, DB_ENV } from "../../config";
 
 const MySwal = withReactContent(Swal);
 
+const traducirMensaje = (mensajeOriginal) => {
+  const mapa = {
+    // ÉXITO
+    APPROVED: "Transacción aprobada",
+    SUCCESS: "Transacción aprobada",
+    "TRANSACCIÓN APROBADA": "Transacción aprobada",
+
+    // ERRORES / DENEGADOS
+    "DENIED BY RULES 3DS": "Transacción denegada, Denegado Por Normas 3ds",
+    "INVALID SECURITY CODE":
+      "Transacción denegada, Código de seguridad inválido",
+    "INVALID CARD": "Transacción denegada, Tarjeta inválida",
+    "EXPIRED CARD": "Transacción denegada, Tarjeta expirada",
+    "INVALID DATA": "Transacción denegada, Datos inválidos",
+    "INSUFFICIENT FUNDS": "Transacción denegada, Fondos insuficientes",
+    "INVALID TRANSACTION": "Transacción inválida",
+    "INVALID AMOUNT": "Monto inválido",
+    "REJECTED BY BANK": "Rechazado por el banco",
+    "SYSTEM ERROR": "Error del sistema",
+  };
+
+  const cleanMsg = mensajeOriginal?.replace(/\+/g, " ").trim().toUpperCase();
+
+  return mapa[cleanMsg] || mensajeOriginal;
+};
+
 const useSendPaymentData = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,41 +62,49 @@ const useSendPaymentData = () => {
 
       const resData = await res.json();
       const resultado = resData?.meta?.[0]?.Resultado ?? resData?.Resultado;
-      const mensaje = resData?.meta?.[0]?.Mensaje ?? resData?.Mensaje ?? "Error desconocido";
+      const mensaje =
+        resData?.meta?.[0]?.Mensaje ?? resData?.Mensaje ?? "Error desconocido";
       const detalle = resData?.Detalle || resData?.detalle;
       let detalleMensaje = "";
 
       if (detalle) {
         try {
-          const parsed = typeof detalle === "string" ? JSON.parse(detalle) : detalle;
+          const parsed =
+            typeof detalle === "string" ? JSON.parse(detalle) : detalle;
           detalleMensaje = parsed?.message || "";
         } catch {
           detalleMensaje = typeof detalle === "string" ? detalle : "";
         }
       }
 
-      if (!res.ok || resultado > 1) {
+      if (res.ok && resultado === 1) {
+        const mensajeTraducido = traducirMensaje(mensaje);
         return MySwal.fire({
-          title: resultado === 2 ? "⚠ Pago duplicado" : `❌ Error ${res.status}`,
-          html: `<p>${mensaje}</p>${detalleMensaje ? `<p><b>Detalle:</b> ${detalleMensaje}</p>` : ""}`,
+          title: "✅ Pago procesado",
+          text:
+            mensajeTraducido ||
+            "La orden fue enviada correctamente a facturación.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        }).then(() => {
+          dispatch(cleanCartOrder());
+          dispatch(deleteAllFromCart());
+          sessionStorage.removeItem("cartOrder");
+        });
+      } else {
+        // ⚠️ Denegado o error (2 o 3)
+        const mensajeTraducido = traducirMensaje(mensaje);
+        return MySwal.fire({
+          title: resultado === 2 ? "⚠ Pago denegado" : `❌ Error ${res.status}`,
+          html: `<p>${mensajeTraducido}</p>${
+            detalleMensaje ? `<p><b>Detalle:</b> ${detalleMensaje}</p>` : ""
+          }`,
           icon: resultado === 2 ? "info" : "error",
           confirmButtonText: "Volver al checkout",
         }).then(() => {
           navigate("/checkout");
         });
       }
-
-      return MySwal.fire({
-        title: "✅ Pago procesado",
-        text: "La orden fue enviada correctamente a facturación.",
-        icon: "success",
-        confirmButtonText: "Aceptar",
-      }).then(() => {
-        dispatch(cleanCartOrder());
-        dispatch(deleteAllFromCart());
-        sessionStorage.removeItem("cartOrder");
-      });
-
     } catch (err) {
       console.error("❌ Error al enviar pago:", err);
       MySwal.fire({
