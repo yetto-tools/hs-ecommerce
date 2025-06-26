@@ -3,8 +3,8 @@ const API_VERSION = process.env.REACT_APP_API_VERSION;
 const API_KEY = process.env.REACT_APP_API_KEY;
 const API_TOKEN = process.env.REACT_APP_API_TOKEN;
 const API_NIT = process.env.REACT_APP_API_NIT;
-const APP_ENV = "development";
-const DB_ENV = "dev";
+const APP_ENV = "production";
+const DB_ENV = "pro";
 //process.env.NODE_ENV === "development" ? "dev" : "pro";
 const API_URL_BAC = process.env.REACT_APP_API_URL_BAC;
 const URL_INSTAGRAM =
