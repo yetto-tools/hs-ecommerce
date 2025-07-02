@@ -33,7 +33,10 @@ const FooterHypestreet = ({
       const newStoreInfo = params.reduce((acc, param) => {
         const key = mapping[param.Nombre];
         if (key) {
-          acc[key] = param.Valor;
+          acc[key] = (param.Valor || "").replace(
+            /[\x00-\x1F\u200E\u200F\u202A-\u202E]/g,
+            ""
+          );
         }
         return acc;
       }, {});
@@ -161,7 +164,9 @@ const FooterHypestreet = ({
               <li>
                 <Link
                   className="text-white text-hover-green-hs"
-                  to={storeInfo.whatsapp}
+                  to={`https://wa.me/${storeInfo.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {t("whatsapp")}
                 </Link>
