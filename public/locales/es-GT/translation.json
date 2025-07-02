@@ -178,7 +178,7 @@
     "your_order": "Tu compra",
     "product": "Productos",
     "shipping": "Envío",
-    "free_shipping": "Envío Gratis",
+    "free_shipping": "Envío Gratis (solo en compras web)",
     "place_order": "Confirmar Compra",
     "quantity": "Cantidad",
     "invalid_email": "correo no valido",
