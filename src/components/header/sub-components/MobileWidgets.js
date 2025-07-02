@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { formatWhatsappNumber } from "../../../helpers/validator";
 
 const MobileWidgets = () => {
   const { params } = useSelector((state) => state.paramsWeb);
@@ -15,12 +16,16 @@ const MobileWidgets = () => {
         TIKTOK: "tiktok",
         CORREO: "correo",
         CANALWHATSAPP: "whatsapp",
+        TELEFONO: "telefono",
       };
 
       const newStoreInfo = params.reduce((acc, param) => {
         const key = mapping[param.Nombre];
         if (key) {
-          acc[key] = param.Valor;
+          acc[key] = (param.Valor || "").replace(
+            /[\x00-\x1F\u200E\u200F\u202A-\u202E]/g,
+            ""
+          );
         }
         return acc;
       }, {});
@@ -38,13 +43,13 @@ const MobileWidgets = () => {
           <div className="contact-info-dec">
             <p>
               <a
-                href={storeInfo?.whatsapp}
+                href={"https://wa.me/" + storeInfo?.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fs-5"
               >
                 {""}
-                +502 {storeInfo?.whatsapp?.replace("https://wa.me/502", "")}
+                {formatWhatsappNumber(storeInfo?.whatsapp)}
               </a>
             </p>
             <p>
