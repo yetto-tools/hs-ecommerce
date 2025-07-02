@@ -7,11 +7,13 @@ import {
   adapterOrderCustomer,
   adapterOrderProducts,
 } from "../../../adapters/order";
-import { addressJsonToXml, generarCorrelativoFactura } from "../../../helpers/validator";
+import {
+  addressJsonToXml,
+  generarCorrelativoFactura,
+} from "../../../helpers/validator";
 import { showToast } from "../../../toast/toastManager";
 import { API_URL, API_URL_BAC, DB_ENV } from "../../../config";
 import { deleteAllFromCart } from "../../../store/slices/cart-slice";
-
 
 export const useCheckoutWithoutLogin = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
@@ -30,24 +32,27 @@ export const useCheckoutWithoutLogin = () => {
 
   const validarDatosFormulario = (formValues) => {
     if (!formValues.nombre) {
-      showToast("Ingresar un nombre"  , "warn");
+      showToast("Ingresar un nombre", "warn");
       return false;
     }
     if (!formValues.correo) {
-      showToast("Ingresar un correo", "warn",);
+      showToast("Ingresar un correo", "warn");
       return false;
     }
     if (!formValues.nitCliente) {
       showToast("Ingresar un nit", "warn");
       return false;
     }
-    
-    if (!formValues.telefonoCliente && formValues.telefonoCliente?.length <= 7) {
+
+    if (
+      !formValues.telefonoCliente &&
+      formValues.telefonoCliente?.length <= 7
+    ) {
       showToast("Ingresar un telefono", "warn");
       return false;
     }
     if (!formValues.direccion) {
-      showToast("Ingresar una direccion", "warn" );
+      showToast("Ingresar una direccion", "warn");
       return false;
     }
 
@@ -158,7 +163,7 @@ export const useCheckoutWithoutLogin = () => {
       if (message === "success") {
         handleAlert();
         // Limpiar el carrito solo en productivo
-        // dispatch(deleteAllFromCart());
+        dispatch(deleteAllFromCart());
         return;
       }
     } catch (error) {
@@ -171,10 +176,10 @@ export const useCheckoutWithoutLogin = () => {
   };
 
   const handleSaveCartToOrder = async (e, formValues, xmlData) => {
-    console.log(xmlData)
+    console.log(xmlData);
     e.preventDefault();
     setLoadingOrder(true);
-    const isValid = validarDatosFormulario(formValues)
+    const isValid = validarDatosFormulario(formValues);
     if (!isValid) {
       setLoadingOrder(false);
       return;
@@ -209,15 +214,15 @@ export const useCheckoutWithoutLogin = () => {
 
     const XmlclienteDireccion = addressJsonToXml(
       {
-        nombre:formValues.nombre,
-        nameCliente:formValues?.nameCliente,
-        nitCliente:formValues.nitCliente,
-        correo:formValues?.correo,
-        direccion:formValues?.direccion,
-        idPais:formValues?.idPais,
-        idDepartamento:formValues?.idDepartamento,
-        idMunicipio:formValues?.idMunicipio,
-        observaciones:formValues.observaciones,
+        nombre: formValues.nombre,
+        nameCliente: formValues?.nameCliente,
+        nitCliente: formValues.nitCliente,
+        correo: formValues?.correo,
+        direccion: formValues?.direccion,
+        idPais: formValues?.idPais,
+        idDepartamento: formValues?.idDepartamento,
+        idMunicipio: formValues?.idMunicipio,
+        observaciones: formValues.observaciones,
       },
       "clienteDireccion"
     );
@@ -228,7 +233,8 @@ export const useCheckoutWithoutLogin = () => {
       order = adapterOrderCustomer(formValues);
 
       order.idCliente = formValues.id ?? 999999;
-      order.idDireccion = formValues.idDireccion ?? formValues.idDireccion ?? 999999;
+      order.idDireccion =
+        formValues.idDireccion ?? formValues.idDireccion ?? 999999;
       order.products = orderProducts;
       order.correoCliente = formValues.correo;
       order.telefonoCliente = formValues.telefono;
@@ -243,9 +249,9 @@ export const useCheckoutWithoutLogin = () => {
       order.BAC_MONTO = cartTotalPrice; // Ejemplo: Number(cartTotalPrice.toFixed(2));
       order.IdUsuario_Direccion = 999999;
       //formValues.idDireccion ?? formValues.idDireccion;
-      order.XmlData= XmlclienteDireccion ?? ""; 
+      order.XmlData = XmlclienteDireccion ?? "";
       setLoadingOrder(false);
-      
+
       console.log("order", order);
     } catch (error) {
       console.error("Error durante la validación de datos: " + error);
@@ -253,14 +259,11 @@ export const useCheckoutWithoutLogin = () => {
       showToast(`${error.message}`, "error", "bottom-left");
       setLoadingOrder(false);
     }
-    
-    return {order};
+
+    return { order };
   };
 
-
-
- const postToCredomatic = async (UIdCarrito, cardValues) => {
-  
+  const postToCredomatic = async (UIdCarrito, cardValues) => {
     // Crea el formulario https://d0krpbqk-40856.use2.devtunnels.ms
     const url = `${API_URL_BAC}/api/Payment/${UIdCarrito}?env=${DB_ENV}`;
     const response = await fetch(url, {
@@ -271,78 +274,54 @@ export const useCheckoutWithoutLogin = () => {
     });
 
     console.log(response);
-    const {meta, data} = await response.json();
+    const { meta, data } = await response.json();
 
-    if (meta.resultado === 0 ) 
-    {
+    if (meta.resultado === 0) {
       const { mensaje } = meta;
-      console.log(mensaje)
-      return     
+      console.log(mensaje);
+      return;
     }
 
+    let dataFormBac = {
+      type: data.type,
+      key_id: data.key_id,
+      hash: data.hash,
+      time: data.time,
+      amount: data.amount,
+      tax: data.tax,
+      orderid: data.orderid,
+      ccnumber: cardValues.ccnumber,
+      ccexp: `${cardValues.expiryMonth}${cardValues.expiryYear}`,
+      cvv: cardValues.cvv,
+      "first_name,last_name": cardValues.name,
+      email: cardValues.email,
+      phone: cardValues.phone,
+      redirect: window.location.origin + "/pago-exito",
+      action: data.action,
+      avs: data.avs,
+    };
 
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = data.action;
 
-    let dataFormBac =  {
-        type:data.type,
-        key_id:data.key_id,
-        hash:data.hash,
-        time: data.time,
-        amount:data.amount,
-        tax:data.tax,
-        orderid:data.orderid,
-        ccnumber:cardValues.ccnumber,
-        ccexp:`${cardValues.expiryMonth}${cardValues.expiryYear}`,
-        cvv:cardValues.cvv,
-        "first_name,last_name":cardValues.name,
-        email:cardValues.email,
-        phone:cardValues.phone,
-        redirect:data.redirect,
-        action:data.action,
-        avs:data.avs,
-    
+    // Por seguridad
+    form.style.display = "none";
+
+    // Llena el formulario con inputs hidden
+    for (const [key, value] of Object.entries(dataFormBac)) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value;
+      form.appendChild(input);
     }
 
-    
-
-
-
-  const form = document.createElement("form");
-  form.method = "POST";
-  form.action = data.action;
-
-  // Por seguridad
-  form.style.display = "none";
-
-  // Llena el formulario con inputs hidden
-  for (const [key, value] of Object.entries(dataFormBac)) {
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = key;
-    input.value = value;
-    form.appendChild(input);
-  }
-
-  // Añadir al DOM y enviar
-  document.body.appendChild(form);
-  form.submit();
-  console.log(dataFormBac)
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Añadir al DOM y enviar
+    document.body.appendChild(form);
+    form.submit();
+    console.log(dataFormBac);
+  };
 
   return {
     cartTotalPrice,
@@ -353,6 +332,6 @@ export const useCheckoutWithoutLogin = () => {
     handleSaveCartToOrder,
     loadingOrder,
     setLoadingOrder,
-    postToCredomatic
+    postToCredomatic,
   };
 };
