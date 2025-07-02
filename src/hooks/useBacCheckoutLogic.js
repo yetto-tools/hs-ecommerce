@@ -253,7 +253,7 @@ export function useBacCheckoutLogic() {
       ccexp: `${cardValues.expiryMonth}${cardValues.expiryYear}`,
       cvc: cardValues.cvc || "",
       avs: selectedAddress || "",
-      redirect: "https://hypestreet.dssolutionsgt.com/confirmacion-pago",
+      redirect: "https://hypestreet.com.gt/confirmacion-pago",
     };
 
     console.log(pago);
