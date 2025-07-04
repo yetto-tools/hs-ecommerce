@@ -97,7 +97,7 @@ const MultiLevelDropdown = ({ sidebarMenu = false }) => {
     );
   };
 
-  return <div className="dropdown container">{renderMenu(menu, true)}</div>;
+  return <div className="dropdown container font-primary">{renderMenu(menu, true)}</div>;
 };
 
 export default MultiLevelDropdown;

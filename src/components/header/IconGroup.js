@@ -91,24 +91,7 @@ const IconGroup = ({ iconWhiteClass }) => {
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
-      <div className="same-style header-search d-none d-lg-block mx-2 ">
-        <input
-          type="search"
-          placeholder="Buscar..."
-          className="rounded px-2 py-1 text-black row col-8 col-md-5 col-lg-8 col-xxl-11"
-          style={{
-            background: "#ebebeb",
-            border: "none",
-            height: "32px",
-            color: "#000",
-            marginLeft: "10px",
-          }}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyUp={handleKeyUp}
-          autoComplete="off"
-        />
-      </div>
+
       <div className="same-style header-compare d-none d-lg-block ms-2">
         <div className="account-setting d-none d-lg-block">
           <button
@@ -118,23 +101,7 @@ const IconGroup = ({ iconWhiteClass }) => {
             className="account-setting-active"
             onClick={(e) => handleClick(e)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              style={{
-                fill: "currentColor",
-                stroke: "currentColor",
-                strokeWidth: "1.5",
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
-                width: "24px",
-                height: "24px",
-              }}
-            >
-              <path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path>
-            </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg>
           </button>
           <div
             className="account-dropdown"
@@ -190,19 +157,7 @@ const IconGroup = ({ iconWhiteClass }) => {
           className="icon-cart"
           onClick={(e) => handleClick(e)}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            style={{
-              fill: "rgb(255, 255, 255)",
-            }}
-          >
-            <path d="M21 4H2v2h2.3l3.521 9.683A2.004 2.004 0 0 0 9.7 17H18v-2H9.7l-.728-2H18c.4 0 .762-.238.919-.606l3-7A.998.998 0 0 0 21 4z"></path>
-            <circle cx="10.5" cy="19.5" r="1.5"></circle>
-            <circle cx="16.5" cy="19.5" r="1.5"></circle>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/></svg>
 
           <span className="count-style">
             {cartItems && cartItems.length ? cartItems.length : 0}
@@ -213,7 +168,7 @@ const IconGroup = ({ iconWhiteClass }) => {
       </div>
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
-          <ShoppingCart size={24} color="#ffffff" strokeWidth={1.5} />
+          <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/></svg>
           <span className="count-style">
             {cartItems && cartItems.length ? cartItems.length : 0}
           </span>
@@ -224,7 +179,7 @@ const IconGroup = ({ iconWhiteClass }) => {
           className="mobile-aside-button text-white"
           onClick={() => triggerMobileMenu()}
         >
-          <i className="pe-7s-menu" />
+          <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFFFFF"><path d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z"/></svg>
         </button>
       </div>
     </div>

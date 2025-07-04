@@ -11,29 +11,26 @@
 
 /*-- Google Font --*/
 @font-face {
-  font-family: "Montserrat";
-  src: url("../fonts/Montserrat-Regular.woff2") format("woff2"),
-    url("../fonts/Montserrat-Regular.woff") format("woff");
+  font-family: "Arimo";
+  src: url("../fonts/Arimo-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("../fonts/Montserrat-SemiBold.woff2") format("woff2"),
-    url("../fonts/Montserrat-SemiBold.woff") format("woff");
+  font-family: "ArimoSemibold";
+  src: url("../fonts/Arimo-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Stretch Pro";
-  src: url("../fonts/stretch-pro.basic.woff2") format("woff2"),
-    url("../fonts/stretch-pro.basic.woff") format("woff"),
-    url("../fonts/stretch-pro.basic.ttf") format("truetype");
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Regular.ttf") format("ttf");
 }
 
 /*-- Common Style --*/
+
 
 *,
 *::after,
@@ -1908,6 +1905,12 @@ textarea:focus {
   background-color: #fff;
 }
 
+
+.header-color{
+  background-color: #0077b5;
+  color: #f1f1f1;
+}
+
 .default-overlay {
   position: relative;
   &:before {
@@ -2634,4 +2637,7 @@ button.border-black:hover {
 
 .aspect-ratio-1\/1 {
   aspect-ratio: 1 / 1;
+}
+.font-primary {
+  font-family: "Arimo", sans-serif !important;
 }

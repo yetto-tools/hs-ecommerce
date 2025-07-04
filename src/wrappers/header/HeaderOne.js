@@ -65,7 +65,7 @@ const HeaderOne = ({
 
       <header
         className={clsx(
-          "header-area clearfix bg-black text-white ",
+          "header-area clearfix header-color",
           headerBgClass,
           headerPositionClass
         )}
@@ -93,11 +93,13 @@ const HeaderOne = ({
         >
           <div
             className={
-              layout === "container-fluid " ? layout : "container-fluid"
+              clsx("py-2",
+                layout === "container-fluid " ? layout : "container-fluid" 
+              )
             }
           >
             <div className={`row align-items-center justify-content-between`}>
-              <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-4">
+              <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-6">
                 <div className="d-flex justify-content-center align-items-center w-75">
                   {/* header logo */}
                   <Logo imageUrl="/logo-w-colors.png" />
@@ -106,7 +108,7 @@ const HeaderOne = ({
               <div className="col-xxl-6 col-xl-6 col-lg-5 col-md-5 d-none d-lg-block">
                 <MultiLevelDropdown sidebarMenu={false} />
               </div>
-              <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-3 col-4 ">
+              <div className="col-xxl-2 col-xl-2 col-lg-3 col-md-4 col-6 ">
                 {/* Icon group */}
                 <IconGroup />
               </div>
