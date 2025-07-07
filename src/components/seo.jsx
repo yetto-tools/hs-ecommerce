@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const SEO = ({
-  title = "Hype Street",
+  title = "DS eCommerce",
   titleTemplate = "Las mejores Marcas",
   description = "Tiendas, y kioscos con ropa, sneakers y accesorios de las mejores marcas.",
 }) => {

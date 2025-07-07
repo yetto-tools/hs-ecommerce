@@ -138,7 +138,7 @@ const FooterHypestreet = ({
               </span>
             </p>
             <p className="text-white text-xs font-semibold capitalize ">
-              <small>&copy; 2025 Hype Street Guatemala</small>
+              <small>&copy; 2025 DS eCommerce Guatemala</small>
             </p>
           </div>
 

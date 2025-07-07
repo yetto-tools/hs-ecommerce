@@ -176,7 +176,7 @@
     "returns": "Returns",
     "contact": "Contact",
     "terms_conditions": "Support Policy",
-    "size_guide": "Hype Street Silhouettes",
+    "size_guide": "DS eCommerce Silhouettes",
     "payment_method": "Payment Method",
     "text_placeholder": "Enter your email address...",
     "contact_here": "Contact Here",
@@ -294,9 +294,9 @@
     "my_account": "My Account"
   },
   "seo": {
-    "login_register": "Login page, Hype Street Guatemala",
-    "my_account": "Account User, Hype Street Guatemala",
-    "cart": "Cart Shopping, Hype Street Guatemala",
+    "login_register": "Login page, DS eCommerce Guatemala",
+    "my_account": "Account User, DS eCommerce Guatemala",
+    "cart": "Cart Shopping, DS eCommerce Guatemala",
     "page_login_register": {
       "title": "Registarse"
     }

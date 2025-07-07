@@ -8,7 +8,7 @@
 
 1. Todos los **gastos de envío y devolución** corren por cuenta del cliente.
 2. Los artículos deben estar en su **estado original** y conservar **todas sus etiquetas**.
-3. Puedes realizar **UN solo cambio** en productos adquiridos en **Hype Street**.
+3. Puedes realizar **UN solo cambio** en productos adquiridos en **DS eCommerce**.
 
 <br style="height:250px;" />
 <br style="height:250px;" />
@@ -66,12 +66,12 @@
 
 ## Garantía
 
-> - Hype Street se reserva el derecho de **rechazar cambios o devoluciones** fuera del plazo establecido o si los productos **no están en las mismas condiciones** en las que fueron entregados.
+> - DS eCommerce se reserva el derecho de **rechazar cambios o devoluciones** fuera del plazo establecido o si los productos **no están en las mismas condiciones** en las que fueron entregados.
 
 > - Todos los artículos tienen **30 días de garantía** por **defectos de fábrica**.
 
 > - El cliente es responsable del **cuidado del producto**.  
->   Hype Street **no se hace responsable** por daños ocasionados por **lavado incorrecto**.
+>   DS eCommerce **no se hace responsable** por daños ocasionados por **lavado incorrecto**.
 
 > - **No realizamos cambios ni devoluciones en calcetines o medias.**
 
@@ -83,6 +83,4 @@
 >   3. O situaciones que puedan ocasionar **deterioro prematuro**
 
 > En estos casos, **se rechazará cualquier tipo de solicitud de cambio o devolución**.
-> <br style="height:250px;" />
-> <br style="height:250px;" />
-> <br style="height:250px;" />
+> <br style="height:250px;" /> > <br style="height:250px;" /> > <br style="height:250px;" />
