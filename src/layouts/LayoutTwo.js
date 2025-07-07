@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import HeaderTwo from "../wrappers/header/HeaderTwo";
 import FooterOne from "../wrappers/footer/FooterOne";
-import ScrollToTop from "../components/scroll-to-top"
+import ScrollToTop from "../components/scroll-to-top";
 
 const LayoutTwo = ({ children, footerBgClass }) => {
   return (
@@ -10,18 +10,18 @@ const LayoutTwo = ({ children, footerBgClass }) => {
       <HeaderTwo />
       {children}
       <FooterOne
-        backgroundColorClass={footerBgClass ? footerBgClass : "bg-black-ne"}
+        backgroundColorClass={footerBgClass ? footerBgClass : "bg-dark"}
         spaceTopClass="pt-100"
         spaceBottomClass="pb-70"
       />
-      <ScrollToTop/>
+      <ScrollToTop />
     </Fragment>
   );
 };
 
 LayoutTwo.propTypes = {
   children: PropTypes.node,
-  footerBgClass: PropTypes.string
+  footerBgClass: PropTypes.string,
 };
 
 export default LayoutTwo;

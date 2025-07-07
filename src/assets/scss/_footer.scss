@@ -1,5 +1,9 @@
 /*-------- 8. Footer style  -----*/
 
+.bg-footer {
+  background: #f8f9fa;
+}
+
 .copyright {
   .footer-logo {
     // margin-top: 41px;
@@ -16,7 +20,7 @@
   }
   p {
     letter-spacing: 0.9px;
-    color: #f1f1f1;
+    color: #efefef;
     a {
       color: #ffffff;
       &:hover {
@@ -41,12 +45,12 @@
   .footer-title {
     h3 {
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1;
 
       margin: 0 0 16px;
 
-      color: #f3f3f3;
+      color: $theme-text-dark;
     }
   }
   .footer-list {
@@ -59,7 +63,7 @@
         a {
           letter-spacing: 0.3px;
 
-          color: #e0e0e0;
+          color: $theme-text-dark;
           &:hover {
             color: $theme-color;
           }
@@ -269,6 +273,30 @@
   }
 }
 
+.footer-bg-img {
+  background-image: url("../img/bg.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
+.footer-bg-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../img/bg.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(180deg);
+  z-index: 0;
+}
+
 .footer-area {
   position: relative;
   &.ml-10 {
@@ -393,9 +421,9 @@
   p {
     line-height: 1;
 
-    color: #fff;
+    color: $theme-text-dark;
     a {
-      color: #fff;
+      color: $theme-text-dark;
       &:hover {
         color: $theme-color;
       }
@@ -447,7 +475,7 @@
 }
 
 .footer-border {
-  border-top: 1px solid #e2e2e2;
+  border-top: 1px solid $theme-text-dark;
 }
 
 .w-64px {

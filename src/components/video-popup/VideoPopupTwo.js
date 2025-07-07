@@ -1,20 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalVideo from "react-modal-video";
-import clsx from "clsx"
+import clsx from "clsx";
 
 const VideoPopupTwo = ({ spaceBottomClass }) => {
   const [modalStatus, isOpen] = useState(false);
   return (
-    <div
-      className={clsx("video-popup-2", spaceBottomClass)}
-    >
+    <div className={clsx("video-popup-2", spaceBottomClass)}>
       <div
         className="video-popup-2__left bg-img"
         style={{
           backgroundImage: `url(${
             process.env.PUBLIC_URL + "/assets/img/bg/bg-7.jpg"
-          })`
+          })`,
         }}
       >
         <div className="video-popup-2__content">
@@ -25,7 +23,7 @@ const VideoPopupTwo = ({ spaceBottomClass }) => {
             Lorem ipsum dolor sit amet consectetur adipisici elit sed do eiusm.
           </p>
           <div className="link">
-            <Link to={process.env.PUBLIC_URL + "/about"}>Shop Now</Link>
+            <Link to={process.env.PUBLIC_URL + "/nosotros"}>Shop Now</Link>
           </div>
         </div>
         <ModalVideo
@@ -48,7 +46,7 @@ const VideoPopupTwo = ({ spaceBottomClass }) => {
         style={{
           backgroundImage: `url(${
             process.env.PUBLIC_URL + "/assets/img/bg/bg-8.jpg"
-          })`
+          })`,
         }}
       ></div>
     </div>

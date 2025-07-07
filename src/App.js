@@ -82,7 +82,7 @@ const App = () => {
             />
 
             {/*Shop pages */}
-            
+
             <Route
               path={process.env.PUBLIC_URL + "/producto/:slug"}
               element={<Product />}
@@ -104,7 +104,7 @@ const App = () => {
               element={<About />}
             />
             <Route
-              path={process.env.PUBLIC_URL + "/contact"}
+              path={process.env.PUBLIC_URL + "/contacto"}
               element={<Contact />}
             />
 

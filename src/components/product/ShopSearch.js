@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { fetchSearchArticles } from "../../hooks/use-FetchArticles";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import clsx from "clsx";
 
-const ShopSearch = () => {
+const ShopSearch = ({ className = "sidebar-widget", onlySearch = true }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,17 +31,20 @@ const ShopSearch = () => {
     } else {
       // Si el input está vacío, regresar a "/productos" y limpiar la búsqueda
       navigate("/productos", { replace: false }); // React Router
-
     }
   };
 
   return (
-    <div className="sidebar-widget">
-      <h4 className="pro-sidebar-title">{t("shop_search.label")} </h4>
+    <div className={clsx(className, "")}>
+      {onlySearch && (
+        <h4 className="pro-sidebar-title">{t("shop_search.label")} </h4>
+      )}
       <div className="pro-sidebar-search mb-50 mt-25">
         <section className="pro-sidebar-search-form">
           <input
+            id="pro-sidebar-search-field"
             type="search"
+            name="search"
             placeholder={t("shop_search.place_holder")}
             value={value}
             onChange={(e) => setValue(e.target.value)}

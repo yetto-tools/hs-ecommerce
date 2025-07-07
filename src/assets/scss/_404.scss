@@ -5,7 +5,7 @@
     letter-spacing: 1rem;
     line-height: 1.1;
     margin-bottom: 30px;
-    color: #b8db15;
+    color: $theme-color;
     @media #{$lg-layout} {
       font-size: 15rem;
       margin-bottom: 4px;
@@ -40,7 +40,7 @@
   padding: 0 10px;
   border: none;
   border-radius: 0;
-  background-color: #b8db15;
+  background-color: $theme-color;
   display: inline-block;
   &:after {
     position: absolute;
@@ -49,7 +49,7 @@
     bottom: -6px;
     height: 3px;
     width: 100%;
-    background-color: #b8db15;
+    background-color: $theme-color;
     transition: all 0.3s;
   }
   &:hover {
@@ -73,7 +73,7 @@
   }
   & button {
     border: none;
-    background-color: #b8db15;
+    background-color: $theme-color;
     width: 70px;
     color: #fff;
     cursor: pointer;
@@ -82,7 +82,7 @@
     top: 0;
     height: 100%;
     &:hover {
-      background-color: #000;
+      background-color: $theme-color;
     }
   }
   @media #{$xs-layout} {

@@ -2,6 +2,7 @@
 
 .header-area {
   position: relative;
+  background-color: $theme-color-dark;
   &.header-absolute {
     position: absolute;
     z-index: 99;
@@ -27,9 +28,11 @@
   transition: all 0.3s ease 0s;
   animation: 700ms ease-in-out 0s normal none 1 running fadeInDown;
 
-  border-bottom: 0 solid #4a90e2;
-  background-color: #000;
-  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.06);
+  border-bottom: 0 solid #ddfbcc;
+  background-color: #10214b;
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+  box-shadow: 0px 2px 12px 4px rgb(0 0 0 / 24%);
 
   .center-menu-logo {
     display: none;
@@ -91,7 +94,6 @@
   }
 }
 .logo {
-  margin-top: 32px;
   @media #{$md-layout} {
     margin-top: 0;
   }
@@ -128,6 +130,7 @@
 }
 
 .stick {
+  padding-block: 1rem;
   .logo-hm5 {
     a.sticky-block {
       display: block;
@@ -431,15 +434,13 @@
 }
 .stick .header-right-wrap .same-style.cart-wrap .shopping-cart-content,
 .stick .header-right-wrap .same-style .account-dropdown {
-  top: 160%;
+  top: 130%;
   @media #{$xs-layout} {
     top: 100%;
-
     margin-top: 14px;
   }
   @media #{$md-layout} {
     top: 100%;
-
     margin-top: 14px;
   }
 }
@@ -492,21 +493,17 @@
     .account-dropdown {
       position: absolute;
       z-index: 220;
-      top: 190%;
-      right: 0;
+      top: 130%;
+      transform: translate(-50%, 0) rotateX(90deg);
+      transform-origin: center top 0;
 
       visibility: hidden;
-
       width: 140px;
       padding: 8px 12px 10px;
-
       transition: all 0.5s ease 0s;
-      transform: rotateX(90deg);
-      transform-origin: center top 0;
       text-align: left;
-
       opacity: 0;
-      background: #fff none repeat scroll 0 0;
+      background: #fff;
       box-shadow: 0 1px 7px -2px rgba(0, 0, 0, 0.3);
       &.active {
         visibility: visible;
@@ -593,23 +590,23 @@
       border: none;
       background: transparent;
       span.count-style {
-        font-size: 12px;
+        font-size: 14px;
         line-height: 21px;
 
         position: absolute;
-        top: -9px;
+        top: -10px;
         right: -14px;
 
         display: inline-block;
 
-        width: 21px;
-        height: 21px;
+        width: 24px;
+        height: 24px;
 
         text-align: center;
 
-        color: #000;
+        color: #f1f1f1;
         border-radius: 100%;
-        background-color: #fff;
+        background-color: $theme-color;
         @media #{$xl-layout} {
           right: -5px;
         }
@@ -620,7 +617,7 @@
     }
     .shopping-cart-content {
       position: absolute;
-      z-index: 9999;
+      z-index: 9999999 !important;
       top: 190%;
       right: 0;
 
@@ -967,8 +964,8 @@
 }
 
 .header-top-area {
-  border-bottom: 1px solid #d5d4d4;
-  background-color: #000000;
+  /* color: #fff; */
+  color: #1a1a1a;
 
   .header-top-wap {
     display: flex;
@@ -977,13 +974,11 @@
 
     @media #{$xs-layout} {
       display: block;
-      color: #fff;
       margin-top: 8px;
       padding-bottom: 15px;
     }
     @media #{$sm-layout} {
       display: flex;
-      color: #fff;
       margin-top: 0;
       margin-bottom: 0;
     }
@@ -2513,4 +2508,20 @@
 
 .border-b-2 {
   border-bottom: solid 1px;
+}
+
+#pro-sidebar-search-field {
+  &::-webkit-input-placeholder {
+    color: black;
+  }
+  &::-moz-placeholder {
+    color: black;
+  }
+  &:-ms-input-placeholder {
+    color: black;
+  }
+  &:-moz-placeholder {
+    color: black;
+  }
+  background-color: white;
 }

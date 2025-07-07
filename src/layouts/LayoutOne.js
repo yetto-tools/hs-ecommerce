@@ -6,6 +6,8 @@ import ScrollToTop from "../components/scroll-to-top";
 import FooterHypestreet from "../wrappers/footer/FooterHypestreet";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import FooterOne from "../wrappers/footer/FooterOne";
+import FooterThree from "../wrappers/footer/FooterThree";
 
 const LayoutOne = ({
   children,
@@ -24,8 +26,8 @@ const LayoutOne = ({
       />
       {children}
 
-      <FooterHypestreet
-        backgroundColorClass="bg-black"
+      <FooterThree
+        backgroundColorClass="text-black border-top-1 border-color-1"
         spaceTopClass="pt-100"
         spaceBottomClass="pb-70"
       />

@@ -1,6 +1,6 @@
 .hover-green:hover {
   background-color: transparent !important;
-  color: #b4e600 !important;
+  color: #fdf5ed !important;
   font-weight: 600 !important;
   background-color: none;
 }
@@ -20,7 +20,8 @@
 /* Primer nivel (desktop) */
 .dropdown-menu.show {
   display: flex;
-  background-color: black;
+
+  background-color: transparent;
   border: none;
   padding: 0;
   margin: 0;
@@ -45,10 +46,10 @@
 }
 
 .dropdown-menu.show > li > a {
-  color: white;
+  color: #f1f1f1;
   padding: 1rem 2rem;
   font-weight: bold;
-  text-transform: uppercase;
+  text-transform: capitalize !important;
   text-decoration: none;
   display: block;
 
@@ -60,11 +61,11 @@
 }
 
 .dropdown-menu.show > li > a:hover {
-  color: #b4e600;
+  color: #fcd9b4;
   background: none;
 
   @media (max-width: 991px) {
-    color: #b4e600;
+    color: #fcd9b4;
     background-color: none;
     font-weight: 500;
   }
@@ -137,25 +138,25 @@
 }
 
 .dropdown-menu .dropdown-item {
-  color: gray;
+  color: #10214b;
   font-weight: 600;
   padding: 0.5rem 1rem;
-  text-transform: uppercase;
+
   background-color: transparent;
   /* Estilo inicial del icono */
   svg {
-    color: gray;
+    color: #10214b;
     transition: all 0.3s ease 0s;
   }
 
   /* Hover tanto para el texto como el icono */
   &:hover {
-    color: #b4e600;
+    color: #c19976;
     font-weight: 700;
     background-color: transparent;
   }
   &:hover ~ svg {
-    color: #b4e600;
+    color: #fdf5ed;
     font-weight: 800;
     background-color: transparent;
   }
@@ -166,7 +167,7 @@
 }
 
 .dropdown-menu ul li > ul > li:hover a {
-  color: #b4e600;
+  color: #10214bae;
   font-weight: 500;
   background-color: none;
 }

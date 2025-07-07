@@ -1034,7 +1034,7 @@
         color: #fff;
         border: none;
         background: none;
-        background-color: #000;
+        background-color: $theme-color-dark;
         transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         @media #{$xs-layout} {
           padding: 23px 12px 23px;
@@ -1045,7 +1045,7 @@
         &:hover {
           border: none;
           background-color: $theme-color;
-          color: #000;
+          color: $theme-text-dark;
         }
 
         &:disabled {
@@ -2056,7 +2056,7 @@
           border: none;
           border-radius: 50px;
           background: none;
-          background-color: #b8db15;
+          background-color: $theme-color;
           &:hover,
           &.active {
             background-color: #e6deac;
@@ -2421,7 +2421,7 @@
     text-align: center;
 
     opacity: 1;
-    background: none repeat scroll 0 0 #b8db15;
+    background: none repeat scroll 0 0 $theme-color;
     .pro-same-action {
       margin: 0 2px;
       a,

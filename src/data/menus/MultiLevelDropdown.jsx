@@ -51,7 +51,7 @@ const MultiLevelDropdown = ({ sidebarMenu = false }) => {
                 to={`/productos?categoria=${item.slug}`}
                 className={clsx(
                   "dropdown-item mt-0 mx-md-1 px-md-1",
-                  isFirstLevel && "py-4 item-menu-name parent-menu"
+                  isFirstLevel && "py-2 item-menu-name parent-menu"
                 )}
                 dataset-slug={item.slug}
                 id={item.ids}
@@ -97,7 +97,9 @@ const MultiLevelDropdown = ({ sidebarMenu = false }) => {
     );
   };
 
-  return <div className="dropdown container">{renderMenu(menu, true)}</div>;
+  return (
+    <div className="dropdown container-fluid">{renderMenu(menu, true)}</div>
+  );
 };
 
 export default MultiLevelDropdown;

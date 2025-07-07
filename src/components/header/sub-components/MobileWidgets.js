@@ -43,7 +43,7 @@ const MobileWidgets = () => {
           <div className="contact-info-dec">
             <p>
               <a
-                href={"https://wa.me/" + storeInfo?.whatsapp}
+                href={`https://wa.me/` + storeInfo?.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fs-5"

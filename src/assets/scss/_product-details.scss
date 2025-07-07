@@ -594,7 +594,7 @@
         background-color: #e6deac;
       }
       &.purple {
-        background-color: #b8db15;
+        background-color: $theme-color;
       }
     }
   }
@@ -652,7 +652,7 @@
     visibility: hidden;
 
     opacity: 0;
-    color: #333;
+    color: #fcd8b4;
     border: none;
     background: none;
     i {

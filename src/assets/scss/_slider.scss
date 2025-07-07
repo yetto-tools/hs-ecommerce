@@ -1714,7 +1714,7 @@
       border: 1px solid #333;
       &:hover {
         color: #fff;
-        border: 1px solid #b8db15;
+        border: 1px solid $theme-color;
       }
       @media #{$md-layout} {
         padding: 15px 35px 15px;
@@ -1991,7 +1991,7 @@
       border: 1px solid #333;
       &:hover {
         color: #fff;
-        border: 1px solid #b8db15;
+        border: 1px solid $theme-color;
       }
     }
   }

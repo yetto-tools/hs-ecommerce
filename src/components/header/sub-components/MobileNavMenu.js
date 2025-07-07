@@ -31,7 +31,7 @@ const MobileNavMenu = () => {
     return (
       <ul
         className={clsx(
-          "dropdown-menu my-0",
+          "dropdown-menu my-4",
           {
             show: isFirstLevel || openSubmenus[items[0].id],
           },

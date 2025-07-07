@@ -1,31 +1,30 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { setCurrency } from "../../../store/slices/currency-slice"
+import { setCurrency } from "../../../store/slices/currency-slice";
 
 const LanguageCurrencyChanger = ({ currency }) => {
-  const {t, i18n } = useTranslation();
-  
+  const { t, i18n } = useTranslation();
+
   const dispatch = useDispatch();
-  const changeLanguageTrigger = e => {
+  const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
     i18n.changeLanguage(languageCode);
-    
   };
 
-  const setCurrencyChangeTrigger = codeCurrency => {
+  const setCurrencyChangeTrigger = (codeCurrency) => {
     const currencyName = codeCurrency;
     dispatch(setCurrency(currencyName));
   };
 
-  const setCurrencyTrigger = e => {
+  const setCurrencyTrigger = (e) => {
     const currencyName = e.target.value;
     dispatch(setCurrency(currencyName));
   };
 
   return (
     <div className="language-currency-wrap">
-      <div className="same-language-currency language-style">
+      {/* <div className="same-language-currency language-style">
         <span>
           {
             i18n.resolvedLanguage === "es-GT"
@@ -70,7 +69,7 @@ const LanguageCurrencyChanger = ({ currency }) => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
       <div className="same-language-currency">
         <p>{t("header_top.call_phone")}</p>
       </div>

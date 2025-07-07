@@ -8,8 +8,7 @@ import MobileMenu from "../../components/header/MobileMenu";
 
 import MultiLevelDropdown from "../../data/menus/MultiLevelDropdown";
 import { APP_ENV, APP_VERSION, DB_ENV } from "../../config";
-
-import { showToast } from "../../toast/toastManager";
+import ShopSearch from "../../components/product/ShopSearch";
 
 const HeaderOne = ({
   layout,
@@ -65,7 +64,7 @@ const HeaderOne = ({
 
       <header
         className={clsx(
-          "header-area clearfix bg-black text-white ",
+          "header-area clearfix text-theme py-4",
           headerBgClass,
           headerPositionClass
         )}
@@ -92,23 +91,31 @@ const HeaderOne = ({
           )}
         >
           <div
-            className={
-              layout === "container-fluid " ? layout : "container-fluid"
-            }
+            className={clsx(
+              "mx-auto container-fluid",
+              layout === "container-fluid" ? layout : "container"
+            )}
           >
             <div className={`row align-items-center justify-content-between`}>
-              <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-4">
-                <div className="d-flex justify-content-center align-items-center w-75">
-                  {/* header logo */}
-                  <Logo imageUrl="/logo-w-colors.png" />
+              <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-4">
+                <div className="d-flex justify-content-center align-items-center w-75 px-4">
+                  <Logo imageUrl="/logo-light.png" logoClass="logo" />
                 </div>
               </div>
-              <div className="col-xxl-6 col-xl-6 col-lg-5 col-md-5 d-none d-lg-block">
-                <MultiLevelDropdown sidebarMenu={false} />
+              <div className="col-xxl-7 col-xl-6 col-lg-7 col-md-5 d-none d-lg-block">
+                <div className="d-flex justify-content-center align-items-center">
+                  <ShopSearch
+                    className="w-100 d-none d-lg-block"
+                    onlySearch={false}
+                  />
+                </div>
               </div>
-              <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-3 col-4 ">
+              <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-4 ">
                 {/* Icon group */}
                 <IconGroup />
+              </div>
+              <div className="container-fluid  mx-auto d-none d-lg-block">
+                <MultiLevelDropdown sidebarMenu={false} />
               </div>
             </div>
           </div>

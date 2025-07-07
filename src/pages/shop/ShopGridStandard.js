@@ -15,6 +15,7 @@ import {
   fetchArticles,
   fetchSearchArticles,
 } from "../../hooks/use-FetchArticles";
+import ShopSidebarFilters from "./ShopSidebarFilters";
 
 const ShopProducts = lazy(() => import("../../wrappers/product/ShopProducts"));
 
@@ -44,6 +45,11 @@ const ShopGridStandard = () => {
     }
   }, [dispatch, searchParams, params]);
 
+  const getLayout = (layout) => {
+    setLayout(layout);
+  };
+  const filters = useSelector((state) => state.articles.filters);
+
   return (
     <Fragment>
       <SEO
@@ -64,12 +70,12 @@ const ShopGridStandard = () => {
         <div className="shop-area pt-95 pb-100">
           <div className="container-fluid">
             <div className="row col-lg-12 mx-auto">
-              <div className="col-lg-3 order-2 order-lg-1 hidden" hidden>
+              <div className="col-lg-3 order-2 order-lg-1 border-right">
                 {/* shop sidebar */}
 
-                {/* <ShopSidebarFilters filters={filters} sideSpaceClass="" /> */}
+                <ShopSidebarFilters filters={filters} sideSpaceClass="" />
               </div>
-              <div className="col-lg-12 order-1 order-lg-2 mx-auto">
+              <div className="col-lg-8 order-1 order-lg-2 mx-auto">
                 {/* shop topbar */}
                 {/* <ShopTopbar
                   getLayout={getLayout}

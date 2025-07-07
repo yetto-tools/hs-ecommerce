@@ -157,7 +157,7 @@ const FooterHypestreet = ({
                 </Link>
               </li>
               <li>
-                <Link className="text-white text-hover-green-hs" to="/contact">
+                <Link className="text-white text-hover-green-hs" to="/contacto">
                   {t("footer.contact_here")}
                 </Link>
               </li>

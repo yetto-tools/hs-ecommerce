@@ -6,7 +6,8 @@ import NewArrivals from "../../wrappers/slider-banner/NewArrivals";
 import CustomSlider from "../../wrappers/slider-banner/CustomSlider";
 
 import BannerMultiColumnImage from "../../components/banner/BannerMultiColumnImage";
-
+import SliderBanner from "../../wrappers/slider-banner/SliderBanner";
+import FeatureIconFour from "../../wrappers/feature-icon/FeatureIconFour";
 
 const HomeFashionTwo = () => {
   const [brand, setBrand] = useState(null);
@@ -44,30 +45,12 @@ const HomeFashionTwo = () => {
         headerTop="visible"
       >
         <main className="">
-          {/* hero slider */}
-          <HeroSliderNine spaceLeftClass="" spaceRightClass="" />
-
-          {/* slider new arrivals */}
-          <div className="bg-white container-fluid d-flex flex-column justify-content-around align-items-center align-items-center">
-            {/* <BrandLogoSliderFour
-              spaceBottomClass="pb-50"
-              spaceTopClass="pt-50"
-            /> */}
-
-            <NewArrivals />
-          </div>
-          {/* slide de marcas  */}
-
-          {/*  */}
-
-          <div className="bg-black container-fluid d-flex flex-column justify-content-around align-items-center align-items-center">
-            {brand && <CustomSlider slides={brand} />}
-          </div>
-
-          <div className="bg-black container-fluid d-flex flex-column justify-content-around align-items-center align-items-center">
-            {/* <BannerSingleImage /> */}
-            <BannerMultiColumnImage />
-          </div>
+          <SliderBanner />
+          <FeatureIconFour
+            spaceBottomClass="pb-70"
+            containerClass="container"
+            responsiveClass="res-mrg-md-mt"
+          />
         </main>
       </LayoutOne>
     </Fragment>
