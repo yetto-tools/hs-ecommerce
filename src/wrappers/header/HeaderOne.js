@@ -64,7 +64,7 @@ const HeaderOne = ({
 
       <header
         className={clsx(
-          "header-area clearfix text-theme py-4",
+          "header-area clearfix text-theme ",
           headerBgClass,
           headerPositionClass
         )}
@@ -114,7 +114,7 @@ const HeaderOne = ({
                 {/* Icon group */}
                 <IconGroup />
               </div>
-              <div className="container-fluid  mx-auto d-none d-lg-block">
+              <div className="container-fluid  mx-auto d-none d-lg-block pb-3">
                 <MultiLevelDropdown sidebarMenu={false} />
               </div>
             </div>

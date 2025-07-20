@@ -39,7 +39,7 @@ const ShopSearch = ({ className = "sidebar-widget", onlySearch = true }) => {
       {onlySearch && (
         <h4 className="pro-sidebar-title">{t("shop_search.label")} </h4>
       )}
-      <div className="pro-sidebar-search mb-50 mt-25">
+      <div className="pro-sidebar-search mb-25 mt-25">
         <section className="pro-sidebar-search-form">
           <input
             id="pro-sidebar-search-field"

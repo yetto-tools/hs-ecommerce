@@ -6,7 +6,7 @@ const BannerTwentyEight = ({ spaceTopClass, spaceBottomClass }) => {
   return (
     <div className={clsx("banner-area", spaceTopClass, spaceBottomClass)}>
       <div className="container">
-        <div className="row">
+        <div className="d-flex flex-md-row flex-lg-column justify-content-between align-items-stretch h-100">
           <div className="col-md-8">
             <div className="single-banner mb-30">
               <Link to={process.env.PUBLIC_URL + "/productos"}>
