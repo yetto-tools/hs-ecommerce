@@ -7,7 +7,7 @@ import IconGroup from "../../components/header/IconGroup";
 import MobileMenu from "../../components/header/MobileMenu";
 
 import MultiLevelDropdown from "../../data/menus/MultiLevelDropdown";
-import { APP_ENV, APP_VERSION } from "../../config";
+import { APP_ENV, APP_VERSION, DB_ENV } from "../../config";
 
 import { showToast } from "../../toast/toastManager";
 
@@ -57,7 +57,7 @@ const HeaderOne = ({
           }}
           onClick={handleOnclick}
         >
-          Entorno de Pruebas - ({APP_VERSION})
+          Entorno de Pruebas - ({APP_VERSION}) - {DB_ENV}
         </div>
       ) : (
         ""

@@ -91,7 +91,7 @@ const MenuCart = () => {
                           className="img-fluid ml-4"
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = "/default/no-image-thumbnial.avif";
+                            e.target.src = "/default/no-image-thumbnail.avif";
                           }}
                         />
                       </button>
