@@ -17,6 +17,7 @@ import { fetchCorreo } from "../../hooks/use-fetchCorreo";
 
 import { Loader2, Send } from "lucide-react";
 import { showToast } from "../../toast/toastManager";
+import { formatWhatsappNumber } from "../../helpers/validator";
 
 const Contact = () => {
   let { pathname } = useLocation();
@@ -47,7 +48,10 @@ const Contact = () => {
       const newStoreInfo = params.reduce((acc, param) => {
         const key = mapping[param.Nombre];
         if (key) {
-          acc[key] = param.Valor;
+          acc[key] = (param.Valor || "").replace(
+            /[\x00-\x1F\u200E\u200F\u202A-\u202E]/g,
+            ""
+          );
         }
         return acc;
       }, {});
@@ -124,15 +128,11 @@ const Contact = () => {
                     <div className="contact-info-dec">
                       <p>
                         <a
-                          href={storeInfo?.whatsapp}
+                          href={"https://wa.me/" + storeInfo?.whatsapp}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          +502{" "}
-                          {storeInfo?.whatsapp?.replace(
-                            "https://wa.me/502",
-                            ""
-                          )}
+                          {formatWhatsappNumber(storeInfo?.whatsapp)}
                         </a>
                       </p>
                     </div>
