@@ -52,6 +52,10 @@ export const fetchCountry = () => async (dispatch) => {
     const { data, message } = await response.json(); // Primero obtener la respuesta y luego verificar el estado
 
     const { message: mensaje } = adapterMessage(message);
+
+        // {code: 500, data: [], : "aborted"}
+    if(response.status === 500 && response.statusText === "aborted") return;
+
     if (!response.ok) {
       throw new Error(mensaje || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
     }

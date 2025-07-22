@@ -18,7 +18,12 @@ export const fetchMenu = () => async (dispatch, getState) => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
-    if (!response.ok) {
+
+    // {code: 500, data: [], : "aborted"}
+    if(response.status === 500 && response.statusText === "aborted") return;
+
+
+    if (!response.ok) { 
       throw new Error(`Error: ${response.status}`);
     }
     const { data } = await response.json();
