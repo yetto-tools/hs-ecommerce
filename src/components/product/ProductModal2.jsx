@@ -98,7 +98,7 @@ function ProductModal2({ show, onHide, currency }) {
         <div className="modal-body py-0">
           <div className="row">
             <div className="co-lg-5 col-md-6 col-sm-6 col-xs-12">
-              <div className="product-large-image-wrapper px-4">
+              <div className="product-large-image-wrapper px-sm-3 px-md-1 lg-2">
                 <ProductImageGallery images={selectedVariantImage} />
               </div>
             </div>
