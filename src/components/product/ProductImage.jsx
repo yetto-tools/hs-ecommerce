@@ -6,6 +6,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
+import "./fix-slick-buttons.css";
+
 
 const ProductImageGallery = ({
   images = [],
@@ -42,7 +44,7 @@ const ProductImageGallery = ({
     slidesToShow: images.length >= 3 ? 3 : images.length === 2 ? 2 : 1,
     swipeToSlide: true,
     focusOnSelect: true,
-    centerPadding: "4px",
+    centerPadding: "10px",
     arrows: true,
     dots: false,
     centerMode: false,
@@ -61,6 +63,9 @@ const ProductImageGallery = ({
   };
 
   const RenderImagesThumbnail = () => {};
+
+
+  
 
   return (
     <div>
@@ -106,8 +111,8 @@ const ProductImageGallery = ({
                   e.target.src = "/default/no-image.avif";
                 }}
                 dataset-index={`${i}`}
-                width={"120px"}
-                height={"120px"}
+                width={"118px"}
+                height={"118px"}
                 dataset-src={`${configParams.RUTAIMAGENESARTICULOS}${image}`}
               />
             </div>

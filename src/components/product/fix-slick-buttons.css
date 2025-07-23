@@ -1,0 +1,5 @@
+
+
+html[native-dark-active] .slick-prev::before, html[native-dark-active] .slick-next::before {
+    color: transparent !important;
+}

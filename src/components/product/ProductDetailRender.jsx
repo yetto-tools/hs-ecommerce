@@ -27,8 +27,8 @@ export const ProductDetailRender = ({ articleDetail }) => {
     <>
       <div className="modal-body py-0">
         <div className="row">
-          <div className="co-lg-5 col-md-6 col-sm-6 col-xs-12 px-5">
-            <div className="product-large-image-wrapper px-5">
+          <div className="co-lg-5 col-md-6 col-sm-6 col-xs-12 px-lg-5 px-2">
+            <div className="product-large-image-wrapper px-sm-3 px-md-1 px-lg-2">
               <div className="container">
                 <ProductImageGallery images={selectedVariantImage} />
               </div>
