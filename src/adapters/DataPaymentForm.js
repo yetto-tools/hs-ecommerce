@@ -18,7 +18,7 @@ export const dataPaymentForm = () => {
     cvc: "",
     cvv: "",
     avs: "",
-    redirect: "https://hypestreet.dssolutionsgt.com/pago-exito",
+    redirect: `${window.location.origin}/pago-exito`,
     expiryYear: "",
     expiryMonth: "",
     "first_name,last_name": "",
@@ -43,14 +43,17 @@ export const adapterPaymentForm = (cliente, tarjeta, pago, redirect) => {
     email: cliente.email || "",
     phone: cliente.phone || "",
 
-    redirect: redirect || "https://hypestreet.dssolutionsgt.com/pago-exito",
+    redirect: `${window.location.origin}/pago-exito`,
 
     expiryYear: tarjeta.expiryYear || "",
     expiryMonth: tarjeta.expiryMonth || "",
   };
 };
 
-export const adapterFormBAC = (key_id, redirect) => {
+export const adapterFormBAC = (
+  key_id,
+  redirect = `${window.location.origin}/pago-exito`
+) => {
   // const ccexp = expiryMonth + expiryYear;
   return {
     type: "sale",
@@ -68,6 +71,6 @@ export const adapterFormBAC = (key_id, redirect) => {
     ccexp: "",
     cvv: "",
     avs: "",
-    redirect: redirect ?? "https://hypestreet.dssolutionsgt.com/pago-exito",
+    redirect: `${window.location.origin}/pago-exito`,
   };
 };
