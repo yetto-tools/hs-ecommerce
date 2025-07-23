@@ -254,6 +254,7 @@ export function useBacCheckoutLogic() {
       cvc: cardValues.cvc || "",
       avs: selectedAddress || "",
       redirect: `${window.location.origin}/confirmacion-pago`,
+
     };
 
   };

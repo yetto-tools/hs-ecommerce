@@ -1,14 +1,14 @@
 # Políticas de Cambios, Envíos y Garantía
+
 ---
 
 <br style="height:250px;" />
 
 ## Cambios y Devoluciones
 
-1. Todos los **gastos de envío y devolución** corren por cuenta del cliente.  
-2. Los artículos deben estar en su **estado original** y conservar **todas sus etiquetas**.  
+1. Todos los **gastos de envío y devolución** corren por cuenta del cliente.
+2. Los artículos deben estar en su **estado original** y conservar **todas sus etiquetas**.
 3. Puedes realizar **UN solo cambio** en productos adquiridos en **Hype Street**.
-
 
 <br style="height:250px;" />
 <br style="height:250px;" />
@@ -21,8 +21,9 @@
 
 - **Si tu compra fue en web o redes sociales:**  
   Comunícate vía **WhatsApp al 5595-3613**. Debes enviar:
-  - Fotografías **legibles del producto**  
-  - La **factura original**  
+
+  - Fotografías **legibles del producto**
+  - La **factura original**
   - El **motivo del cambio**
 
 - **Cambios por talla (compras web o redes sociales):**  
@@ -38,18 +39,16 @@
 
 ---
 
-
 <br style="height:250px;" />
 <br style="height:250px;" />
 <br style="height:250px;" />
-
 
 ## Políticas de Envío
 
 - Las compras realizadas en nuestra **página web** serán entregadas en:
 
->    - **2-3 días hábiles** en la **ciudad capital**
->    - **3-4 días hábiles** en el **interior del país**, posterior a la confirmación de compra
+> - **2-3 días hábiles** en la **ciudad capital**
+> - **3-4 días hábiles** en el **interior del país**, posterior a la confirmación de compra
 
 - Los tiempos de entrega pueden **variar según tu ubicación** y disposición al recibir el producto.
 
@@ -61,30 +60,29 @@
 
 ---
 
-
 <br style="height:250px;" />
 <br style="height:250px;" />
 <br style="height:250px;" />
 
 ## Garantía
 
->    - Hype Street se reserva el derecho de **rechazar cambios o devoluciones** fuera del plazo establecido o si los productos **no están en las mismas condiciones** en las que fueron entregados.
+> - Hype Street se reserva el derecho de **rechazar cambios o devoluciones** fuera del plazo establecido o si los productos **no están en las mismas condiciones** en las que fueron entregados.
 
->    - Todos los artículos tienen **30 días de garantía** por **defectos de fábrica**.
+> - Todos los artículos tienen **30 días de garantía** por **defectos de fábrica**.
 
->    - El cliente es responsable del **cuidado del producto**.  
->      Hype Street **no se hace responsable** por daños ocasionados por **lavado incorrecto**.
+> - El cliente es responsable del **cuidado del producto**.  
+>   Hype Street **no se hace responsable** por daños ocasionados por **lavado incorrecto**.
 
->    - **No realizamos cambios ni devoluciones en calcetines o medias.**
+> - **No realizamos cambios ni devoluciones en calcetines o medias.**
 
->    - Todos nuestros productos son de **uso casual y cotidiano**.  
+> - Todos nuestros productos son de **uso casual y cotidiano**.
 
->    -  **No deben utilizarse en:**
->       1. Ambientes de trabajo  
->       2. Actividades deportivas  
->       3. O situaciones que puedan ocasionar **deterioro prematuro**
+> - **No deben utilizarse en:**
+>   1. Ambientes de trabajo
+>   2. Actividades deportivas
+>   3. O situaciones que puedan ocasionar **deterioro prematuro**
 
 > En estos casos, **se rechazará cualquier tipo de solicitud de cambio o devolución**.
-<br style="height:250px;" />
-<br style="height:250px;" />
-<br style="height:250px;" />
+> <br style="height:250px;" />
+> <br style="height:250px;" />
+> <br style="height:250px;" />
