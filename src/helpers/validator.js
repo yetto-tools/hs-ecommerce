@@ -148,10 +148,17 @@ export function addressJsonToXml(obj, rootName = "root") {
   return xml;
 }
 
-
 export function calcularIVAIncluido(precioConIVA) {
   const precioSinIVA = +(precioConIVA / 1.12).toFixed(2);
   const iva = +(precioConIVA - precioSinIVA).toFixed(2);
   return { precioSinIVA, iva };
 }
 
+export const formatWhatsappNumber = (url) => {
+  if (!url) return "";
+  // Extrae solo los dígitos
+  const digits = url.replace(/\D/g, "");
+  if (digits.length < 11) return digits; // no aplica formato si no hay país + número
+  // Asumiendo formato GT: 3 país + 8 local
+  return `+${digits.slice(0, 3)} ${digits.slice(3, 7)}-${digits.slice(7, 11)}`;
+};
