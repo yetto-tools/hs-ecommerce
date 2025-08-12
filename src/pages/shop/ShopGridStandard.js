@@ -70,12 +70,12 @@ const ShopGridStandard = () => {
         <div className="shop-area pt-95 pb-100">
           <div className="container-fluid">
             <div className="row col-lg-12 mx-auto">
-              <div className="col-lg-3 order-2 order-lg-1 border-right">
+              <div className="col-lg-2 order-2 order-lg-1 border-right">
                 {/* shop sidebar */}
 
                 <ShopSidebarFilters filters={filters} sideSpaceClass="" />
               </div>
-              <div className="col-lg-8 order-1 order-lg-2 mx-auto">
+              <div className="col-lg-10 order-1 order-lg-2 mx-auto">
                 {/* shop topbar */}
                 {/* <ShopTopbar
                   getLayout={getLayout}
