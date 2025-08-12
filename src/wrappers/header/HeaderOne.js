@@ -93,10 +93,12 @@ const HeaderOne = ({
           <div
             className={clsx(
               "mx-auto container-fluid",
-              layout === "container-fluid" ? layout : "container"
+              layout === "container-fluid " ? layout : "row col-xl-10"
             )}
           >
-            <div className={`row align-items-center justify-content-between`}>
+            <div
+              className={`row align-items-center justify-content-between col-xxl-12 col-xl-12`}
+            >
               <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-4">
                 <div className="d-flex justify-content-center align-items-center w-75 px-4">
                   <Logo imageUrl="/logo-light.png" logoClass="logo" />
@@ -105,7 +107,7 @@ const HeaderOne = ({
               <div className="col-xxl-7 col-xl-6 col-lg-7 col-md-5 d-none d-lg-block">
                 <div className="d-flex justify-content-center align-items-center">
                   <ShopSearch
-                    className="w-100 d-none d-lg-block"
+                    className="w-100 d-none d-lg-block rounded-pill"
                     onlySearch={false}
                   />
                 </div>
