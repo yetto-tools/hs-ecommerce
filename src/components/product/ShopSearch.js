@@ -45,6 +45,7 @@ const ShopSearch = ({ className = "sidebar-widget", onlySearch = true }) => {
             id="pro-sidebar-search-field"
             type="search"
             name="search"
+            className="rounded-pill"
             placeholder={t("shop_search.place_holder")}
             value={value}
             onChange={(e) => setValue(e.target.value)}
