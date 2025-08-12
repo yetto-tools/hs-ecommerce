@@ -53,11 +53,11 @@ const HomeFashionTwo = () => {
             <BannerOne spaceBottomClass="pb-70" />
           </section>
 
-          <section className="container-fluid col-9 mx-auto pt-50 pb-100">
+          <section className="container-fluid col-11 mx-auto pt-50 pb-100">
             <HeroSliderSeven />
           </section>
 
-          <section className="container-fluid col-9 mx-auto  pt-50 pb-100">
+          <section className="container-fluid col-11 mx-auto  pt-50 pb-100">
             <FeatureIconFour
               spaceBottomClass="pb-70"
               containerClass="container-fluid"
