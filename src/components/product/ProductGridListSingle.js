@@ -96,9 +96,9 @@ const ProductGridListSingle = ({
             </>
           </div>
           {product.discount || product.new ? (
-            <div className="product-img-badges">
+            <div className="product-img-badges-hs">
               {product.discount && product.discount > 0.0 && (
-                <span className="pink">-{product.discount}%</span>
+                <span className="hs-discount">{product.discount}%</span>
               )}
               {product.new ? (
                 <span className="purple">{t("general_words.new")}</span>

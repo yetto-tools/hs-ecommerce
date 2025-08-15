@@ -2565,3 +2565,20 @@ button.border-black:hover {
   padding-top: 0.625rem !important;
   padding-bottom: 0.625rem !important;
 }
+
+.hs-discount {
+  background-color: $theme-color;
+  color: #000 !important;
+  font-weight: 600 !important;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 15px !important;
+  font-weight: bold !important;
+}
+.product-img-badges-hs {
+  position: absolute;
+  z-index: 20;
+  top: 12px;
+  left: 12px;
+  isolation: isolate;
+}
