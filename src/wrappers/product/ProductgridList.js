@@ -17,11 +17,11 @@ const ProductGridList = ({ products, spaceBottomClass }) => {
       {loading && LoadingIndicator}
       <Suspense fallback={LoadingIndicator}>
         {products && products.length > 0 ? (
-          products?.map((product) => {
+          products?.map((product, index) => {
             return (
               <div
                 className="col-xl-3 col-sm-6"
-                key={product.sku}
+                key={product.sku + index}
                 name="product-grid-list"
               >
                 <ProductGridListSingle

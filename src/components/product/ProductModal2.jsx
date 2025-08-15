@@ -105,28 +105,42 @@ function ProductModal2({ show, onHide, currency }) {
             <div className="co-lg-7 col-md-6 col-sm-6 col-xs-12">
               <div className="product-details-content quickview-content">
                 <h2>{articleDetail.name}</h2>
-
                 <div className="product-details-price gap-4">
-                  <span className="fs-4 fw-bold">
-                    {CurrencyFormatter(
-                      articleDetail.discountedPrice || articleDetail.price,
-                      i18n,
-                      currency
-                    )}
-                  </span>
-                  <span>
-                    {articleDetail && articleDetail?.discount > 0 && (
-                      <del>
-                        <small className="text-muted">
-                          {CurrencyFormatter(
-                            articleDetail.price,
-                            i18n,
-                            currency
-                          )}
-                        </small>
-                      </del>
-                    )}
-                  </span>
+                  {selectedVariant?.discountedPrice > 0 &&
+                  selectedVariant.discount > 0 ? (
+                    <>
+                      {/* Precio con descuento */}
+                      <span className="fs-4 fw-bold">
+                        {CurrencyFormatter(
+                          selectedVariant.discountedPrice,
+                          i18n,
+                          currency
+                        )}
+                      </span>
+
+                      {/* Precio original tachado */}
+                      <span>
+                        <del>
+                          <small className="text-muted">
+                            {CurrencyFormatter(
+                              selectedVariant.price,
+                              i18n,
+                              currency
+                            )}
+                          </small>
+                        </del>
+                      </span>
+                    </>
+                  ) : (
+                    // Si no hay descuento, solo el precio normal
+                    <span className="fs-4 fw-bold">
+                      {CurrencyFormatter(
+                        selectedVariant?.price,
+                        i18n,
+                        currency
+                      )}
+                    </span>
+                  )}
                 </div>
 
                 <VariantSelector
