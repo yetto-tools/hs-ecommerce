@@ -116,19 +116,30 @@ const MenuCart = () => {
                           {t("page_cart.th_qty")}:{" 0"}
                         </h6>
                       )}
+                      <div>
+                        <h6>
+                          {"Precio"}:{" "}
+                          {discountedPrice !== null
+                            ? new Intl.NumberFormat(i18n.language, {
+                                style: "currency",
+                                currency: currency.currencyName,
+                              }).format(finalDiscountedPrice)
+                            : new Intl.NumberFormat(i18n.language, {
+                                style: "currency",
+                                currency: currency.currencyName,
+                              }).format(finalProductPrice)}
+                        </h6>
+                        <span className="muted tached text-xs">
+                          {" "}
+                          {discountedPrice !== null
+                            ? new Intl.NumberFormat(i18n.language, {
+                                style: "currency",
+                                currency: currency.currencyName,
+                              }).format(finalProductPrice)
+                            : ""}
+                        </span>
+                      </div>
 
-                      <h6>
-                        {"Precio"}:{" "}
-                        {discountedPrice !== null
-                          ? new Intl.NumberFormat(i18n.language, {
-                              style: "currency",
-                              currency: currency.currencyName,
-                            }).format(finalDiscountedPrice)
-                          : new Intl.NumberFormat(i18n.language, {
-                              style: "currency",
-                              currency: currency.currencyName,
-                            }).format(finalProductPrice)}
-                      </h6>
                       <span className="">
                         {item.selectedProductColor &&
                         item.selectedProductSize ? (

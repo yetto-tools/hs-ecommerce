@@ -202,19 +202,9 @@ const Cart = () => {
                                           {cartItem.name}
                                         </span>
                                       </Link>
-                                      <div className="product-price">
+                                      <div className="product-price d-flex gap-2">
                                         {discountedPrice !== null ? (
-                                          <Fragment>
-                                            <span className="amount old">
-                                              {new Intl.NumberFormat(
-                                                i18n.language,
-                                                {
-                                                  style: "currency",
-                                                  currency:
-                                                    currency.currencyName,
-                                                }
-                                              ).format(finalProductPrice)}
-                                            </span>
+                                          <Fragment className="flex">
                                             <span className="amount">
                                               {new Intl.NumberFormat(
                                                 i18n.language,
@@ -224,6 +214,17 @@ const Cart = () => {
                                                     currency.currencyName,
                                                 }
                                               ).format(finalDiscountedPrice)}
+                                            </span>
+
+                                            <span className="mutex tached">
+                                              {new Intl.NumberFormat(
+                                                i18n.language,
+                                                {
+                                                  style: "currency",
+                                                  currency:
+                                                    currency.currencyName,
+                                                }
+                                              ).format(finalProductPrice)}
                                             </span>
                                           </Fragment>
                                         ) : (

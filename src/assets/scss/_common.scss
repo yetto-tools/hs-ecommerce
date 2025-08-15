@@ -2582,3 +2582,11 @@ button.border-black:hover {
   left: 12px;
   isolation: isolate;
 }
+.muted {
+  opacity: 0.5;
+}
+
+.tached {
+  text-decoration: line-through;
+  color: #333;
+}
