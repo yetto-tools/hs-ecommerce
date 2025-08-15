@@ -6,17 +6,21 @@ export const VariantSelector = ({
   setSelectedVariant,
   setProductStock,
   setQuantityCount,
-  setSelectedVariantImage
+  setSelectedVariantImage,
 }) => {
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [selectedColorId, setSelectedColorId] = useState(null);
   const [saleOut, setSaleOut] = useState(false);
 
-  
-  
   useEffect(() => {
     if (articleDetail?.variation?.length > 0) {
-      const firstAvailable = articleDetail.variation[0];
+      // Buscar variante con descuento
+      const variantWithDiscount = articleDetail.variation.find(
+        (v) => v.discountedPrice > 0 && v.discount > 0
+      );
+
+      const firstAvailable = variantWithDiscount || articleDetail.variation[0];
+
       if (firstAvailable) {
         setSelectedSizeId(firstAvailable.idSize);
         setSelectedColorId(firstAvailable.idcolor);
@@ -29,7 +33,9 @@ export const VariantSelector = ({
     if (articleDetail.variation) {
       const variant = articleDetail.variation.find((v) => {
         const matchesSize = selectedSizeId ? v.idSize === selectedSizeId : true;
-        const matchesColor = selectedColorId ? v.idcolor === selectedColorId : true;
+        const matchesColor = selectedColorId
+          ? v.idcolor === selectedColorId
+          : true;
         return matchesSize && matchesColor;
       });
 
@@ -42,7 +48,7 @@ export const VariantSelector = ({
       setSelectedVariantImage([]);
     }
   }, [selectedSizeId, selectedColorId, articleDetail.variation]);
- 
+
   return (
     <div className="pro-details-size-color mt-3">
       <div className="d-flex flex-column ">
@@ -50,20 +56,19 @@ export const VariantSelector = ({
           <div className="pro-details-size mb-4">
             <h5 className="fw-bold mb-4">Talla:</h5>
             <div className="pro-details-size-content mb-2">
-            {articleDetail.sizes && (
-                  <SizeSelector
-                    sizes={articleDetail.sizes}
-                    variation={articleDetail.variation}
-                    selectedSizeId={selectedSizeId}
-                    selectedColorId={selectedColorId}
-                    setSelectedSizeId={setSelectedSizeId}
-                    setQuantityCount={setQuantityCount}
-                  />
-                )}
+              {articleDetail.sizes && (
+                <SizeSelector
+                  sizes={articleDetail.sizes}
+                  variation={articleDetail.variation}
+                  selectedSizeId={selectedSizeId}
+                  selectedColorId={selectedColorId}
+                  setSelectedSizeId={setSelectedSizeId}
+                  setQuantityCount={setQuantityCount}
+                />
+              )}
             </div>
           </div>
         )}
-     
 
         <div className="pro-details-color-wrap">
           <h5 className="fw-bold">Color:</h5>
@@ -120,25 +125,20 @@ export const VariantSelector = ({
               </>
             )} */}
 
-              <ColorSelector
-                colors={articleDetail.colors}
-                selectedColorId={selectedColorId}
-                setSelectedColorId={setSelectedColorId}
-                variation={articleDetail.variation}
-                setSelectedSizeId={setSelectedSizeId}
-                setQuantityCount={setQuantityCount}
-              />
-
+            <ColorSelector
+              colors={articleDetail.colors}
+              selectedColorId={selectedColorId}
+              setSelectedColorId={setSelectedColorId}
+              variation={articleDetail.variation}
+              setSelectedSizeId={setSelectedSizeId}
+              setQuantityCount={setQuantityCount}
+            />
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-
-
-
 
 // export const SizeSelector = ({
 //   sizes,
@@ -209,7 +209,8 @@ const SizeSelector = ({
   // Filtrar solo las tallas que existen y tienen stock > 0 para el color seleccionado
   const availableSizes = sizes.filter((size) =>
     variation.some(
-      (v) => v.idSize === size.id && v.idcolor === selectedColorId && v.stock >= 0
+      (v) =>
+        v.idSize === size.id && v.idcolor === selectedColorId && v.stock >= 0
     )
   );
 
@@ -229,7 +230,8 @@ const SizeSelector = ({
               "disabled-size": isDisabled,
             })}
             style={{
-              backgroundColor: selectedSizeId === size.id ? "#b9db00" : "transparent",
+              backgroundColor:
+                selectedSizeId === size.id ? "#b9db00" : "transparent",
               cursor: isDisabled ? "not-allowed" : "pointer",
               opacity: isDisabled ? 0.5 : 1,
             }}
@@ -256,14 +258,13 @@ const SizeSelector = ({
   );
 };
 
-
 export const ColorSelector = ({
   colors,
   selectedColorId,
   setSelectedColorId,
   variation,
   setSelectedSizeId,
-  setQuantityCount
+  setQuantityCount,
 }) => {
   const handleColorChange = (colorId) => {
     setSelectedColorId(colorId);
@@ -298,11 +299,9 @@ export const ColorSelector = ({
             opacity: selectedColorId === color.id ? "1" : "0.95",
             border: `1px solid ${color.colorHex}fff`,
             outline:
-              selectedColorId === color.id
-                ? "rgb(0, 0, 0) solid 2px"
-                : "none",
-            boxShadow:"rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px"
-          
+              selectedColorId === color.id ? "rgb(0, 0, 0) solid 2px" : "none",
+            boxShadow:
+              "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
           }}
         >
           <input
