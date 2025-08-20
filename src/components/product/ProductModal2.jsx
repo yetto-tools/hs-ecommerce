@@ -107,28 +107,32 @@ function ProductModal2({ show, onHide, currency }) {
                 <Link to={`/producto/${articleDetail.sku}`}>
                   <h2>{articleDetail.name}</h2>
                 </Link>
+                
                 <div className="product-details-price gap-4">
-                  <span className="fs-4 fw-bold">
-                    {CurrencyFormatter(
-                      articleDetail.discountedPrice || articleDetail.price,
-                      i18n,
-                      currency
-                    )}
-                  </span>
-                  <span>
-                    {articleDetail && articleDetail?.discount > 0 && (
-                      <del>
-                        <small className="text-muted">
-                          {CurrencyFormatter(
-                            articleDetail.price,
-                            i18n,
-                            currency
-                          )}
-                        </small>
-                      </del>
-                    )}
-                  </span>
+                  {selectedVariant?.discount > 0 ? (
+                    <>
+                      {/* Precio con descuento */}
+                      <span className="fs-4 fw-bold">
+                        {CurrencyFormatter(selectedVariant.discountedPrice, i18n, currency)}
+                      </span>
+
+                      {/* Precio original tachado */}
+                      <span>
+                        <del>
+                          <small className="text-muted">
+                            {CurrencyFormatter(selectedVariant.price, i18n, currency)}
+                          </small>
+                        </del>
+                      </span>
+                    </>
+                  ) : (
+                    // Si no hay descuento, solo el precio normal
+                    <span className="fs-4 fw-bold">
+                      {CurrencyFormatter(selectedVariant?.price, i18n, currency)}
+                    </span>
+                  )}
                 </div>
+
 
                 <VariantSelector
                   articleDetail={articleDetail}

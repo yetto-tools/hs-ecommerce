@@ -14,16 +14,22 @@ export const VariantSelector = ({
 
   
   
-  useEffect(() => {
-    if (articleDetail?.variation?.length > 0) {
-      const firstAvailable = articleDetail.variation[0];
-      if (firstAvailable) {
-        setSelectedSizeId(firstAvailable.idSize);
-        setSelectedColorId(firstAvailable.idcolor);
-        setQuantityCount(1);
-      }
+useEffect(() => {
+  if (articleDetail?.variation?.length > 0) {
+    // Buscar variante con descuento
+    const variantWithDiscount = articleDetail.variation.find(
+      (v) => v.discountedPrice > 0 && v.discount > 0
+    );
+
+    const firstAvailable = variantWithDiscount || articleDetail.variation[0];
+
+    if (firstAvailable) {
+      setSelectedSizeId(firstAvailable.idSize);
+      setSelectedColorId(firstAvailable.idcolor);
+      setQuantityCount(1);
     }
-  }, [articleDetail]);
+  }
+}, [articleDetail]);
 
   useEffect(() => {
     if (articleDetail.variation) {
