@@ -119,6 +119,7 @@ const MenuCart = () => {
 
                       <h6>
                         {"Precio"}:{" "}
+                        <span className="fw-semibold">
                         {discountedPrice !== null
                           ? new Intl.NumberFormat(i18n.language, {
                               style: "currency",
@@ -128,7 +129,17 @@ const MenuCart = () => {
                               style: "currency",
                               currency: currency.currencyName,
                             }).format(finalProductPrice)}
+                        </span>
                       </h6>
+                      <span className="tex-muted tached text-xs" style={{ fontSize: "12px" }}>
+                        {discountedPrice !== null
+                          ? new Intl.NumberFormat(i18n.language, {
+                              style: "currency",
+                              currency: currency.currencyName,
+                            }).format(finalProductPrice) :""
+                          }
+                      </span>
+
                       <span className="">
                         {item.selectedProductColor &&
                         item.selectedProductSize ? (
@@ -160,7 +171,7 @@ const MenuCart = () => {
               })}
             </ul>
             <div className="shopping-cart-total">
-              <h4>
+              <h4 className="fw-bold">
                 Total :{" "}
                 <span className="shop-total">
                   {new Intl.NumberFormat(i18n.language, {
