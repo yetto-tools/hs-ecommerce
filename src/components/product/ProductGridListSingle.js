@@ -15,6 +15,7 @@ import { View } from "lucide-react";
 import { fetchArticleDetail } from "../../hooks/use-FetchArticles";
 
 import { setLoading } from "../../store/slices/menu-slice";
+import { ProductBadges } from "./ProductBadges";
 
 const ProductGridListSingle = ({
   product,
@@ -56,15 +57,12 @@ const ProductGridListSingle = ({
       <div className={clsx("product-wrap", spaceBottomClass)}>
         <div className={clsx("product-img", loadingImage && "loading")}>
           <div onClick={handleProductDetail}>
-            {product && product?.stock == 0 ? (
-              <div className="product-img-badges bg-secondary pill-62">
-                <span className="text-white fw-bold p-2">
-                  {t("general_words.stock_out")}
-                </span>
-              </div>
-            ) : (
-              ""
-            )}
+
+             <ProductBadges product={product} t={t} />
+
+
+
+
             <>
               <SmartImage
                 basePath={configParams.RUTAIMAGENESARTICULOS}
@@ -95,20 +93,6 @@ const ProductGridListSingle = ({
               /> */}
             </>
           </div>
-          {product.discount || product.new ? (
-            <div className="product-img-badges">
-              {product.discount && product.discount > 0.0 && (
-                <span className="pink">-{product.discount}%</span>
-              )}
-              {product.new ? (
-                <span className="purple">{t("general_words.new")}</span>
-              ) : (
-                ""
-              )}
-            </div>
-          ) : (
-            ""
-          )}
 
           <div className="product-action">
             <div className="pro-same-action pro-cart w-100">

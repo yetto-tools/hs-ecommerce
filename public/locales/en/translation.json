@@ -306,5 +306,8 @@
   "message": "Your Message",
   "send_message": "Send",
   "subject": "Subject",
-  "whatsapp": "WhatsApp"
+  "whatsapp": "WhatsApp",
+  "product": {
+    "special_price": "SPECIAL PRICE"
+  }
 }

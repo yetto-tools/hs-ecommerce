@@ -2635,3 +2635,37 @@ button.border-black:hover {
 .aspect-ratio-1\/1 {
   aspect-ratio: 1 / 1;
 }
+
+
+.hs-discount {
+    background-color: #e30613 !important;
+    border-radius: 100% !important;
+    width: 62px !important;
+    height: 62px !important;
+    font-size: 9px !important;
+    display: flex !important;
+    justify-content: center;
+    align-self: center !important;
+    align-content: center;
+    align-items: center;
+    isolation: isolate;
+    line-height: 1.3 !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    text-align: center;
+}
+.product-img-badges-hs {
+  position: absolute;
+  z-index: 20;
+  top: 12px;
+  right: 12px;
+  isolation: isolate;
+}
+.muted {
+  opacity: 0.5;
+}
+
+.tached {
+  text-decoration: line-through;
+  color: #333;
+}

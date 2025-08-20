@@ -326,5 +326,8 @@
   "email": "Correo",
   "message": "Tu Mensaje",
   "send_message": "Enviar",
-  "subject": "Asunto"
+  "subject": "Asunto",
+  "product": {
+    "special_price": "PRECIO ESPECIAL"
+  }
 }
