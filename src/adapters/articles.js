@@ -50,8 +50,10 @@ export const adapterArticleDetail = (data) => {
       description: item.Descripcion_p,
       code: item.CodigoInterno,
       price: parseFloat(item.Precio_SD),
-      discount: parseFloat(item.Descuento_Porcentaje),
-      discountedPrice: parseFloat(item.Precio_CD),
+       //  2149 - 1289 < 2149 ? 1289 : 0
+       // item.Precio_SD -  item.Descuento_Porcentaje  < Precio_SD  ? Descuento_Porcentaje : 0
+      discount: parseFloat(item.Precio_SD - item.Descuento_Porcentaje) < parseFloat(item.Precio_SD) ? parseFloat(item.Descuento_Porcentaje) : 0,
+      discountedPrice: parseFloat(item.Descuento_Porcentaje),
       image: [item.Imagen_1, item.Imagen_2].filter(Boolean),
     }));
   }

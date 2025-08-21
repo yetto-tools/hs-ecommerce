@@ -113,7 +113,7 @@ function ProductModal2({ show, onHide, currency }) {
                     <>
                       {/* Precio con descuento */}
                       <span className="fs-4 fw-bold">
-                        {CurrencyFormatter(selectedVariant.discountedPrice, i18n, currency)}
+                        {CurrencyFormatter(selectedVariant.discount, i18n, currency)}
                       </span>
 
                       {/* Precio original tachado */}

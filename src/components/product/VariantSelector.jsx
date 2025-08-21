@@ -18,7 +18,7 @@ useEffect(() => {
   if (articleDetail?.variation?.length > 0) {
     // Buscar variante con descuento
     const variantWithDiscount = articleDetail.variation.find(
-      (v) => v.discountedPrice > 0 && v.discount > 0
+      (v) => v.discount > 0
     );
 
     const firstAvailable = variantWithDiscount || articleDetail.variation[0];
