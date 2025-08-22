@@ -117,6 +117,15 @@ const MenuCart = () => {
                         </h6>
                       )}
 
+
+                      <span className="tex-muted tached text-xs" style={{ fontSize: "12px" }}>
+                        {discountedPrice !== null
+                          ? new Intl.NumberFormat(i18n.language, {
+                              style: "currency",
+                              currency: currency.currencyName,
+                            }).format(finalProductPrice) :""
+                          }
+                      </span>
                       <h6>
                         {"Precio"}:{" "}
                         <span className="fw-semibold">
@@ -131,14 +140,6 @@ const MenuCart = () => {
                             }).format(finalProductPrice)}
                         </span>
                       </h6>
-                      <span className="tex-muted tached text-xs" style={{ fontSize: "12px" }}>
-                        {discountedPrice !== null
-                          ? new Intl.NumberFormat(i18n.language, {
-                              style: "currency",
-                              currency: currency.currencyName,
-                            }).format(finalProductPrice) :""
-                          }
-                      </span>
 
                       <span className="">
                         {item.selectedProductColor &&
