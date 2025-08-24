@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { t } from "i18next";
 
 // Instalar módulos de Swiper que vamos a utilizar
 SwiperCore.use([Navigation, Pagination]);
@@ -126,7 +127,7 @@ const BrandSlider = ({ spaceLeftClass, spaceRightClass }) => {
       <div className="container-fluid row mx-auto px-5 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-medium text-left uppercase mx-4 text-white">
           {" "}
-          Nuevos Ingresos
+          {t("slider-brand.title")}
         </h1>
       </div>
       <section

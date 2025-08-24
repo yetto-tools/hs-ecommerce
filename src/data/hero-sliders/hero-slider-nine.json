@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "NUEVOS INGRESOS",
+    "title": "SUPERSTAR",
     "subtitle": "",
     "button": "VER AHORA",
     "image": "banner1.jpg",
@@ -20,7 +20,7 @@
   {
     "id": 3,
     "title": "",
-    "subtitle": "NUEVOS INGRESOS",
+    "subtitle": "SUPERSTAR",
     "button": "VER AHORA",
     "image": "banner3.jpg",
     "mobileImage": "banner3-movil.jpg",

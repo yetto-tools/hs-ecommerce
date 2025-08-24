@@ -80,9 +80,10 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
           />
           {/* Fallback */}
           <img
-            src={configParams.RUTAIMAGENESPRINCIPALES + data.image}
+            src={configParams.RUTAIMAGENESPRINCIPALES + data.image + "?v=" + Date.now()}
             alt={data?.title || "Slide"}
             className="hero-slide-img position-absolute w-100 h-100 object-fit-cover hs-img-slider-principal"
+            preload="media"
           />
         </picture>
       )}
@@ -99,13 +100,16 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
                 <h3 className="animated text-white">{data.subtitle}</h3>
                 <h2
                   className="animated text-white text-5xl"
-                  dangerouslySetInnerHTML={{
+                >
+                    <span className="animated font-adihaus font-bold pt-3 pb-0 px-2"   dangerouslySetInnerHTML={{
                     __html: data.title.replace(
-                      " ",
-                      "<br/> <p style='margin:10px'> </p>"
+                      "<p> </p>"
                     ),
-                  }}
-                ></h2>
+                  }}>
+
+                    </span>
+
+                </h2>
                 <div className="slider-btn btn-hover rounded mt-4">
                   <Link
                     className="animated text-black"
