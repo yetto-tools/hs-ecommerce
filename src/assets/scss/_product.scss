@@ -263,12 +263,9 @@
         font-size: 13px;
         font-weight: 500;
         line-height: 1;
-
         display: block;
-
         margin-bottom: 10px;
         padding: 3px 11px;
-
         color: #fff;
         border-radius: 3px;
         &.pink {
@@ -277,7 +274,6 @@
         &.purple {
           background-color: $theme-color;
         }
-
         &:last-child {
           margin-bottom: 0;
         }
@@ -288,12 +284,9 @@
       position: absolute;
       top: 0;
       left: 50%;
-
       visibility: hidden;
-
       transition-duration: 0.7s;
       transform: translate(-50%, 20px);
-
       opacity: 0;
     }
     .product-action {
@@ -322,9 +315,9 @@
 
         opacity: 0;
         background-color: $theme-color;
-        // &:hover {
-        //     background-color: #000;
-        // }
+        &:hover {
+          background-color: #000;
+        }
       }
       .pro-wishlist {
         width: 48px;
@@ -365,7 +358,7 @@
           background: none;
           &:hover,
           &.active {
-            background-color: #fff;
+            background-color: #ffeecd;
           }
         }
         &.pro-wishlist,
