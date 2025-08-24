@@ -14,6 +14,7 @@ import {
   fetchArticleDetail,
   fetchNewArticles,
 } from "../../hooks/use-FetchArticles";
+import { t } from "i18next";
 
 SwiperCore.use([Navigation]);
 
@@ -121,8 +122,11 @@ const NewArrivals = ({ spaceLeftClass = "", spaceRightClass = "" }) => {
             spaceRightClass
           )}
         >
-          <h1 className="text-5xl font-medium text-left uppercase mx-4">
-            {"Nuevos Ingresos"}
+          <h1 className="text-5xl font-medium text-left uppercase mx-4 " style={{fontSize: "clamp(2.5rem, 5.5vw,3.5rem)"}}>
+            
+            <span className="text-4xl font-medium text-left uppercase mx-4 text-white bg-black px-4 pt-3 font-adihaus" style={{fontSize: "clamp(2.5rem, 5.5vw,3.5rem)"}}>
+              {t("New Arrivals")}
+            </span>
           </h1>
           <div className="slider-active-black nav-style-1-black">
             <Swiper
