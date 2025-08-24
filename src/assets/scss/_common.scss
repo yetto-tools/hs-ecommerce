@@ -33,6 +33,20 @@
     url("../fonts/stretch-pro.basic.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "AdihausDIN-Bold";
+  src: url("../fonts/adihausdin_bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Clase utilitaria
+.font-adihaus {
+  font-family: "AdihausDIN-Bold", sans-serif;
+}
+
+
 /*-- Common Style --*/
 
 *,

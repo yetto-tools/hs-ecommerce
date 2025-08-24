@@ -555,6 +555,9 @@
 /* slider style-2 */
 .slider-content-2 {
   margin-top: -6px;
+    position: relative;
+  z-index: 2;
+
   @media #{$xs-layout} {
     text-align: center;
   }
