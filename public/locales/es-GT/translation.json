@@ -329,5 +329,9 @@
   "subject": "Asunto",
   "product": {
     "special_price": "PRECIO ESPECIAL"
-  }
+  },
+  "slider-brand": {
+    "title": "SUPERSTAR"
+  },
+  "New Arrivals": "SUPERSTAR"
 }
