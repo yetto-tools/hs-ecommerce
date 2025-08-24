@@ -4,8 +4,8 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const API_TOKEN = process.env.REACT_APP_API_TOKEN;
 const API_NIT = process.env.REACT_APP_API_NIT;
 
-const APP_ENV = "production";
-const DB_ENV = "pro";
+const APP_ENV = "development";
+const DB_ENV = "dev";
 
 const API_URL_BAC = process.env.REACT_APP_API_URL_BAC;
 const URL_INSTAGRAM = "https://www.instagram.com/esconhype?igsh=MXVyeWlxZnM3bnJxaw%3D%3D&utm_source=qr";
