@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "SUPERSTAR",
+    "title": "⠀",
     "subtitle": "",
     "button": "VER AHORA",
     "image": "banner1.jpg",
@@ -10,7 +10,7 @@
   },
   {
     "id": 2,
-    "title": "",
+    "title": "⠀",
     "subtitle": "",
     "button": "",
     "image": "banner2.jpg",
@@ -19,8 +19,8 @@
   },
   {
     "id": 3,
-    "title": "",
-    "subtitle": "SUPERSTAR",
+    "title": "⠀",
+    "subtitle": "",
     "button": "VER AHORA",
     "image": "banner3.jpg",
     "mobileImage": "banner3-movil.jpg",
