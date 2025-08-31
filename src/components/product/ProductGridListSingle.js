@@ -72,25 +72,7 @@ const ProductGridListSingle = ({
                 height={320}
                 onLoadEnd={() => setLoadingImage(false)}
               />
-              {/* <LazyLoadImage
-                className="default-img"
-                onLoad={() => setLoadingImage(false)}
-                src={
-                  configParams.RUTAIMAGENESARTICULOS + "sm_" + product.image[0]
-                }
-                alt=""
-                width={320}
-                height={320}
-                aspect="4/3"
-                lazy="loaded"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "/default/no-image.avif";
-                }}
-                data-src={
-                  configParams.RUTAIMAGENESARTICULOS + "sm_" + product.image[0]
-                }
-              /> */}
+            
             </>
           </div>
 
