@@ -83,7 +83,7 @@ const IconGroup = ({ iconWhiteClass }) => {
         }, 300); // puedes ajustar el tiempo de debounce si quieres
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       setIsLoading(false);
     }
