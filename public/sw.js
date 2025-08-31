@@ -1,5 +1,5 @@
 const CACHE_NAME = "cra-cache-v1";
-const CURRENT_VERSION = "1.24.4";
+const CURRENT_VERSION = "1.25.4";
 
 const OFFLINE_URL = "/offline.html";
 const VERSION_URL = "/version.json";
@@ -46,7 +46,7 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET" || !event.request.url.startsWith("http"))
+  if (event.request.method !== "GET" || !event.request.url.startsWith("https"))
     return;
 
   event.respondWith(
