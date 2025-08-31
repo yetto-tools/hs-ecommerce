@@ -111,10 +111,6 @@ function ProductModal2({ show, onHide, currency }) {
                 <div className="product-details-price gap-4">
                   {selectedVariant?.discount > 0 ? (
                     <>
-                      {/* Precio con descuento */}
-                      <span className="fs-4 fw-bold">
-                        {CurrencyFormatter(selectedVariant.discount, i18n, currency)}
-                      </span>
 
                       {/* Precio original tachado */}
                       <span>
@@ -124,6 +120,11 @@ function ProductModal2({ show, onHide, currency }) {
                           </small>
                         </del>
                       </span>
+                                            {/* Precio con descuento */}
+                      <span className="fs-4 fw-bold">
+                        {CurrencyFormatter(selectedVariant.discount, i18n, currency)}
+                      </span>
+
                     </>
                   ) : (
                     // Si no hay descuento, solo el precio normal
