@@ -2683,3 +2683,11 @@ button.border-black:hover {
   text-decoration: line-through;
   color: #333;
 }
+
+.text-hs-custom {
+  display: inline-block;
+    font-family: AdihausDIN-Bold, sans-serif;
+    font-size: clamp(2.5rem, 5.5vw, 3.5rem);
+    line-height: .7;
+    padding: 13px 4px 0;
+}
