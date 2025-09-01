@@ -1,9 +1,4 @@
-// orlando
-// 2023-12-02
-// vista de productos con filtros
-
 import { Fragment, useState, useEffect, lazy } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
 
@@ -21,18 +16,17 @@ const ShopProducts = lazy(() => import("../../wrappers/product/ShopProducts"));
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
-  const { articles } = useSelector((state) => state.articles);
+
+  // ✅ usamos filteredArticles
+  const { filteredArticles, articles } = useSelector((state) => state.articles);
   const { params } = useSelector((state) => state.urlParams);
+  const filters = useSelector((state) => state.filters);
 
   const location = useLocation();
   const [searchParams] = useSearchParams();
-
-  // Obtener la categoría desde la URL
-
   const busqueda = searchParams.get("busqueda");
 
   const { pathname } = location;
-
   const dispatch = useDispatch();
 
   const [n1 = 0, n2 = 0, n3 = 0] = params?.split("/").map(Number) || [];
@@ -48,7 +42,6 @@ const ShopGridStandard = () => {
   const getLayout = (layout) => {
     setLayout(layout);
   };
-  const filters = useSelector((state) => state.articles.filters);
 
   return (
     <Fragment>
@@ -70,38 +63,20 @@ const ShopGridStandard = () => {
         <div className="shop-area pt-95 pb-100">
           <div className="container-fluid">
             <div className="row col-lg-12 mx-auto">
-              <div className="col-lg-2 order-2 order-lg-1 border-right">
+              <div className="col-xl-2 col-lg-3 order-2 order-lg-1 border-right">
                 {/* shop sidebar */}
-
                 <ShopSidebarFilters filters={filters} sideSpaceClass="" />
               </div>
-              <div className="col-lg-10 order-1 order-lg-2 mx-auto">
-                {/* shop topbar */}
-                {/* <ShopTopbar
-                  getLayout={getLayout}
-                  getFilterSortParams={getFilterSortParams}
-                  productCount={articles.length}
-                  sortedProductCount={currentData.length}
-                /> */}
 
+              <div className="col-xl-10 col-lg-9 order-1 order-lg-2 mx-auto">
                 {/* shop products */}
-
-                <ShopProducts layout={layout} products={articles} />
+                <ShopProducts
+                  layout={layout}
+                  products={filteredArticles.length ? filteredArticles : null}
+                />
 
                 {/* pagination */}
-                <div className="pro-pagination-style text-center mt-30">
-                  {/* <Paginator
-                    totalRecords={sortedProducts.length}
-                    pageLimit={pageLimit}
-                    pageNeighbours={2}
-                    setOffset={setOffset}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    pageContainerClass="mb-0 mt-0"
-                    pagePrevText="«"
-                    pageNextText="»"
-                  /> */}
-                </div>
+                <div className="pro-pagination-style text-center mt-30"></div>
               </div>
             </div>
           </div>
