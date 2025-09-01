@@ -159,8 +159,8 @@ const IconGroup = ({ iconWhiteClass }) => {
         <div className="account-setting d-none d-lg-block">
           <button
             type="button"
-            id="account-button"
-            name="account"
+            id="help-button"
+            name="help"
             className="icon-cart"
             onClick={(e) => handleClick(e)}
           >
@@ -181,40 +181,10 @@ const IconGroup = ({ iconWhiteClass }) => {
           >
             <ul>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/login"}>
-                  <span className="text-ellipsis">
-                    {(usuario && usuario.id && `${usuario.email}`) ||
-                      t("icon_group.login")}
-                  </span>
+                <Link to={process.env.PUBLIC_URL + "/información"} className="font-bold">
+                  {t("icon_group.help")}
                 </Link>
               </li>
-              {!isLoggedIn && (
-                <li>
-                  <Link to={process.env.PUBLIC_URL + "/registrarse"}>
-                    <span className="text-ellipsis">
-                      {t("icon_group.register")}
-                    </span>
-                  </Link>
-                </li>
-              )}
-
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/mi-cuenta"}>
-                  {t("icon_group.my_account")}
-                </Link>
-              </li>
-              {isLoggedIn && (
-                <li>
-                  <Link
-                    to={""}
-                    onClick={handleLogout}
-                    className="text-sm text-black"
-                  >
-                    {t("icon_group.logout")}
-                    <i className="pe-7s-exit" />
-                  </Link>
-                </li>
-              )}
             </ul>
           </div>
         </div>
