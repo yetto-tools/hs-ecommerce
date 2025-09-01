@@ -49,6 +49,7 @@ export const fetchArticles = (n1, n2, n3) => async (dispatch) => {
       dispatch(setArticles(articles));
       const filters = adapterFilters(data);
       dispatch(setFilters(filters));
+      
     } else {
       throw new Error(data.message || "Error fetching products");
     }
