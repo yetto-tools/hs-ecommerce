@@ -1,5 +1,5 @@
 const CACHE_NAME = "cra-cache-v1";
-const CURRENT_VERSION = "1.24.4";
+const CURRENT_VERSION = "DS-1.25.2-2025-08-31";
 
 const OFFLINE_URL = "/offline.html";
 const VERSION_URL = "/version.json";
