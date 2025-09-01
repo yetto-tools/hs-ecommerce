@@ -55,21 +55,20 @@ export const ResumenCompra = ({
                       <div className="d-flex justify-content-start gap-2">
                         {discountedPrice !== null && discountedPrice > 0 ? (
                           <>
-                            
-                            
-                            {/* Precio con descuento */}
-                            <p className="text-xs fw-bold">
-                              {new Intl.NumberFormat(i18n.language, {
-                                style: "currency",
-                                currency: currency.currencyName,
-                              }).format(finalDiscountedPrice)}
-                            </p>
                             {/* Precio original tachado */}
                             <p className="text-xs fw-bold muted tached">
                               {new Intl.NumberFormat(i18n.language, {
                                 style: "currency",
                                 currency: currency.currencyName,
                               }).format(finalProductPrice)}
+                            </p>
+
+                            {/* Precio con descuento */}
+                            <p className="text-xs fw-bold">
+                              {new Intl.NumberFormat(i18n.language, {
+                                style: "currency",
+                                currency: currency.currencyName,
+                              }).format(finalDiscountedPrice)}
                             </p>
                           </>
                         ) : (

@@ -96,11 +96,12 @@ const ProductGridListSingle = ({
           <div className="product-price">
             {discountedPrice !== null ? (
               <Fragment>
-                <span className="fs-medium">
-                  {CurrencyFormatter(discountedPrice, i18n, currency)}
-                </span>{" "}
                 <span className="old">
                   {CurrencyFormatter(finalProductPrice, i18n, currency)}
+                </span>
+                {" "}
+                <span className="fs-medium">
+                  {CurrencyFormatter(discountedPrice, i18n, currency)}
                 </span>
               </Fragment>
             ) : (
@@ -160,10 +161,11 @@ const ProductGridListSingle = ({
               <div className="product-list-price">
                 {discountedPrice !== null ? (
                   <Fragment>
-                    <span>
-                      {CurrencyFormatter(finalProductPrice, i18n, currency)}
-                    </span>{" "}
                     <span className="old">
+                      {CurrencyFormatter(finalProductPrice, i18n, currency)}
+                    </span>
+                    {" "}
+                    <span>
                       {CurrencyFormatter(finalProductPrice, i18n, currency)}
                     </span>
                   </Fragment>

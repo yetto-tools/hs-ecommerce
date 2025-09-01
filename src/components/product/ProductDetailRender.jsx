@@ -40,13 +40,6 @@ export const ProductDetailRender = ({ articleDetail }) => {
                 <h2>{articleDetail.name}</h2>
               </Link>
               <div className="product-details-price gap-4">
-                <span className="fs-4 fw-bold">
-                  {CurrencyFormatter(
-                    articleDetail.discountedPrice || articleDetail.price,
-                    i18n,
-                    currency
-                  )}
-                </span>
                 <span>
                   {articleDetail && articleDetail?.discount > 0 && (
                     <del>
@@ -54,6 +47,13 @@ export const ProductDetailRender = ({ articleDetail }) => {
                         {CurrencyFormatter(articleDetail.price, i18n, currency)}
                       </small>
                     </del>
+                  )}
+                </span>
+                <span className="fs-4 fw-bold">
+                  {CurrencyFormatter(
+                    articleDetail.discountedPrice || articleDetail.price,
+                    i18n,
+                    currency
                   )}
                 </span>
               </div>

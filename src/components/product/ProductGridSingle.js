@@ -139,10 +139,11 @@ const ProductGridSingle = ({
           <div className="product-price">
             {discountedPrice !== null || discountedPrice === 0 ? (
               <Fragment>
-                <span>
-                  {CurrencyFormatter(finalProductPrice, i18n, currency)}
-                </span>{" "}
                 <span className="old">
+                  {CurrencyFormatter(finalProductPrice, i18n, currency)}
+                </span>
+                {" "}
+                <span className="fw-bold">
                   {CurrencyFormatter(finalProductPrice, i18n, currency)}
                 </span>
               </Fragment>

@@ -51,6 +51,7 @@ const MenuCart = () => {
                 const finalProductPrice = (
                   item.price * currency.currencyRate
                 ).toFixed(2);
+
                 const finalDiscountedPrice = (
                   discountedPrice * currency.currencyRate
                 ).toFixed(2);
@@ -75,10 +76,6 @@ const MenuCart = () => {
                         type="button"
                         onClick={(e) => handleProductQuickView(e, item)}
                       >
-                        {/* <CartItemThumbnail
-                          item={item}
-                          configParams={configParams}
-                        /> */}
 
                         <LazyLoadImage
                           alt={item.name}
@@ -101,14 +98,16 @@ const MenuCart = () => {
                         <span className="text-left text-black fs-6">
                           {" "}
                           {item.name}{" "}
-                          <small className="text-xs text-muted">
-                            {item.code}
-                          </small>
+                          <p>
+                            <small className="text-xs text-muted">
+                              {item.code}
+                            </small>
+                          </p>
                         </span>
                       </h4>
 
                       {!item.isSoldOut ? (
-                        <h6>
+                        <h6 className="font-bold">
                           {t("page_cart.th_qty")}: {item?.quantity}
                         </h6>
                       ) : (
@@ -117,18 +116,47 @@ const MenuCart = () => {
                         </h6>
                       )}
 
-                      <h6>
-                        {"Precio"}:{" "}
-                        {discountedPrice !== null
-                          ? new Intl.NumberFormat(i18n.language, {
+                      <p>
+                      <h6 className="d-flex justify-content-start align-items-center gap-2">
+                        <span className="fw-bold">{"Precio"}</span>:
+                        {" "}
+                      {
+                        discountedPrice !== null 
+                          ? (
+                            <div className="d-flex justify-content-between align-items-center gap-2">
+                              <span className="muted">
+                                <del>
+                                {
+                                  new Intl.NumberFormat(i18n.language, {
+                                    style: "currency", 
+                                    currency: currency.currencyName,
+                                  }).format(finalDiscountedPrice)
+                                }
+                                </del>
+                              </span>
+                              {" "}
+                              <span className="fw-bold">
+                                {
+                                  new Intl.NumberFormat(i18n.language, {
+                                    style: "currency",
+                                    currency: currency.currencyName,
+                                  }).format(finalProductPrice)
+                                }
+                              </span>
+                            </div>
+                          )
+                          : 
+                            <span className="fw-bold">
+                            {
+                              new Intl.NumberFormat(i18n.language, {
                               style: "currency",
                               currency: currency.currencyName,
-                            }).format(finalDiscountedPrice)
-                          : new Intl.NumberFormat(i18n.language, {
-                              style: "currency",
-                              currency: currency.currencyName,
-                            }).format(finalProductPrice)}
+                              }).format(finalProductPrice)
+                            }
+                           </span>
+                      }
                       </h6>
+                      </p>  
                       <span className="">
                         {item.selectedProductColor &&
                         item.selectedProductSize ? (
@@ -160,7 +188,7 @@ const MenuCart = () => {
               })}
             </ul>
             <div className="shopping-cart-total">
-              <h4>
+              <h4 className="fw-bold fs-6 px-3">
                 Total :{" "}
                 <span className="shop-total">
                   {new Intl.NumberFormat(i18n.language, {
@@ -199,49 +227,5 @@ const MenuCart = () => {
     </Fragment>
   );
 };
-
-// export const CartItemThumbnail = ({ item, configParams }) => {
-//   const [thumbnailSrc, setThumbnailSrc] = useState("");
-
-//   useEffect(() => {
-//     const baseImage = item?.images?.[0] || item?.image;
-//     const smImage = `${configParams.RUTAIMAGENESARTICULOS}sm_${baseImage}`;
-//     const Image = `${configParams.RUTAIMAGENESARTICULOS}${baseImage}`;
-
-//     fetch(smImage, { method: "HEAD" })
-//       .then((res) => {
-//         if (res.ok) {
-//           setThumbnailSrc(smImage);
-//         }
-//       })
-//       .catch(() => {
-//         fetch(Image, { method: "HEAD" })
-//           .then((res) => {
-//             if (res.ok) {
-//               setThumbnailSrc(Image);
-//               console.log(Image);
-//             } else {
-//               setThumbnailSrc("/default/no-image-thumbnail.avif");
-//             }
-//           })
-//           .catch(() => {
-//             setThumbnailSrc("/default/no-image-thumbnail.avif");
-//           });
-//       });
-//   }, [item]);
-
-//   return (
-//     <picture>
-//       <source srcSet={thumbnailSrc} />
-//       <img
-//         alt={item.name}
-//         src={thumbnailSrc}
-//         width={70}
-//         className="img-fluid ml-4"
-//         loading="lazy"
-//       />
-//     </picture>
-//   );
-// };
 
 export default MenuCart;

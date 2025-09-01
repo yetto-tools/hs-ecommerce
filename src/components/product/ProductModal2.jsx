@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductImageGallery from "./ProductImage";
 import { showToast } from "../../toast/toastManager";
+import clsx from "clsx";
 
 function ProductModal2({ show, onHide, currency }) {
   const dispatch = useDispatch();
@@ -108,24 +109,26 @@ function ProductModal2({ show, onHide, currency }) {
                   <h2>{articleDetail.name}</h2>
                 </Link>
                 <div className="product-details-price gap-4">
+                  {
+                    articleDetail && articleDetail?.discount > 0 && (
+                      <span >
+                        <del>
+                          <small className="text-muted">
+                            {CurrencyFormatter(
+                              articleDetail.price,
+                              i18n,
+                              currency
+                            )}
+                          </small>
+                        </del>
+                      </span>
+                    )
+                  }
                   <span className="fs-4 fw-bold">
                     {CurrencyFormatter(
                       articleDetail.discountedPrice || articleDetail.price,
                       i18n,
                       currency
-                    )}
-                  </span>
-                  <span>
-                    {articleDetail && articleDetail?.discount > 0 && (
-                      <del>
-                        <small className="text-muted">
-                          {CurrencyFormatter(
-                            articleDetail.price,
-                            i18n,
-                            currency
-                          )}
-                        </small>
-                      </del>
                     )}
                   </span>
                 </div>

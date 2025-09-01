@@ -141,13 +141,15 @@ const ProductGridSingle = ({
           <div className="product-price">
             {discountedPrice !== null ? (
               <Fragment>
-                <span>
+           
+                <span className="old">
                   {new Intl.NumberFormat(i18n.language, {
                     style: "currency",
                     currency: currency.currencyName,
                   }).format(finalProductPrice)}
-                </span>{" "}
-                <span className="old">
+                </span>
+                {" "}
+                <span>
                   {new Intl.NumberFormat(i18n.language, {
                     style: "currency",
                     currency: currency.currencyName,

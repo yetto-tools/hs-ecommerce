@@ -205,27 +205,27 @@ const Cart = () => {
                                       <div className="product-price d-flex gap-2 justify-content-start items-center">
                                         {discountedPrice !== null ? (
                                           <Fragment>
-                                            
-                                                  <span className="amount">
-                                                    {new Intl.NumberFormat(
-                                                      i18n.language,
-                                                      {
-                                                        style: "currency",
-                                                        currency:
-                                                          currency.currencyName,
-                                                      }
-                                                    ).format(finalDiscountedPrice)}
-                                                  </span>
-                                                   <span className="amount mutex tached text-muted">
-                                              {new Intl.NumberFormat(
-                                                i18n.language,
-                                                {
-                                                  style: "currency",
-                                                  currency:
-                                                    currency.currencyName,
+                                              
+                                              <span className="amount mutex tached text-muted">
+                                                {new Intl.NumberFormat(
+                                                  i18n.language,
+                                                  {
+                                                    style: "currency",
+                                                    currency:
+                                                      currency.currencyName,
+                                                    }
+                                                ).format(finalProductPrice)}
+                                              </span>
+                                              <span className="amount">
+                                                {new Intl.NumberFormat(
+                                                  i18n.language,
+                                                  {
+                                                    style: "currency",
+                                                    currency:
+                                                      currency.currencyName,
                                                   }
-                                              ).format(finalProductPrice)}
-                                            </span>
+                                                ).format(finalDiscountedPrice)}
+                                              </span>
                                           </Fragment>
                                         ) : (
                                           <span className="amount">
