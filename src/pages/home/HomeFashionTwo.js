@@ -20,8 +20,7 @@ const HomeFashionTwo = () => {
         const response = await fetch(
           `${window.location.origin}/data/BannerPrincipal.json`
         );
-        console.log(`${window.location.origin}/data/BannerPrincipal.json`);
-        console.log(response);
+        
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
