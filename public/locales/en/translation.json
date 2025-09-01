@@ -291,7 +291,8 @@
   "icon_group": {
     "login": "Login",
     "register": "Register",
-    "my_account": "My Account"
+    "my_account": "My Account",
+    "help": "about buy"
   },
   "seo": {
     "login_register": "Login page, DS eCommerce Guatemala",
@@ -306,5 +307,11 @@
   "message": "Your Message",
   "send_message": "Send",
   "subject": "Subject",
-  "whatsapp": "WhatsApp"
+  "whatsapp": "WhatsApp",
+  "filtros": {
+    "tags": "tags",
+    "sizes": "Sizes",
+    "colors": "Colores",
+    "brands": "Brands"
+  }
 }

@@ -238,7 +238,8 @@
     "view_cart": "Ver Carrito",
     "not_fount_silhouettes": "No disponible",
     "not_items_to_cart": "No se han añadido artículos a la cesta",
-    "stock_out": "Agotado"
+    "stock_out": "Agotado",
+    "discount": "%"
   },
   "page_login_register": {
     "title": "Inicio de sesión",
@@ -314,7 +315,8 @@
     "login": "Inicio de Sesión",
     "register": "Registrarme",
     "my_account": "Mi Cuenta",
-    "logout": "Salir"
+    "logout": "Salir",
+    "help": "Guía de compra"
   },
   "seo": {
     "login_register": "Inicio de Sesión, DS eCommerce Guatemala",
@@ -326,5 +328,11 @@
   "email": "Correo",
   "message": "Tu Mensaje",
   "send_message": "Enviar",
-  "subject": "Asunto"
+  "subject": "Asunto",
+  "filtros": {
+    "tags": "Etiquetas",
+    "sizes": "Tallas",
+    "colors": "Colors",
+    "brands": "Marcas"
+  }
 }
