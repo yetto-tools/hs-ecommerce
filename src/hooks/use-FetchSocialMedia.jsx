@@ -2,30 +2,25 @@
 import { API_URL } from "../config";
 import { setSocialMedia } from "../store/slices/socialMedia-slice";
 
-export const useFetchSocialMedia = () => async (dispatch, getState) => {
-  const url = `${API_URL}/api/v1/configurations/system-parameters`;
+export const fetchSocialMedia = () => async (dispatch) => {
+  const url = `${API_URL}/api/v1/socialmedia`;
   try {
-    dispatch();
     const response = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
 
-    const { data, message } = await response.json(); // Primero obtener la respuesta y luego verificar el estado
+    const { data, message } = await response.json();
 
     if (!response.ok) {
-      throw new Error(message || `HTTP error! Status: ${response.status}`); // Usar mensaje de la respuesta si está disponible
+      throw new Error(message || `HTTP error! Status: ${response.status}`);
     }
 
-    // Convertir array a objeto { RUTAIMAGENESARTICULOS: "valor", ... }
-    const configParamas = data.parametros.reduce((acc, curr) => {
-      acc[curr.Nombre] = curr.Valor;
-      return acc;
-    }, {});
-    dispatch(setSocialMedia(configParamas));
+    // ✅ data[0] contiene el array real de objetos
+    const socialLinks = Array.isArray(data) && Array.isArray(data[0]) ? data[0] : [];
+    
+    dispatch(setSocialMedia(socialLinks));
   } catch (error) {
-    console.log(`${error.message}`, "error", "bottom-left");
-  } finally {
-    dispatch();
+    console.error("❌ Error cargando redes sociales:", error.message);
   }
 };
