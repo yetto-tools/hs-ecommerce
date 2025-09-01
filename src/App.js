@@ -15,6 +15,7 @@ import ShopGridMarcas from "./pages/shop/ShopGridMarcas";
 import CheckoutWithoutLogin from "./pages/other/WitoutLogin/CheckoutWithoutLogin";
 
 import Product from "./pages/shop-product/Product";
+import { fetchSocialMedia} from "./hooks/use-FetchSocialMedia";
 
 const PageReturnPolicy = lazy(() => import("./pages/other/PageReturnPolicy"));
 const PagePreguntasFrecuentes = lazy(() =>
@@ -61,11 +62,11 @@ const App = () => {
     dispatch(fetchMenu());
     dispatch(fetchParamsWeb());
     dispatch(fetchCountry());
+    dispatch(fetchSocialMedia()); // se llama una sola vez cuando monta el layout
   }, [dispatch]);
   const { loading } = useSelector((state) => state.loader);
 
-  // Indicador de carga
-
+  
   return (
     <Router>
       <ScrollToTop>
