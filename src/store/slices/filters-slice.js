@@ -3,19 +3,21 @@ const { createSlice } = require("@reduxjs/toolkit");
 const filtersSlice = createSlice({
   name: "filters",
   initialState: {
-    filters: {},
+    brands: [],
+    colors: [],
+    sizes: [],
+    tags: [],
+    categories: [],
     loading: false,
     error: null,
   },
   reducers: {
     setFilters(state, action) {
-      state.filters = action.payload;
+      return { ...state, ...action.payload }; // machaca solo lo que traiga el payload
     },
-
     setLoading(state, action) {
       state.loading = action.payload;
     },
-
     setError(state, action) {
       state.error = action.payload;
       state.loading = false;
@@ -23,6 +25,5 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { setFilters, setDataFilter, setLoading, setError } =
-  filtersSlice.actions;
+export const { setFilters, setLoading, setError } = filtersSlice.actions;
 export default filtersSlice.reducer;
