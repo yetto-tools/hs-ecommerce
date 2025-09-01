@@ -488,3 +488,26 @@
 .object-contain {
   object-fit: contain;
 }
+
+
+.social-icon-box {
+  width: 24px;          /* misma columna para todos */
+  height: 24px;
+  flex: 0 0 24px;       /* no se encoge/estira */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* mantiene proporción */
+  display: block;       /* evita salto por baseline */
+}
+
+/* opcional: uniformar “percepción” si los PNG traen mucho padding interno */
+.social-icon-box.tight .social-icon-img {
+  width: 85%;
+  height: 85%;
+}

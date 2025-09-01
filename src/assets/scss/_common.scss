@@ -2715,3 +2715,41 @@ button.border-black:hover {
 .border-right {
   border-right: 1px solid #f3f3f3;
 }
+.muted {
+  opacity: 0.5;
+}
+
+.tached {
+  text-decoration: line-through;
+  color: #333;
+}
+
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+}
+
+.accordion-content.show {
+  max-height: 480px; /* altura máxima de la sección */
+  opacity: 1;
+}
+
+/* El UL interno tendrá scroll */
+.accordion-scroll {
+  max-height: 300px; /* ajusta a lo que quieras */
+  overflow-y: auto;
+  padding-right: 0.5rem; /* espacio para el scroll */
+}
+
+
+.hover-tag:hover { 
+  cursor: pointer !important;
+  background: #fcd8b4 !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
