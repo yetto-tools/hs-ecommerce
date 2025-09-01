@@ -37,6 +37,11 @@ export const adapterArticle = (ariticulos = {}, data = {}) => {
     brands: adapterBrands(data.marcas) || [],
     tags: adapterTags(data.etiquetas) || [],
     sizes: adapterSizes(data.tallas) || [],
+    TagTallas: ariticulos.TagTallas || null,
+    TagColores: ariticulos.TagColores || null,
+    TagMarcas: ariticulos.TagMarcas || null,
+    TagEtiquetas: ariticulos.TagEtiquetas || null,
+    TagFacetas: JSON.parse(ariticulos.TagFacetas) || null
   };
 };
 
