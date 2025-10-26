@@ -21,8 +21,20 @@ export const useCheckoutWithoutLogin = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const { configParams } = useSelector((state) => state.paramsWeb);
   const dispatch = useDispatch;
+  // const calculateTotalCart = (items) => {
+  //   return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  // };
+
   const calculateTotalCart = (items) => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+    // return items.reduce((total, item) => total + item.price * item.quantity, 0);
+    
+    return parseFloat(
+      items.reduce((total, item) => {
+      // 👇 Si hay discount (>0), se usa como precio final unitario
+    const precioUnitario = item.discount > 0 ? item.discount : item.price;
+      return total + item.quantity * precioUnitario;
+      }, 0) || 0
+    ).toFixed(2);
   };
 
   const cartTotalPrice =
