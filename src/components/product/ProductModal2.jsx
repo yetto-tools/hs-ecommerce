@@ -148,7 +148,7 @@ function ProductModal2({ show, onHide, currency }) {
                 </small>
 
                 <div
-                  className="pro-details-quality"
+                  className="pro-details-quality mt-3"
                   style={{
                     width: "100%",
                     display: "grid",
