@@ -336,10 +336,19 @@ export function useBacCheckoutLogic() {
     setLoadingOrder(false);
   };
 
+  // const cartTotalPrice = parseFloat(
+  //   cartItems.reduce((total, item) => total + item.quantity * item.price, 0) ||
+  //     0
+  // ).toFixed(2);
+
   const cartTotalPrice = parseFloat(
-    cartItems.reduce((total, item) => total + item.quantity * item.price, 0) ||
-      0
-  ).toFixed(2);
+  cartItems.reduce((total, item) => {
+    // 👇 Si hay discount (>0), se usa como precio final unitario
+    const precioUnitario = item.discount > 0 ? item.discount : item.price;
+    return total + item.quantity * precioUnitario;
+  }, 0) || 0
+).toFixed(2);
+
 
   const totalTaxes = (cartTotalPrice * 0.12).toFixed(2);
 
