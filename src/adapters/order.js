@@ -59,31 +59,72 @@ export const adapterOrderProducts = (
   { iva = 1.12, idAlmacen = 1 },
   pathImage = ""
 ) => {
-  return cartItems.map((cartItem) => ({
-    itemCode: cartItem.sku || "",
-    quantity: cartItem.quantity || 0,
-    idArticulo: cartItem.id || "",
-    codigoInterno: cartItem.code || "",
-    descripcion: cartItem.code || "",
-    precioUnitario: Number(
-      new Decimal(cartItem.price) || new Decimal(0)
-    ).toFixed(2),
-    total: Number(
-      new Decimal(cartItem.price * cartItem.quantity) || new Decimal(0)
-    ).toFixed(2),
-    impuestoMonto: Number(
-      new Decimal(cartItem.price - cartItem.price / iva) || new Decimal(0)
-    ).toFixed(2), // Si tienes impuestos, agrégalo aquí
-    descuentoPorcentaje: cartItem.discount || 0,
-    descuentoMonto: Number(
-      new Decimal(
-        (cartItem.price * cartItem.quantity * cartItem.discount) / 100
-      ) || new Decimal(0)
-    ).toFixed(2), // Si hay descuentos en monto
-    idAlmacen: idAlmacen, // Ajustar si se tiene almacenes distintos
-    urlImage: pathImage + cartItem.images[0] || "",
-  }));
+  return cartItems.map((cartItem) => {
+    const qty = cartItem.quantity || 0;
+
+    // ✅ Si discount existe y es > 0, se usa como precio final unitario
+    const precioUnitarioFinal =
+      cartItem.discount && cartItem.discount > 0
+        ? new Decimal(cartItem.discount)
+        : new Decimal(cartItem.price || 0);
+
+    const precioOriginal = new Decimal(cartItem.price || 0);
+    const subtotal = precioUnitarioFinal.mul(qty);
+
+    // Descuento aplicado en moneda = (precio original - precio con descuento) * cantidad
+    const descuentoMonto = precioOriginal.gt(precioUnitarioFinal)
+      ? precioOriginal.sub(precioUnitarioFinal).mul(qty)
+      : new Decimal(0);
+
+    const impuestoMonto = subtotal.sub(subtotal.div(iva));
+
+    return {
+      itemCode: cartItem.sku || "",
+      quantity: qty,
+      idArticulo: cartItem.id || "",
+      codigoInterno: cartItem.code || "",
+      descripcion: cartItem.code || "",
+      precioUnitario: Number(precioUnitarioFinal).toFixed(2), // 👈 ahora con descuento aplicado
+      total: Number(subtotal).toFixed(2),
+      impuestoMonto: Number(impuestoMonto).toFixed(2),
+      descuentoMonto: Number(descuentoMonto).toFixed(2),
+      precioOriginal: Number(precioOriginal).toFixed(2), // 👈 opcional, por si quieres guardar el original
+      idAlmacen: idAlmacen,
+      urlImage: cartItem.images?.length ? pathImage + cartItem.images[0] : "",
+    };
+  });
 };
+
+// export const adapterOrderProducts = (
+//   cartItems,
+//   { iva = 1.12, idAlmacen = 1 },
+//   pathImage = ""
+// ) => {
+//   return cartItems.map((cartItem) => ({
+//     itemCode: cartItem.sku || "",
+//     quantity: cartItem.quantity || 0,
+//     idArticulo: cartItem.id || "",
+//     codigoInterno: cartItem.code || "",
+//     descripcion: cartItem.code || "",
+//     precioUnitario: Number(
+//       new Decimal(cartItem.price) || new Decimal(0)
+//     ).toFixed(2),
+//     total: Number(
+//       new Decimal(cartItem.price * cartItem.quantity) || new Decimal(0)
+//     ).toFixed(2),
+//     impuestoMonto: Number(
+//       new Decimal(cartItem.price - cartItem.price / iva) || new Decimal(0)
+//     ).toFixed(2), // Si tienes impuestos, agrégalo aquí
+//     descuentoPorcentaje: cartItem.discount || 0,
+//     descuentoMonto: Number(
+//       new Decimal(
+//         (cartItem.price * cartItem.quantity * cartItem.discount) / 100
+//       ) || new Decimal(0)
+//     ).toFixed(2), // Si hay descuentos en monto
+//     idAlmacen: idAlmacen, // Ajustar si se tiene almacenes distintos
+//     urlImage: pathImage + cartItem.images[0] || "",
+//   }));
+// };
 
 export const adapterOrden = (cliente = {}, data = []) => {
   return {
